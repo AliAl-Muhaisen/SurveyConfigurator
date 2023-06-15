@@ -15,8 +15,7 @@ namespace SurveyConfiguratorApp.Forms
     public partial class FormQuestion : Form
     {
         private Button currentButton;
-        private Form activeForm;
-     
+   
         public FormQuestion()
         {
             InitializeComponent();
@@ -25,6 +24,7 @@ namespace SurveyConfiguratorApp.Forms
             panelSideBarChild.BackColor = layoutControl1.PanelSideBarColor;
            // panelSideBarChild.Dock = DockStyle.Top;
             panelSideBarChild.Padding = new Padding(5,0,0,0);
+            currentButton = buttonStarsQuestion;
 
 
         }
@@ -35,24 +35,36 @@ namespace SurveyConfiguratorApp.Forms
           
         }
 
+       
         private void layoutControl1_Load(object sender, EventArgs e)
-        {
-            layoutControl1.OpenChildForm(new FormFacesQuestion());
-        }
-
-        private void buttonSmileyQuestion_Click(object sender, EventArgs e)
-        {
-            layoutControl1.OpenChildForm(new FormFacesQuestion());
-        }
-
-        private void buttonStarsQuestion_Click(object sender, EventArgs e)
         {
             layoutControl1.OpenChildForm(new FormStarsQuestion());
         }
 
+        private void buttonSmileyQuestion_Click(object sender, EventArgs e)
+        {
+            
+            
+            if(sender!=null && (Button)sender!=currentButton)
+                layoutControl1.OpenChildForm(new FormFacesQuestion());
+
+            currentButton = (Button)sender;
+        }
+
+        private void buttonStarsQuestion_Click(object sender, EventArgs e)
+        {
+            if (sender != null  && (Button)sender != currentButton)
+                layoutControl1.OpenChildForm(new FormStarsQuestion());
+           
+            currentButton = (Button)sender;
+        }
+
         private void buttonSliderQuestion_Click(object sender, EventArgs e)
         {
-            layoutControl1.OpenChildForm(new FormSliderQuestion());
+            if (sender != null && (Button)sender != currentButton)
+                layoutControl1.OpenChildForm(new FormSliderQuestion());
+
+            currentButton = (Button)sender;
         }
     }
 }

@@ -15,6 +15,18 @@ namespace SurveyConfiguratorApp.UserController.Questions
         public SharedBetweenQuestions()
         {
             InitializeComponent();
+            labelQuestionText.changeText("Text");
+            labelQuestionOrder.changeText("Order");
+        }
+
+        private void customLabelControl1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SharedBetweenQuestions_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

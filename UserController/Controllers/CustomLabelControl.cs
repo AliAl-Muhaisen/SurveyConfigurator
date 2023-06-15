@@ -7,20 +7,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 
-namespace SurveyConfiguratorApp.Forms.Questions
+namespace SurveyConfiguratorApp.UserController.Controllers
 {
-    public partial class FormStarsQuestion : Form
+    public partial class CustomLabelControl : UserControl
     {
-        public FormStarsQuestion()
+        public CustomLabelControl()
         {
             InitializeComponent();
-            minMaxNumControl1.setLabelTitleText("Number Of Stars");
         }
 
-        private void panel2_Paint(object sender, PaintEventArgs e)
+        public void changeText(string text)
         {
-
+            labelText.Text = text;
         }
+
     }
 }

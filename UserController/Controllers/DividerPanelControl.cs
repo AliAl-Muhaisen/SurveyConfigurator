@@ -8,14 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SurveyConfiguratorApp.Forms
+namespace SurveyConfiguratorApp.UserController.Controllers
 {
-    public partial class FormFacesQuestion : Form
+    public partial class DividerPanelControl : UserControl
     {
-        public FormFacesQuestion()
+        public DividerPanelControl()
         {
             InitializeComponent();
-            minMaxNumControl.setLabelTitleText("Number Smiley Faces");
         }
     }
 }

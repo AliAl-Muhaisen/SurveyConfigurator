@@ -86,11 +86,35 @@
     <Compile Include="Models\Theme.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserController\Controllers\CustomLabelControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserController\Controllers\CustomLabelControl.Designer.cs">
+      <DependentUpon>CustomLabelControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserController\Controllers\DividerPanelControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserController\Controllers\DividerPanelControl.Designer.cs">
+      <DependentUpon>DividerPanelControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserController\Controllers\DividerPanelVerticalControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserController\Controllers\DividerPanelVerticalControl.Designer.cs">
+      <DependentUpon>DividerPanelVerticalControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserController\LayoutControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserController\LayoutControl.Designer.cs">
       <DependentUpon>LayoutControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserController\Questions\MinMaxNumControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserController\Questions\MinMaxNumControl.Designer.cs">
+      <DependentUpon>MinMaxNumControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UserController\Questions\SharedBetweenQuestions.cs">
       <SubType>UserControl</SubType>
@@ -126,8 +150,20 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="UserController\Controllers\CustomLabelControl.resx">
+      <DependentUpon>CustomLabelControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserController\Controllers\DividerPanelControl.resx">
+      <DependentUpon>DividerPanelControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserController\Controllers\DividerPanelVerticalControl.resx">
+      <DependentUpon>DividerPanelVerticalControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserController\LayoutControl.resx">
       <DependentUpon>LayoutControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserController\Questions\MinMaxNumControl.resx">
+      <DependentUpon>MinMaxNumControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserController\Questions\SharedBetweenQuestions.resx">
       <DependentUpon>SharedBetweenQuestions.cs</DependentUpon>

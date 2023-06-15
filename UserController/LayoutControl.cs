@@ -47,6 +47,8 @@ namespace SurveyConfiguratorApp.UserController
                 activeForm.Close();
 
             }
+            if (childForm == activeForm)
+                return;
 
             activeForm = childForm;
             childForm.TopLevel = false;

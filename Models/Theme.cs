@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,20 +36,24 @@ namespace SurveyConfiguratorApp.Models
         {
             return new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
         }
-        public static Label LabelTitle(){
+        public static Label LabelTitle()
+        {
             Label labelMainBarTitle = new Label();
-         labelMainBarTitle.AutoSize = true;
-           labelMainBarTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-           labelMainBarTitle.ForeColor = System.Drawing.SystemColors.Control;
-           labelMainBarTitle.Location = new System.Drawing.Point(368, 20);
-           labelMainBarTitle.Name = "labelMainBarTitle";
-          labelMainBarTitle.Size = new System.Drawing.Size(86, 31);
-           labelMainBarTitle.TabIndex = 0;
-          labelMainBarTitle.Text = "Home";
-        return labelMainBarTitle;
-        
+            labelMainBarTitle.AutoSize = true;
+            labelMainBarTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            labelMainBarTitle.ForeColor = System.Drawing.SystemColors.Control;
+            labelMainBarTitle.Location = new System.Drawing.Point(368, 20);
+            labelMainBarTitle.Name = "labelMainBarTitle";
+            labelMainBarTitle.Size = new System.Drawing.Size(86, 31);
+            labelMainBarTitle.TabIndex = 0;
+            labelMainBarTitle.Text = "Home";
+            return labelMainBarTitle;
+
         }
+
+
 
     }
 
-}
+
+  }
