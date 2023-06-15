@@ -58,5 +58,19 @@ namespace SurveyConfiguratorApp.UserController
             childForm.Show();
 
         }
+
+        public void addToPanelSideBar(Control control)
+        {
+            if (control == null)
+                return;
+
+            panelSideBar.Controls.Add(control);
+        }
+
+        public Color PanelSideBarColor { 
+            get {
+                return panelSideBar.BackColor;
+            }
+        }
     }
 }

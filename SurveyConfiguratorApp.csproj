@@ -52,10 +52,10 @@
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Questions\FormFacesQuestion.cs">
+    <Compile Include="Forms\Questions\FormFacesQuestion\FormFacesQuestion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Questions\FormFacesQuestion.Designer.cs">
+    <Compile Include="Forms\Questions\FormFacesQuestion\FormFacesQuestion.Designer.cs">
       <DependentUpon>FormFacesQuestion.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FormLayout.cs">
@@ -70,18 +70,19 @@
     <Compile Include="Forms\FormQuestion.Designer.cs">
       <DependentUpon>FormQuestion.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Questions\FormSliderQuestion.cs">
+    <Compile Include="Forms\Questions\FormSliderQuestion\FormSliderQuestion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Questions\FormSliderQuestion.Designer.cs">
+    <Compile Include="Forms\Questions\FormSliderQuestion\FormSliderQuestion.Designer.cs">
       <DependentUpon>FormSliderQuestion.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Questions\FormStarsQuestion.cs">
+    <Compile Include="Forms\Questions\FormStarsQuestion\FormStarsQuestion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Questions\FormStarsQuestion.Designer.cs">
+    <Compile Include="Forms\Questions\FormStarsQuestion\FormStarsQuestion.Designer.cs">
       <DependentUpon>FormStarsQuestion.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\Questions\Question.cs" />
     <Compile Include="Models\Theme.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -91,10 +92,16 @@
     <Compile Include="UserController\LayoutControl.Designer.cs">
       <DependentUpon>LayoutControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserController\Questions\SharedBetweenQuestions.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserController\Questions\SharedBetweenQuestions.Designer.cs">
+      <DependentUpon>SharedBetweenQuestions.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Questions\FormFacesQuestion.resx">
+    <EmbeddedResource Include="Forms\Questions\FormFacesQuestion\FormFacesQuestion.resx">
       <DependentUpon>FormFacesQuestion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormLayout.resx">
@@ -103,10 +110,10 @@
     <EmbeddedResource Include="Forms\FormQuestion.resx">
       <DependentUpon>FormQuestion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Questions\FormSliderQuestion.resx">
+    <EmbeddedResource Include="Forms\Questions\FormSliderQuestion\FormSliderQuestion.resx">
       <DependentUpon>FormSliderQuestion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Questions\FormStarsQuestion.resx">
+    <EmbeddedResource Include="Forms\Questions\FormStarsQuestion\FormStarsQuestion.resx">
       <DependentUpon>FormStarsQuestion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -121,6 +128,9 @@
     </Compile>
     <EmbeddedResource Include="UserController\LayoutControl.resx">
       <DependentUpon>LayoutControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserController\Questions\SharedBetweenQuestions.resx">
+      <DependentUpon>SharedBetweenQuestions.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -153,5 +163,6 @@
   <ItemGroup>
     <None Include="Resources\left-and-right-arrows.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -21,30 +21,18 @@ namespace SurveyConfiguratorApp.Forms
         {
             InitializeComponent();
             layoutControl1.changeTitle("Questions");
-            
-        }
-   private void OpenChildForm(Form childForm, object btnSender)
-        {
-            if (activeForm != null)
-            {
-                activeForm.Close();
+            layoutControl1.addToPanelSideBar(panelSideBarChild);
+            panelSideBarChild.BackColor = layoutControl1.PanelSideBarColor;
+           // panelSideBarChild.Dock = DockStyle.Top;
+            panelSideBarChild.Padding = new Padding(5,0,0,0);
 
-            }
-            
-            activeForm = childForm;
-            childForm.TopLevel = false;
-            childForm.FormBorderStyle = FormBorderStyle.None;
-            childForm.Dock = DockStyle.Fill;
-           // panelDesktop.Controls.Add(childForm);
-            //panelDesktop.Tag = childForm;
-            childForm.BringToFront();
-            childForm.Show();
 
         }
+  
 
         private void FormQuestion_Load(object sender, EventArgs e)
         {
-
+          
         }
 
         private void layoutControl1_Load(object sender, EventArgs e)
