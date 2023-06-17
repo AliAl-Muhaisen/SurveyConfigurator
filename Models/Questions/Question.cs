@@ -6,12 +6,19 @@ using System.Threading.Tasks;
 
 namespace SurveyConfiguratorApp.Models.Questions
 {
-    public class Question
+    public interface IQuestion
     {
-        public int Id { get; private set; }
+         void add();
+         void delete();
+         void update();
+    }
+    public class Question:IQuestion
+    {
+       
+        public int? Id { get; private set; }
         public string Text { get; private set; }
         public string Type { get; private set; }
-        = string.Empty;
+       
         public Question() { }
         public Question(int id, string text, string type)
         {
@@ -20,7 +27,19 @@ namespace SurveyConfiguratorApp.Models.Questions
             Id = id;
         }
 
+        public virtual void add()
+        {
+            throw new NotImplementedException();
+        }
 
+        public virtual void delete()
+        {
+            throw new NotImplementedException();
+        }
 
+        public virtual void update()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

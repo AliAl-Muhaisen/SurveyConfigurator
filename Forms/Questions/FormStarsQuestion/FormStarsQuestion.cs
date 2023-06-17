@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SurveyConfiguratorApp.Models.Questions;
+using SurveyConfiguratorApp.UserController.Questions;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,11 +14,22 @@ namespace SurveyConfiguratorApp.Forms.Questions
 {
     public partial class FormStarsQuestion : Form
     {
+        private QuestionValidation questionValidation;
+
         public FormStarsQuestion()
         {
             InitializeComponent();
-            minMaxNumControl1.setLabelTitleText("Number Of Stars");
+            questionValidation = QuestionValidation.Instance();
+
+
+            upDownWithLabelControl.setLabelTitle("Number Of Stars");
+
+            upDownWithLabelControl.setInputMinValue(questionValidation.StarsMinValue);
+            upDownWithLabelControl.setInputMaxValue(questionValidation.StarsMaxValue);
+
         }
+
+
 
         private void panel2_Paint(object sender, PaintEventArgs e)
         {

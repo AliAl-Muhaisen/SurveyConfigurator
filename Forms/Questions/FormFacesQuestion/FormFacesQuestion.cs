@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SurveyConfiguratorApp.Models.Questions;
+using SurveyConfiguratorApp.UserController.Questions;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,10 +14,34 @@ namespace SurveyConfiguratorApp.Forms
 {
     public partial class FormFacesQuestion : Form
     {
+        private QuestionValidation questionValidation;
         public FormFacesQuestion()
         {
             InitializeComponent();
-            minMaxNumControl.setLabelTitleText("Number Smiley Faces");
+            questionValidation = QuestionValidation.Instance();
+
+            upDownWithLabelControl.setLabelTitle("Number Of Faces");
+
+            upDownWithLabelControl.setInputMinValue(questionValidation.FacesMinValue);
+            upDownWithLabelControl.setInputMaxValue(questionValidation.FacesMaxValue);
+
+            
+
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dividerPanelControl2_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

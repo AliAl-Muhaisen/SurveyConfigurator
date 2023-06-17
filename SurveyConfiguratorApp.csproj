@@ -64,10 +64,10 @@
     <Compile Include="Forms\FormLayout.Designer.cs">
       <DependentUpon>FormLayout.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FormQuestion.cs">
+    <Compile Include="Forms\Questions\FormQuestion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FormQuestion.Designer.cs">
+    <Compile Include="Forms\Questions\FormQuestion.Designer.cs">
       <DependentUpon>FormQuestion.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Questions\FormSliderQuestion\FormSliderQuestion.cs">
@@ -83,6 +83,10 @@
       <DependentUpon>FormStarsQuestion.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Questions\Question.cs" />
+    <Compile Include="Models\Questions\QuestionFaces.cs" />
+    <Compile Include="Models\Questions\QuestionSlider.cs" />
+    <Compile Include="Models\Questions\QuestionStars.cs" />
+    <Compile Include="Models\Questions\QuestionValidation.cs" />
     <Compile Include="Models\Theme.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -110,6 +114,12 @@
     <Compile Include="UserController\LayoutControl.Designer.cs">
       <DependentUpon>LayoutControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserController\Questions\LabelErrorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserController\Questions\LabelErrorControl.Designer.cs">
+      <DependentUpon>LabelErrorControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserController\Questions\MinMaxNumControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -122,6 +132,12 @@
     <Compile Include="UserController\Questions\SharedBetweenQuestions.Designer.cs">
       <DependentUpon>SharedBetweenQuestions.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserController\Questions\UpDownWithLabelControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserController\Questions\UpDownWithLabelControl.Designer.cs">
+      <DependentUpon>UpDownWithLabelControl.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -131,7 +147,7 @@
     <EmbeddedResource Include="Forms\FormLayout.resx">
       <DependentUpon>FormLayout.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormQuestion.resx">
+    <EmbeddedResource Include="Forms\Questions\FormQuestion.resx">
       <DependentUpon>FormQuestion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Questions\FormSliderQuestion\FormSliderQuestion.resx">
@@ -162,11 +178,17 @@
     <EmbeddedResource Include="UserController\LayoutControl.resx">
       <DependentUpon>LayoutControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserController\Questions\LabelErrorControl.resx">
+      <DependentUpon>LabelErrorControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserController\Questions\MinMaxNumControl.resx">
       <DependentUpon>MinMaxNumControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserController\Questions\SharedBetweenQuestions.resx">
       <DependentUpon>SharedBetweenQuestions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserController\Questions\UpDownWithLabelControl.resx">
+      <DependentUpon>UpDownWithLabelControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -199,6 +221,8 @@
   <ItemGroup>
     <None Include="Resources\left-and-right-arrows.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\save-instagram.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

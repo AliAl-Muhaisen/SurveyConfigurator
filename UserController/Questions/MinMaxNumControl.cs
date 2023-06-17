@@ -55,17 +55,17 @@ namespace SurveyConfiguratorApp.UserController.Questions
         public MinMaxNumControl()
         {
             InitializeComponent();
-            customLabelControlMax.changeText("Max");
-            customLabelControlMin.changeText("Min");
+            customLabelControlMax.setText("Max");
+            customLabelControlMin.setText("Min");
         }
 
 
         public void setLabelTitleText(string title)
         {
-            customLabelControlTitle.changeText(title);
+            customLabelControlTitle.setText(title);
         }
 
-        
+       
 
 
 

@@ -30,20 +30,20 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.panelSideBar = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
+            this.buttonHome = new System.Windows.Forms.Button();
             this.panelColorBottom = new System.Windows.Forms.Panel();
             this.panelLog = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panelHeadreBar = new System.Windows.Forms.Panel();
             this.labelMainBarTitle = new System.Windows.Forms.Label();
             this.panelMain = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.buttonHome = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panelSideBar.SuspendLayout();
             this.panelLog.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panelHeadreBar.SuspendLayout();
             this.panelMain.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // panelSideBar
@@ -55,72 +55,10 @@
             this.panelSideBar.Controls.Add(this.panelLog);
             this.panelSideBar.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelSideBar.Location = new System.Drawing.Point(0, 0);
+            this.panelSideBar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panelSideBar.Name = "panelSideBar";
-            this.panelSideBar.Size = new System.Drawing.Size(161, 612);
+            this.panelSideBar.Size = new System.Drawing.Size(215, 753);
             this.panelSideBar.TabIndex = 0;
-            // 
-            // panelColorBottom
-            // 
-            this.panelColorBottom.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panelColorBottom.BackColor = System.Drawing.Color.White;
-            this.panelColorBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelColorBottom.Location = new System.Drawing.Point(0, 512);
-            this.panelColorBottom.Name = "panelColorBottom";
-            this.panelColorBottom.Size = new System.Drawing.Size(161, 100);
-            this.panelColorBottom.TabIndex = 1;
-            // 
-            // panelLog
-            // 
-            this.panelLog.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panelLog.Controls.Add(this.pictureBox1);
-            this.panelLog.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelLog.Location = new System.Drawing.Point(0, 0);
-            this.panelLog.Name = "panelLog";
-            this.panelLog.Size = new System.Drawing.Size(161, 77);
-            this.panelLog.TabIndex = 0;
-            // 
-            // panelHeadreBar
-            // 
-            this.panelHeadreBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
-            this.panelHeadreBar.Controls.Add(this.labelMainBarTitle);
-            this.panelHeadreBar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelHeadreBar.Location = new System.Drawing.Point(161, 0);
-            this.panelHeadreBar.Name = "panelHeadreBar";
-            this.panelHeadreBar.Size = new System.Drawing.Size(928, 77);
-            this.panelHeadreBar.TabIndex = 1;
-            // 
-            // labelMainBarTitle
-            // 
-            this.labelMainBarTitle.AutoSize = true;
-            this.labelMainBarTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelMainBarTitle.ForeColor = System.Drawing.SystemColors.Control;
-            this.labelMainBarTitle.Location = new System.Drawing.Point(368, 20);
-            this.labelMainBarTitle.Name = "labelMainBarTitle";
-            this.labelMainBarTitle.Size = new System.Drawing.Size(86, 31);
-            this.labelMainBarTitle.TabIndex = 0;
-            this.labelMainBarTitle.Text = "Home";
-            // 
-            // panelMain
-            // 
-            this.panelMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.panelMain.Controls.Add(this.button1);
-            this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelMain.Location = new System.Drawing.Point(161, 77);
-            this.panelMain.Name = "panelMain";
-            this.panelMain.Padding = new System.Windows.Forms.Padding(50, 0, 0, 0);
-            this.panelMain.Size = new System.Drawing.Size(928, 535);
-            this.panelMain.TabIndex = 2;
-            this.panelMain.Paint += new System.Windows.Forms.PaintEventHandler(this.panelMain_Paint);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(290, 54);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -132,10 +70,11 @@
             this.button2.ForeColor = System.Drawing.SystemColors.Control;
             this.button2.Image = global::SurveyConfiguratorApp.Properties.Resources.home;
             this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.Location = new System.Drawing.Point(0, 131);
+            this.button2.Location = new System.Drawing.Point(0, 161);
+            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button2.Name = "button2";
-            this.button2.Padding = new System.Windows.Forms.Padding(7, 0, 0, 0);
-            this.button2.Size = new System.Drawing.Size(161, 54);
+            this.button2.Padding = new System.Windows.Forms.Padding(9, 0, 0, 0);
+            this.button2.Size = new System.Drawing.Size(215, 66);
             this.button2.TabIndex = 3;
             this.button2.Text = "Home";
             this.button2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -151,14 +90,37 @@
             this.buttonHome.ForeColor = System.Drawing.SystemColors.Control;
             this.buttonHome.Image = global::SurveyConfiguratorApp.Properties.Resources.home;
             this.buttonHome.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonHome.Location = new System.Drawing.Point(0, 77);
+            this.buttonHome.Location = new System.Drawing.Point(0, 95);
+            this.buttonHome.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonHome.Name = "buttonHome";
-            this.buttonHome.Padding = new System.Windows.Forms.Padding(7, 0, 0, 0);
-            this.buttonHome.Size = new System.Drawing.Size(161, 54);
+            this.buttonHome.Padding = new System.Windows.Forms.Padding(9, 0, 0, 0);
+            this.buttonHome.Size = new System.Drawing.Size(215, 66);
             this.buttonHome.TabIndex = 2;
             this.buttonHome.Text = "Home";
             this.buttonHome.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.buttonHome.UseVisualStyleBackColor = true;
+            // 
+            // panelColorBottom
+            // 
+            this.panelColorBottom.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panelColorBottom.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
+            this.panelColorBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelColorBottom.Location = new System.Drawing.Point(0, 630);
+            this.panelColorBottom.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panelColorBottom.Name = "panelColorBottom";
+            this.panelColorBottom.Size = new System.Drawing.Size(215, 123);
+            this.panelColorBottom.TabIndex = 1;
+            // 
+            // panelLog
+            // 
+            this.panelLog.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panelLog.Controls.Add(this.pictureBox1);
+            this.panelLog.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelLog.Location = new System.Drawing.Point(0, 0);
+            this.panelLog.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panelLog.Name = "panelLog";
+            this.panelLog.Size = new System.Drawing.Size(215, 95);
+            this.panelLog.TabIndex = 0;
             // 
             // pictureBox1
             // 
@@ -166,31 +128,80 @@
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox1.Image = global::SurveyConfiguratorApp.Properties.Resources.surveyor;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(161, 77);
+            this.pictureBox1.Size = new System.Drawing.Size(215, 95);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
+            // panelHeadreBar
+            // 
+            this.panelHeadreBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.panelHeadreBar.Controls.Add(this.labelMainBarTitle);
+            this.panelHeadreBar.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelHeadreBar.Location = new System.Drawing.Point(215, 0);
+            this.panelHeadreBar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panelHeadreBar.Name = "panelHeadreBar";
+            this.panelHeadreBar.Size = new System.Drawing.Size(1237, 95);
+            this.panelHeadreBar.TabIndex = 1;
+            // 
+            // labelMainBarTitle
+            // 
+            this.labelMainBarTitle.AutoSize = true;
+            this.labelMainBarTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelMainBarTitle.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelMainBarTitle.Location = new System.Drawing.Point(491, 25);
+            this.labelMainBarTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelMainBarTitle.Name = "labelMainBarTitle";
+            this.labelMainBarTitle.Size = new System.Drawing.Size(108, 39);
+            this.labelMainBarTitle.TabIndex = 0;
+            this.labelMainBarTitle.Text = "Home";
+            // 
+            // panelMain
+            // 
+            this.panelMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
+            this.panelMain.Controls.Add(this.button1);
+            this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelMain.Location = new System.Drawing.Point(215, 95);
+            this.panelMain.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panelMain.Name = "panelMain";
+            this.panelMain.Padding = new System.Windows.Forms.Padding(67, 0, 0, 0);
+            this.panelMain.Size = new System.Drawing.Size(1237, 658);
+            this.panelMain.TabIndex = 2;
+            this.panelMain.Paint += new System.Windows.Forms.PaintEventHandler(this.panelMain_Paint);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(387, 66);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(100, 28);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // FormMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1089, 612);
+            this.ClientSize = new System.Drawing.Size(1452, 753);
             this.Controls.Add(this.panelMain);
             this.Controls.Add(this.panelHeadreBar);
             this.Controls.Add(this.panelSideBar);
             this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.panelSideBar.ResumeLayout(false);
             this.panelLog.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panelHeadreBar.ResumeLayout(false);
             this.panelHeadreBar.PerformLayout();
             this.panelMain.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }

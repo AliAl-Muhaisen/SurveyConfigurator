@@ -13,12 +13,13 @@ namespace SurveyConfiguratorApp.UserController.Controllers
 {
     public partial class CustomLabelControl : UserControl
     {
+
         public CustomLabelControl()
         {
             InitializeComponent();
         }
 
-        public void changeText(string text)
+        public void setText(string text)
         {
             labelText.Text = text;
         }

@@ -1,4 +1,5 @@
 ﻿using SurveyConfiguratorApp.Models;
+using SurveyConfiguratorApp.Models.Questions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,13 +14,17 @@ namespace SurveyConfiguratorApp.Forms.Questions
 {
     public partial class FormSliderQuestion : Form
     {
+        private QuestionValidation questionValidation;
+
         public FormSliderQuestion()
         {
             InitializeComponent();
+            questionValidation = QuestionValidation.Instance();
+
             minMaxNumControl1.setLabelTitleText("Slider Values");
-            customLabelControlTitleCaption.changeText("Captions");
-            customLabelControlMin.changeText("Min");
-            customLabelControlMax.changeText("Max");
+            customLabelControlTitleCaption.setText("Captions");
+            customLabelControlMin.setText("Min");
+            customLabelControlMax.setText("Max");
         }
     }
 }

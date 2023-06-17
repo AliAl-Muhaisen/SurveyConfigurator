@@ -10,23 +10,23 @@ using System.Windows.Forms;
 
 namespace SurveyConfiguratorApp.UserController.Questions
 {
-    public partial class SharedBetweenQuestions : UserControl
+    public partial class LabelErrorControl : UserControl
     {
-        public SharedBetweenQuestions()
+       
+        public LabelErrorControl()
         {
             InitializeComponent();
-            labelQuestionText.setText("Text");
-            labelQuestionOrder.setText("Order");
+            
         }
 
-        private void customLabelControl1_Load(object sender, EventArgs e)
+        public void setText(string text)
         {
-
+            labelError.Text = text;
         }
-
-        private void SharedBetweenQuestions_Load(object sender, EventArgs e)
+        public void clearText()
         {
-
+            labelError = null;
         }
+        
     }
 }
