@@ -16,7 +16,7 @@ namespace SurveyConfiguratorApp.UserController.Questions
         public LabelErrorControl()
         {
             InitializeComponent();
-            
+          
         }
 
         public void setText(string text)
@@ -25,7 +25,7 @@ namespace SurveyConfiguratorApp.UserController.Questions
         }
         public void clearText()
         {
-            labelError = null;
+            labelError.Text = null;
         }
         
     }

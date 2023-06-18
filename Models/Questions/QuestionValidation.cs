@@ -61,8 +61,64 @@ namespace SurveyConfiguratorApp.Models.Questions
 
         }
 
+        //General Functions
+        private bool isMinNum(int sourceNum, int comparedNum)
+        {
+            return comparedNum >= sourceNum;
+        }
+        private string generalMsgMinNum(int num)
+        {
+            return ("You can't enter number less than " + num);
+        }
+
+        private bool isMaxNum(int sourceNum, int comparedNum)
+        {
+            return comparedNum <= sourceNum;
+        }
+
+        private string generalMsgMaxNum(int num)
+        {
+            return ("You can't enter number greater than " + num);
+        }
 
 
+        //End General Functions
+
+
+        //?Stars Question Validation
+        public string starsMinNumMsg(int minNumStars)
+        {
+            return !isMinNum(StarsMinValue, minNumStars) ? generalMsgMinNum(StarsMinValue) : null;
+        }
+        public string starsMaxNumMsg(int minNumStars)
+        {
+            return !isMaxNum(StarsMaxValue, minNumStars) ? generalMsgMaxNum(StarsMaxValue) : null;
+        }
+
+        public string starsHandleMsg(int num)
+        {
+            return starsMaxNumMsg(num) ?? starsMinNumMsg(num);
+        }
+
+        //!End Stars Question Validation
+
+        //?Faces Question Validation
+
+        public string facesMinNumMsg(int minNumStars)
+        {
+            return !isMinNum(FacesMinValue, minNumStars) ? generalMsgMinNum(FacesMinValue) : null;
+        }
+        public string facesMaxNumMsg(int minNumStars)
+        {
+            return !isMaxNum(FacesMaxValue, minNumStars) ? generalMsgMaxNum(FacesMaxValue) : null;
+        }
+
+        public string facesHandleMsg(int num)
+        {
+            return starsMaxNumMsg(num) ?? starsMinNumMsg(num);
+        }
+
+        //!End Faces Question Validation
 
     }
 }

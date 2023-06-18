@@ -35,11 +35,11 @@
             // 
             this.labelError.AutoSize = true;
             this.labelError.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelError.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelError.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelError.ForeColor = System.Drawing.Color.Red;
             this.labelError.Location = new System.Drawing.Point(0, 0);
             this.labelError.Name = "labelError";
-            this.labelError.Size = new System.Drawing.Size(54, 25);
+            this.labelError.Size = new System.Drawing.Size(50, 23);
             this.labelError.TabIndex = 0;
             this.labelError.Text = "Error";
             // 
@@ -51,7 +51,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.Controls.Add(this.labelError);
             this.Name = "LabelErrorControl";
-            this.Size = new System.Drawing.Size(57, 26);
+            this.Size = new System.Drawing.Size(71, 33);
             this.ResumeLayout(false);
             this.PerformLayout();
 

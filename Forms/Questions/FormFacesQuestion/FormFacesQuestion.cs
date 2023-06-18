@@ -24,8 +24,11 @@ namespace SurveyConfiguratorApp.Forms
 
             upDownWithLabelControl.setInputMinValue(questionValidation.FacesMinValue);
             upDownWithLabelControl.setInputMaxValue(questionValidation.FacesMaxValue);
+           
+            upDownWithLabelControl.clearErrorText();
 
-            
+            upDownWithLabelControl.handleNumericError(questionValidation.facesHandleMsg);
+
 
         }
 
