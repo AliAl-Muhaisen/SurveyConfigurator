@@ -16,6 +16,8 @@ namespace SurveyConfiguratorApp.UserController.Questions
         
 
         public delegate string CallBackHandleErrorMsg(int num);
+
+        private CallBackHandleErrorMsg callBackHandleErrorMsg;
         public UpDownWithLabelControl()
         {
             InitializeComponent();
@@ -57,22 +59,31 @@ namespace SurveyConfiguratorApp.UserController.Questions
 
         private void numericUpDown_ValueChanged(object sender, EventArgs e)
         {
-           
+            try
+            {
+                int value = (int)numericUpDown.Value;
+            string msg = callBackHandleErrorMsg(value);
+            setErrorText(msg);
+            }
+            catch (Exception ex)
+            {
 
+                MessageBox.Show("Call Back Failed 2"+ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+           
         }
-        public void handleNumericError(CallBackHandleErrorMsg handleError)
+        public void setCallBackFunction(CallBackHandleErrorMsg callBackFun)
         {
             try
             {
-            int value= (int)numericUpDown.Value;
-            string msg=handleError(value);
-                setErrorText (msg);
+                callBackHandleErrorMsg = callBackFun;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-
+                MessageBox.Show("Call Back Failed ","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
            
         }
+        
     }
 }

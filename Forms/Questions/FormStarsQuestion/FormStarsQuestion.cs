@@ -28,8 +28,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             upDownWithLabelControl.setInputMaxValue(questionValidation.StarsMaxValue);
             upDownWithLabelControl.clearErrorText();
 
-            upDownWithLabelControl.handleNumericError(questionValidation.starsHandleMsg);
-
+            upDownWithLabelControl.setCallBackFunction(questionValidation.starsHandleMsg);
         }
 
 

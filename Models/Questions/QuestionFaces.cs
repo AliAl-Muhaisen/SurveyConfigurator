@@ -8,6 +8,9 @@ namespace SurveyConfiguratorApp.Models.Questions
 {
     public class QuestionFaces :Question
     {
+        public int FacesNumber { get; set; }
+
+
         public override void add()
         {
             throw new NotImplementedException();

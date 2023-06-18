@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static SurveyConfiguratorApp.UserController.Questions.UpDownWithLabelControl;
 
 namespace SurveyConfiguratorApp.Forms
 {
@@ -27,7 +28,8 @@ namespace SurveyConfiguratorApp.Forms
            
             upDownWithLabelControl.clearErrorText();
 
-            upDownWithLabelControl.handleNumericError(questionValidation.facesHandleMsg);
+           // upDownWithLabelControl.setCallBackFunction(new CallBackHandleErrorMsg(questionValidation.facesHandleMsg));
+            upDownWithLabelControl.setCallBackFunction(questionValidation.facesHandleMsg);
 
 
         }

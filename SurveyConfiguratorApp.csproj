@@ -82,6 +82,7 @@
     <Compile Include="Forms\Questions\FormStarsQuestion\FormStarsQuestion.Designer.cs">
       <DependentUpon>FormStarsQuestion.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\LogFile.cs" />
     <Compile Include="Models\Questions\Question.cs" />
     <Compile Include="Models\Questions\QuestionFaces.cs" />
     <Compile Include="Models\Questions\QuestionSlider.cs" />
@@ -223,6 +224,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\save-instagram.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Database\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
