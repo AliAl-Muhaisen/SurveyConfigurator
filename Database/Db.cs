@@ -7,32 +7,38 @@ using System.Threading.Tasks;
 
 namespace SurveyConfiguratorApp.Database
 {
-    public class Db
+    public interface ICRUD<T>
     {
-        SqlConnection conn;
-        SqlCommand cmd;
-        const string ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\a.al-muhaisen\source\repos\SurveyConfiguratorApp\Database1.mdf;Integrated Security=True";
+        void create(T data);
+        void update(T data);
+        void delete(T data);
+        void read(T data);
+    }
+    public class DB
+    {
+       protected SqlConnection conn;
+        protected SqlCommand cmd;
+        const string ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\a.al-muhaisen\source\repos\SurveyConfiguratorApp\Database\Surveydb.mdf;Integrated Security=True";
 
 
-        public Db() {
-            conn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\a.al-muhaisen\\source\\repos\\SurveyConfiguratorApp\\Database1.mdf;Integrated Security=True");
+        public DB() {
+            conn = new SqlConnection(ConnectionString);
 
-            //try
-            //{
-            //    OpenConnection();
+            try
+            {
+                OpenConnection();
 
+            }
+            catch (Exception ex)
+            {
 
+                throw new Exception(ex.Message);
 
-            //}
-            //catch(Exception ex) {
-
-            //    throw new Exception(ex.Message);
-
-            //}
-            //finally
-            //{
-            //    CloseConnection();
-            //}
+            }
+            finally
+            {
+                CloseConnection();
+            }
         }
 
         public void OpenConnection()

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static SurveyConfiguratorApp.UserController.Questions.SharedBetweenQuestions;
 
 namespace SurveyConfiguratorApp.Forms.Questions
 {
@@ -25,6 +26,10 @@ namespace SurveyConfiguratorApp.Forms.Questions
             customLabelControlTitleCaption.setText("Captions");
             customLabelControlMin.setText("Min");
             customLabelControlMax.setText("Max");
+            sharedBetweenQuestions.clearLabelsText();
+
+            sharedBetweenQuestions.setIsNotEmptyCallBack(new CallBackIsNotEmpty(questionValidation.handelQuestionText));
+
         }
     }
 }

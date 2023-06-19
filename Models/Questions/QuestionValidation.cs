@@ -23,14 +23,8 @@ namespace SurveyConfiguratorApp.Models.Questions
         public int FacesMaxValue { get; private set; }
         public int FacesMinValue { get; private set; }
 
-       public bool isNotEmpty(string text)
-        {
-            return true && (text != null || text.Trim().Length > 0);
-        }
-        public bool isEmpty(string text)
-        {
-            return !isNotEmpty(text);
-        }
+        const int questionTextLength = 100;
+      
 
         private QuestionValidation()
         {
@@ -62,6 +56,15 @@ namespace SurveyConfiguratorApp.Models.Questions
         }
 
         //General Functions
+        public bool isNotEmpty(string text)
+        {
+            return (text != null && text.Trim().Length > 0);
+        }
+        public bool isEmpty(string text)
+        {
+            return !isNotEmpty(text);
+        }
+
         private bool isMinNum(int sourceNum, int comparedNum)
         {
             return comparedNum >= sourceNum;
@@ -79,6 +82,21 @@ namespace SurveyConfiguratorApp.Models.Questions
         private string generalMsgMaxNum(int num)
         {
             return ("You can't enter number greater than " + num);
+        }
+
+        public string handelQuestionText(string text)
+        {
+            if(isEmpty(text))
+            {
+                return "Required Field";
+            }
+            else if( text.Length >100)
+            {
+                return "Maximum input length exceeded. Please enter a value that is within 100 character";
+            }
+            return null;
+
+            
         }
 
 

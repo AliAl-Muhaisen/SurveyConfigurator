@@ -16,18 +16,20 @@ namespace SurveyConfiguratorApp
     public partial class FormMain : Form
     {
         SqlConnection conn;
-        private Db db;
+       private DB db;
         public FormMain()
         {
             InitializeComponent();
+
+
             try
             {
                 //conn = new SqlConnection();
-                conn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\a.al-muhaisen\\source\\repos\\SurveyConfiguratorApp\\Database1.mdf;Integrated Security=True");
-
-                //db = new Db();
+                //SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\a.al-muhaisen\source\repos\SurveyConfiguratorApp\Database\Surveydb.mdf;Integrated Security=True");
+                //conn.Open();
+                db = new DB();
                 //db.OpenConnection();
-                //MessageBox.Show(db.ToString());
+                MessageBox.Show(db.ToString());
                 //db.CloseConnection();
             }
             catch (Exception ex)

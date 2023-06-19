@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static SurveyConfiguratorApp.UserController.Questions.SharedBetweenQuestions;
 using static SurveyConfiguratorApp.UserController.Questions.UpDownWithLabelControl;
 
 namespace SurveyConfiguratorApp.Forms
@@ -16,6 +17,7 @@ namespace SurveyConfiguratorApp.Forms
     public partial class FormFacesQuestion : Form
     {
         private QuestionValidation questionValidation;
+       
         public FormFacesQuestion()
         {
             InitializeComponent();
@@ -29,8 +31,11 @@ namespace SurveyConfiguratorApp.Forms
             upDownWithLabelControl.clearErrorText();
 
             upDownWithLabelControl.setCallBackFunction(new CallBackHandleErrorMsg(questionValidation.facesHandleMsg));
-           // upDownWithLabelControl.setCallBackFunction(questionValidation.facesHandleMsg);
+            // upDownWithLabelControl.setCallBackFunction(questionValidation.facesHandleMsg);
+            
 
+            sharedBetweenQuestions.clearLabelsText();
+            sharedBetweenQuestions.setIsNotEmptyCallBack(new CallBackIsNotEmpty(questionValidation.handelQuestionText));
 
         }
 

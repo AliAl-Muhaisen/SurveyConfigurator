@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static SurveyConfiguratorApp.UserController.Questions.SharedBetweenQuestions;
 using static SurveyConfiguratorApp.UserController.Questions.UpDownWithLabelControl;
 
 namespace SurveyConfiguratorApp.Forms.Questions
@@ -31,6 +32,11 @@ namespace SurveyConfiguratorApp.Forms.Questions
 
             //upDownWithLabelControl.setCallBackFunction(questionValidation.starsHandleMsg);
             upDownWithLabelControl.setCallBackFunction(new CallBackHandleErrorMsg(questionValidation.facesHandleMsg));
+
+            sharedBetweenQuestions.clearLabelsText();
+            sharedBetweenQuestions.setIsNotEmptyCallBack(new CallBackIsNotEmpty(questionValidation.handelQuestionText));
+
+
         }
 
 
