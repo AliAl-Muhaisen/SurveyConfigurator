@@ -24,18 +24,17 @@ namespace SurveyConfiguratorApp.Forms.Questions
             questionValidation = QuestionValidation.Instance();
 
 
-            upDownWithLabelControl.setLabelTitle("Number Of Stars");
+            upDownWithLabelControl1.setLabelTitle("Number Of Stars");
 
-            upDownWithLabelControl.setInputMinValue(questionValidation.StarsMinValue);
-            upDownWithLabelControl.setInputMaxValue(questionValidation.StarsMaxValue);
-            upDownWithLabelControl.clearErrorText();
+            upDownWithLabelControl1.setInputMinValue(questionValidation.StarsMinValue);
+            upDownWithLabelControl1.setInputMaxValue(questionValidation.StarsMaxValue);
+            upDownWithLabelControl1.clearErrorText();
 
             //upDownWithLabelControl.setCallBackFunction(questionValidation.starsHandleMsg);
-            upDownWithLabelControl.setCallBackFunction(new CallBackHandleErrorMsg(questionValidation.facesHandleMsg));
+            upDownWithLabelControl1.setCallBackFunction(new CallBackHandleErrorMsg(questionValidation.facesHandleMsg));
 
-            sharedBetweenQuestions.clearLabelsText();
-            sharedBetweenQuestions.setIsNotEmptyCallBack(new CallBackIsNotEmpty(questionValidation.handelQuestionText));
-
+            sharedBetweenQuestions1.clearLabelsText();
+            sharedBetweenQuestions1.setIsNotEmptyCallBack(new CallBackIsNotEmpty(questionValidation.handelQuestionText));
 
         }
 
@@ -55,6 +54,18 @@ namespace SurveyConfiguratorApp.Forms.Questions
         private void FormStarsQuestion_Load(object sender, EventArgs e)
         {
            // upDownWithLabelControl.setCallBackFunction(questionValidation.starsHandleMsg);
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            bool checkGeneralQuestions = sharedBetweenQuestions1.isValidForm();
+
 
         }
     }

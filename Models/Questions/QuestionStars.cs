@@ -8,10 +8,10 @@ namespace SurveyConfiguratorApp.Models.Questions
 {
     public class QuestionStars : Question
     {
-        public override void add()
-        {
-            throw new NotImplementedException();
-        }
+        //public override void add()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public override void delete()
         {

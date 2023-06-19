@@ -1,4 +1,5 @@
 ﻿using SurveyConfiguratorApp.Database;
+using SurveyConfiguratorApp.Database.Questions;
 using SurveyConfiguratorApp.Forms;
 using System;
 using System.Collections.Generic;
@@ -28,9 +29,9 @@ namespace SurveyConfiguratorApp
                 //SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\a.al-muhaisen\source\repos\SurveyConfiguratorApp\Database\Surveydb.mdf;Integrated Security=True");
                 //conn.Open();
                 db = new DB();
-                //db.OpenConnection();
+                db.OpenConnection();
                 MessageBox.Show(db.ToString());
-                //db.CloseConnection();
+                db.CloseConnection();
             }
             catch (Exception ex)
             {
@@ -58,6 +59,13 @@ namespace SurveyConfiguratorApp
         private void panelMain_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            DbQuestion dbQuestion = new DbQuestion();
+            object id=dbQuestion.getLastId();
+            label1.Text=id.ToString();
         }
     }
 }

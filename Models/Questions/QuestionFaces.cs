@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SurveyConfiguratorApp.Database.Questions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,12 +9,18 @@ namespace SurveyConfiguratorApp.Models.Questions
 {
     public class QuestionFaces :Question
     {
+        
+        private DbQuestionFaces dbQuestionFaces;
+        public QuestionFaces():base() {
+            dbQuestionFaces=new DbQuestionFaces();
+           
+        }
         public int FacesNumber { get; set; }
 
 
         public override void add()
         {
-            throw new NotImplementedException();
+            dbQuestionFaces.create(this);
         }
 
         public override void delete()

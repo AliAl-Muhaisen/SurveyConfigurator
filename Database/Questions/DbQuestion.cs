@@ -12,37 +12,12 @@ namespace SurveyConfiguratorApp.Database.Questions
     {
 
         public DbQuestion() : base() { }
-        public void create<T>(Question data)
-        {
-            
-            try
-            {
-                base.OpenConnection();
-
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.Connection = base.conn;
-                    cmd.CommandText = "INSERT INTO [Question] ([Order],[Text],[TypeNumber]) VALUES (@Order,@Text,@TypeNumber);";
-
-                    cmd.Parameters.AddWithValue("@Order", data.Order);
-                    cmd.Parameters.AddWithValue("@Text", data.Text);
-                    cmd.Parameters.AddWithValue("@TypeNumber", data.TypeNumber);
-                    cmd.ExecuteNonQuery();
-                }
-            }
-            catch (Exception)
-            {
-
-                throw;
-                //TODO:user log here
-            }
-
-        }
+       
 
         public void create(Question data)
         {
-            try
-            {
+            //try
+            //{
                 base.OpenConnection();
 
                 using (SqlCommand cmd = new SqlCommand())
@@ -50,23 +25,26 @@ namespace SurveyConfiguratorApp.Database.Questions
                     cmd.Connection = base.conn;
                     cmd.CommandText = "INSERT INTO [Question] ([Order],[Text],[TypeNumber]) VALUES (@Order,@Text,@TypeNumber);";
 
-                    cmd.Parameters.AddWithValue("@Order", data.Order);
-                    cmd.Parameters.AddWithValue("@Order", data.Text);
-                    cmd.Parameters.AddWithValue("@Order", data.TypeNumber);
+                cmd.Parameters.AddWithValue("@Order", data.Order);
+                cmd.Parameters.AddWithValue("@Text", data.Text);
+                cmd.Parameters.AddWithValue("@TypeNumber", data.TypeNumber);
 
-                    cmd.ExecuteNonQuery();
+
+
+                cmd.ExecuteNonQuery();
                 }
-            }
-            catch (Exception)
-            {
 
-                throw;
-                //TODO:user log here
-            }
-            finally
-            {
-                base.CloseConnection();
-            }
+            //}
+            //catch (Exception)
+            //{
+
+            //    throw;
+            //    //TODO:user log here
+            //}
+            //finally
+            //{
+            base.CloseConnection();
+            //}
         }
 
        
@@ -105,6 +83,27 @@ namespace SurveyConfiguratorApp.Database.Questions
 
             }
             return false;
+        }
+
+        public int getLastId()
+        {
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    base.OpenConnection() ;
+                    cmd.Connection = base.conn;
+                    cmd.CommandText = "SELECT MAX(id) as MaxId FROM [Question]; ";
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    dr.Read();
+                    return Convert.ToInt32(dr["MaxId"]);
+                }
+            }
+           
+            finally
+            {
+                base.CloseConnection() ;
+            }
         }
     }
 }

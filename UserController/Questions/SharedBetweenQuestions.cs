@@ -14,6 +14,7 @@ namespace SurveyConfiguratorApp.UserController.Questions
     {
         public delegate string CallBackIsNotEmpty(string text);
         private CallBackIsNotEmpty callBackIsNotEmptyMsg;
+        private bool isValidQuestionText = false;
         public SharedBetweenQuestions()
         {
             InitializeComponent();
@@ -33,7 +34,7 @@ namespace SurveyConfiguratorApp.UserController.Questions
 
         private void textBoxQuestionText_TextChanged(object sender, EventArgs e)
         {
-            handelQuestionText();
+           handelQuestionText();
 
         }
 
@@ -46,20 +47,22 @@ namespace SurveyConfiguratorApp.UserController.Questions
                 msg = callBackIsNotEmptyMsg(inputText);
                 labelErrorQuestionText.setText(msg);
 
+
+                if (msg == null)
+                {
+                    isValidQuestionText = true;
+                }
+                else
+                    isValidQuestionText=false;
+
             }
         }
 
         public bool isValidForm()
         {
-            string questionText = null;
-            if (callBackIsNotEmptyMsg != null)
-            {
-                string inputText = textBoxQuestionText.Text;
-                questionText = callBackIsNotEmptyMsg(inputText);
-                labelErrorQuestionText.setText(questionText);
+            handelQuestionText();
 
-            }
-            if(questionText != null)
+            if (isValidQuestionText)
             {
                 return true;
             }

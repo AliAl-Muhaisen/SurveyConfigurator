@@ -17,7 +17,7 @@ namespace SurveyConfiguratorApp.Database
     public class DB
     {
        protected SqlConnection conn;
-        protected SqlCommand cmd;
+        //protected SqlCommand cmd;
         const string ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\a.al-muhaisen\source\repos\SurveyConfiguratorApp\Database\Surveydb.mdf;Integrated Security=True";
 
 
@@ -46,7 +46,7 @@ namespace SurveyConfiguratorApp.Database
             try
             {
                 conn = new SqlConnection(ConnectionString);
-                cmd = conn.CreateCommand();
+                //cmd = conn.CreateCommand();
                 conn.Open();
             }
             catch (Exception ex)

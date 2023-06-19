@@ -8,9 +8,11 @@ namespace SurveyConfiguratorApp.Models.Questions
 {
     public class QuestionSlider:Question
     {
+        public QuestionSlider() : base() { }
         public override void add()
         {
-            throw new NotImplementedException();
+           //base.add(question);
+
         }
 
         public override void delete()

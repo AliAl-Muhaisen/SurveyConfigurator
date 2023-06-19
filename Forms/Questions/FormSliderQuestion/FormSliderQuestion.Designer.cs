@@ -28,40 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.sharedBetweenQuestions = new SurveyConfiguratorApp.UserController.Questions.SharedBetweenQuestions();
-            this.dividerPanelControl1 = new SurveyConfiguratorApp.UserController.Controllers.DividerPanelControl();
             this.panelContainer = new System.Windows.Forms.Panel();
             this.button2 = new System.Windows.Forms.Button();
             this.textBoxCaptionMax = new System.Windows.Forms.TextBox();
             this.textBoxCaptionMin = new System.Windows.Forms.TextBox();
+            this.dividerPanelVerticalControl1 = new SurveyConfiguratorApp.UserController.Controllers.DividerPanelVerticalControl();
             this.customLabelControlTitleCaption = new SurveyConfiguratorApp.UserController.Controllers.CustomLabelControl();
             this.customLabelControlMax = new SurveyConfiguratorApp.UserController.Controllers.CustomLabelControl();
             this.customLabelControlMin = new SurveyConfiguratorApp.UserController.Controllers.CustomLabelControl();
             this.dividerPanelControl2 = new SurveyConfiguratorApp.UserController.Controllers.DividerPanelControl();
             this.minMaxNumControl1 = new SurveyConfiguratorApp.UserController.Questions.MinMaxNumControl();
-            this.dividerPanelVerticalControl1 = new SurveyConfiguratorApp.UserController.Controllers.DividerPanelVerticalControl();
+            this.dividerPanelControl1 = new SurveyConfiguratorApp.UserController.Controllers.DividerPanelControl();
+            this.sharedBetweenQuestions = new SurveyConfiguratorApp.UserController.Questions.SharedBetweenQuestions();
             this.panelContainer.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // sharedBetweenQuestions
-            // 
-            this.sharedBetweenQuestions.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(41)))), ((int)(((byte)(41)))));
-            this.sharedBetweenQuestions.Dock = System.Windows.Forms.DockStyle.Top;
-            this.sharedBetweenQuestions.ForeColor = System.Drawing.Color.CornflowerBlue;
-            this.sharedBetweenQuestions.Location = new System.Drawing.Point(0, 0);
-            this.sharedBetweenQuestions.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.sharedBetweenQuestions.Name = "sharedBetweenQuestions";
-            this.sharedBetweenQuestions.Size = new System.Drawing.Size(800, 192);
-            this.sharedBetweenQuestions.TabIndex = 0;
-            // 
-            // dividerPanelControl1
-            // 
-            this.dividerPanelControl1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.dividerPanelControl1.Location = new System.Drawing.Point(0, 192);
-            this.dividerPanelControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.dividerPanelControl1.Name = "dividerPanelControl1";
-            this.dividerPanelControl1.Size = new System.Drawing.Size(800, 32);
-            this.dividerPanelControl1.TabIndex = 1;
             // 
             // panelContainer
             // 
@@ -97,6 +77,7 @@
             this.button2.Text = "Save";
             this.button2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // textBoxCaptionMax
             // 
@@ -111,6 +92,16 @@
             this.textBoxCaptionMin.Name = "textBoxCaptionMin";
             this.textBoxCaptionMin.Size = new System.Drawing.Size(153, 20);
             this.textBoxCaptionMin.TabIndex = 15;
+            // 
+            // dividerPanelVerticalControl1
+            // 
+            this.dividerPanelVerticalControl1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
+            this.dividerPanelVerticalControl1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.dividerPanelVerticalControl1.Location = new System.Drawing.Point(774, 224);
+            this.dividerPanelVerticalControl1.Margin = new System.Windows.Forms.Padding(4);
+            this.dividerPanelVerticalControl1.Name = "dividerPanelVerticalControl1";
+            this.dividerPanelVerticalControl1.Size = new System.Drawing.Size(26, 281);
+            this.dividerPanelVerticalControl1.TabIndex = 3;
             // 
             // customLabelControlTitleCaption
             // 
@@ -146,7 +137,7 @@
             // 
             this.dividerPanelControl2.Dock = System.Windows.Forms.DockStyle.Top;
             this.dividerPanelControl2.Location = new System.Drawing.Point(0, 102);
-            this.dividerPanelControl2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dividerPanelControl2.Margin = new System.Windows.Forms.Padding(4);
             this.dividerPanelControl2.Name = "dividerPanelControl2";
             this.dividerPanelControl2.Size = new System.Drawing.Size(800, 11);
             this.dividerPanelControl2.TabIndex = 2;
@@ -166,7 +157,7 @@
             0,
             0});
             this.minMaxNumControl1.Location = new System.Drawing.Point(0, 0);
-            this.minMaxNumControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.minMaxNumControl1.Margin = new System.Windows.Forms.Padding(4);
             this.minMaxNumControl1.Name = "minMaxNumControl1";
             this.minMaxNumControl1.Size = new System.Drawing.Size(800, 102);
             this.minMaxNumControl1.StartNumMax = new decimal(new int[] {
@@ -181,15 +172,25 @@
             0});
             this.minMaxNumControl1.TabIndex = 0;
             // 
-            // dividerPanelVerticalControl1
+            // dividerPanelControl1
             // 
-            this.dividerPanelVerticalControl1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.dividerPanelVerticalControl1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.dividerPanelVerticalControl1.Location = new System.Drawing.Point(774, 224);
-            this.dividerPanelVerticalControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.dividerPanelVerticalControl1.Name = "dividerPanelVerticalControl1";
-            this.dividerPanelVerticalControl1.Size = new System.Drawing.Size(26, 281);
-            this.dividerPanelVerticalControl1.TabIndex = 3;
+            this.dividerPanelControl1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.dividerPanelControl1.Location = new System.Drawing.Point(0, 192);
+            this.dividerPanelControl1.Margin = new System.Windows.Forms.Padding(4);
+            this.dividerPanelControl1.Name = "dividerPanelControl1";
+            this.dividerPanelControl1.Size = new System.Drawing.Size(800, 32);
+            this.dividerPanelControl1.TabIndex = 1;
+            // 
+            // sharedBetweenQuestions
+            // 
+            this.sharedBetweenQuestions.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(41)))), ((int)(((byte)(41)))));
+            this.sharedBetweenQuestions.Dock = System.Windows.Forms.DockStyle.Top;
+            this.sharedBetweenQuestions.ForeColor = System.Drawing.Color.CornflowerBlue;
+            this.sharedBetweenQuestions.Location = new System.Drawing.Point(0, 0);
+            this.sharedBetweenQuestions.Margin = new System.Windows.Forms.Padding(4);
+            this.sharedBetweenQuestions.Name = "sharedBetweenQuestions";
+            this.sharedBetweenQuestions.Size = new System.Drawing.Size(800, 192);
+            this.sharedBetweenQuestions.TabIndex = 0;
             // 
             // FormSliderQuestion
             // 

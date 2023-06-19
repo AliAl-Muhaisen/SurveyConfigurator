@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SurveyConfiguratorApp.Database.Questions
 {
-    internal class DbQuestionSlider
+    public class DbQuestionSlider
     {
     }
 }

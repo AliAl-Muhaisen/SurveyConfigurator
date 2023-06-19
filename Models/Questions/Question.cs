@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace SurveyConfiguratorApp.Models.Questions
 {
-    public interface IQuestion
+    public interface IQuestion<T>
     {
          void add();
          void delete();
          void update();
     }
 
-    public class Question:IQuestion
+    public class Question:IQuestion<Question>
     {
         private DbQuestion dbQuestion;
 
@@ -27,19 +27,21 @@ namespace SurveyConfiguratorApp.Models.Questions
             
         }
 
-        public int Id { get; private set; }
-        public string Text { get; private set; }
-        public string TypeNumber { get; private set; }
-        public int Order { get; private set; }
+        public int Id { get;  set; }
+        public string Text { get;  set; }
+        public int TypeNumber { get;  set; }
+        public int Order { get;  set; }
        
-        public Question() { }
-        public Question(int id, string text, string type,int order)
+        public Question() {
+            dbQuestion = new DbQuestion();
+        }
+        public Question(int id, string text, int type,int order):this()
         {
             Text = text;
             TypeNumber = type;
             Id = id;
             Order= order;
-            dbQuestion=new DbQuestion();
+         
         }
 
         public virtual void add()

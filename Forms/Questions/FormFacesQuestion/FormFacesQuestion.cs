@@ -1,4 +1,5 @@
-﻿using SurveyConfiguratorApp.Models.Questions;
+﻿
+using SurveyConfiguratorApp.Models.Questions;
 using SurveyConfiguratorApp.UserController.Questions;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static SurveyConfiguratorApp.Models.Questions.Question;
 using static SurveyConfiguratorApp.UserController.Questions.SharedBetweenQuestions;
 using static SurveyConfiguratorApp.UserController.Questions.UpDownWithLabelControl;
 
@@ -51,7 +53,20 @@ namespace SurveyConfiguratorApp.Forms
 
         private void button2_Click(object sender, EventArgs e)
         {
-            bool checkGeneralQuestions=sharedBetweenQuestions.isValidForm();
+            bool isValidGeneralQuestions=sharedBetweenQuestions.isValidForm();
+            bool isValidFacesNumber= upDownWithLabelControl.isValidForm();
+            if (isValidGeneralQuestions && isValidFacesNumber)
+            {
+                QuestionFaces questionFaces = new QuestionFaces();
+                questionFaces.Text = sharedBetweenQuestions.getQuestionText();
+                questionFaces.Order = Convert.ToInt32(sharedBetweenQuestions.getQuestionOrder());
+                questionFaces.TypeNumber = (int)QuestionTypes.FACES;
+                questionFaces.FacesNumber= upDownWithLabelControl.getFacesNumber();
+                questionFaces.add();
+
+
+
+            }
         }
     }
 }

@@ -16,6 +16,8 @@ namespace SurveyConfiguratorApp.UserController.Questions
 
 
         public delegate string CallBackHandleErrorMsg(int num);
+         
+        private bool isValidNumber=false;
 
         private CallBackHandleErrorMsg callBackHandleErrorMsg;
         public UpDownWithLabelControl()
@@ -66,6 +68,12 @@ namespace SurveyConfiguratorApp.UserController.Questions
                 if (callBackHandleErrorMsg != null)
                     msg = callBackHandleErrorMsg(value);
                 setErrorText(msg);
+                if (msg == null)
+                {
+                    isValidNumber = true;
+                }
+                else
+                    isValidNumber = false;
 
             }
             catch (Exception ex)
@@ -86,6 +94,16 @@ namespace SurveyConfiguratorApp.UserController.Questions
                 MessageBox.Show("Call Back Failed ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
+        }
+
+        public int getFacesNumber()
+        {
+            return (int)numericUpDown.Value;
+        }
+
+        public bool isValidForm()
+        {
+            return isValidNumber;
         }
 
     }
