@@ -28,8 +28,8 @@ namespace SurveyConfiguratorApp.Forms
            
             upDownWithLabelControl.clearErrorText();
 
-           // upDownWithLabelControl.setCallBackFunction(new CallBackHandleErrorMsg(questionValidation.facesHandleMsg));
-            upDownWithLabelControl.setCallBackFunction(questionValidation.facesHandleMsg);
+            upDownWithLabelControl.setCallBackFunction(new CallBackHandleErrorMsg(questionValidation.facesHandleMsg));
+           // upDownWithLabelControl.setCallBackFunction(questionValidation.facesHandleMsg);
 
 
         }

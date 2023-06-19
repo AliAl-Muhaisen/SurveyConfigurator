@@ -13,7 +13,7 @@ namespace SurveyConfiguratorApp.UserController.Questions
 {
     public partial class UpDownWithLabelControl : UserControl
     {
-        
+
 
         public delegate string CallBackHandleErrorMsg(int num);
 
@@ -26,7 +26,7 @@ namespace SurveyConfiguratorApp.UserController.Questions
 
         }
 
-  
+
         public void setLabelTitle(string title)
         {
             labelTitle.setText(title);
@@ -34,7 +34,7 @@ namespace SurveyConfiguratorApp.UserController.Questions
 
         public void setLeableValueText(string leableValueText)
         {
-            labelInputValue.setText (leableValueText);
+            labelInputValue.setText(leableValueText);
         }
 
         public void setInputMinValue(int value)
@@ -59,18 +59,21 @@ namespace SurveyConfiguratorApp.UserController.Questions
 
         private void numericUpDown_ValueChanged(object sender, EventArgs e)
         {
+            string msg = null;
             try
             {
                 int value = (int)numericUpDown.Value;
-            string msg = callBackHandleErrorMsg(value);
-            setErrorText(msg);
+                if (callBackHandleErrorMsg != null)
+                    msg = callBackHandleErrorMsg(value);
+                setErrorText(msg);
+
             }
             catch (Exception ex)
             {
 
-                MessageBox.Show("Call Back Failed 2"+ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Call Back Failed 2" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-           
+
         }
         public void setCallBackFunction(CallBackHandleErrorMsg callBackFun)
         {
@@ -80,10 +83,10 @@ namespace SurveyConfiguratorApp.UserController.Questions
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Call Back Failed ","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show("Call Back Failed ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-           
+
         }
-        
+
     }
 }

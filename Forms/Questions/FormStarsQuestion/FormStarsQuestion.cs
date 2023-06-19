@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static SurveyConfiguratorApp.UserController.Questions.UpDownWithLabelControl;
 
 namespace SurveyConfiguratorApp.Forms.Questions
 {
@@ -28,13 +29,26 @@ namespace SurveyConfiguratorApp.Forms.Questions
             upDownWithLabelControl.setInputMaxValue(questionValidation.StarsMaxValue);
             upDownWithLabelControl.clearErrorText();
 
-            upDownWithLabelControl.setCallBackFunction(questionValidation.starsHandleMsg);
+            //upDownWithLabelControl.setCallBackFunction(questionValidation.starsHandleMsg);
+            upDownWithLabelControl.setCallBackFunction(new CallBackHandleErrorMsg(questionValidation.facesHandleMsg));
         }
 
 
 
         private void panel2_Paint(object sender, PaintEventArgs e)
         {
+
+        }
+
+        private void upDownWithLabelControl_Load(object sender, EventArgs e)
+        {
+          //  upDownWithLabelControl.setCallBackFunction(questionValidation.starsHandleMsg);
+
+        }
+
+        private void FormStarsQuestion_Load(object sender, EventArgs e)
+        {
+           // upDownWithLabelControl.setCallBackFunction(questionValidation.starsHandleMsg);
 
         }
     }
