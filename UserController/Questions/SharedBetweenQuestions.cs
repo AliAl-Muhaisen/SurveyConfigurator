@@ -33,6 +33,12 @@ namespace SurveyConfiguratorApp.UserController.Questions
 
         private void textBoxQuestionText_TextChanged(object sender, EventArgs e)
         {
+            handelQuestionText();
+
+        }
+
+        public void handelQuestionText()
+        {
             string msg = null;
             if (callBackIsNotEmptyMsg != null)
             {
@@ -41,7 +47,32 @@ namespace SurveyConfiguratorApp.UserController.Questions
                 labelErrorQuestionText.setText(msg);
 
             }
+        }
 
+        public bool isValidForm()
+        {
+            string questionText = null;
+            if (callBackIsNotEmptyMsg != null)
+            {
+                string inputText = textBoxQuestionText.Text;
+                questionText = callBackIsNotEmptyMsg(inputText);
+                labelErrorQuestionText.setText(questionText);
+
+            }
+            if(questionText != null)
+            {
+                return true;
+            }
+            return false;
+        }
+        public string getQuestionText()
+        {
+            return textBoxQuestionText.Text;
+        }
+
+        public string getQuestionOrder()
+        {
+            return numericUpDownQuestionOrder.Text;
         }
 
         //# Question Text Error Label

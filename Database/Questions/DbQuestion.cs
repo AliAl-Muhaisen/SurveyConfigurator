@@ -14,7 +14,7 @@ namespace SurveyConfiguratorApp.Database.Questions
         public DbQuestion() : base() { }
         public void create<T>(Question data)
         {
-            Question a=new Question();
+            
             try
             {
                 base.OpenConnection();
@@ -63,6 +63,10 @@ namespace SurveyConfiguratorApp.Database.Questions
                 throw;
                 //TODO:user log here
             }
+            finally
+            {
+                base.CloseConnection();
+            }
         }
 
        
@@ -84,6 +88,23 @@ namespace SurveyConfiguratorApp.Database.Questions
         public void update(Question data)
         {
             throw new NotImplementedException();
+        }
+
+        public bool isOrderReadyExists(int order)
+        {
+            try
+            {
+                using (SqlCommand cmd=new SqlCommand())
+                {
+                    cmd.Connection= base.conn;
+                    cmd.CommandText="SELECT [Order] FROM [Question] WHERE [Order]=" + order + ";";
+                }
+            }
+            finally
+            {
+
+            }
+            return false;
         }
     }
 }

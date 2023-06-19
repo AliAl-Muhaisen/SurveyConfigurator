@@ -138,5 +138,10 @@ namespace SurveyConfiguratorApp.Models.Questions
 
         //!End Faces Question Validation
 
+        public bool isOrderExists(int order)
+        {
+            return false;
+        }
+
     }
 }
