@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -18,15 +19,19 @@ namespace SurveyConfiguratorApp
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Form form = new FormQuestion();
-            form.ShowDialog();
-        }
 
         private void panelMain_Paint(object sender, PaintEventArgs e)
         {
 
         }
+
+        private void buttonAdd_Click(object sender, EventArgs e)
+        {
+            Form form = new FormQuestion();
+            form.ShowDialog();
+        }
+        
     }
 }
+
+
