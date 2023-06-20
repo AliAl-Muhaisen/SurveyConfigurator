@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SurveyConfiguratorApp.Database.Questions
 {
-    public class DbQuestionFaces : DbQuestion
+    public class DbQuestionFaces : DbQuestion, ICRUD<QuestionFaces>
     {
         public DbQuestionFaces() : base() { }
         public void create(QuestionFaces data)
@@ -19,11 +19,11 @@ namespace SurveyConfiguratorApp.Database.Questions
             int questionId = base.getLastId();
             using (SqlCommand cmd = new SqlCommand())
             {
-base.OpenConnection();
+                base.OpenConnection();
 
                 cmd.Connection = base.conn;
 
-                
+
 
                 cmd.CommandText = "INSERT INTO [QuestionFaces] ([QuestionId],[FacesNumber]) VALUES (@QuestionId,@FacesNumber);";
 

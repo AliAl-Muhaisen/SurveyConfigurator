@@ -45,7 +45,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 QuestionSlider questionSlider = new QuestionSlider();
                 questionSlider.Text = sharedBetweenQuestions.getQuestionText();
                 questionSlider.Order = Convert.ToInt32(sharedBetweenQuestions.getQuestionOrder());
-                questionSlider.TypeNumber = (int)QuestionTypes.SLIDER;
+              
                 Question question = new QuestionSlider();
                 question = questionSlider;
 

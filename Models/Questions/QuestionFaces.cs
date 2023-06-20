@@ -13,7 +13,8 @@ namespace SurveyConfiguratorApp.Models.Questions
         private DbQuestionFaces dbQuestionFaces;
         public QuestionFaces():base() {
             dbQuestionFaces=new DbQuestionFaces();
-           
+            TypeNumber = (int)QuestionTypes.FACES;
+
         }
         public int FacesNumber { get; set; }
 

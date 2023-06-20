@@ -42,6 +42,7 @@ namespace SurveyConfiguratorApp.UserController.Questions
         public void setInputMinValue(int value)
         {
             numericUpDown.Minimum = value;
+            numericUpDown.Value = value;
         }
 
         public void setInputMaxValue(int value)

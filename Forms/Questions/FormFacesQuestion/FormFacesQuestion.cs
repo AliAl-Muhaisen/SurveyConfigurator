@@ -60,13 +60,16 @@ namespace SurveyConfiguratorApp.Forms
                 QuestionFaces questionFaces = new QuestionFaces();
                 questionFaces.Text = sharedBetweenQuestions.getQuestionText();
                 questionFaces.Order = Convert.ToInt32(sharedBetweenQuestions.getQuestionOrder());
-                questionFaces.TypeNumber = (int)QuestionTypes.FACES;
+               
                 questionFaces.FacesNumber= upDownWithLabelControl.getFacesNumber();
                 questionFaces.add();
 
-
-
             }
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

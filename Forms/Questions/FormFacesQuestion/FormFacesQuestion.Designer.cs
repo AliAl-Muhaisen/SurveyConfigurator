@@ -29,34 +29,15 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormFacesQuestion));
-            this.sharedBetweenQuestions = new SurveyConfiguratorApp.UserController.Questions.SharedBetweenQuestions();
-            this.dividerPanelControl1 = new SurveyConfiguratorApp.UserController.Controllers.DividerPanelControl();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button2 = new System.Windows.Forms.Button();
+            this.dividerPanelVerticalControl1 = new SurveyConfiguratorApp.UserController.Controllers.DividerPanelVerticalControl();
             this.dividerPanelControl2 = new SurveyConfiguratorApp.UserController.Controllers.DividerPanelControl();
             this.upDownWithLabelControl = new SurveyConfiguratorApp.UserController.Questions.UpDownWithLabelControl();
-            this.dividerPanelVerticalControl1 = new SurveyConfiguratorApp.UserController.Controllers.DividerPanelVerticalControl();
+            this.dividerPanelControl1 = new SurveyConfiguratorApp.UserController.Controllers.DividerPanelControl();
+            this.sharedBetweenQuestions = new SurveyConfiguratorApp.UserController.Questions.SharedBetweenQuestions();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // sharedBetweenQuestions
-            // 
-            this.sharedBetweenQuestions.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(41)))), ((int)(((byte)(41)))));
-            this.sharedBetweenQuestions.Dock = System.Windows.Forms.DockStyle.Top;
-            this.sharedBetweenQuestions.Location = new System.Drawing.Point(0, 0);
-            this.sharedBetweenQuestions.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.sharedBetweenQuestions.Name = "sharedBetweenQuestions";
-            this.sharedBetweenQuestions.Size = new System.Drawing.Size(800, 192);
-            this.sharedBetweenQuestions.TabIndex = 1;
-            // 
-            // dividerPanelControl1
-            // 
-            this.dividerPanelControl1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.dividerPanelControl1.Location = new System.Drawing.Point(0, 192);
-            this.dividerPanelControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.dividerPanelControl1.Name = "dividerPanelControl1";
-            this.dividerPanelControl1.Size = new System.Drawing.Size(800, 32);
-            this.dividerPanelControl1.TabIndex = 2;
             // 
             // panel1
             // 
@@ -69,6 +50,7 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(800, 226);
             this.panel1.TabIndex = 3;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // button2
             // 
@@ -91,6 +73,16 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // dividerPanelVerticalControl1
+            // 
+            this.dividerPanelVerticalControl1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
+            this.dividerPanelVerticalControl1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.dividerPanelVerticalControl1.Location = new System.Drawing.Point(774, 224);
+            this.dividerPanelVerticalControl1.Margin = new System.Windows.Forms.Padding(4);
+            this.dividerPanelVerticalControl1.Name = "dividerPanelVerticalControl1";
+            this.dividerPanelVerticalControl1.Size = new System.Drawing.Size(26, 226);
+            this.dividerPanelVerticalControl1.TabIndex = 2;
+            // 
             // dividerPanelControl2
             // 
             this.dividerPanelControl2.Dock = System.Windows.Forms.DockStyle.Top;
@@ -110,15 +102,24 @@
             this.upDownWithLabelControl.Size = new System.Drawing.Size(800, 105);
             this.upDownWithLabelControl.TabIndex = 7;
             // 
-            // dividerPanelVerticalControl1
+            // dividerPanelControl1
             // 
-            this.dividerPanelVerticalControl1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.dividerPanelVerticalControl1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.dividerPanelVerticalControl1.Location = new System.Drawing.Point(774, 224);
-            this.dividerPanelVerticalControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.dividerPanelVerticalControl1.Name = "dividerPanelVerticalControl1";
-            this.dividerPanelVerticalControl1.Size = new System.Drawing.Size(26, 226);
-            this.dividerPanelVerticalControl1.TabIndex = 2;
+            this.dividerPanelControl1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.dividerPanelControl1.Location = new System.Drawing.Point(0, 192);
+            this.dividerPanelControl1.Margin = new System.Windows.Forms.Padding(4);
+            this.dividerPanelControl1.Name = "dividerPanelControl1";
+            this.dividerPanelControl1.Size = new System.Drawing.Size(800, 32);
+            this.dividerPanelControl1.TabIndex = 2;
+            // 
+            // sharedBetweenQuestions
+            // 
+            this.sharedBetweenQuestions.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(41)))), ((int)(((byte)(41)))));
+            this.sharedBetweenQuestions.Dock = System.Windows.Forms.DockStyle.Top;
+            this.sharedBetweenQuestions.Location = new System.Drawing.Point(0, 0);
+            this.sharedBetweenQuestions.Margin = new System.Windows.Forms.Padding(4);
+            this.sharedBetweenQuestions.Name = "sharedBetweenQuestions";
+            this.sharedBetweenQuestions.Size = new System.Drawing.Size(800, 192);
+            this.sharedBetweenQuestions.TabIndex = 1;
             // 
             // FormFacesQuestion
             // 

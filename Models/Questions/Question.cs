@@ -29,7 +29,7 @@ namespace SurveyConfiguratorApp.Models.Questions
 
         public int Id { get;  set; }
         public string Text { get;  set; }
-        public int TypeNumber { get;  set; }
+        public int TypeNumber { get; protected set; }
         public int Order { get;  set; }
        
         public Question() {

@@ -68,7 +68,7 @@ namespace SurveyConfiguratorApp.Database.Questions
             throw new NotImplementedException();
         }
 
-        public bool isOrderReadyExists(int order)
+        public bool isOrderAlreadyExists(int order)
         {
             try
             {
