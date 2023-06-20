@@ -126,7 +126,7 @@
             this.dividerPanelVerticalControl1.Location = new System.Drawing.Point(0, 0);
             this.dividerPanelVerticalControl1.Name = "dividerPanelVerticalControl1";
             this.dividerPanelVerticalControl1.Size = new System.Drawing.Size(50, 77);
-            this.dividerPanelVerticalControl1.TabIndex = 1;
+            this.dividerPanelVerticalControl1.TabIndex = 2;
             // 
             // LayoutControl
             // 

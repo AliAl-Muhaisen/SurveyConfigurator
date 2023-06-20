@@ -50,22 +50,20 @@ namespace SurveyConfiguratorApp
             //}
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Form form = new FormQuestion();
-            form.ShowDialog();
-        }
 
         private void panelMain_Paint(object sender, PaintEventArgs e)
         {
 
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void buttonAdd_Click(object sender, EventArgs e)
         {
-            DbQuestion dbQuestion = new DbQuestion();
-            object id=dbQuestion.getLastId();
-            label1.Text=id.ToString();
+            Form form = new FormQuestion();
+            form.ShowDialog();
         }
+
+       
     }
 }
+
+
