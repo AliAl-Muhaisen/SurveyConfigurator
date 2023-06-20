@@ -33,6 +33,8 @@
             this.customLabelControlMin = new SurveyConfiguratorApp.UserController.Controllers.CustomLabelControl();
             this.numericUpDownEnd = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownStart = new System.Windows.Forms.NumericUpDown();
+            this.labelErrorMin = new SurveyConfiguratorApp.UserController.Questions.LabelErrorControl();
+            this.labelErrorMax = new SurveyConfiguratorApp.UserController.Questions.LabelErrorControl();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEnd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownStart)).BeginInit();
             this.SuspendLayout();
@@ -73,6 +75,10 @@
             this.numericUpDownEnd.Name = "numericUpDownEnd";
             this.numericUpDownEnd.Size = new System.Drawing.Size(141, 20);
             this.numericUpDownEnd.TabIndex = 6;
+            this.numericUpDownEnd.ValueChanged += new System.EventHandler(this.numericUpDownEnd_ValueChanged);
+            this.numericUpDownEnd.KeyDown += new System.Windows.Forms.KeyEventHandler(this.numericUpDownEnd_KeyDown);
+            this.numericUpDownEnd.KeyUp += new System.Windows.Forms.KeyEventHandler(this.numericUpDownEnd_KeyUp);
+            this.numericUpDownEnd.MouseDown += new System.Windows.Forms.MouseEventHandler(this.numericUpDownEnd_MouseDown);
             // 
             // numericUpDownStart
             // 
@@ -80,19 +86,44 @@
             this.numericUpDownStart.Name = "numericUpDownStart";
             this.numericUpDownStart.Size = new System.Drawing.Size(145, 20);
             this.numericUpDownStart.TabIndex = 5;
+            this.numericUpDownStart.ValueChanged += new System.EventHandler(this.numericUpDownStart_ValueChanged);
+            this.numericUpDownStart.KeyDown += new System.Windows.Forms.KeyEventHandler(this.numericUpDownStart_KeyDown);
+            this.numericUpDownStart.MouseDown += new System.Windows.Forms.MouseEventHandler(this.numericUpDownStart_MouseDown);
+            // 
+            // labelErrorMin
+            // 
+            this.labelErrorMin.AutoSize = true;
+            this.labelErrorMin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.labelErrorMin.Location = new System.Drawing.Point(158, 92);
+            this.labelErrorMin.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.labelErrorMin.Name = "labelErrorMin";
+            this.labelErrorMin.Size = new System.Drawing.Size(43, 19);
+            this.labelErrorMin.TabIndex = 10;
+            // 
+            // labelErrorMax
+            // 
+            this.labelErrorMax.AutoSize = true;
+            this.labelErrorMax.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.labelErrorMax.Location = new System.Drawing.Point(441, 92);
+            this.labelErrorMax.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.labelErrorMax.Name = "labelErrorMax";
+            this.labelErrorMax.Size = new System.Drawing.Size(43, 19);
+            this.labelErrorMax.TabIndex = 11;
             // 
             // MinMaxNumControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.Controls.Add(this.labelErrorMax);
+            this.Controls.Add(this.labelErrorMin);
             this.Controls.Add(this.customLabelControlTitle);
             this.Controls.Add(this.customLabelControlMax);
             this.Controls.Add(this.customLabelControlMin);
             this.Controls.Add(this.numericUpDownEnd);
             this.Controls.Add(this.numericUpDownStart);
             this.Name = "MinMaxNumControl";
-            this.Size = new System.Drawing.Size(649, 102);
+            this.Size = new System.Drawing.Size(649, 123);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEnd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownStart)).EndInit();
             this.ResumeLayout(false);
@@ -107,5 +138,7 @@
         private Controllers.CustomLabelControl customLabelControlMin;
         private System.Windows.Forms.NumericUpDown numericUpDownEnd;
         private System.Windows.Forms.NumericUpDown numericUpDownStart;
+        private LabelErrorControl labelErrorMin;
+        private LabelErrorControl labelErrorMax;
     }
 }

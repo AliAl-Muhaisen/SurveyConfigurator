@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,6 +25,7 @@ namespace SurveyConfiguratorApp.Models.Questions
         public int FacesMinValue { get; private set; }
 
         const int questionTextLength = 100;
+        const int sliderCaptionTextLength = 100;
       
 
         private QuestionValidation()
@@ -90,7 +92,7 @@ namespace SurveyConfiguratorApp.Models.Questions
             {
                 return "Required Field";
             }
-            else if( text.Length >100)
+            else if( text.Length > questionTextLength)
             {
                 return "Maximum input length exceeded. Please enter a value that is within 100 character";
             }
@@ -133,10 +135,38 @@ namespace SurveyConfiguratorApp.Models.Questions
 
         public string facesHandleMsg(int num)
         {
-            return starsMaxNumMsg(num) ?? starsMinNumMsg(num);
+            return facesMaxNumMsg(num) ?? facesMinNumMsg(num);
         }
 
         //!End Faces Question Validation
+
+        //# Slider Question Validation
+        public string handelCaptionText(string text)
+        {
+            if (isEmpty(text))
+            {
+                return "Required Field";
+            }
+            else if (text.Length > sliderCaptionTextLength)
+            {
+                return "Maximum input length exceeded";
+            }
+            return null;
+
+
+        }
+        private bool isMinEqualMax(int min,int max)
+        {
+            return min == max;
+        }
+        //public string handleSliderMin(int numMin)
+        //{
+        //    if (!isMinEqualMax(numMin,numMa))
+        //    return null;
+        //}
+
+        //! End Slider Question Validation
+
 
         public bool isOrderExists(int order)
         {

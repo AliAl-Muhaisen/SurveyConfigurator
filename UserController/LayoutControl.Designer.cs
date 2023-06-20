@@ -35,6 +35,7 @@
             this.panelMain = new System.Windows.Forms.Panel();
             this.panelHeadreBar = new System.Windows.Forms.Panel();
             this.labelMainBarTitle = new System.Windows.Forms.Label();
+            this.dividerPanelVerticalControl1 = new SurveyConfiguratorApp.UserController.Controllers.DividerPanelVerticalControl();
             this.panelLog.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panelSideBar.SuspendLayout();
@@ -98,6 +99,7 @@
             // panelHeadreBar
             // 
             this.panelHeadreBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.panelHeadreBar.Controls.Add(this.dividerPanelVerticalControl1);
             this.panelHeadreBar.Controls.Add(this.labelMainBarTitle);
             this.panelHeadreBar.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelHeadreBar.Location = new System.Drawing.Point(181, 0);
@@ -116,6 +118,15 @@
             this.labelMainBarTitle.TabIndex = 0;
             this.labelMainBarTitle.Text = "Home";
             this.labelMainBarTitle.Click += new System.EventHandler(this.labelMainBarTitle_Click);
+            // 
+            // dividerPanelVerticalControl1
+            // 
+            this.dividerPanelVerticalControl1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
+            this.dividerPanelVerticalControl1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.dividerPanelVerticalControl1.Location = new System.Drawing.Point(0, 0);
+            this.dividerPanelVerticalControl1.Name = "dividerPanelVerticalControl1";
+            this.dividerPanelVerticalControl1.Size = new System.Drawing.Size(50, 77);
+            this.dividerPanelVerticalControl1.TabIndex = 1;
             // 
             // LayoutControl
             // 
@@ -145,5 +156,6 @@
         private System.Windows.Forms.Panel panelMain;
         private System.Windows.Forms.Panel panelHeadreBar;
         private System.Windows.Forms.Label labelMainBarTitle;
+        private Controllers.DividerPanelVerticalControl dividerPanelVerticalControl1;
     }
 }

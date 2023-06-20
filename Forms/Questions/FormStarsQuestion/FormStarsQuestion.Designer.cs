@@ -86,6 +86,7 @@
             this.sharedBetweenQuestions1.Name = "sharedBetweenQuestions1";
             this.sharedBetweenQuestions1.Size = new System.Drawing.Size(800, 192);
             this.sharedBetweenQuestions1.TabIndex = 0;
+            this.sharedBetweenQuestions1.Load += new System.EventHandler(this.sharedBetweenQuestions1_Load);
             // 
             // dividerPanelControl3
             // 

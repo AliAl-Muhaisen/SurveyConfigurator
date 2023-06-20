@@ -85,5 +85,10 @@ namespace SurveyConfiguratorApp.Forms.Questions
         {
 
         }
+
+        private void sharedBetweenQuestions1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

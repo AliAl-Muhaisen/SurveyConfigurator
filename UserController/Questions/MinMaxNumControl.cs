@@ -12,13 +12,21 @@ namespace SurveyConfiguratorApp.UserController.Questions
 {
     public partial class MinMaxNumControl : UserControl
     {
+        private bool isValidMinNum = false;
+        private bool isValidMaxNum = false;
+
+        
         public decimal StartNumMin
         {
             get
             {
                 return numericUpDownStart.Minimum;
             }
-            set { numericUpDownStart.Minimum = value; }
+            set
+            {
+                numericUpDownStart.Minimum = value;
+                numericUpDownStart.Value = value;
+            }
 
         }
 
@@ -28,7 +36,10 @@ namespace SurveyConfiguratorApp.UserController.Questions
             {
                 return numericUpDownEnd.Maximum;
             }
-            set { numericUpDownStart.Maximum = value; }
+            set
+            {
+                numericUpDownStart.Maximum = value;
+            }
 
         }
 
@@ -48,7 +59,11 @@ namespace SurveyConfiguratorApp.UserController.Questions
             {
                 return numericUpDownEnd.Maximum;
             }
-            set { numericUpDownEnd.Maximum = value; }
+            set
+            {
+                numericUpDownEnd.Maximum = value;
+                numericUpDownEnd.Value = value;
+            }
 
         }
 
@@ -65,10 +80,108 @@ namespace SurveyConfiguratorApp.UserController.Questions
             customLabelControlTitle.setText(title);
         }
 
-       
+      
+        private void numericUpDownStart_ValueChanged(object sender, EventArgs e)
+        {
+            handleMinValue();
+        }
+
+        private void numericUpDownStart_MouseDown(object sender, MouseEventArgs e)
+        {
+            handleMinValue();
+        }
+
+        private void handleMinValue()
+        {
+            if (numericUpDownStart.Value >= numericUpDownEnd.Value)
+            {
+                setLabelErrorMin("Min should be less than max");
+                isValidMinNum = false;
+
+            }
+
+            else if (numericUpDownStart.Value <= numericUpDownStart.Minimum)
+            {
+                setLabelErrorMin("number must be greater than or equal " + numericUpDownStart.Minimum);
+                isValidMinNum = false;
+
+            }
+            else
+            {
+                setLabelErrorMin(null);
+            }
+
+            
+
+        }
+
+        private void handleMaxValue()
+        {
+            if (numericUpDownEnd.Value <= numericUpDownStart.Value)
+            {
+                setLabelErrorMax("Max should be greater than min");
+                isValidMaxNum = false;
+
+            }
+
+            else if (numericUpDownEnd.Value <= numericUpDownEnd.Minimum)
+            {
+                setLabelErrorMax("number must be greater than or equal " + numericUpDownEnd.Minimum);
+                isValidMaxNum = false;
+
+            }
+
+            else if (numericUpDownEnd.Value > numericUpDownEnd.Maximum)
+            {
+                setLabelErrorMax("number must be less than or equal " + numericUpDownEnd.Maximum);
+                isValidMaxNum = false;
+
+            }
+            else {
+                setLabelErrorMax(null);
+            }
+
+        }
+        private void numericUpDownStart_KeyDown(object sender, KeyEventArgs e)
+        {
+
+            handleMinValue();
+
+        }
 
 
+        public void clearErrorLabelsText()
+        {
+            labelErrorMax.clearText();
+            labelErrorMin.clearText();
+        }
+        public void setLabelErrorMax(string errorMax)
+        {
+            labelErrorMax.setText(errorMax);
+        }
+        public void setLabelErrorMin(string errorMin)
+        {
+            labelErrorMin.setText(errorMin);
+        }
 
+        private void numericUpDownEnd_ValueChanged(object sender, EventArgs e)
+        {
+            handleMaxValue();
+        }
 
+        private void numericUpDownEnd_KeyDown(object sender, KeyEventArgs e)
+        {
+            handleMaxValue();
+        }
+
+        private void numericUpDownEnd_MouseDown(object sender, MouseEventArgs e)
+        {
+            handleMaxValue();
+        }
+
+        private void numericUpDownEnd_KeyUp(object sender, KeyEventArgs e)
+        {
+            handleMaxValue();
+        }
     }
 }
