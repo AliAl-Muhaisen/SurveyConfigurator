@@ -10,10 +10,10 @@ namespace SurveyConfiguratorApp.Models.Questions
     public class QuestionSlider : Question
     {
         private DbQuestionSlider dbQuestionSlider;
-        public int MinValue { get; set; }
-        public int MaxValue { get; set; }
-        public string MinCaption { get; set; }
-        public string MaxCaption { get; set; }
+        public int StartValue { get; set; }
+        public int EndValue { get; set; }
+        public string StartCaption { get; set; }
+        public string EndCaption { get; set; }
         public QuestionSlider() : base()
         {
             dbQuestionSlider=new DbQuestionSlider();

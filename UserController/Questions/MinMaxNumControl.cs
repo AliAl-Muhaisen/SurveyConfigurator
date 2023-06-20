@@ -109,6 +109,7 @@ namespace SurveyConfiguratorApp.UserController.Questions
             else
             {
                 setLabelErrorMin(null);
+                isValidMinNum=true;
             }
 
             
@@ -139,6 +140,7 @@ namespace SurveyConfiguratorApp.UserController.Questions
             }
             else {
                 setLabelErrorMax(null);
+                isValidMaxNum=true;
             }
 
         }
@@ -182,6 +184,23 @@ namespace SurveyConfiguratorApp.UserController.Questions
         private void numericUpDownEnd_KeyUp(object sender, KeyEventArgs e)
         {
             handleMaxValue();
+        }
+
+        public bool isValidForm()
+        {
+            handleMaxValue();
+            handleMinValue();
+            return isValidMaxNum && isValidMinNum;
+        }
+
+        public int getStartValue()
+        {
+            return (int) numericUpDownStart.Value;
+        }
+
+        public int getEndValue()
+        {
+            return (int)numericUpDownEnd.Value;
         }
     }
 }

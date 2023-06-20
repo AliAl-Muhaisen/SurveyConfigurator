@@ -102,12 +102,19 @@ namespace SurveyConfiguratorApp.Forms.Questions
         {
             bool checkGeneralQuestions = sharedBetweenQuestions.isValidForm();
             bool checkCaption = isValidForm();
-
-            if (checkGeneralQuestions && checkCaption)
+            bool checkMinMaxValues=minMaxNumControl1.isValidForm();
+            if (checkGeneralQuestions && checkCaption && checkMinMaxValues)
             {
+                MessageBox.Show("Add called");
                 QuestionSlider questionSlider = new QuestionSlider();
                 questionSlider.Text = sharedBetweenQuestions.getQuestionText();
                 questionSlider.Order = Convert.ToInt32(sharedBetweenQuestions.getQuestionOrder());
+
+                questionSlider.StartValue= minMaxNumControl1.getStartValue();
+                questionSlider.EndValue= minMaxNumControl1.getEndValue();
+
+                questionSlider.StartCaption = textBoxCaptionMin.Text;
+                questionSlider.EndCaption = textBoxCaptionMax.Text;
                 questionSlider.add();
 
             }
