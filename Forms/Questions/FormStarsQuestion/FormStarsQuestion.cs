@@ -18,10 +18,15 @@ namespace SurveyConfiguratorApp.Forms.Questions
     public partial class FormStarsQuestion : Form
     {
         private QuestionValidation questionValidation;
+        private bool isUpdate = false;
+        private QuestionStars questionStars;
 
         public FormStarsQuestion()
         {
             InitializeComponent();
+
+            this.questionStars = new QuestionStars();
+
             questionValidation = QuestionValidation.Instance();
 
 
@@ -37,6 +42,19 @@ namespace SurveyConfiguratorApp.Forms.Questions
             sharedBetweenQuestions1.clearLabelsText();
             sharedBetweenQuestions1.setIsNotEmptyCallBack(new CallBackIsNotEmpty(questionValidation.handelQuestionText));
 
+        }
+        public FormStarsQuestion(bool isUpdate,QuestionStars questionStars):this()
+        {
+            this.isUpdate = isUpdate;
+            if(isUpdate)
+            {
+               
+                this.questionStars=questionStars;
+                sharedBetweenQuestions1.setQuestionText(questionStars.Text);
+                sharedBetweenQuestions1.setQuestionOrderValue(questionStars.Order);
+                buttonSave.Text = "Update";
+            }
+            
         }
 
 
@@ -69,14 +87,27 @@ namespace SurveyConfiguratorApp.Forms.Questions
             bool isValidFacesNumber = upDownWithLabelControl1.isValidForm();
             if (isValidGeneralQuestions && isValidFacesNumber)
             {
-                QuestionStars questionFaces = new QuestionStars();
-                questionFaces.Text = sharedBetweenQuestions1.getQuestionText();
-                questionFaces.Order = Convert.ToInt32(sharedBetweenQuestions1.getQuestionOrder());
+
                 
-                questionFaces.StarsNumber = upDownWithLabelControl1.getFacesNumber();
-                questionFaces.add();
+                    questionStars.Text = sharedBetweenQuestions1.getQuestionText();
+                    questionStars.Order = Convert.ToInt32(sharedBetweenQuestions1.getQuestionOrder());
+                
+                    questionStars.StarsNumber = upDownWithLabelControl1.getFacesNumber();
+                if (!isUpdate)
+                {
+                   
+                    questionStars.add();
+
+                    upDownWithLabelControl1.clearInputValues();
+                    sharedBetweenQuestions1.clearInputValues();
+                }
+                else
+                {
+                    questionStars.update();
+                }
 
             }
+
 
 
         }

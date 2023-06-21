@@ -12,7 +12,7 @@ namespace SurveyConfiguratorApp.Database
         void create(T data);
         void update(T data);
         void delete(int id);
-        void read(T data);
+        T read(int id);
     }
     public class DB
     {

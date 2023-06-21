@@ -19,6 +19,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
 {
     public partial class FormSliderQuestion : Form
     {
+        private bool isUpdate = false;
         private QuestionValidation questionValidation;
         private bool isValidCaptionMinText = false;
         private bool isValidCaptionMaxText = false;
@@ -98,6 +99,12 @@ namespace SurveyConfiguratorApp.Forms.Questions
             handleCaptionMax();
         }
 
+        private void clearInputsValue()
+        {
+            textBoxCaptionMax.Text = string.Empty;
+            textBoxCaptionMin.Text = string.Empty;
+        }
+
         private void buttonSave_Click(object sender, EventArgs e)
         {
             bool checkGeneralQuestions = sharedBetweenQuestions.isValidForm();
@@ -105,7 +112,6 @@ namespace SurveyConfiguratorApp.Forms.Questions
             bool checkMinMaxValues=minMaxNumControl1.isValidForm();
             if (checkGeneralQuestions && checkCaption && checkMinMaxValues)
             {
-                MessageBox.Show("Add called");
                 QuestionSlider questionSlider = new QuestionSlider();
                 questionSlider.Text = sharedBetweenQuestions.getQuestionText();
                 questionSlider.Order = Convert.ToInt32(sharedBetweenQuestions.getQuestionOrder());
@@ -116,6 +122,10 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 questionSlider.StartCaption = textBoxCaptionMin.Text;
                 questionSlider.EndCaption = textBoxCaptionMax.Text;
                 questionSlider.add();
+
+                sharedBetweenQuestions.clearInputValues();
+                minMaxNumControl1.clearInputValues();
+                clearInputsValue();
 
             }
         }

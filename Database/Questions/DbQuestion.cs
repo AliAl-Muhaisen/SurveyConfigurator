@@ -18,8 +18,8 @@ namespace SurveyConfiguratorApp.Database.Questions
 
         public void create(Question data)
         {
-            //try
-            //{
+            try
+            {
                 base.OpenConnection();
 
                 using (SqlCommand cmd = new SqlCommand())
@@ -30,23 +30,20 @@ namespace SurveyConfiguratorApp.Database.Questions
                 cmd.Parameters.AddWithValue("@Order", data.Order);
                 cmd.Parameters.AddWithValue("@Text", data.Text);
                 cmd.Parameters.AddWithValue("@TypeNumber", data.TypeNumber);
-
-
-
                 cmd.ExecuteNonQuery();
                 }
 
-            //}
-            //catch (Exception)
-            //{
+            }
+            catch (SqlException e)
+            {
 
-            //    throw;
-            //    //TODO:user log here
-            //}
-            //finally
-            //{
-            base.CloseConnection();
-            //}
+                MessageBox.Show("Error " + e.Message,"ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //TODO:user log here
+            }
+            finally
+            {
+                base.CloseConnection();
+            }
         }
 
        
@@ -87,7 +84,7 @@ namespace SurveyConfiguratorApp.Database.Questions
 
       
 
-        public void read(Question data)
+        public Question read(int id)
         {
             throw new NotImplementedException();
         }
@@ -127,6 +124,7 @@ namespace SurveyConfiguratorApp.Database.Questions
 
         public void update(Question question)
         {
+            base.OpenConnection();
             using (SqlCommand command = new SqlCommand())
             {
                 command.Connection= base.conn;
@@ -138,7 +136,7 @@ namespace SurveyConfiguratorApp.Database.Questions
 
                 try
                 {
-                    conn.Open();
+                   
                     int rowsAffected = command.ExecuteNonQuery();
 
                     if (rowsAffected > 0)
@@ -149,7 +147,7 @@ namespace SurveyConfiguratorApp.Database.Questions
                     else
                     {
                         // Row not found or not updated
-                        MessageBox.Show("No rows updated.");
+                        MessageBox.Show("No rows updated for Question");
                     }
                 }
                 catch (SqlException ex)
@@ -159,7 +157,7 @@ namespace SurveyConfiguratorApp.Database.Questions
                 }
                 finally
                 {
-                    conn.Close();
+                    base.CloseConnection();
                 }
             }
 

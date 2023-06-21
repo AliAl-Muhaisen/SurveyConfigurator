@@ -34,11 +34,13 @@
             this.sharedBetweenQuestions1 = new SurveyConfiguratorApp.UserController.Questions.SharedBetweenQuestions();
             this.dividerPanelControl3 = new SurveyConfiguratorApp.UserController.Controllers.DividerPanelControl();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonSave = new System.Windows.Forms.Button();
             this.dividerPanelControl4 = new SurveyConfiguratorApp.UserController.Controllers.DividerPanelControl();
             this.upDownWithLabelControl1 = new SurveyConfiguratorApp.UserController.Questions.UpDownWithLabelControl();
             this.dividerPanelVerticalControl1 = new SurveyConfiguratorApp.UserController.Controllers.DividerPanelVerticalControl();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -99,7 +101,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(41)))), ((int)(((byte)(41)))));
-            this.panel2.Controls.Add(this.button1);
+            this.panel2.Controls.Add(this.panel3);
             this.panel2.Controls.Add(this.dividerPanelControl4);
             this.panel2.Controls.Add(this.upDownWithLabelControl1);
             this.panel2.Controls.Add(this.dividerPanelVerticalControl1);
@@ -110,26 +112,28 @@
             this.panel2.TabIndex = 2;
             this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint_1);
             // 
-            // button1
+            // buttonSave
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.button1.Image = global::SurveyConfiguratorApp.Properties.Resources.save_instagram;
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(655, 161);
-            this.button1.Name = "button1";
-            this.button1.Padding = new System.Windows.Forms.Padding(7, 0, 0, 0);
-            this.button1.Size = new System.Drawing.Size(113, 53);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "Save";
-            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.buttonSave.AutoSize = true;
+            this.buttonSave.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.buttonSave.FlatAppearance.BorderSize = 0;
+            this.buttonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSave.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSave.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.buttonSave.Image = global::SurveyConfiguratorApp.Properties.Resources.save_instagram;
+            this.buttonSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonSave.Location = new System.Drawing.Point(45, 26);
+            this.buttonSave.Margin = new System.Windows.Forms.Padding(3, 3, 30, 3);
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Padding = new System.Windows.Forms.Padding(7, 0, 0, 0);
+            this.buttonSave.Size = new System.Drawing.Size(113, 53);
+            this.buttonSave.TabIndex = 10;
+            this.buttonSave.Text = "Save";
+            this.buttonSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.button1_Click);
             // 
             // dividerPanelControl4
             // 
@@ -159,6 +163,14 @@
             this.dividerPanelVerticalControl1.Size = new System.Drawing.Size(26, 226);
             this.dividerPanelVerticalControl1.TabIndex = 1;
             // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.buttonSave);
+            this.panel3.Location = new System.Drawing.Point(568, 122);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(200, 100);
+            this.panel3.TabIndex = 11;
+            // 
             // FormStarsQuestion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -171,6 +183,8 @@
             this.Text = "FormSmileyQuestion";
             this.Load += new System.EventHandler(this.FormStarsQuestion_Load);
             this.panel2.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -190,6 +204,7 @@
         private UserController.Controllers.DividerPanelControl dividerPanelControl4;
         private UserController.Questions.UpDownWithLabelControl upDownWithLabelControl1;
         private UserController.Controllers.DividerPanelVerticalControl dividerPanelVerticalControl1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonSave;
+        private System.Windows.Forms.Panel panel3;
     }
 }

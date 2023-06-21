@@ -72,10 +72,20 @@ namespace SurveyConfiguratorApp.UserController.Questions
         {
             return textBoxQuestionText.Text;
         }
+        public void setQuestionText(string questionText)
+        {
+            textBoxQuestionText.Text = questionText;
+        }
+
+
 
         public string getQuestionOrder()
         {
             return numericUpDownQuestionOrder.Text;
+        }
+        public void setQuestionOrderValue(int num)
+        {
+            numericUpDownQuestionOrder.Value =(decimal)num;
         }
 
         //# Question Text Error Label

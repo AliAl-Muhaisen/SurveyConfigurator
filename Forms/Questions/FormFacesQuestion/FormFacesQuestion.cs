@@ -64,6 +64,8 @@ namespace SurveyConfiguratorApp.Forms
                 questionFaces.FacesNumber= upDownWithLabelControl.getFacesNumber();
                 questionFaces.add();
 
+                sharedBetweenQuestions.clearInputValues();
+                upDownWithLabelControl.clearInputValues();
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿using SurveyConfiguratorApp.Database;
 using SurveyConfiguratorApp.Database.Questions;
 using SurveyConfiguratorApp.Forms;
+using SurveyConfiguratorApp.Forms.Questions;
 using SurveyConfiguratorApp.Models.Questions;
 using System;
 using System.Collections.Generic;
@@ -12,18 +13,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static SurveyConfiguratorApp.Models.Questions.Question;
 
 namespace SurveyConfiguratorApp
 {
     public partial class FormMain : Form
     {
         private DbQuestion dbQuestion;
-        int questionId=-1;
+        int questionId = -1;
+        int questionType = -1;
+        private DataGridViewRow rowData;
         public FormMain()
         {
             InitializeComponent();
-            dbQuestion= new DbQuestion();
+            dbQuestion = new DbQuestion();
             loadDataGridView();
+
+            rowData = new DataGridViewRow();
 
 
         }
@@ -43,7 +49,7 @@ namespace SurveyConfiguratorApp
         private void buttonDelete_Click(object sender, EventArgs e)
         {
 
-            if(questionId !=-1)
+            if (questionId != -1)
             {
                 dbQuestion.delete(questionId);
                 loadDataGridView();
@@ -52,13 +58,13 @@ namespace SurveyConfiguratorApp
             else
             {
                 questionId = -1;
-                MessageBox.Show("No row selected.");
+                MessageBox.Show("No row selected.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            
+
 
         }
 
-       
+
 
         private void dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -67,25 +73,30 @@ namespace SurveyConfiguratorApp
             {
 
                 DataGridViewRow selectedRow = dataGridView.Rows[e.RowIndex];
-
+                rowData = selectedRow;
                 questionId = Convert.ToInt32(selectedRow.Cells["id"].Value);
+                questionType = Convert.ToInt32(selectedRow.Cells["typeNumber"].Value);
+
 
             }
-            // Check if a row is selected
-           else if (dataGridView.SelectedRows.Count > 0)
+            //? Check if a row is selected
+            else if (dataGridView.SelectedRows.Count > 0)
             {
-                // Get the selected row
+                //# Get the selected row
                 DataGridViewRow selectedRow = dataGridView.SelectedRows[0];
-
-                // Get the ID value from the selected row
+                rowData = selectedRow;
+                //# Get the ID value from the selected row
                 questionId = Convert.ToInt32(selectedRow.Cells["id"].Value);
+                questionType = Convert.ToInt32(selectedRow.Cells["typeNumber"].Value);
 
-           
+
             }
             else
             {
                 questionId = -1;
-               
+                questionType = -1;
+                rowData = null;
+
             }
         }
 
@@ -102,6 +113,40 @@ namespace SurveyConfiguratorApp
         private void buttonRefresh_Click(object sender, EventArgs e)
         {
             loadDataGridView();
+        }
+
+        private void buttonUpdate_Click(object sender, EventArgs e)
+        {
+            if (questionType != -1 && questionId != -1)
+            {
+                MessageBox.Show(rowData.Cells["id"].Value.ToString()
+                    + "\t" + rowData.Cells["text"].Value.ToString());
+                // dbQuestion.delete(questionId);
+                if (questionType == (int)QuestionTypes.FACES)
+                {
+
+                }
+                else if (questionType == (int)QuestionTypes.STARS)
+                {
+                    DbQuestionStars questionStars = new DbQuestionStars();
+                  
+                        Form formFaces = new FormStarsQuestion(true, questionStars.read(questionId));
+                        formFaces.ShowDialog();
+                    
+
+                }
+                else if (questionType == (int)QuestionTypes.SLIDER)
+                {
+
+                }
+                loadDataGridView();
+
+            }
+            else
+            {
+                questionId = -1;
+                MessageBox.Show("No row selected.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }

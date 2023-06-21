@@ -58,7 +58,7 @@ namespace SurveyConfiguratorApp.Database.Questions
             throw new NotImplementedException();
         }
 
-        public void read(QuestionSlider data)
+        public QuestionSlider read(int id)
         {
             throw new NotImplementedException();
         }
