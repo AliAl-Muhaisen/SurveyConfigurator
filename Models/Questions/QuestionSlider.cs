@@ -33,7 +33,7 @@ namespace SurveyConfiguratorApp.Models.Questions
 
         public override void update()
         {
-            throw new NotImplementedException();
+            dbQuestionSlider.update(this);
         }
     }
 }

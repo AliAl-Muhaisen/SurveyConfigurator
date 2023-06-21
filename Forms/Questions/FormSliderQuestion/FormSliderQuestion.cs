@@ -23,10 +23,12 @@ namespace SurveyConfiguratorApp.Forms.Questions
         private QuestionValidation questionValidation;
         private bool isValidCaptionMinText = false;
         private bool isValidCaptionMaxText = false;
+        private QuestionSlider questionSlider;
         public FormSliderQuestion()
         {
             InitializeComponent();
             questionValidation = QuestionValidation.Instance();
+            questionSlider = new QuestionSlider();
 
             minMaxNumControl1.setLabelTitleText("Slider Values");
             customLabelControlTitleCaption.setText("Captions");
@@ -39,16 +41,27 @@ namespace SurveyConfiguratorApp.Forms.Questions
 
             sharedBetweenQuestions.clearLabelsText();
             minMaxNumControl1.StartNumMin = questionValidation.SliderMinValue;
-            minMaxNumControl1.StartNumMax = questionValidation.SliderMaxValue-1;
+            minMaxNumControl1.StartNumMax = questionValidation.SliderMaxValue - 1;
             minMaxNumControl1.EndNumMax = questionValidation.SliderMaxValue;
-            minMaxNumControl1.EndNumMin = questionValidation.SliderMinValue+1;
+            minMaxNumControl1.EndNumMin = questionValidation.SliderMinValue + 1;
             minMaxNumControl1.clearErrorLabelsText();
             //minMaxNumControl1.setIsNotEmptyCallBack(new CallBackIsNotEmpty(questionValidation.handelCaptionText));
 
 
             sharedBetweenQuestions.setIsNotEmptyCallBack(new CallBackIsNotEmpty(questionValidation.handelQuestionText));
-         
 
+
+        }
+
+        public FormSliderQuestion(QuestionSlider questionSlider) : this()
+        {
+            isUpdate = true;
+            this.questionSlider = questionSlider;
+            sharedBetweenQuestions.setQuestionText(questionSlider.Text);
+            sharedBetweenQuestions.setQuestionOrderValue(questionSlider.Order);
+            textBoxCaptionMin.Text = questionSlider.StartCaption;
+            textBoxCaptionMax.Text = questionSlider.EndCaption;
+            buttonSave.Text = "Update";
         }
         private bool isValidForm()
         {
@@ -64,18 +77,18 @@ namespace SurveyConfiguratorApp.Forms.Questions
 
         private void handleCaptionMin()
         {
-            string msg = 
+            string msg =
             questionValidation.handelCaptionText(textBoxCaptionMin.Text);
-          
+
             labelErrorCaptionMin.setText(msg);
 
-                if (msg == null)
-                {
-                    isValidCaptionMinText = true;
-                }
-                else
-                    isValidCaptionMinText = false;
-            
+            if (msg == null)
+            {
+                isValidCaptionMinText = true;
+            }
+            else
+                isValidCaptionMinText = false;
+
         }
 
         private void handleCaptionMax()
@@ -109,23 +122,31 @@ namespace SurveyConfiguratorApp.Forms.Questions
         {
             bool checkGeneralQuestions = sharedBetweenQuestions.isValidForm();
             bool checkCaption = isValidForm();
-            bool checkMinMaxValues=minMaxNumControl1.isValidForm();
+            bool checkMinMaxValues = minMaxNumControl1.isValidForm();
             if (checkGeneralQuestions && checkCaption && checkMinMaxValues)
             {
-                QuestionSlider questionSlider = new QuestionSlider();
                 questionSlider.Text = sharedBetweenQuestions.getQuestionText();
                 questionSlider.Order = Convert.ToInt32(sharedBetweenQuestions.getQuestionOrder());
 
-                questionSlider.StartValue= minMaxNumControl1.getStartValue();
-                questionSlider.EndValue= minMaxNumControl1.getEndValue();
+                questionSlider.StartValue = minMaxNumControl1.getStartValue();
+                questionSlider.EndValue = minMaxNumControl1.getEndValue();
 
                 questionSlider.StartCaption = textBoxCaptionMin.Text;
                 questionSlider.EndCaption = textBoxCaptionMax.Text;
-                questionSlider.add();
 
-                sharedBetweenQuestions.clearInputValues();
-                minMaxNumControl1.clearInputValues();
-                clearInputsValue();
+                if (!isUpdate)
+                {
+                    questionSlider.add();
+
+                    sharedBetweenQuestions.clearInputValues();
+                    minMaxNumControl1.clearInputValues();
+                    clearInputsValue();
+                }
+                else
+                {
+
+                }
+
 
             }
         }

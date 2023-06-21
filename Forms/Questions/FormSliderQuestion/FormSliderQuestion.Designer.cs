@@ -43,8 +43,10 @@
             this.dividerPanelVerticalControl1 = new SurveyConfiguratorApp.UserController.Controllers.DividerPanelVerticalControl();
             this.dividerPanelControl1 = new SurveyConfiguratorApp.UserController.Controllers.DividerPanelControl();
             this.sharedBetweenQuestions = new SurveyConfiguratorApp.UserController.Questions.SharedBetweenQuestions();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.panelContainer.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelContainer
@@ -61,9 +63,9 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.labelErrorCaptionMax);
             this.panel1.Controls.Add(this.labelErrorCaptionMin);
-            this.panel1.Controls.Add(this.buttonSave);
             this.panel1.Controls.Add(this.textBoxCaptionMax);
             this.panel1.Controls.Add(this.textBoxCaptionMin);
             this.panel1.Controls.Add(this.customLabelControlTitleCaption);
@@ -97,6 +99,7 @@
             // 
             // buttonSave
             // 
+            this.buttonSave.AutoSize = true;
             this.buttonSave.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.buttonSave.FlatAppearance.BorderSize = 0;
             this.buttonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -104,7 +107,7 @@
             this.buttonSave.ForeColor = System.Drawing.SystemColors.ControlDark;
             this.buttonSave.Image = global::SurveyConfiguratorApp.Properties.Resources.save_instagram;
             this.buttonSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonSave.Location = new System.Drawing.Point(657, 96);
+            this.buttonSave.Location = new System.Drawing.Point(28, 7);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Padding = new System.Windows.Forms.Padding(7, 0, 0, 0);
             this.buttonSave.Size = new System.Drawing.Size(113, 65);
@@ -227,6 +230,14 @@
             this.sharedBetweenQuestions.Size = new System.Drawing.Size(800, 192);
             this.sharedBetweenQuestions.TabIndex = 0;
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.buttonSave);
+            this.panel2.Location = new System.Drawing.Point(567, 88);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(200, 100);
+            this.panel2.TabIndex = 28;
+            // 
             // FormSliderQuestion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -241,6 +252,8 @@
             this.panelContainer.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -262,5 +275,6 @@
         private UserController.Controllers.CustomLabelControl customLabelControlTitleCaption;
         private UserController.Controllers.CustomLabelControl customLabelControlMax;
         private UserController.Controllers.CustomLabelControl customLabelControlMin;
+        private System.Windows.Forms.Panel panel2;
     }
 }

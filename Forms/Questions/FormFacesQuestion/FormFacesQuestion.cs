@@ -51,6 +51,7 @@ namespace SurveyConfiguratorApp.Forms
             this.questionFaces = questionFaces;
             sharedBetweenQuestions.setQuestionText(questionFaces.Text);
             sharedBetweenQuestions.setQuestionOrderValue(questionFaces.Order);
+            upDownWithLabelControl.setNumericValue(questionFaces.FacesNumber);
             buttonSave.Text = "Update";
         }
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)

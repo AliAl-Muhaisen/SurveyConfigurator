@@ -5,16 +5,20 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace SurveyConfiguratorApp.Database.Questions
 {
     public class DbQuestionSlider : DbQuestion, ICRUD<QuestionSlider>
     {
+        private const string tableName = "QuestionSlider";
+        static public string TableName { get { return tableName; } }
+
         public void create(QuestionSlider data)
         {
-            //try
-            //{
-            base.create(data);
+            try
+            {
+                base.create(data);
             int questionId = base.getLastId();
             using (SqlCommand cmd = new SqlCommand())
             {
@@ -40,17 +44,18 @@ namespace SurveyConfiguratorApp.Database.Questions
 
             }
 
-            //}
-            //catch (Exception)
-            //{
+            }
+            catch (SqlException e)
+            {
+                MessageBox.Show("create record Failed " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-            //    throw;
-            //    //TODO:user log here
-            //}
-            //finally
-            //{
-            base.CloseConnection();
-            //}
+                //throw;
+                //TODO:user log here
+            }
+            finally
+            {
+                base.CloseConnection();
+            }
         }
 
         public void delete(int id)
@@ -60,12 +65,88 @@ namespace SurveyConfiguratorApp.Database.Questions
 
         public QuestionSlider read(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                QuestionSlider questionSlider = new QuestionSlider();
+                base.OpenConnection();
+
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = base.conn;
+                    cmd.CommandText = $"SELECT [Text],[StartValue],[EndValue],[StartCaption],[EndCaption],[Order] FROM Question as q  INNER JOIN QuestionSlider as f ON q.id=f.QuestionId WHERE q.Id={id};";
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            questionSlider.Order = (int)reader["Order"];
+                            questionSlider.Id = id;
+                            questionSlider.Text = reader["Text"].ToString();
+                            questionSlider.EndCaption = reader["EndCaption"].ToString();
+                            questionSlider.StartCaption = reader["StartCaption"].ToString();
+                            questionSlider.StartValue = (int)reader["StartValue"];
+                            questionSlider.EndValue = (int)reader["EndValue"];
+                            return questionSlider;
+
+                        }
+                    }
+
+                }
+            }
+            catch (SqlException e)
+            {
+                //TODO:add log here
+                //!Error deleting row
+                MessageBox.Show("Error While fetch data " + e.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                base.CloseConnection();
+
+            }
+            return null;
         }
 
         public void update(QuestionSlider questionSlider)
         {
-            throw new NotImplementedException();
+            using (SqlCommand command = new SqlCommand())
+            {
+                base.OpenConnection();
+                command.Connection = base.conn;
+                command.CommandText = $"UPDATE [{TableName}] SET" +
+                    $" [StartCaption] = @StartCaption,[EndCaption] = @EndCaption,[StartValue] = @StartValue,[EndValue] = @EndValue WHERE [questionId] = @Id";
+
+                command.Parameters.AddWithValue("@StartCaption", questionSlider.StartCaption);
+                command.Parameters.AddWithValue("@EndCaption", questionSlider.EndCaption);
+                command.Parameters.AddWithValue("@StartValue", questionSlider.StartValue);
+                command.Parameters.AddWithValue("@EndValue", questionSlider.EndValue);
+                command.Parameters.AddWithValue("@Id", questionSlider.Id);
+
+                try
+                {
+
+                    int rowsAffected = command.ExecuteNonQuery();
+
+                    if (rowsAffected <= 0)
+                    {
+                        // Row not found or not updated
+                        MessageBox.Show("No rows updated for Question");
+                        return;
+                    }
+                    base.CloseConnection();
+                    base.update(questionSlider);
+                }
+                catch (SqlException ex)
+                {
+                    // Handle any SQL errors
+                    MessageBox.Show("Error updating row: " + ex.Message);
+                }
+                finally
+                {
+                    base.CloseConnection();
+                }
+
+            }
+
         }
     }
 }

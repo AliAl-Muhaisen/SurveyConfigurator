@@ -128,22 +128,43 @@ namespace SurveyConfiguratorApp
                     }
                     else
                     {
-                        MessageBox.Show("Please Refresh the data and try again");
+                        MessageBox.Show("Please Refresh the data and try again", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
 
                 }
                 else if (questionType == (int)QuestionTypes.STARS)
                 {
-                    DbQuestionStars questionStars = new DbQuestionStars();
+                    DbQuestionStars dbQuestionStars = new DbQuestionStars();
+                    QuestionStars questionStars = new QuestionStars();
+                    questionStars = dbQuestionStars.read(questionId);
+                    if (questionStars != null)
+                    {
+                        Form formStars = new FormStarsQuestion(questionStars);
+                        formStars.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please Refresh the data and try again", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
-                    Form formStars = new FormStarsQuestion(questionStars.read(questionId));
-                    formStars.ShowDialog();
+                    }
+
 
 
                 }
                 else if (questionType == (int)QuestionTypes.SLIDER)
                 {
-
+                    DbQuestionSlider dbQuestionSlider = new DbQuestionSlider();
+                    QuestionSlider questionSlider = new QuestionSlider();
+                    questionSlider = dbQuestionSlider.read(questionId);
+                    if (questionSlider != null)
+                    {
+                        Form formSlider = new FormSliderQuestion(questionSlider);
+                        formSlider.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please Refresh the data and try again", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
                 loadDataGridView();
 
