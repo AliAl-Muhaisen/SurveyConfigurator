@@ -69,13 +69,13 @@ namespace SurveyConfiguratorApp.Forms
             bool isValidFacesNumber = upDownWithLabelControl.isValidForm();
             if (isValidGeneralQuestions && isValidFacesNumber)
             {
+                questionFaces.Text = sharedBetweenQuestions.getQuestionText();
+                questionFaces.Order = Convert.ToInt32(sharedBetweenQuestions.getQuestionOrder());
+
+                questionFaces.FacesNumber = upDownWithLabelControl.getFacesNumber();
                 if (!isUpdate)
                 {
-                    QuestionFaces questionFaces = new QuestionFaces();
-                    questionFaces.Text = sharedBetweenQuestions.getQuestionText();
-                    questionFaces.Order = Convert.ToInt32(sharedBetweenQuestions.getQuestionOrder());
 
-                    questionFaces.FacesNumber = upDownWithLabelControl.getFacesNumber();
                     questionFaces.add();
 
                     sharedBetweenQuestions.clearInputValues();
@@ -83,6 +83,7 @@ namespace SurveyConfiguratorApp.Forms
                 }
                 else
                 {
+                    questionFaces.update();
 
                 }
 

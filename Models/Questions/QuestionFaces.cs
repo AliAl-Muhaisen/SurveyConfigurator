@@ -31,7 +31,8 @@ namespace SurveyConfiguratorApp.Models.Questions
 
         public override void update()
         {
-            throw new NotImplementedException();
+            dbQuestionFaces.update(this);
         }
+       
     }
 }

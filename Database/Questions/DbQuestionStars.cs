@@ -115,16 +115,13 @@ namespace SurveyConfiguratorApp.Database.Questions
                   
                     int rowsAffected = command.ExecuteNonQuery();
 
-                    if (rowsAffected > 0)
-                    {
-                        // Row updated successfully
-                        MessageBox.Show("Row updated successfully.");
-                    }
-                    else
+                    if (rowsAffected <=0)
                     {
                         // Row not found or not updated
                         MessageBox.Show("No rows updated for Question");
+                        return;
                     }
+                   
                     base.CloseConnection();
                     base.update(questionStars);
                 }
