@@ -61,6 +61,8 @@ namespace SurveyConfiguratorApp.Forms.Questions
             sharedBetweenQuestions.setQuestionOrderValue(questionSlider.Order);
             textBoxCaptionMin.Text = questionSlider.StartCaption;
             textBoxCaptionMax.Text = questionSlider.EndCaption;
+            minMaxNumControl1.setEndValue(questionSlider.EndValue);
+            minMaxNumControl1.setStartValue(questionSlider.StartValue);
             buttonSave.Text = "Update";
         }
         private bool isValidForm()
@@ -144,7 +146,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 }
                 else
                 {
-
+                    questionSlider.update();
                 }
 
 

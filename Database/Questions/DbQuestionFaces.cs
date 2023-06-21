@@ -8,48 +8,48 @@ namespace SurveyConfiguratorApp.Database.Questions
     public class DbQuestionFaces : DbQuestion, ICRUD<QuestionFaces>
     {
         private const string tableName = "QuestionFaces";
-        
+
         public DbQuestionFaces() : base() { }
-static public string TableName { get { return tableName; } }
+        static public string TableName { get { return tableName; } }
 
         public void create(QuestionFaces data)
         {
-            //try
-            //{
-            base.create(data);
-            int questionId = base.getLastId();
-            using (SqlCommand cmd = new SqlCommand())
+            try
             {
-                base.OpenConnection();
+                base.create(data);
+                int questionId = base.getLastId();
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    base.OpenConnection();
 
-                cmd.Connection = base.conn;
-
-
-
-                cmd.CommandText = "INSERT INTO [QuestionFaces] ([QuestionId],[FacesNumber]) VALUES (@QuestionId,@FacesNumber);";
-
-                cmd.Parameters.AddWithValue("@QuestionId", questionId);
-                cmd.Parameters.AddWithValue("@FacesNumber", data.FacesNumber);
+                    cmd.Connection = base.conn;
 
 
 
-                cmd.ExecuteNonQuery();
+                    cmd.CommandText = "INSERT INTO [QuestionFaces] ([QuestionId],[FacesNumber]) VALUES (@QuestionId,@FacesNumber);";
+
+                    cmd.Parameters.AddWithValue("@QuestionId", questionId);
+                    cmd.Parameters.AddWithValue("@FacesNumber", data.FacesNumber);
 
 
+
+                    cmd.ExecuteNonQuery();
+
+
+
+                }
 
             }
-
-            //}
-            //catch (Exception)
-            //{
-
-            //    throw;
-            //    //TODO:user log here
-            //}
-            //finally
-            //{
-            base.CloseConnection();
-            //}
+            catch (SqlException e)
+            {
+                MessageBox.Show("create record Failed " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //throw;
+                //TODO:user log here
+            }
+            finally
+            {
+                base.CloseConnection();
+            }
 
         }
 

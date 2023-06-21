@@ -45,16 +45,20 @@ namespace SurveyConfiguratorApp
 
         private void buttonDelete_Click(object sender, EventArgs e)
         {
-
             if (questionId != -1)
             {
-                dbQuestion.delete(questionId);
-                loadDataGridView();
+                DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete this record", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    dbQuestion.delete(questionId);
+                    loadDataGridView();
+                    questionId = -1;
+                }
+
 
             }
             else
             {
-                questionId = -1;
                 MessageBox.Show("No row selected.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 

@@ -202,6 +202,26 @@ namespace SurveyConfiguratorApp.UserController.Questions
         {
             return (int)numericUpDownEnd.Value;
         }
+        public void setStartValue(int value)
+        {
+            if (value > numericUpDownStart.Maximum || value < numericUpDownStart.Minimum)
+                numericUpDownStart.Value = numericUpDownStart.Minimum;
+
+
+            else numericUpDownStart.Value = value;
+           
+        }
+
+        public void setEndValue(int value)
+        {
+            if (value > numericUpDownEnd.Maximum || value < numericUpDownEnd.Minimum)
+                numericUpDownEnd.Value = numericUpDownEnd.Minimum;
+
+
+            else numericUpDownEnd.Value = value;
+
+        }
+
 
         public void clearInputValues()
         {
