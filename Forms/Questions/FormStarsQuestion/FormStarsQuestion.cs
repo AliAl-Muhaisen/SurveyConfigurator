@@ -43,17 +43,17 @@ namespace SurveyConfiguratorApp.Forms.Questions
             sharedBetweenQuestions1.setIsNotEmptyCallBack(new CallBackIsNotEmpty(questionValidation.handelQuestionText));
 
         }
-        public FormStarsQuestion(bool isUpdate,QuestionStars questionStars):this()
+        public FormStarsQuestion(QuestionStars questionStars):this()
         {
-            this.isUpdate = isUpdate;
-            if(isUpdate)
-            {
+            this.isUpdate = true;
+           
                
                 this.questionStars=questionStars;
                 sharedBetweenQuestions1.setQuestionText(questionStars.Text);
                 sharedBetweenQuestions1.setQuestionOrderValue(questionStars.Order);
+                upDownWithLabelControl1.setNumericValue(questionStars.StarsNumber);
                 buttonSave.Text = "Update";
-            }
+            
             
         }
 
@@ -100,6 +100,8 @@ namespace SurveyConfiguratorApp.Forms.Questions
 
                     upDownWithLabelControl1.clearInputValues();
                     sharedBetweenQuestions1.clearInputValues();
+                    upDownWithLabelControl1.clearErrorText();
+                    sharedBetweenQuestions1.clearLabelsText();
                 }
                 else
                 {

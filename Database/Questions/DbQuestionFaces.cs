@@ -1,10 +1,7 @@
 ﻿using SurveyConfiguratorApp.Models.Questions;
 using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace SurveyConfiguratorApp.Database.Questions
 {
@@ -59,7 +56,42 @@ namespace SurveyConfiguratorApp.Database.Questions
 
         public QuestionFaces read(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                QuestionFaces questionFaces = new QuestionFaces();
+                base.OpenConnection();
+
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = base.conn;
+                    cmd.CommandText = $"SELECT [Text],[FacesNumber],[Order] FROM Question as q  INNER JOIN QuestionFaces as f ON q.id=f.QuestionId WHERE q.Id={id};";
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            questionFaces.Order = (int)reader["Order"];
+                            questionFaces.Id = id;
+                            questionFaces.Text = reader["Text"].ToString();
+                            questionFaces.FacesNumber = (int)reader["FacesNumber"];
+                            return questionFaces;
+
+                        }
+                    }
+
+                }
+            }
+            catch (SqlException e)
+            {
+                //TODO:add log here
+                //!Error deleting row
+                MessageBox.Show("Error While fetch data " + e.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                base.CloseConnection();
+
+            }
+            return null;
         }
 
         public void update(QuestionFaces questionFaces)

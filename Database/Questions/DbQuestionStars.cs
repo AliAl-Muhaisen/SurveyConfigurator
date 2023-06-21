@@ -79,25 +79,12 @@ namespace SurveyConfiguratorApp.Database.Questions
                             questionStars.Order = (int)reader["Order"];
                             questionStars.Id = id;                         
                             questionStars.Text = reader["Text"].ToString();
-
+                            questionStars.StarsNumber = (int)reader["StarsNumber"];
                             return questionStars;
 
                         }
                     }
-                        
-
-                   
-                    
-                    //if (rowsAffected > 0)
-                    //{
-                    //    // Row deleted successfully
-                    //    MessageBox.Show("Row deleted successfully.");
-                    //}
-                    //else
-                    //{
-                    //    // Row not found or not deleted
-                    //    MessageBox.Show("No rows deleted.");
-                    //}
+                           
                 }
             }
             catch (SqlException e)

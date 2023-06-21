@@ -22,15 +22,12 @@ namespace SurveyConfiguratorApp
         private DbQuestion dbQuestion;
         int questionId = -1;
         int questionType = -1;
-        private DataGridViewRow rowData;
+
         public FormMain()
         {
             InitializeComponent();
             dbQuestion = new DbQuestion();
             loadDataGridView();
-
-            rowData = new DataGridViewRow();
-
 
         }
 
@@ -73,7 +70,7 @@ namespace SurveyConfiguratorApp
             {
 
                 DataGridViewRow selectedRow = dataGridView.Rows[e.RowIndex];
-                rowData = selectedRow;
+
                 questionId = Convert.ToInt32(selectedRow.Cells["id"].Value);
                 questionType = Convert.ToInt32(selectedRow.Cells["typeNumber"].Value);
 
@@ -84,7 +81,6 @@ namespace SurveyConfiguratorApp
             {
                 //# Get the selected row
                 DataGridViewRow selectedRow = dataGridView.SelectedRows[0];
-                rowData = selectedRow;
                 //# Get the ID value from the selected row
                 questionId = Convert.ToInt32(selectedRow.Cells["id"].Value);
                 questionType = Convert.ToInt32(selectedRow.Cells["typeNumber"].Value);
@@ -95,7 +91,6 @@ namespace SurveyConfiguratorApp
             {
                 questionId = -1;
                 questionType = -1;
-                rowData = null;
 
             }
         }
@@ -119,20 +114,31 @@ namespace SurveyConfiguratorApp
         {
             if (questionType != -1 && questionId != -1)
             {
-                MessageBox.Show(rowData.Cells["id"].Value.ToString()
-                    + "\t" + rowData.Cells["text"].Value.ToString());
-                // dbQuestion.delete(questionId);
+
                 if (questionType == (int)QuestionTypes.FACES)
                 {
+                    DbQuestionFaces dbQuestionFaces = new DbQuestionFaces();
+                    QuestionFaces questionFaces = new QuestionFaces();
+
+                    questionFaces = dbQuestionFaces.read(questionId);
+                    if (questionFaces != null)
+                    {
+                        Form formFaces = new FormFacesQuestion(dbQuestionFaces.read(questionId));
+                        formFaces.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please Refresh the data and try again");
+                    }
 
                 }
                 else if (questionType == (int)QuestionTypes.STARS)
                 {
                     DbQuestionStars questionStars = new DbQuestionStars();
-                  
-                        Form formFaces = new FormStarsQuestion(true, questionStars.read(questionId));
-                        formFaces.ShowDialog();
-                    
+
+                    Form formStars = new FormStarsQuestion(questionStars.read(questionId));
+                    formStars.ShowDialog();
+
 
                 }
                 else if (questionType == (int)QuestionTypes.SLIDER)

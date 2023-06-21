@@ -16,8 +16,8 @@ namespace SurveyConfiguratorApp.UserController.Questions
 
 
         public delegate string CallBackHandleErrorMsg(int num);
-         
-        private bool isValidNumber=false;
+
+        private bool isValidNumber = false;
 
         private CallBackHandleErrorMsg callBackHandleErrorMsg;
         public UpDownWithLabelControl()
@@ -52,6 +52,14 @@ namespace SurveyConfiguratorApp.UserController.Questions
         public void setErrorText(string errorText)
         {
             labelErrorControl.setText(errorText);
+        }
+        public void setNumericValue(int value)
+        {
+            if (value > numericUpDown.Maximum || value < numericUpDown.Minimum)
+                numericUpDown.Value = numericUpDown.Minimum;
+
+
+            else numericUpDown.Value = value;
         }
 
 

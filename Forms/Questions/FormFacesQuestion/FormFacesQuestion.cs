@@ -1,4 +1,5 @@
 ﻿
+using SurveyConfiguratorApp.Database.Questions;
 using SurveyConfiguratorApp.Models.Questions;
 using SurveyConfiguratorApp.UserController.Questions;
 using System;
@@ -19,28 +20,39 @@ namespace SurveyConfiguratorApp.Forms
     public partial class FormFacesQuestion : Form
     {
         private QuestionValidation questionValidation;
-       
+        private bool isUpdate = false;
+
+        private QuestionFaces questionFaces;
         public FormFacesQuestion()
         {
             InitializeComponent();
+            questionFaces = new QuestionFaces();
+
             questionValidation = QuestionValidation.Instance();
 
             upDownWithLabelControl.setLabelTitle("Number Of Faces");
 
             upDownWithLabelControl.setInputMinValue(questionValidation.FacesMinValue);
             upDownWithLabelControl.setInputMaxValue(questionValidation.FacesMaxValue);
-           
+
             upDownWithLabelControl.clearErrorText();
 
             upDownWithLabelControl.setCallBackFunction(new CallBackHandleErrorMsg(questionValidation.facesHandleMsg));
             // upDownWithLabelControl.setCallBackFunction(questionValidation.facesHandleMsg);
-            
+
 
             sharedBetweenQuestions.clearLabelsText();
             sharedBetweenQuestions.setIsNotEmptyCallBack(new CallBackIsNotEmpty(questionValidation.handelQuestionText));
 
         }
-
+        public FormFacesQuestion(QuestionFaces questionFaces) : this()
+        {
+            isUpdate = true;
+            this.questionFaces = questionFaces;
+            sharedBetweenQuestions.setQuestionText(questionFaces.Text);
+            sharedBetweenQuestions.setQuestionOrderValue(questionFaces.Order);
+            buttonSave.Text = "Update";
+        }
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
 
@@ -53,19 +65,27 @@ namespace SurveyConfiguratorApp.Forms
 
         private void button2_Click(object sender, EventArgs e)
         {
-            bool isValidGeneralQuestions=sharedBetweenQuestions.isValidForm();
-            bool isValidFacesNumber= upDownWithLabelControl.isValidForm();
+            bool isValidGeneralQuestions = sharedBetweenQuestions.isValidForm();
+            bool isValidFacesNumber = upDownWithLabelControl.isValidForm();
             if (isValidGeneralQuestions && isValidFacesNumber)
             {
-                QuestionFaces questionFaces = new QuestionFaces();
-                questionFaces.Text = sharedBetweenQuestions.getQuestionText();
-                questionFaces.Order = Convert.ToInt32(sharedBetweenQuestions.getQuestionOrder());
-               
-                questionFaces.FacesNumber= upDownWithLabelControl.getFacesNumber();
-                questionFaces.add();
+                if (!isUpdate)
+                {
+                    QuestionFaces questionFaces = new QuestionFaces();
+                    questionFaces.Text = sharedBetweenQuestions.getQuestionText();
+                    questionFaces.Order = Convert.ToInt32(sharedBetweenQuestions.getQuestionOrder());
 
-                sharedBetweenQuestions.clearInputValues();
-                upDownWithLabelControl.clearInputValues();
+                    questionFaces.FacesNumber = upDownWithLabelControl.getFacesNumber();
+                    questionFaces.add();
+
+                    sharedBetweenQuestions.clearInputValues();
+                    upDownWithLabelControl.clearInputValues();
+                }
+                else
+                {
+
+                }
+
             }
         }
 
