@@ -11,12 +11,12 @@ namespace SurveyConfiguratorApp.Database
     {
         void create(T data);
         void update(T data);
-        void delete(T data);
+        void delete(int id);
         void read(T data);
     }
     public class DB
     {
-       protected SqlConnection conn;
+       public SqlConnection conn;
         //protected SqlCommand cmd;
         const string ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\a.al-muhaisen\source\repos\SurveyConfiguratorApp\Database\Surveydb.mdf;Integrated Security=True";
 

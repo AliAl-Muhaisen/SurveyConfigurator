@@ -52,7 +52,7 @@ namespace SurveyConfiguratorApp.Database.Questions
             //}
         }
 
-        public void delete(QuestionStars data)
+        public void delete(int id)
         {
             throw new NotImplementedException();
         }
@@ -62,7 +62,7 @@ namespace SurveyConfiguratorApp.Database.Questions
             throw new NotImplementedException();
         }
 
-        public void update(QuestionStars data)
+        public void update(QuestionStars questionStars)
         {
             throw new NotImplementedException();
         }

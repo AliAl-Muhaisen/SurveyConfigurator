@@ -120,5 +120,11 @@ namespace SurveyConfiguratorApp.UserController.Questions
 
             }
         }
+
+        public void clearInputValues()
+        {
+            textBoxQuestionText.Text = null;
+            numericUpDownQuestionOrder.Value = 1;
+        }
     }
 }

@@ -107,5 +107,11 @@ namespace SurveyConfiguratorApp.UserController.Questions
             return isValidNumber;
         }
 
+        public void clearInputValues()
+        {
+            numericUpDown.Value = numericUpDown.Minimum;
+
+        }
+
     }
 }

@@ -30,33 +30,36 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.panelSideBar = new System.Windows.Forms.Panel();
+            this.buttonLog = new System.Windows.Forms.Button();
+            this.buttonHome = new System.Windows.Forms.Button();
             this.panelColorBottom = new System.Windows.Forms.Panel();
             this.panelLog = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panelHeadreBar = new System.Windows.Forms.Panel();
             this.labelMainBarTitle = new System.Windows.Forms.Label();
             this.panelMain = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.buttonRefresh = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonUpdate = new System.Windows.Forms.Button();
             this.buttonAdd = new System.Windows.Forms.Button();
-            this.buttonHome = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.dividerPanelVerticalControl1 = new SurveyConfiguratorApp.UserController.Controllers.DividerPanelVerticalControl();
             this.panelSideBar.SuspendLayout();
             this.panelLog.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panelHeadreBar.SuspendLayout();
             this.panelMain.SuspendLayout();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // panelSideBar
             // 
             this.panelSideBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
+            this.panelSideBar.Controls.Add(this.buttonLog);
             this.panelSideBar.Controls.Add(this.buttonHome);
             this.panelSideBar.Controls.Add(this.panelColorBottom);
             this.panelSideBar.Controls.Add(this.panelLog);
@@ -64,8 +67,45 @@
             this.panelSideBar.Location = new System.Drawing.Point(0, 0);
             this.panelSideBar.Name = "panelSideBar";
             this.panelSideBar.Size = new System.Drawing.Size(161, 612);
-            this.panelSideBar.Size = new System.Drawing.Size(161, 612);
             this.panelSideBar.TabIndex = 0;
+            // 
+            // buttonLog
+            // 
+            this.buttonLog.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonLog.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.buttonLog.FlatAppearance.BorderSize = 0;
+            this.buttonLog.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonLog.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonLog.ForeColor = System.Drawing.SystemColors.Control;
+            this.buttonLog.Image = global::SurveyConfiguratorApp.Properties.Resources.files;
+            this.buttonLog.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonLog.Location = new System.Drawing.Point(0, 131);
+            this.buttonLog.Name = "buttonLog";
+            this.buttonLog.Padding = new System.Windows.Forms.Padding(7, 0, 0, 0);
+            this.buttonLog.Size = new System.Drawing.Size(161, 54);
+            this.buttonLog.TabIndex = 9;
+            this.buttonLog.Text = "Log";
+            this.buttonLog.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.buttonLog.UseVisualStyleBackColor = true;
+            // 
+            // buttonHome
+            // 
+            this.buttonHome.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonHome.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.buttonHome.FlatAppearance.BorderSize = 0;
+            this.buttonHome.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonHome.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonHome.ForeColor = System.Drawing.SystemColors.Control;
+            this.buttonHome.Image = global::SurveyConfiguratorApp.Properties.Resources.home;
+            this.buttonHome.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonHome.Location = new System.Drawing.Point(0, 77);
+            this.buttonHome.Name = "buttonHome";
+            this.buttonHome.Padding = new System.Windows.Forms.Padding(7, 0, 0, 0);
+            this.buttonHome.Size = new System.Drawing.Size(161, 54);
+            this.buttonHome.TabIndex = 2;
+            this.buttonHome.Text = "Home";
+            this.buttonHome.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.buttonHome.UseVisualStyleBackColor = true;
             // 
             // panelColorBottom
             // 
@@ -73,9 +113,7 @@
             this.panelColorBottom.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.panelColorBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelColorBottom.Location = new System.Drawing.Point(0, 512);
-            this.panelColorBottom.Location = new System.Drawing.Point(0, 512);
             this.panelColorBottom.Name = "panelColorBottom";
-            this.panelColorBottom.Size = new System.Drawing.Size(161, 100);
             this.panelColorBottom.Size = new System.Drawing.Size(161, 100);
             this.panelColorBottom.TabIndex = 1;
             // 
@@ -108,9 +146,7 @@
             this.panelHeadreBar.Controls.Add(this.labelMainBarTitle);
             this.panelHeadreBar.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelHeadreBar.Location = new System.Drawing.Point(161, 0);
-            this.panelHeadreBar.Location = new System.Drawing.Point(161, 0);
             this.panelHeadreBar.Name = "panelHeadreBar";
-            this.panelHeadreBar.Size = new System.Drawing.Size(928, 77);
             this.panelHeadreBar.Size = new System.Drawing.Size(928, 77);
             this.panelHeadreBar.TabIndex = 1;
             // 
@@ -120,9 +156,7 @@
             this.labelMainBarTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelMainBarTitle.ForeColor = System.Drawing.SystemColors.Control;
             this.labelMainBarTitle.Location = new System.Drawing.Point(368, 20);
-            this.labelMainBarTitle.Location = new System.Drawing.Point(368, 20);
             this.labelMainBarTitle.Name = "labelMainBarTitle";
-            this.labelMainBarTitle.Size = new System.Drawing.Size(86, 31);
             this.labelMainBarTitle.Size = new System.Drawing.Size(86, 31);
             this.labelMainBarTitle.TabIndex = 0;
             this.labelMainBarTitle.Text = "Home";
@@ -134,34 +168,11 @@
             this.panelMain.Controls.Add(this.panel1);
             this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMain.Location = new System.Drawing.Point(161, 77);
-            this.panelMain.Location = new System.Drawing.Point(161, 77);
             this.panelMain.Name = "panelMain";
-            this.panelMain.Padding = new System.Windows.Forms.Padding(50, 0, 0, 0);
-            this.panelMain.Size = new System.Drawing.Size(928, 535);
             this.panelMain.Padding = new System.Windows.Forms.Padding(50, 0, 0, 0);
             this.panelMain.Size = new System.Drawing.Size(928, 535);
             this.panelMain.TabIndex = 2;
             this.panelMain.Paint += new System.Windows.Forms.PaintEventHandler(this.panelMain_Paint);
-            // 
-            // dataGridView
-            // 
-            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView.Name = "dataGridView";
-            this.dataGridView.Size = new System.Drawing.Size(691, 535);
-            this.dataGridView.TabIndex = 1;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.buttonDelete);
-            this.panel1.Controls.Add(this.buttonUpdate);
-            this.panel1.Controls.Add(this.buttonAdd);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(741, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(187, 535);
-            this.panel1.TabIndex = 2;
             // 
             // panel2
             // 
@@ -171,6 +182,54 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(691, 535);
             this.panel2.TabIndex = 3;
+            // 
+            // dataGridView
+            // 
+            this.dataGridView.AllowUserToAddRows = false;
+            this.dataGridView.AllowUserToDeleteRows = false;
+            this.dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView.MultiSelect = false;
+            this.dataGridView.Name = "dataGridView";
+            this.dataGridView.ReadOnly = true;
+            this.dataGridView.Size = new System.Drawing.Size(691, 535);
+            this.dataGridView.TabIndex = 1;
+            this.dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellClick);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.buttonRefresh);
+            this.panel1.Controls.Add(this.buttonDelete);
+            this.panel1.Controls.Add(this.buttonUpdate);
+            this.panel1.Controls.Add(this.buttonAdd);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel1.Location = new System.Drawing.Point(741, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(187, 535);
+            this.panel1.TabIndex = 2;
+            // 
+            // buttonRefresh
+            // 
+            this.buttonRefresh.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonRefresh.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.buttonRefresh.FlatAppearance.BorderSize = 0;
+            this.buttonRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonRefresh.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonRefresh.ForeColor = System.Drawing.SystemColors.Control;
+            this.buttonRefresh.Image = global::SurveyConfiguratorApp.Properties.Resources.refresh1;
+            this.buttonRefresh.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonRefresh.Location = new System.Drawing.Point(0, 162);
+            this.buttonRefresh.Name = "buttonRefresh";
+            this.buttonRefresh.Padding = new System.Windows.Forms.Padding(7, 0, 0, 0);
+            this.buttonRefresh.Size = new System.Drawing.Size(187, 54);
+            this.buttonRefresh.TabIndex = 9;
+            this.buttonRefresh.Text = "Refresh";
+            this.buttonRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.buttonRefresh.UseVisualStyleBackColor = true;
+            this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
             // 
             // buttonDelete
             // 
@@ -190,6 +249,7 @@
             this.buttonDelete.Text = "Delete";
             this.buttonDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
             // buttonUpdate
             // 
@@ -230,37 +290,6 @@
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
-            // buttonHome
-            // 
-            this.buttonHome.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonHome.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.buttonHome.FlatAppearance.BorderSize = 0;
-            this.buttonHome.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonHome.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonHome.ForeColor = System.Drawing.SystemColors.Control;
-            this.buttonHome.Image = global::SurveyConfiguratorApp.Properties.Resources.home;
-            this.buttonHome.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonHome.Location = new System.Drawing.Point(0, 77);
-            this.buttonHome.Name = "buttonHome";
-            this.buttonHome.Padding = new System.Windows.Forms.Padding(7, 0, 0, 0);
-            this.buttonHome.Size = new System.Drawing.Size(161, 54);
-            this.buttonHome.TabIndex = 2;
-            this.buttonHome.Text = "Home";
-            this.buttonHome.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.buttonHome.UseVisualStyleBackColor = true;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Image = global::SurveyConfiguratorApp.Properties.Resources.surveyor;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(161, 77);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            // 
             // dividerPanelVerticalControl1
             // 
             this.dividerPanelVerticalControl1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
@@ -285,13 +314,13 @@
             this.Text = "Form1";
             this.panelSideBar.ResumeLayout(false);
             this.panelLog.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panelHeadreBar.ResumeLayout(false);
             this.panelHeadreBar.PerformLayout();
             this.panelMain.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.panel1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -313,6 +342,8 @@
         private System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.Button buttonDelete;
         private UserController.Controllers.DividerPanelVerticalControl dividerPanelVerticalControl1;
+        private System.Windows.Forms.Button buttonRefresh;
+        private System.Windows.Forms.Button buttonLog;
     }
 }
 
