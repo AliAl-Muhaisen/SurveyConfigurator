@@ -20,20 +20,20 @@ namespace SurveyConfiguratorApp.Models.Questions
 
             TypeNumber = (int)QuestionTypes.SLIDER;
         }
-        public override void add()
+        public override bool add()
         {
-            dbQuestionSlider.create(this);
+            return dbQuestionSlider.create(this);
 
         }
 
-        public override void delete()
+        public override bool delete()
         {
             throw new NotImplementedException();
         }
 
-        public override void update()
+        public override bool update()
         {
-            dbQuestionSlider.update(this);
+           return dbQuestionSlider.update(this);
         }
     }
 }

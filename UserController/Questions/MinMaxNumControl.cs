@@ -100,7 +100,7 @@ namespace SurveyConfiguratorApp.UserController.Questions
 
             }
 
-            else if (numericUpDownStart.Value == numericUpDownStart.Minimum)
+            else if (numericUpDownStart.Value < numericUpDownStart.Minimum)
             {
                 setLabelErrorMin("number must be greater than or equal " + numericUpDownStart.Minimum);
 

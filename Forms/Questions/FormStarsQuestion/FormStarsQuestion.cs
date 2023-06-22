@@ -39,7 +39,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             //upDownWithLabelControl.setCallBackFunction(questionValidation.starsHandleMsg);
             upDownWithLabelControl1.setCallBackFunction(new CallBackHandleErrorMsg(questionValidation.facesHandleMsg));
 
-            sharedBetweenQuestions1.clearLabelsText();
+            sharedBetweenQuestions1.clearErrorLabelsText();
             sharedBetweenQuestions1.setIsNotEmptyCallBack(new CallBackIsNotEmpty(questionValidation.handelQuestionText));
             sharedBetweenQuestions1.setCallBackIsOrderAlreadyExists(new CallBackIsOrderAlreadyExists(questionValidation.isOrderAlreadyExists));
 
@@ -96,20 +96,28 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 questionStars.Order = Convert.ToInt32(sharedBetweenQuestions1.getQuestionOrder());
 
                 questionStars.StarsNumber = upDownWithLabelControl1.getFacesNumber();
+
+                bool result = false;
                 if (!isUpdate)
                 {
-
-                    questionStars.add();
-
-                    upDownWithLabelControl1.clearInputValues();
-                    sharedBetweenQuestions1.clearInputValues();
-                    upDownWithLabelControl1.clearErrorText();
-                    sharedBetweenQuestions1.clearLabelsText();
+                   result=questionStars.add(); 
+                    customMessageBoxControl1.sqlInsert(result);
+                    if (result)
+                    {
+                        upDownWithLabelControl1.clearInputValues();
+                        sharedBetweenQuestions1.clearInputValues();
+                        upDownWithLabelControl1.clearErrorText();
+                        sharedBetweenQuestions1.clearErrorLabelsText();
+                    }
                 }
                 else
                 {
-                    questionStars.update();
+                    result= questionStars.update();
+                    customMessageBoxControl1.sqlUpdate(result);
+                    sharedBetweenQuestions1.setOldOrder(questionStars.Order);
                 }
+
+               
 
             }
 
@@ -123,6 +131,11 @@ namespace SurveyConfiguratorApp.Forms.Questions
         }
 
         private void sharedBetweenQuestions1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel3_Paint(object sender, PaintEventArgs e)
         {
 
         }

@@ -30,15 +30,14 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormFacesQuestion));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.customMessageBoxControl1 = new SurveyConfiguratorApp.UserController.Controllers.CustomMessageBoxControl();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.buttonSave = new System.Windows.Forms.Button();
             this.dividerPanelControl2 = new SurveyConfiguratorApp.UserController.Controllers.DividerPanelControl();
             this.upDownWithLabelControl = new SurveyConfiguratorApp.UserController.Questions.UpDownWithLabelControl();
             this.dividerPanelVerticalControl1 = new SurveyConfiguratorApp.UserController.Controllers.DividerPanelVerticalControl();
             this.dividerPanelControl1 = new SurveyConfiguratorApp.UserController.Controllers.DividerPanelControl();
             this.sharedBetweenQuestions = new SurveyConfiguratorApp.UserController.Questions.SharedBetweenQuestions();
-
-
-            this.panel2 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -46,15 +45,34 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(41)))), ((int)(((byte)(41)))));
+            this.panel1.Controls.Add(this.customMessageBoxControl1);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.dividerPanelControl2);
             this.panel1.Controls.Add(this.upDownWithLabelControl);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 224);
+            this.panel1.Location = new System.Drawing.Point(0, 275);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(800, 226);
+            this.panel1.Size = new System.Drawing.Size(1067, 279);
             this.panel1.TabIndex = 3;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // customMessageBoxControl1
+            // 
+            this.customMessageBoxControl1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.customMessageBoxControl1.Location = new System.Drawing.Point(1056, 266);
+            this.customMessageBoxControl1.Name = "customMessageBoxControl1";
+            this.customMessageBoxControl1.Size = new System.Drawing.Size(0, 0);
+            this.customMessageBoxControl1.TabIndex = 11;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.buttonSave);
+            this.panel2.Location = new System.Drawing.Point(756, 140);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(267, 123);
+            this.panel2.TabIndex = 10;
             // 
             // buttonSave
             // 
@@ -68,10 +86,11 @@
             this.buttonSave.ForeColor = System.Drawing.SystemColors.ControlDark;
             this.buttonSave.Image = global::SurveyConfiguratorApp.Properties.Resources.save_instagram;
             this.buttonSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonSave.Location = new System.Drawing.Point(44, 23);
+            this.buttonSave.Location = new System.Drawing.Point(59, 28);
+            this.buttonSave.Margin = new System.Windows.Forms.Padding(4);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Padding = new System.Windows.Forms.Padding(7, 0, 0, 0);
-            this.buttonSave.Size = new System.Drawing.Size(113, 53);
+            this.buttonSave.Padding = new System.Windows.Forms.Padding(9, 0, 0, 0);
+            this.buttonSave.Size = new System.Drawing.Size(172, 65);
             this.buttonSave.TabIndex = 9;
             this.buttonSave.Text = "Save";
             this.buttonSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -81,9 +100,10 @@
             // dividerPanelControl2
             // 
             this.dividerPanelControl2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.dividerPanelControl2.Location = new System.Drawing.Point(0, 105);
+            this.dividerPanelControl2.Location = new System.Drawing.Point(0, 129);
+            this.dividerPanelControl2.Margin = new System.Windows.Forms.Padding(5);
             this.dividerPanelControl2.Name = "dividerPanelControl2";
-            this.dividerPanelControl2.Size = new System.Drawing.Size(800, 11);
+            this.dividerPanelControl2.Size = new System.Drawing.Size(1067, 14);
             this.dividerPanelControl2.TabIndex = 8;
             // 
             // upDownWithLabelControl
@@ -91,29 +111,29 @@
             this.upDownWithLabelControl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.upDownWithLabelControl.Dock = System.Windows.Forms.DockStyle.Top;
             this.upDownWithLabelControl.Location = new System.Drawing.Point(0, 0);
-            this.upDownWithLabelControl.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.upDownWithLabelControl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.upDownWithLabelControl.Name = "upDownWithLabelControl";
-            this.upDownWithLabelControl.Padding = new System.Windows.Forms.Padding(8, 8, 22, 8);
-            this.upDownWithLabelControl.Size = new System.Drawing.Size(800, 105);
+            this.upDownWithLabelControl.Padding = new System.Windows.Forms.Padding(11, 10, 29, 10);
+            this.upDownWithLabelControl.Size = new System.Drawing.Size(1067, 129);
             this.upDownWithLabelControl.TabIndex = 7;
             // 
             // dividerPanelVerticalControl1
             // 
             this.dividerPanelVerticalControl1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.dividerPanelVerticalControl1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.dividerPanelVerticalControl1.Location = new System.Drawing.Point(774, 224);
-            this.dividerPanelVerticalControl1.Margin = new System.Windows.Forms.Padding(4);
+            this.dividerPanelVerticalControl1.Location = new System.Drawing.Point(1032, 275);
+            this.dividerPanelVerticalControl1.Margin = new System.Windows.Forms.Padding(5);
             this.dividerPanelVerticalControl1.Name = "dividerPanelVerticalControl1";
-            this.dividerPanelVerticalControl1.Size = new System.Drawing.Size(26, 226);
+            this.dividerPanelVerticalControl1.Size = new System.Drawing.Size(35, 279);
             this.dividerPanelVerticalControl1.TabIndex = 2;
             // 
             // dividerPanelControl1
             // 
             this.dividerPanelControl1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.dividerPanelControl1.Location = new System.Drawing.Point(0, 192);
-            this.dividerPanelControl1.Margin = new System.Windows.Forms.Padding(4);
+            this.dividerPanelControl1.Location = new System.Drawing.Point(0, 236);
+            this.dividerPanelControl1.Margin = new System.Windows.Forms.Padding(5);
             this.dividerPanelControl1.Name = "dividerPanelControl1";
-            this.dividerPanelControl1.Size = new System.Drawing.Size(800, 32);
+            this.dividerPanelControl1.Size = new System.Drawing.Size(1067, 39);
             this.dividerPanelControl1.TabIndex = 2;
             // 
             // sharedBetweenQuestions
@@ -121,29 +141,22 @@
             this.sharedBetweenQuestions.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(41)))), ((int)(((byte)(41)))));
             this.sharedBetweenQuestions.Dock = System.Windows.Forms.DockStyle.Top;
             this.sharedBetweenQuestions.Location = new System.Drawing.Point(0, 0);
-            this.sharedBetweenQuestions.Margin = new System.Windows.Forms.Padding(4);
+            this.sharedBetweenQuestions.Margin = new System.Windows.Forms.Padding(5);
             this.sharedBetweenQuestions.Name = "sharedBetweenQuestions";
-            this.sharedBetweenQuestions.Size = new System.Drawing.Size(800, 192);
+            this.sharedBetweenQuestions.Size = new System.Drawing.Size(1067, 236);
             this.sharedBetweenQuestions.TabIndex = 1;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.buttonSave);
-            this.panel2.Location = new System.Drawing.Point(567, 114);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(200, 100);
-            this.panel2.TabIndex = 10;
             // 
             // FormFacesQuestion
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1067, 554);
             this.Controls.Add(this.dividerPanelVerticalControl1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dividerPanelControl1);
             this.Controls.Add(this.sharedBetweenQuestions);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormFacesQuestion";
             this.Text = "FormFaces";
             this.panel1.ResumeLayout(false);
@@ -163,5 +176,6 @@
         private UserController.Controllers.DividerPanelControl dividerPanelControl2;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Panel panel2;
+        private UserController.Controllers.CustomMessageBoxControl customMessageBoxControl1;
     }
 }

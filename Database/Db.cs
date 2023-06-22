@@ -11,9 +11,9 @@ namespace SurveyConfiguratorApp.Database
 {
     public interface ICRUD<T>
     {
-        void create(T data);
-        void update(T data);
-        void delete(int id);
+        bool create(T data);
+        bool update(T data);
+        bool delete(int id);
         T read(int id);
     }
     public class DB

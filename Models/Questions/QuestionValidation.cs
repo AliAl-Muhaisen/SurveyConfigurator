@@ -11,7 +11,7 @@ namespace SurveyConfiguratorApp.Models.Questions
     /// <summary>
     /// [Singleton Class] 
     /// 
-    /// To Read more Singleton https://www.c-sharpcorner.com/UploadFile/8911c4/singleton-design-pattern-in-C-Sharp/
+    /// To Read more about Singleton https://www.c-sharpcorner.com/UploadFile/8911c4/singleton-design-pattern-in-C-Sharp/
     /// </summary>
     public class QuestionValidation
     {

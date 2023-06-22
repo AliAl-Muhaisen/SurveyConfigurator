@@ -12,9 +12,9 @@ namespace SurveyConfiguratorApp.Models.Questions
 {
     public interface IQuestion<T>
     {
-         void add();
-         void delete();
-         void update();
+         bool add();
+         bool delete();
+         bool update();
     }
 
     public class Question:IQuestion<Question>
@@ -47,18 +47,19 @@ namespace SurveyConfiguratorApp.Models.Questions
          
         }
 
-        public virtual void add()
+        public virtual bool add()
         {
-            dbQuestion.create(this);
+           return dbQuestion.create(this);
         }
 
-        public virtual void delete()
+        public virtual bool delete()
         {
             throw new NotImplementedException();
         }
 
-        public virtual void update()
+        public virtual bool update()
         {
-            }
+            return dbQuestion.update(this);
+        }
     }
 }

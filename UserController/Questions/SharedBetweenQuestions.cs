@@ -112,7 +112,7 @@ namespace SurveyConfiguratorApp.UserController.Questions
 
         //! End Question Order Error Label
 
-        public void clearLabelsText()
+        public void clearErrorLabelsText()
         {
             labelErrorQuestionOrder.clearText();
             labelErrorQuestionText.clearText();
@@ -187,6 +187,7 @@ namespace SurveyConfiguratorApp.UserController.Questions
         public void setOldOrder(int value)
         {
             oldOrder = value;
+            handleOrderValue();
         }
     }
 }

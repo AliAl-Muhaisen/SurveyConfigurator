@@ -14,40 +14,42 @@ namespace SurveyConfiguratorApp.Database.Questions
         private const string tableName = "QuestionSlider";
         static public string TableName { get { return tableName; } }
 
-        public void create(QuestionSlider data)
+        public bool create(QuestionSlider data)
         {
             try
             {
                 base.create(data);
-            int questionId = base.getLastId();
-            using (SqlCommand cmd = new SqlCommand())
-            {
-                base.OpenConnection();
+                int questionId = base.getLastId();
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    base.OpenConnection();
 
-                cmd.Connection = base.conn;
-
-
-
-                cmd.CommandText = "INSERT INTO [QuestionSlider] ([QuestionId],[StartValue],[EndValue],[EndCaption],[StartCaption]) VALUES (@QuestionId,@StartValue,@EndValue,@EndCaption,@StartCaption);";
-
-                cmd.Parameters.AddWithValue("@QuestionId", questionId);
-                cmd.Parameters.AddWithValue("@StartValue", data.StartValue);
-                cmd.Parameters.AddWithValue("@EndValue", data.EndValue);
-                cmd.Parameters.AddWithValue("@EndCaption", data.EndCaption);
-                cmd.Parameters.AddWithValue("@StartCaption", data.StartCaption);
+                    cmd.Connection = base.conn;
 
 
 
-                cmd.ExecuteNonQuery();
+                    cmd.CommandText = "INSERT INTO [QuestionSlider] ([QuestionId],[StartValue],[EndValue],[EndCaption],[StartCaption]) VALUES (@QuestionId,@StartValue,@EndValue,@EndCaption,@StartCaption);";
+
+                    cmd.Parameters.AddWithValue("@QuestionId", questionId);
+                    cmd.Parameters.AddWithValue("@StartValue", data.StartValue);
+                    cmd.Parameters.AddWithValue("@EndValue", data.EndValue);
+                    cmd.Parameters.AddWithValue("@EndCaption", data.EndCaption);
+                    cmd.Parameters.AddWithValue("@StartCaption", data.StartCaption);
 
 
 
-            }
+                    int rowAffected = cmd.ExecuteNonQuery();
+                    if (rowAffected > 0)
+                    {
+                        return true;
+                    }
+
+
+                }
 
             }
             catch (SqlException e)
             {
-                MessageBox.Show("create record Failed " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 //throw;
                 //TODO:user log here
@@ -56,9 +58,11 @@ namespace SurveyConfiguratorApp.Database.Questions
             {
                 base.CloseConnection();
             }
+            return false;
+
         }
 
-        public void delete(int id)
+        public bool delete(int id)
         {
             throw new NotImplementedException();
         }
@@ -106,7 +110,7 @@ namespace SurveyConfiguratorApp.Database.Questions
             return null;
         }
 
-        public void update(QuestionSlider questionSlider)
+        public bool update(QuestionSlider questionSlider)
         {
             using (SqlCommand command = new SqlCommand())
             {
@@ -129,21 +133,22 @@ namespace SurveyConfiguratorApp.Database.Questions
                     if (rowsAffected <= 0)
                     {
                         // Row not found or not updated
-                        MessageBox.Show("No rows updated for Question");
-                        return;
+                        return false;
                     }
                     base.CloseConnection();
-                    base.update(questionSlider);
+
+                    return true && base.update(questionSlider);
                 }
                 catch (SqlException ex)
                 {
                     // Handle any SQL errors
-                    MessageBox.Show("Error updating row: " + ex.Message);
                 }
                 finally
                 {
                     base.CloseConnection();
                 }
+                return false;
+
 
             }
 

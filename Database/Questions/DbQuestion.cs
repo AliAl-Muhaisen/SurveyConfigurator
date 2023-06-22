@@ -15,9 +15,9 @@ namespace SurveyConfiguratorApp.Database.Questions
     {
 
         public DbQuestion() : base() { }
-       
 
-        public void create(Question data)
+
+        public bool create(Question data)
         {
             try
             {
@@ -28,28 +28,39 @@ namespace SurveyConfiguratorApp.Database.Questions
                     cmd.Connection = base.conn;
                     cmd.CommandText = "INSERT INTO [Question] ([Order],[Text],[TypeNumber]) VALUES (@Order,@Text,@TypeNumber);";
 
-                cmd.Parameters.AddWithValue("@Order", data.Order);
-                cmd.Parameters.AddWithValue("@Text", data.Text);
-                cmd.Parameters.AddWithValue("@TypeNumber", data.TypeNumber);
-                cmd.ExecuteNonQuery();
+                    cmd.Parameters.AddWithValue("@Order", data.Order);
+                    cmd.Parameters.AddWithValue("@Text", data.Text);
+                    cmd.Parameters.AddWithValue("@TypeNumber", data.TypeNumber);
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    if (rowsAffected > 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
                 }
 
             }
             catch (SqlException e)
             {
 
-                MessageBox.Show("Error " + e.Message,"ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+              
+                return false;
                 //TODO:user log here
             }
             finally
             {
                 base.CloseConnection();
             }
+
         }
 
-       
 
-        public void delete(int id)
+
+        public bool delete(int id)
         {
 
             try
@@ -60,30 +71,36 @@ namespace SurveyConfiguratorApp.Database.Questions
                 {
                     cmd.Connection = base.conn;
                     cmd.CommandText = $"DELETE FROM [Question] WHERE [Id]={id};";
-                   int rowsAffected =  cmd.ExecuteNonQuery();
-                    
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
 
                     if (rowsAffected > 0)
                     {
                         // Row deleted successfully
                         MessageBox.Show("Row deleted successfully.");
+                        return true;
+
                     }
                     else
                     {
                         // Row not found or not deleted
                         MessageBox.Show("No rows deleted.");
+                        return false;
+
                     }
                 }
             }
-            catch(SqlException  e)
+            catch (SqlException e)
             {
                 //TODO:add log here
                 //!Error deleting row
+                return false;
+
             }
             finally { base.CloseConnection(); }
         }
 
-      
+
 
         public Question read(int id)
         {
@@ -120,12 +137,12 @@ namespace SurveyConfiguratorApp.Database.Questions
         }
 
 
-        public void update(Question question)
+        public bool update(Question question)
         {
             base.OpenConnection();
             using (SqlCommand command = new SqlCommand())
             {
-                command.Connection= base.conn;
+                command.Connection = base.conn;
                 command.CommandText = $"UPDATE [Question] SET [Text] = @Text,[Order]=@Order WHERE [Id] = @Id";
 
                 command.Parameters.AddWithValue("@Text", question.Text);
@@ -134,41 +151,44 @@ namespace SurveyConfiguratorApp.Database.Questions
 
                 try
                 {
-                   
+
                     int rowsAffected = command.ExecuteNonQuery();
 
                     if (rowsAffected > 0)
                     {
                         // Row updated successfully
-                        MessageBox.Show("Row updated successfully.");
+                        return true;
                     }
                     else
                     {
                         // Row not found or not updated
-                        MessageBox.Show("No rows updated for Question");
+                        return false;
                     }
                 }
                 catch (SqlException ex)
                 {
                     // Handle any SQL errors
                     //TODO:use log here
-                    MessageBox.Show("Error updating row: " + ex.Message);
+                   
+                    return false;
+
                 }
                 finally
                 {
                     base.CloseConnection();
                 }
+
             }
 
         }
 
-        public static bool isOrderAlreadyExists(int order, int oldOrder=-1)
+        public static bool isOrderAlreadyExists(int order, int oldOrder = -1)
         {
             DbQuestion dbQuestion = new DbQuestion();
             try
             {
                 dbQuestion.OpenConnection();
-                using (SqlCommand cmd=new SqlCommand())
+                using (SqlCommand cmd = new SqlCommand())
                 {
                     cmd.Connection = dbQuestion.conn;
                     cmd.CommandText = "SELECT [Order] FROM [Question] WHERE ([Order] = @order AND [Order]!= @oldOrder);";
@@ -183,7 +203,6 @@ namespace SurveyConfiguratorApp.Database.Questions
             {
                 // Handle any SQL errors
                 //TODO:use log here
-                MessageBox.Show("Error updating row: " + ex.Message);
             }
             finally
             {
@@ -198,7 +217,7 @@ namespace SurveyConfiguratorApp.Database.Questions
             {
                 using (SqlCommand cmd = new SqlCommand())
                 {
-                    base.OpenConnection() ;
+                    base.OpenConnection();
                     cmd.Connection = base.conn;
                     cmd.CommandText = "SELECT MAX(id) as MaxId FROM [Question]; ";
                     SqlDataReader dr = cmd.ExecuteReader();
@@ -210,12 +229,12 @@ namespace SurveyConfiguratorApp.Database.Questions
             {
                 // Handle any SQL errors
                 //TODO:use log here
-                MessageBox.Show("Error updating row: " + ex.Message);
+               
             }
             finally
             {
-                base.CloseConnection() ;
-               
+                base.CloseConnection();
+
             }
             return 1;//TODO:!I will review this later :)
         }

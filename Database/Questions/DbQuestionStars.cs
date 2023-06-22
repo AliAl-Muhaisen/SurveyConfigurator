@@ -12,57 +12,60 @@ namespace SurveyConfiguratorApp.Database.Questions
     public class DbQuestionStars : DbQuestion, ICRUD<QuestionStars>
     {
         private const string tableName = "QuestionStars";
-        public DbQuestionStars():base() { }
+        public DbQuestionStars() : base() { }
 
         static public string TableName { get { return tableName; } }
-        public void create(QuestionStars data)
+        public bool create(QuestionStars data)
         {
             try
             {
                 base.create(data);
-            int questionId = base.getLastId();
-            using (SqlCommand cmd = new SqlCommand())
-            {
-                base.OpenConnection();
+                int questionId = base.getLastId();
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    base.OpenConnection();
 
-                cmd.Connection = base.conn;
-
-
-
-                cmd.CommandText = "INSERT INTO [QuestionStars] ([QuestionId],[StarsNumber]) VALUES (@QuestionId,@StarsNumber);";
-
-                cmd.Parameters.AddWithValue("@QuestionId", questionId);
-                cmd.Parameters.AddWithValue("@StarsNumber", data.StarsNumber);
+                    cmd.Connection = base.conn;
 
 
 
-                cmd.ExecuteNonQuery();
+                    cmd.CommandText = "INSERT INTO [QuestionStars] ([QuestionId],[StarsNumber]) VALUES (@QuestionId,@StarsNumber);";
+
+                    cmd.Parameters.AddWithValue("@QuestionId", questionId);
+                    cmd.Parameters.AddWithValue("@StarsNumber", data.StarsNumber);
 
 
 
-            }
+                    int rowAffected = cmd.ExecuteNonQuery();
+                    if (rowAffected > 0)
+                    {
+                        return true;
+                    }
+
+
+                }
 
             }
             catch (SqlException ex)
             {
 
-                MessageBox.Show("Error creating row: " + ex.Message);
                 //TODO:user log here
             }
             finally
             {
                 base.CloseConnection();
             }
+            return false;
         }
 
-        public void delete(int id)
+        public bool delete(int id)
         {
             throw new NotImplementedException();
         }
 
         public QuestionStars read(int id)
-        { 
-            
+        {
+
             try
             {
                 QuestionStars questionStars = new QuestionStars();
@@ -74,35 +77,36 @@ namespace SurveyConfiguratorApp.Database.Questions
                     cmd.CommandText = $"SELECT [Text],[StarsNumber],[Order] FROM Question as q  INNER JOIN QuestionStars as s ON q.id=s.QuestionId WHERE q.Id={id};";
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        if(reader.Read())
+                        if (reader.Read())
                         {
                             questionStars.Order = (int)reader["Order"];
-                            questionStars.Id = id;                         
+                            questionStars.Id = id;
                             questionStars.Text = reader["Text"].ToString();
                             questionStars.StarsNumber = (int)reader["StarsNumber"];
                             return questionStars;
 
                         }
                     }
-                           
+
                 }
             }
             catch (SqlException e)
             {
                 //TODO:add log here
                 //!Error deleting row
-                MessageBox.Show("Error While fetch data "+e.Message,"ERROR",MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
-            finally { base.CloseConnection();
-               
+            finally
+            {
+                base.CloseConnection();
+
             }
             return null;
         }
 
-        public void update(QuestionStars questionStars)
+        public bool update(QuestionStars questionStars)
         {
             using (SqlCommand command = new SqlCommand())
-            {  
+            {
                 base.OpenConnection();
                 command.Connection = base.conn;
                 command.CommandText = $"UPDATE [{TableName}] SET [StarsNumber] = @StarsNumber WHERE [questionId] = @Id";
@@ -112,28 +116,30 @@ namespace SurveyConfiguratorApp.Database.Questions
 
                 try
                 {
-                  
+
                     int rowsAffected = command.ExecuteNonQuery();
 
-                    if (rowsAffected <=0)
+                    if (rowsAffected <= 0)
                     {
                         // Row not found or not updated
-                        MessageBox.Show("No rows updated for Question");
-                        return;
+                        return false;
                     }
-                   
+
                     base.CloseConnection();
-                    base.update(questionStars);
+
+                    return true && base.update(questionStars);
+
                 }
                 catch (SqlException ex)
                 {
                     // Handle any SQL errors
-                    MessageBox.Show("Error updating row: " + ex.Message);
                 }
                 finally
                 {
                     base.CloseConnection();
                 }
+                return false;
+
 
             }
         }

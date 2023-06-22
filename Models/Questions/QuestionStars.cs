@@ -15,19 +15,19 @@ namespace SurveyConfiguratorApp.Models.Questions
             dbQuestionStars=new DbQuestionStars();
             TypeNumber = (int)QuestionTypes.STARS;
         }
-        public override void add()
+        public override bool add()
         {
-            dbQuestionStars.create(this);
+            return dbQuestionStars.create(this);
         }
 
-        public override void delete()
+        public override bool delete()
         {
             throw new NotImplementedException();
         }
 
-        public override void update()
+        public override bool update()
         {
-            dbQuestionStars.update(this);
+           return dbQuestionStars.update(this);
         }
     }
 }

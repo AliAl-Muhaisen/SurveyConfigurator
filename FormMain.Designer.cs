@@ -36,7 +36,6 @@
             this.panelLog = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panelHeadreBar = new System.Windows.Forms.Panel();
-            this.dividerPanelVerticalControl1 = new SurveyConfiguratorApp.UserController.Controllers.DividerPanelVerticalControl();
             this.labelMainBarTitle = new System.Windows.Forms.Label();
             this.panelMain = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -46,6 +45,7 @@
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonUpdate = new System.Windows.Forms.Button();
             this.buttonAdd = new System.Windows.Forms.Button();
+            this.dividerPanelVerticalControl1 = new SurveyConfiguratorApp.UserController.Controllers.DividerPanelVerticalControl();
             this.panelSideBar.SuspendLayout();
             this.panelLog.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -65,14 +65,16 @@
             this.panelSideBar.Controls.Add(this.panelLog);
             this.panelSideBar.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelSideBar.Location = new System.Drawing.Point(0, 0);
-            this.panelSideBar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panelSideBar.Margin = new System.Windows.Forms.Padding(4);
             this.panelSideBar.Name = "panelSideBar";
             this.panelSideBar.Size = new System.Drawing.Size(215, 753);
             this.panelSideBar.TabIndex = 0;
             // 
             // buttonLog
             // 
+            this.buttonLog.Cursor = System.Windows.Forms.Cursors.No;
             this.buttonLog.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonLog.Enabled = false;
             this.buttonLog.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.buttonLog.FlatAppearance.BorderSize = 0;
             this.buttonLog.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -81,7 +83,7 @@
             this.buttonLog.Image = global::SurveyConfiguratorApp.Properties.Resources.files;
             this.buttonLog.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonLog.Location = new System.Drawing.Point(0, 161);
-            this.buttonLog.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonLog.Margin = new System.Windows.Forms.Padding(4);
             this.buttonLog.Name = "buttonLog";
             this.buttonLog.Padding = new System.Windows.Forms.Padding(9, 0, 0, 0);
             this.buttonLog.Size = new System.Drawing.Size(215, 66);
@@ -92,6 +94,7 @@
             // 
             // buttonHome
             // 
+            this.buttonHome.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonHome.Dock = System.Windows.Forms.DockStyle.Top;
             this.buttonHome.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.buttonHome.FlatAppearance.BorderSize = 0;
@@ -101,7 +104,7 @@
             this.buttonHome.Image = global::SurveyConfiguratorApp.Properties.Resources.home;
             this.buttonHome.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonHome.Location = new System.Drawing.Point(0, 95);
-            this.buttonHome.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonHome.Margin = new System.Windows.Forms.Padding(4);
             this.buttonHome.Name = "buttonHome";
             this.buttonHome.Padding = new System.Windows.Forms.Padding(9, 0, 0, 0);
             this.buttonHome.Size = new System.Drawing.Size(215, 66);
@@ -116,7 +119,7 @@
             this.panelColorBottom.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.panelColorBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelColorBottom.Location = new System.Drawing.Point(0, 630);
-            this.panelColorBottom.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panelColorBottom.Margin = new System.Windows.Forms.Padding(4);
             this.panelColorBottom.Name = "panelColorBottom";
             this.panelColorBottom.Size = new System.Drawing.Size(215, 123);
             this.panelColorBottom.TabIndex = 1;
@@ -127,7 +130,7 @@
             this.panelLog.Controls.Add(this.pictureBox1);
             this.panelLog.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelLog.Location = new System.Drawing.Point(0, 0);
-            this.panelLog.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panelLog.Margin = new System.Windows.Forms.Padding(4);
             this.panelLog.Name = "panelLog";
             this.panelLog.Size = new System.Drawing.Size(215, 95);
             this.panelLog.TabIndex = 0;
@@ -138,7 +141,7 @@
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox1.Image = global::SurveyConfiguratorApp.Properties.Resources.surveyor;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(215, 95);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -152,20 +155,10 @@
             this.panelHeadreBar.Controls.Add(this.labelMainBarTitle);
             this.panelHeadreBar.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelHeadreBar.Location = new System.Drawing.Point(215, 0);
-            this.panelHeadreBar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panelHeadreBar.Margin = new System.Windows.Forms.Padding(4);
             this.panelHeadreBar.Name = "panelHeadreBar";
             this.panelHeadreBar.Size = new System.Drawing.Size(1237, 95);
             this.panelHeadreBar.TabIndex = 1;
-            // 
-            // dividerPanelVerticalControl1
-            // 
-            this.dividerPanelVerticalControl1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.dividerPanelVerticalControl1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.dividerPanelVerticalControl1.Location = new System.Drawing.Point(0, 0);
-            this.dividerPanelVerticalControl1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.dividerPanelVerticalControl1.Name = "dividerPanelVerticalControl1";
-            this.dividerPanelVerticalControl1.Size = new System.Drawing.Size(67, 95);
-            this.dividerPanelVerticalControl1.TabIndex = 1;
             // 
             // labelMainBarTitle
             // 
@@ -186,7 +179,7 @@
             this.panelMain.Controls.Add(this.panel1);
             this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMain.Location = new System.Drawing.Point(215, 95);
-            this.panelMain.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panelMain.Margin = new System.Windows.Forms.Padding(4);
             this.panelMain.Name = "panelMain";
             this.panelMain.Padding = new System.Windows.Forms.Padding(67, 0, 0, 0);
             this.panelMain.Size = new System.Drawing.Size(1237, 658);
@@ -198,7 +191,7 @@
             this.panel2.Controls.Add(this.dataGridView);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(67, 0);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(921, 658);
             this.panel2.TabIndex = 3;
@@ -212,7 +205,7 @@
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridView.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridView.MultiSelect = false;
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
@@ -229,7 +222,7 @@
             this.panel1.Controls.Add(this.buttonAdd);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel1.Location = new System.Drawing.Point(988, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(249, 658);
             this.panel1.TabIndex = 2;
@@ -245,7 +238,7 @@
             this.buttonRefresh.Image = global::SurveyConfiguratorApp.Properties.Resources.refresh1;
             this.buttonRefresh.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonRefresh.Location = new System.Drawing.Point(0, 198);
-            this.buttonRefresh.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonRefresh.Margin = new System.Windows.Forms.Padding(4);
             this.buttonRefresh.Name = "buttonRefresh";
             this.buttonRefresh.Padding = new System.Windows.Forms.Padding(9, 0, 0, 0);
             this.buttonRefresh.Size = new System.Drawing.Size(249, 66);
@@ -266,7 +259,7 @@
             this.buttonDelete.Image = global::SurveyConfiguratorApp.Properties.Resources.broom;
             this.buttonDelete.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonDelete.Location = new System.Drawing.Point(0, 132);
-            this.buttonDelete.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonDelete.Margin = new System.Windows.Forms.Padding(4);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Padding = new System.Windows.Forms.Padding(9, 0, 0, 0);
             this.buttonDelete.Size = new System.Drawing.Size(249, 66);
@@ -287,7 +280,7 @@
             this.buttonUpdate.Image = global::SurveyConfiguratorApp.Properties.Resources.pencil;
             this.buttonUpdate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonUpdate.Location = new System.Drawing.Point(0, 66);
-            this.buttonUpdate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonUpdate.Margin = new System.Windows.Forms.Padding(4);
             this.buttonUpdate.Name = "buttonUpdate";
             this.buttonUpdate.Padding = new System.Windows.Forms.Padding(9, 0, 0, 0);
             this.buttonUpdate.Size = new System.Drawing.Size(249, 66);
@@ -308,7 +301,7 @@
             this.buttonAdd.Image = global::SurveyConfiguratorApp.Properties.Resources.add;
             this.buttonAdd.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonAdd.Location = new System.Drawing.Point(0, 0);
-            this.buttonAdd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonAdd.Margin = new System.Windows.Forms.Padding(4);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Padding = new System.Windows.Forms.Padding(9, 0, 0, 0);
             this.buttonAdd.Size = new System.Drawing.Size(249, 66);
@@ -317,6 +310,16 @@
             this.buttonAdd.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
+            // 
+            // dividerPanelVerticalControl1
+            // 
+            this.dividerPanelVerticalControl1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
+            this.dividerPanelVerticalControl1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.dividerPanelVerticalControl1.Location = new System.Drawing.Point(0, 0);
+            this.dividerPanelVerticalControl1.Margin = new System.Windows.Forms.Padding(5);
+            this.dividerPanelVerticalControl1.Name = "dividerPanelVerticalControl1";
+            this.dividerPanelVerticalControl1.Size = new System.Drawing.Size(67, 95);
+            this.dividerPanelVerticalControl1.TabIndex = 1;
             // 
             // FormMain
             // 
@@ -328,7 +331,7 @@
             this.Controls.Add(this.panelSideBar);
             this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";

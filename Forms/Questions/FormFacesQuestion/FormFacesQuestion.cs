@@ -40,7 +40,7 @@ namespace SurveyConfiguratorApp.Forms
             upDownWithLabelControl.setCallBackFunction(new CallBackHandleErrorMsg(questionValidation.facesHandleMsg));
 
 
-            sharedBetweenQuestions.clearLabelsText();
+            sharedBetweenQuestions.clearErrorLabelsText();
             sharedBetweenQuestions.setIsNotEmptyCallBack(new CallBackIsNotEmpty(questionValidation.handelQuestionText));
             sharedBetweenQuestions.setCallBackIsOrderAlreadyExists(new CallBackIsOrderAlreadyExists(questionValidation.isOrderAlreadyExists));
 
@@ -73,21 +73,32 @@ namespace SurveyConfiguratorApp.Forms
             {
                 questionFaces.Text = sharedBetweenQuestions.getQuestionText();
                 questionFaces.Order = Convert.ToInt32(sharedBetweenQuestions.getQuestionOrder());
+                bool result = false;
 
                 questionFaces.FacesNumber = upDownWithLabelControl.getFacesNumber();
                 if (!isUpdate)
                 {
 
-                    questionFaces.add();
-
-                    sharedBetweenQuestions.clearInputValues();
-                    upDownWithLabelControl.clearInputValues();
+                    result = questionFaces.add();
+                    customMessageBoxControl1.sqlInsert(result);
+                    if (result)
+                    {
+                        sharedBetweenQuestions.clearInputValues();
+                        sharedBetweenQuestions.clearErrorLabelsText();
+                        upDownWithLabelControl.clearInputValues();
+                        upDownWithLabelControl.clearErrorText();
+                    }
                 }
                 else
                 {
-                    questionFaces.update();
+                    result = questionFaces.update();
+
+                    customMessageBoxControl1.sqlUpdate(result);
+                    sharedBetweenQuestions.setOldOrder(questionFaces.Order);
 
                 }
+
+
 
             }
         }

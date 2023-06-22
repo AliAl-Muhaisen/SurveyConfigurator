@@ -12,12 +12,14 @@ namespace SurveyConfiguratorApp.Database.Questions
         public DbQuestionFaces() : base() { }
         static public string TableName { get { return tableName; } }
 
-        public void create(QuestionFaces data)
+        public bool create(QuestionFaces data)
         {
             try
             {
-                base.create(data);
-                int questionId = base.getLastId();
+                bool isBaseInfoAdded=base.create(data);
+                if (isBaseInfoAdded)
+                {
+ int questionId = base.getLastId();
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     base.OpenConnection();
@@ -33,16 +35,18 @@ namespace SurveyConfiguratorApp.Database.Questions
 
 
 
-                    cmd.ExecuteNonQuery();
-
-
+                   int rowAffectrowsAffected = cmd.ExecuteNonQuery();
+                        if (rowAffectrowsAffected > 0)
+                            return true;
 
                 }
+                }
+               
 
             }
             catch (SqlException e)
             {
-                MessageBox.Show("create record Failed " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
                 //throw;
                 //TODO:user log here
             }
@@ -50,10 +54,11 @@ namespace SurveyConfiguratorApp.Database.Questions
             {
                 base.CloseConnection();
             }
+            return false;
 
         }
 
-        public void delete(int id)
+        public bool delete(int id)
         {
             throw new NotImplementedException();
         }
@@ -98,7 +103,7 @@ namespace SurveyConfiguratorApp.Database.Questions
             return null;
         }
 
-        public void update(QuestionFaces questionFaces)
+        public bool update(QuestionFaces questionFaces)
         {
             using (SqlCommand command = new SqlCommand())
             {
@@ -117,21 +122,23 @@ namespace SurveyConfiguratorApp.Database.Questions
                     if (rowsAffected <= 0)
                     {
                         // Row not found or not updated
-                        MessageBox.Show("No rows updated for Question");
-                        return;
+                        return false;
                     }
                     base.CloseConnection();
                     base.update(questionFaces);
+                    return true;
+
                 }
                 catch (SqlException ex)
                 {
                     // Handle any SQL errors
-                    MessageBox.Show("Error updating row: " + ex.Message);
                 }
                 finally
                 {
                     base.CloseConnection();
                 }
+                return false ;
+
 
             }
 

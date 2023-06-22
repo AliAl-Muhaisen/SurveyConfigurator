@@ -119,6 +119,12 @@
     <Compile Include="UserController\Controllers\CustomLabelControl.Designer.cs">
       <DependentUpon>CustomLabelControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserController\Controllers\CustomMessageBoxControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserController\Controllers\CustomMessageBoxControl.Designer.cs">
+      <DependentUpon>CustomMessageBoxControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserController\Controllers\DividerPanelControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -191,6 +197,9 @@
     </Compile>
     <EmbeddedResource Include="UserController\Controllers\CustomLabelControl.resx">
       <DependentUpon>CustomLabelControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserController\Controllers\CustomMessageBoxControl.resx">
+      <DependentUpon>CustomMessageBoxControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserController\Controllers\DividerPanelControl.resx">
       <DependentUpon>DividerPanelControl.cs</DependentUpon>

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SurveyConfiguratorApp.Models.Questions
 {
-    public class QuestionFaces :Question
+    public class QuestionFaces : Question
     {
         
         private DbQuestionFaces dbQuestionFaces;
@@ -19,19 +19,19 @@ namespace SurveyConfiguratorApp.Models.Questions
         public int FacesNumber { get; set; }
 
 
-        public override void add()
+        public override bool add()
         {
-            dbQuestionFaces.create(this);
+           return dbQuestionFaces.create(this);
         }
 
-        public override void delete()
+        public override bool delete()
         {
             throw new NotImplementedException();
         }
 
-        public override void update()
+        public override bool update()
         {
-            dbQuestionFaces.update(this);
+            return dbQuestionFaces.update(this);
         }
        
     }

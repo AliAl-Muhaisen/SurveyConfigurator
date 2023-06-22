@@ -39,7 +39,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             labelErrorCaptionMax.clearText();
 
 
-            sharedBetweenQuestions.clearLabelsText();
+            sharedBetweenQuestions.clearErrorLabelsText();
             minMaxNumControl1.StartNumMin = questionValidation.SliderMinValue;
             minMaxNumControl1.StartNumMax = questionValidation.SliderMaxValue - 1;
             minMaxNumControl1.EndNumMax = questionValidation.SliderMaxValue;
@@ -138,19 +138,28 @@ namespace SurveyConfiguratorApp.Forms.Questions
 
                 questionSlider.StartCaption = textBoxCaptionMin.Text;
                 questionSlider.EndCaption = textBoxCaptionMax.Text;
-
+                bool result = false;
                 if (!isUpdate)
                 {
-                    questionSlider.add();
+                    result = questionSlider.add();
+                    customMessageBoxControl1.sqlInsert(result);
+                    if (result)
+                    {
+                        sharedBetweenQuestions.clearInputValues();
+                        sharedBetweenQuestions.clearErrorLabelsText();
+                        minMaxNumControl1.clearErrorLabelsText();
+                        minMaxNumControl1.clearInputValues();
+                        clearInputsValue();
+                    }
 
-                    sharedBetweenQuestions.clearInputValues();
-                    minMaxNumControl1.clearInputValues();
-                    clearInputsValue();
                 }
                 else
                 {
-                    questionSlider.update();
+                    result = questionSlider.update();
+                    customMessageBoxControl1.sqlUpdate(result);
+                    sharedBetweenQuestions.setOldOrder(questionSlider.Order);
                 }
+                
 
 
             }
