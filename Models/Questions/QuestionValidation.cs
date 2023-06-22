@@ -171,7 +171,7 @@ namespace SurveyConfiguratorApp.Models.Questions
 
         public bool isOrderAlreadyExists(int order,int oldOrder=-1)
         {
-            return DbQuestion.isOrderAlreadyExists(order);
+            return DbQuestion.isOrderAlreadyExists(order, oldOrder);
         }
 
     }

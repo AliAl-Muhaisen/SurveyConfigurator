@@ -171,11 +171,11 @@ namespace SurveyConfiguratorApp.Database.Questions
                 using (SqlCommand cmd=new SqlCommand())
                 {
                     cmd.Connection = dbQuestion.conn;
-                    cmd.CommandText = "SELECT [Order] FROM [Question] WHERE [Order] = @order AND ([Order] <> @oldOrder OR @oldOrder = -1);";
+                    cmd.CommandText = "SELECT [Order] FROM [Question] WHERE ([Order] = @order AND [Order]!= @oldOrder);";
                     cmd.Parameters.AddWithValue("@order", order);
                     cmd.Parameters.AddWithValue("@oldOrder", oldOrder);
                     SqlDataReader dataReader = cmd.ExecuteReader();
-                    if (dataReader.Read())
+                    if (dataReader.HasRows)
                         return true;
                 }
             }
