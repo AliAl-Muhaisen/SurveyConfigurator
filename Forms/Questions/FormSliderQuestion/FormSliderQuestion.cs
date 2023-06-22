@@ -49,6 +49,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
 
 
             sharedBetweenQuestions.setIsNotEmptyCallBack(new CallBackIsNotEmpty(questionValidation.handelQuestionText));
+            sharedBetweenQuestions.setCallBackIsOrderAlreadyExists(new CallBackIsOrderAlreadyExists(questionValidation.isOrderAlreadyExists));
 
 
         }
@@ -63,6 +64,8 @@ namespace SurveyConfiguratorApp.Forms.Questions
             textBoxCaptionMax.Text = questionSlider.EndCaption;
             minMaxNumControl1.setEndValue(questionSlider.EndValue);
             minMaxNumControl1.setStartValue(questionSlider.StartValue);
+            sharedBetweenQuestions.setOldOrder(questionSlider.Order);
+
             buttonSave.Text = "Update";
         }
         private bool isValidForm()

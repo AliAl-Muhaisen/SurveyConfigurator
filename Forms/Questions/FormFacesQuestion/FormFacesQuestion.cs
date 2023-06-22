@@ -38,11 +38,11 @@ namespace SurveyConfiguratorApp.Forms
             upDownWithLabelControl.clearErrorText();
 
             upDownWithLabelControl.setCallBackFunction(new CallBackHandleErrorMsg(questionValidation.facesHandleMsg));
-            // upDownWithLabelControl.setCallBackFunction(questionValidation.facesHandleMsg);
 
 
             sharedBetweenQuestions.clearLabelsText();
             sharedBetweenQuestions.setIsNotEmptyCallBack(new CallBackIsNotEmpty(questionValidation.handelQuestionText));
+            sharedBetweenQuestions.setCallBackIsOrderAlreadyExists(new CallBackIsOrderAlreadyExists(questionValidation.isOrderAlreadyExists));
 
         }
         public FormFacesQuestion(QuestionFaces questionFaces) : this()
@@ -52,6 +52,7 @@ namespace SurveyConfiguratorApp.Forms
             sharedBetweenQuestions.setQuestionText(questionFaces.Text);
             sharedBetweenQuestions.setQuestionOrderValue(questionFaces.Order);
             upDownWithLabelControl.setNumericValue(questionFaces.FacesNumber);
+            sharedBetweenQuestions.setOldOrder(questionFaces.Order);
             buttonSave.Text = "Update";
         }
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)

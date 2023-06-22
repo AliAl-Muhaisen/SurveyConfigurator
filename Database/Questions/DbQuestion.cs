@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -91,34 +92,31 @@ namespace SurveyConfiguratorApp.Database.Questions
 
         public SqlDataReader readAll()
         {
-            //try
-            //{
-            base.OpenConnection();
-            SqlDataReader reader;
-            using (SqlCommand cmd = new SqlCommand())
+            try
             {
+                base.OpenConnection();
+
+                SqlCommand cmd = new SqlCommand();
                 cmd.Connection = base.conn;
                 cmd.CommandText = "SELECT * FROM [Question]";
 
-
-
-
-                 reader= cmd.ExecuteReader();
-               
+                SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                return reader;
+            }
+            catch (SqlException ex)
+            {
+                // Handle any SQL errors
+                // TODO: Use log here
+                MessageBox.Show("Error readAll: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                // Handle any other errors
+                // TODO: Use log here
+                MessageBox.Show("Error readAll: " + ex.Message);
             }
 
-            //}
-            //catch (Exception)
-            //{
-
-            //    throw;
-            //    //TODO:user log here
-            //}
-            //finally
-            //{
-            //base.CloseConnection();
-            //}
-            return reader;
+            return null;
         }
 
 
@@ -153,6 +151,7 @@ namespace SurveyConfiguratorApp.Database.Questions
                 catch (SqlException ex)
                 {
                     // Handle any SQL errors
+                    //TODO:use log here
                     MessageBox.Show("Error updating row: " + ex.Message);
                 }
                 finally
@@ -163,19 +162,32 @@ namespace SurveyConfiguratorApp.Database.Questions
 
         }
 
-        public bool isOrderAlreadyExists(int order)
+        public static bool isOrderAlreadyExists(int order, int oldOrder=-1)
         {
+            DbQuestion dbQuestion = new DbQuestion();
             try
             {
+                dbQuestion.OpenConnection();
                 using (SqlCommand cmd=new SqlCommand())
                 {
-                    cmd.Connection= base.conn;
-                    cmd.CommandText="SELECT [Order] FROM [Question] WHERE [Order]=" + order + ";";
+                    cmd.Connection = dbQuestion.conn;
+                    cmd.CommandText = "SELECT [Order] FROM [Question] WHERE [Order] = @order AND ([Order] <> @oldOrder OR @oldOrder = -1);";
+                    cmd.Parameters.AddWithValue("@order", order);
+                    cmd.Parameters.AddWithValue("@oldOrder", oldOrder);
+                    SqlDataReader dataReader = cmd.ExecuteReader();
+                    if (dataReader.Read())
+                        return true;
                 }
+            }
+            catch (SqlException ex)
+            {
+                // Handle any SQL errors
+                //TODO:use log here
+                MessageBox.Show("Error updating row: " + ex.Message);
             }
             finally
             {
-
+                dbQuestion.CloseConnection();
             }
             return false;
         }
@@ -194,11 +206,18 @@ namespace SurveyConfiguratorApp.Database.Questions
                     return Convert.ToInt32(dr["MaxId"]);
                 }
             }
-           
+            catch (SqlException ex)
+            {
+                // Handle any SQL errors
+                //TODO:use log here
+                MessageBox.Show("Error updating row: " + ex.Message);
+            }
             finally
             {
                 base.CloseConnection() ;
+               
             }
+            return 1;//TODO:!I will review this later :)
         }
     }
 }

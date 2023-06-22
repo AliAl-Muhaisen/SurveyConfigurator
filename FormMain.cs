@@ -101,10 +101,16 @@ namespace SurveyConfiguratorApp
 
         private void loadDataGridView()
         {
+           
             DataTable table = new DataTable();
-            SqlDataReader reader = dbQuestion.readAll();
-            table.Load(reader);
 
+            using (SqlDataReader reader = dbQuestion.readAll())
+            {
+                if (reader != null)
+                {
+                    table.Load(reader);
+                }
+            }
 
             dataGridView.DataSource = table;
         }
@@ -132,7 +138,7 @@ namespace SurveyConfiguratorApp
                     }
                     else
                     {
-                        MessageBox.Show("Please Refresh the data and try again", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        displayRefreshMessageBox();
                     }
 
                 }
@@ -148,7 +154,7 @@ namespace SurveyConfiguratorApp
                     }
                     else
                     {
-                        MessageBox.Show("Please Refresh the data and try again", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        displayRefreshMessageBox();
 
                     }
 
@@ -167,7 +173,7 @@ namespace SurveyConfiguratorApp
                     }
                     else
                     {
-                        MessageBox.Show("Please Refresh the data and try again", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        displayRefreshMessageBox();
                     }
                 }
                 loadDataGridView();
@@ -178,6 +184,15 @@ namespace SurveyConfiguratorApp
                 questionId = -1;
                 MessageBox.Show("No row selected.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+        private void displayRefreshMessageBox()
+        {
+            MessageBox.Show("Please Refresh the data and try again", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            dbQuestion.CloseConnection();
         }
     }
 }

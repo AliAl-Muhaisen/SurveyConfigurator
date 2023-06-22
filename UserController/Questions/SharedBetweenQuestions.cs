@@ -12,9 +12,15 @@ namespace SurveyConfiguratorApp.UserController.Questions
 {
     public partial class SharedBetweenQuestions : UserControl
     {
+
         public delegate string CallBackIsNotEmpty(string text);
+        public delegate bool CallBackIsOrderAlreadyExists(int order,int oldOrder);
         private CallBackIsNotEmpty callBackIsNotEmptyMsg;
+        private CallBackIsOrderAlreadyExists callBackIsOrderAlreadyExists;
+
         private bool isValidQuestionText = false;
+        private bool isValidOrderValue = false;
+        private int oldOrder = -1;
         public SharedBetweenQuestions()
         {
             InitializeComponent();
@@ -34,7 +40,7 @@ namespace SurveyConfiguratorApp.UserController.Questions
 
         private void textBoxQuestionText_TextChanged(object sender, EventArgs e)
         {
-           handelQuestionText();
+            handelQuestionText();
 
         }
 
@@ -53,7 +59,7 @@ namespace SurveyConfiguratorApp.UserController.Questions
                     isValidQuestionText = true;
                 }
                 else
-                    isValidQuestionText=false;
+                    isValidQuestionText = false;
 
             }
         }
@@ -61,12 +67,9 @@ namespace SurveyConfiguratorApp.UserController.Questions
         public bool isValidForm()
         {
             handelQuestionText();
+            handleOrderValue();
 
-            if (isValidQuestionText)
-            {
-                return true;
-            }
-            return false;
+            return isValidOrderValue && isValidQuestionText;
         }
         public string getQuestionText()
         {
@@ -85,7 +88,7 @@ namespace SurveyConfiguratorApp.UserController.Questions
         }
         public void setQuestionOrderValue(int num)
         {
-            numericUpDownQuestionOrder.Value =(decimal)num;
+            numericUpDownQuestionOrder.Value = (decimal)num;
         }
 
         //# Question Text Error Label
@@ -131,10 +134,59 @@ namespace SurveyConfiguratorApp.UserController.Questions
             }
         }
 
+        public void setCallBackIsOrderAlreadyExists(CallBackIsOrderAlreadyExists callBack)
+        {
+
+            try
+            {
+                callBackIsOrderAlreadyExists = callBack;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("callBackIsNotEmptyMsg Failed ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //TODO:use log here
+
+            }
+        }
+
+        private void handleOrderValue()
+        {
+            bool isExists = false;
+            if (callBackIsOrderAlreadyExists != null)
+            {
+                int newOderValue = (int)numericUpDownQuestionOrder.Value;
+                
+                isExists = callBackIsOrderAlreadyExists(newOderValue, oldOrder);
+
+
+
+                if (isExists)
+                {
+                    labelErrorQuestionOrder.setText("This Order Alread Exists");
+                    isValidOrderValue = false;
+                }
+                else
+                {
+                    isValidOrderValue = true;
+                    labelErrorQuestionOrder.clearText();
+                }
+
+
+            }
+        }
         public void clearInputValues()
         {
             textBoxQuestionText.Text = null;
             numericUpDownQuestionOrder.Value = 1;
+        }
+
+        private void numericUpDownQuestionOrder_ValueChanged(object sender, EventArgs e)
+        {
+            handleOrderValue();
+        }
+        public void setOldOrder(int value)
+        {
+            oldOrder = value;
         }
     }
 }

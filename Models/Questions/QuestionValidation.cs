@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SurveyConfiguratorApp.Database.Questions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
@@ -168,9 +169,9 @@ namespace SurveyConfiguratorApp.Models.Questions
         //! End Slider Question Validation
 
 
-        public bool isOrderExists(int order)
+        public bool isOrderAlreadyExists(int order,int oldOrder=-1)
         {
-            return false;
+            return DbQuestion.isOrderAlreadyExists(order);
         }
 
     }

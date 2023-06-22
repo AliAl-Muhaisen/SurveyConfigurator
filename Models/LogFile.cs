@@ -8,5 +8,6 @@ namespace SurveyConfiguratorApp.Models
 {
     public class LogFile
     {
+        public LogFile() { }
     }
 }

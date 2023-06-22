@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace SurveyConfiguratorApp.Database
 {
@@ -45,13 +47,18 @@ namespace SurveyConfiguratorApp.Database
         {
             try
             {
+                if (conn != null && conn.State != ConnectionState.Closed)
+                {
+                    conn.Close();
+                }
                 conn = new SqlConnection(ConnectionString);
                 //cmd = conn.CreateCommand();
                 conn.Open();
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                MessageBox.Show(ex.Message);
+               // throw new Exception(ex.Message);
             }
         }
 

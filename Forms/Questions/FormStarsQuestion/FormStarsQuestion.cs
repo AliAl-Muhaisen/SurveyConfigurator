@@ -41,20 +41,23 @@ namespace SurveyConfiguratorApp.Forms.Questions
 
             sharedBetweenQuestions1.clearLabelsText();
             sharedBetweenQuestions1.setIsNotEmptyCallBack(new CallBackIsNotEmpty(questionValidation.handelQuestionText));
+            sharedBetweenQuestions1.setCallBackIsOrderAlreadyExists(new CallBackIsOrderAlreadyExists(questionValidation.isOrderAlreadyExists));
+
 
         }
-        public FormStarsQuestion(QuestionStars questionStars):this()
+        public FormStarsQuestion(QuestionStars questionStars) : this()
         {
             this.isUpdate = true;
-           
-               
-                this.questionStars=questionStars;
-                sharedBetweenQuestions1.setQuestionText(questionStars.Text);
-                sharedBetweenQuestions1.setQuestionOrderValue(questionStars.Order);
-                upDownWithLabelControl1.setNumericValue(questionStars.StarsNumber);
-                buttonSave.Text = "Update";
-            
-            
+
+
+            this.questionStars = questionStars;
+            sharedBetweenQuestions1.setQuestionText(questionStars.Text);
+            sharedBetweenQuestions1.setQuestionOrderValue(questionStars.Order);
+            upDownWithLabelControl1.setNumericValue(questionStars.StarsNumber);
+            sharedBetweenQuestions1.setOldOrder(questionStars.Order);
+            buttonSave.Text = "Update";
+
+
         }
 
 
@@ -66,13 +69,13 @@ namespace SurveyConfiguratorApp.Forms.Questions
 
         private void upDownWithLabelControl_Load(object sender, EventArgs e)
         {
-          //  upDownWithLabelControl.setCallBackFunction(questionValidation.starsHandleMsg);
+            //  upDownWithLabelControl.setCallBackFunction(questionValidation.starsHandleMsg);
 
         }
 
         private void FormStarsQuestion_Load(object sender, EventArgs e)
         {
-           // upDownWithLabelControl.setCallBackFunction(questionValidation.starsHandleMsg);
+            // upDownWithLabelControl.setCallBackFunction(questionValidation.starsHandleMsg);
 
         }
 
@@ -88,14 +91,14 @@ namespace SurveyConfiguratorApp.Forms.Questions
             if (isValidGeneralQuestions && isValidFacesNumber)
             {
 
-                
-                    questionStars.Text = sharedBetweenQuestions1.getQuestionText();
-                    questionStars.Order = Convert.ToInt32(sharedBetweenQuestions1.getQuestionOrder());
-                
-                    questionStars.StarsNumber = upDownWithLabelControl1.getFacesNumber();
+
+                questionStars.Text = sharedBetweenQuestions1.getQuestionText();
+                questionStars.Order = Convert.ToInt32(sharedBetweenQuestions1.getQuestionOrder());
+
+                questionStars.StarsNumber = upDownWithLabelControl1.getFacesNumber();
                 if (!isUpdate)
                 {
-                   
+
                     questionStars.add();
 
                     upDownWithLabelControl1.clearInputValues();
