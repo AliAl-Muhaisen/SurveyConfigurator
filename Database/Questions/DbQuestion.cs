@@ -11,12 +11,34 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace SurveyConfiguratorApp.Database.Questions
 {
+
+    /// <summary>
+    /// The DbQuestion class extends the DB class and implements the ICRUD<Question> interface. 
+    /// It provides methods to perform CRUD operations (create, read, update, delete) on the Question entity.
+    /// The class includes a ColumnsName enumeration representing the column names in the Question table. 
+    /// It also includes additional methods,
+    /// retrieve the last inserted ID, and read all questions from the database.
+    /// </summary>
     public class DbQuestion : DB, ICRUD<Question>
     {
 
         public DbQuestion() : base() { }
 
+        enum ColumsName
+        {
+            Order,
+            Text,
+            TypeNumber
 
+        }
+
+
+        /// <summary>
+        /// The create method inserts a new record into the Question table by constructing a parameterized SQL query.
+        /// It catches any SQL exceptions and returns false in case of an error.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public bool create(Question data)
         {
             try
@@ -47,7 +69,7 @@ namespace SurveyConfiguratorApp.Database.Questions
             catch (SqlException e)
             {
 
-              
+
                 return false;
                 //TODO:user log here
             }
@@ -107,6 +129,7 @@ namespace SurveyConfiguratorApp.Database.Questions
             throw new NotImplementedException();
         }
 
+       
         public SqlDataReader readAll()
         {
             try
@@ -136,7 +159,10 @@ namespace SurveyConfiguratorApp.Database.Questions
             return null;
         }
 
-
+        /// <summary>
+        /// The update method updates a specific record in the Question table based on the provided Question object.
+        /// It catches SQL exceptions and returns false in case of an error.
+        /// </summary>
         public bool update(Question question)
         {
             base.OpenConnection();
@@ -169,7 +195,7 @@ namespace SurveyConfiguratorApp.Database.Questions
                 {
                     // Handle any SQL errors
                     //TODO:use log here
-                   
+
                     return false;
 
                 }
@@ -211,6 +237,12 @@ namespace SurveyConfiguratorApp.Database.Questions
             return false;
         }
 
+
+        /// <summary>
+        /// The getLastId method retrieves the maximum ID from the Question table.
+        /// It catches any SQL exceptions and returns a default value of 1 in case of an error.
+        /// </summary>
+        /// <returns></returns>
         public int getLastId()
         {
             try
@@ -229,7 +261,7 @@ namespace SurveyConfiguratorApp.Database.Questions
             {
                 // Handle any SQL errors
                 //TODO:use log here
-               
+
             }
             finally
             {

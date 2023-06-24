@@ -1,8 +1,11 @@
 ﻿using SurveyConfiguratorApp.Database;
 using SurveyConfiguratorApp.Database.Questions;
 using SurveyConfiguratorApp.Forms;
+using SurveyConfiguratorApp.Forms.Log;
 using SurveyConfiguratorApp.Forms.Questions;
+using SurveyConfiguratorApp.Models;
 using SurveyConfiguratorApp.Models.Questions;
+using SurveyConfiguratorApp.UserController;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,15 +22,24 @@ namespace SurveyConfiguratorApp
 {
     public partial class FormMain : Form
     {
-        private DbQuestion dbQuestion;
-        int questionId = -1;
-        int questionType = -1;
 
+        private DbQuestion dbQuestion;
+    
+
+        // Active form and current button variables
+        private Form activeForm;
+        private Button currentButton;
+
+        /// <summary>
+        /// the FormMain constructor initializes the form's components, creates an instance of the DbQuestion class, 
+        /// sets the initial value of the currentButton variable, and opens the FormHome as the initial child form within the main form.
+        /// </summary>
         public FormMain()
         {
             InitializeComponent();
             dbQuestion = new DbQuestion();
-            loadDataGridView();
+            currentButton = buttonHome;
+            OpenChildForm(new FormHome());
 
         }
 
@@ -37,162 +49,107 @@ namespace SurveyConfiguratorApp
 
         }
 
-        private void buttonAdd_Click(object sender, EventArgs e)
-        {
-            Form form = new FormQuestion();
-            form.ShowDialog();
-        }
 
-        private void buttonDelete_Click(object sender, EventArgs e)
-        {
-            if (questionId != -1)
-            {
-                DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete this record", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (dialogResult == DialogResult.Yes)
-                {
-                    dbQuestion.delete(questionId);
-                    loadDataGridView();
-                    questionId = -1;
-                }
-
-
-            }
-            else
-            {
-                MessageBox.Show("No row selected.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-
-
-        }
-
-
-
-        private void dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
-            {
-
-                DataGridViewRow selectedRow = dataGridView.Rows[e.RowIndex];
-
-                questionId = Convert.ToInt32(selectedRow.Cells["id"].Value);
-                questionType = Convert.ToInt32(selectedRow.Cells["typeNumber"].Value);
-
-
-            }
-            //? Check if a row is selected
-            else if (dataGridView.SelectedRows.Count > 0)
-            {
-                //# Get the selected row
-                DataGridViewRow selectedRow = dataGridView.SelectedRows[0];
-                //# Get the ID value from the selected row
-                questionId = Convert.ToInt32(selectedRow.Cells["id"].Value);
-                questionType = Convert.ToInt32(selectedRow.Cells["typeNumber"].Value);
-
-
-            }
-            else
-            {
-                questionId = -1;
-                questionType = -1;
-
-            }
-        }
-
-        private void loadDataGridView()
-        {
-           
-            DataTable table = new DataTable();
-
-            using (SqlDataReader reader = dbQuestion.readAll())
-            {
-                if (reader != null)
-                {
-                    table.Load(reader);
-                }
-            }
-
-            dataGridView.DataSource = table;
-        }
-
-        private void buttonRefresh_Click(object sender, EventArgs e)
-        {
-            loadDataGridView();
-        }
-
-        private void buttonUpdate_Click(object sender, EventArgs e)
-        {
-            if (questionType != -1 && questionId != -1)
-            {
-
-                if (questionType == (int)QuestionTypes.FACES)
-                {
-                    DbQuestionFaces dbQuestionFaces = new DbQuestionFaces();
-                    QuestionFaces questionFaces = new QuestionFaces();
-
-                    questionFaces = dbQuestionFaces.read(questionId);
-                    if (questionFaces != null)
-                    {
-                        Form formFaces = new FormFacesQuestion(dbQuestionFaces.read(questionId));
-                        formFaces.ShowDialog();
-                    }
-                    else
-                    {
-                        displayRefreshMessageBox();
-                    }
-
-                }
-                else if (questionType == (int)QuestionTypes.STARS)
-                {
-                    DbQuestionStars dbQuestionStars = new DbQuestionStars();
-                    QuestionStars questionStars = new QuestionStars();
-                    questionStars = dbQuestionStars.read(questionId);
-                    if (questionStars != null)
-                    {
-                        Form formStars = new FormStarsQuestion(questionStars);
-                        formStars.ShowDialog();
-                    }
-                    else
-                    {
-                        displayRefreshMessageBox();
-
-                    }
-
-
-
-                }
-                else if (questionType == (int)QuestionTypes.SLIDER)
-                {
-                    DbQuestionSlider dbQuestionSlider = new DbQuestionSlider();
-                    QuestionSlider questionSlider = new QuestionSlider();
-                    questionSlider = dbQuestionSlider.read(questionId);
-                    if (questionSlider != null)
-                    {
-                        Form formSlider = new FormSliderQuestion(questionSlider);
-                        formSlider.ShowDialog();
-                    }
-                    else
-                    {
-                        displayRefreshMessageBox();
-                    }
-                }
-                loadDataGridView();
-
-            }
-            else
-            {
-                questionId = -1;
-                MessageBox.Show("No row selected.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
-        private void displayRefreshMessageBox()
-        {
-            MessageBox.Show("Please Refresh the data and try again", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        }
-
+        /// <summary>
+        ///  closing the database connection managed by the dbQuestion object when the main form is being closed.
+        ///  This ensures that the database connection is properly closed before the application exits.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            dbQuestion.CloseConnection();
+            dbQuestion.CloseConnection();        
+
+        }
+
+        /// <summary>
+        /// this event handler is responsible for opening the FormHome form as a child form when the
+        /// "HOME" button is clicked, and it keeps track of the currently selected button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonHome_Click(object sender, EventArgs e)
+        {
+            if (sender != null && (Button)sender != currentButton)
+                OpenChildForm(new FormHome());
+
+            currentButton = (Button)sender;
+        }
+
+
+
+        /// <summary>
+        /// this event handler is responsible for opening the FormErrorLog form as a child form when the
+        /// "Log" button is clicked, and it keeps track of the currently selected button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonLog_Click(object sender, EventArgs e)
+        {
+            if (sender != null && (Button)sender != currentButton)
+            {
+               
+                OpenChildForm(new FormErrorLog());
+            }
+
+            currentButton = (Button)sender;
+
+        }
+
+
+
+        /// <summary>
+        /// Opens a child form within the main form as a controller.
+        /// </summary>
+        /// <param name="childForm" type="Form"></param>
+        private void OpenChildForm(Form childForm)
+        {
+
+            // Close any previously active form
+            if (activeForm != null)
+            {
+                activeForm.Close();
+
+            }
+
+            // If the child form is already active, return
+            if (childForm == activeForm)
+                return;
+
+            // Set the child form as the active form
+            activeForm = childForm;
+            childForm.TopLevel = false;
+            childForm.FormBorderStyle = FormBorderStyle.None;
+            childForm.Dock = DockStyle.Fill;
+
+            // Add the child form to the Controls collection of the panelContainer, making it a child control of the panel
+            panelContainer.Controls.Add(childForm);
+            // Set the Tag of the panelContainer to the child form, allowing easy access to the child form later
+            panelContainer.Tag = childForm;
+            childForm.BringToFront();
+            childForm.Show();
+
+        }
+
+        private void panelContainer_Paint(object sender, PaintEventArgs e)
+        {
+           
+        }
+
+        private void buttonError_Click(object sender, EventArgs e)
+        {
+            //Just for test
+            DbQuestion question = null;
+            ErrorLoggerFile log = new ErrorLoggerFile();
+            try
+            {
+                question.OpenConnection();
+            }
+            catch (Exception ex)
+            {
+
+                log.HandleException(ex);
+            }
         }
     }
 }

@@ -74,6 +74,18 @@
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormHome.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormHome.Designer.cs">
+      <DependentUpon>FormHome.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Log\FormErrorLog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Log\FormErrorLog.Designer.cs">
+      <DependentUpon>FormErrorLog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Questions\FormFacesQuestion\FormFacesQuestion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,7 +116,7 @@
     <Compile Include="Forms\Questions\FormStarsQuestion\FormStarsQuestion.Designer.cs">
       <DependentUpon>FormStarsQuestion.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\LogFile.cs" />
+    <Compile Include="Models\ErrorLoggerFile.cs" />
     <Compile Include="Models\Questions\Question.cs" />
     <Compile Include="Models\Questions\QuestionFaces.cs" />
     <Compile Include="Models\Questions\QuestionSlider.cs" />
@@ -169,6 +181,12 @@
     </Compile>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormHome.resx">
+      <DependentUpon>FormHome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Log\FormErrorLog.resx">
+      <DependentUpon>FormErrorLog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Questions\FormFacesQuestion\FormFacesQuestion.resx">
       <DependentUpon>FormFacesQuestion.cs</DependentUpon>
