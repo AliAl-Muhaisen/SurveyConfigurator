@@ -48,8 +48,8 @@ namespace SurveyConfiguratorApp.Database.Questions
             }
             catch (SqlException ex)
             {
+                handleExceptionLog(ex);
 
-                //TODO:user log here
             }
             finally
             {
@@ -92,8 +92,12 @@ namespace SurveyConfiguratorApp.Database.Questions
             }
             catch (SqlException e)
             {
-                //TODO:add log here
-                //!Error deleting row
+                handleExceptionLog(e);
+            }
+            catch(Exception e)
+            {
+                handleExceptionLog(e);
+
             }
             finally
             {
@@ -130,9 +134,11 @@ namespace SurveyConfiguratorApp.Database.Questions
                     return true && base.update(questionStars);
 
                 }
-                catch (SqlException ex)
+                catch (Exception ex)
                 {
                     // Handle any SQL errors
+                    handleExceptionLog(ex);
+
                 }
                 finally
                 {

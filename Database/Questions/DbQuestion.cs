@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SurveyConfiguratorApp.Models;
 using SurveyConfiguratorApp.Models.Questions;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -68,15 +69,13 @@ namespace SurveyConfiguratorApp.Database.Questions
             }
             catch (SqlException e)
             {
-
-
-                return false;
-                //TODO:user log here
+                handleExceptionLog(e);
             }
             finally
             {
                 base.CloseConnection();
             }
+            return false;
 
         }
 
@@ -114,12 +113,14 @@ namespace SurveyConfiguratorApp.Database.Questions
             }
             catch (SqlException e)
             {
-                //TODO:add log here
-                //!Error deleting row
-                return false;
+                handleExceptionLog(e);
+
+
 
             }
             finally { base.CloseConnection(); }
+            return false;
+
         }
 
 
@@ -129,7 +130,7 @@ namespace SurveyConfiguratorApp.Database.Questions
             throw new NotImplementedException();
         }
 
-       
+
         public SqlDataReader readAll()
         {
             try
@@ -145,14 +146,16 @@ namespace SurveyConfiguratorApp.Database.Questions
             }
             catch (SqlException ex)
             {
-                // Handle any SQL errors
-                // TODO: Use log here
+
+                handleExceptionLog(ex);
+
                 MessageBox.Show("Error readAll: " + ex.Message);
             }
             catch (Exception ex)
             {
-                // Handle any other errors
-                // TODO: Use log here
+
+                handleExceptionLog(ex);
+
                 MessageBox.Show("Error readAll: " + ex.Message);
             }
 
@@ -193,17 +196,13 @@ namespace SurveyConfiguratorApp.Database.Questions
                 }
                 catch (SqlException ex)
                 {
-                    // Handle any SQL errors
-                    //TODO:use log here
-
-                    return false;
-
+                    handleExceptionLog(ex);
                 }
                 finally
                 {
                     base.CloseConnection();
                 }
-
+                return false;
             }
 
         }
@@ -227,8 +226,9 @@ namespace SurveyConfiguratorApp.Database.Questions
             }
             catch (SqlException ex)
             {
-                // Handle any SQL errors
-                //TODO:use log here
+
+                ErrorLoggerFile errorLoggerFile = new ErrorLoggerFile();
+                errorLoggerFile.HandleException(ex);
             }
             finally
             {
@@ -259,9 +259,7 @@ namespace SurveyConfiguratorApp.Database.Questions
             }
             catch (SqlException ex)
             {
-                // Handle any SQL errors
-                //TODO:use log here
-
+                handleExceptionLog(ex);
             }
             finally
             {
@@ -270,5 +268,7 @@ namespace SurveyConfiguratorApp.Database.Questions
             }
             return 1;//TODO:!I will review this later :)
         }
+
+
     }
 }

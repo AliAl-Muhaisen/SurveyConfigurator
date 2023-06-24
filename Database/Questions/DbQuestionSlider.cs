@@ -50,9 +50,7 @@ namespace SurveyConfiguratorApp.Database.Questions
             }
             catch (SqlException e)
             {
-
-                //throw;
-                //TODO:user log here
+                handleExceptionLog(e);
             }
             finally
             {
@@ -98,8 +96,7 @@ namespace SurveyConfiguratorApp.Database.Questions
             }
             catch (SqlException e)
             {
-                //TODO:add log here
-                //!Error deleting row
+                handleExceptionLog(e);
                 MessageBox.Show("Error While fetch data " + e.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
@@ -114,19 +111,20 @@ namespace SurveyConfiguratorApp.Database.Questions
         {
             using (SqlCommand command = new SqlCommand())
             {
-                base.OpenConnection();
-                command.Connection = base.conn;
-                command.CommandText = $"UPDATE [{TableName}] SET" +
-                    $" [StartCaption] = @StartCaption,[EndCaption] = @EndCaption,[StartValue] = @StartValue,[EndValue] = @EndValue WHERE [questionId] = @Id";
 
-                command.Parameters.AddWithValue("@StartCaption", questionSlider.StartCaption);
-                command.Parameters.AddWithValue("@EndCaption", questionSlider.EndCaption);
-                command.Parameters.AddWithValue("@StartValue", questionSlider.StartValue);
-                command.Parameters.AddWithValue("@EndValue", questionSlider.EndValue);
-                command.Parameters.AddWithValue("@Id", questionSlider.Id);
 
                 try
                 {
+                    base.OpenConnection();
+                    command.Connection = base.conn;
+                    command.CommandText = $"UPDATE [{TableName}] SET" +
+                        $" [StartCaption] = @StartCaption,[EndCaption] = @EndCaption,[StartValue] = @StartValue,[EndValue] = @EndValue WHERE [questionId] = @Id";
+
+                    command.Parameters.AddWithValue("@StartCaption", questionSlider.StartCaption);
+                    command.Parameters.AddWithValue("@EndCaption", questionSlider.EndCaption);
+                    command.Parameters.AddWithValue("@StartValue", questionSlider.StartValue);
+                    command.Parameters.AddWithValue("@EndValue", questionSlider.EndValue);
+                    command.Parameters.AddWithValue("@Id", questionSlider.Id);
 
                     int rowsAffected = command.ExecuteNonQuery();
 
@@ -141,7 +139,12 @@ namespace SurveyConfiguratorApp.Database.Questions
                 }
                 catch (SqlException ex)
                 {
-                    // Handle any SQL errors
+                    handleExceptionLog(ex);
+                }
+                catch (Exception e)
+                {
+                    handleExceptionLog(e);
+
                 }
                 finally
                 {

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using SurveyConfiguratorApp.Models;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -26,23 +28,22 @@ namespace SurveyConfiguratorApp.Database
     {
         public SqlConnection conn;
         //protected SqlCommand cmd;
-        const string ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\a.al-muhaisen\source\repos\SurveyConfiguratorApp\Database\Surveydb.mdf;Integrated Security=True";
-
-
-
+        private string connectionString;
         public DB()
         {
-            conn = new SqlConnection(ConnectionString);
+           
 
             try
             {
+                 connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+                conn = new SqlConnection(connectionString);
                 OpenConnection();
 
             }
             catch (Exception ex)
             {
-
-                throw new Exception(ex.Message);
+                handleExceptionLog(ex);
+                //throw new Exception(ex.Message);
 
             }
             finally
@@ -60,13 +61,14 @@ namespace SurveyConfiguratorApp.Database
                 {
                     conn.Close();
                 }
-                conn = new SqlConnection(ConnectionString);
+                conn = new SqlConnection(connectionString);
                 //cmd = conn.CreateCommand();
                 conn.Open();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                handleExceptionLog(ex);
                 // throw new Exception(ex.Message);
             }
         }
@@ -79,6 +81,15 @@ namespace SurveyConfiguratorApp.Database
                 conn.Close();
                 conn = null;
             }
+        }
+        protected void handleExceptionLog(Exception ex)
+        {
+            try
+            {
+                ErrorLoggerFile errorLoggerFile = new ErrorLoggerFile();
+                errorLoggerFile.HandleException(ex);
+            }
+            catch { }
         }
 
     }

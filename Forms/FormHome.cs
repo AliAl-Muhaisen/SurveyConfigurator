@@ -129,37 +129,6 @@ namespace SurveyConfiguratorApp.Forms
             loadDataGridView();
         }
 
-        private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
-            {
-
-                DataGridViewRow selectedRow = dataGridView.Rows[e.RowIndex];
-
-                questionId = Convert.ToInt32(selectedRow.Cells["id"].Value);
-                questionType = Convert.ToInt32(selectedRow.Cells["typeNumber"].Value);
-
-
-            }
-            //? Check if a row is selected
-            else if (dataGridView.SelectedRows.Count > 0)
-            {
-                //# Get the selected row
-                DataGridViewRow selectedRow = dataGridView.SelectedRows[0];
-                //# Get the ID value from the selected row
-                questionId = Convert.ToInt32(selectedRow.Cells["id"].Value);
-                questionType = Convert.ToInt32(selectedRow.Cells["typeNumber"].Value);
-
-
-            }
-            else
-            {
-                questionId = -1;
-                questionType = -1;
-
-            }
-        }
-
         private void loadDataGridView()
         {
 
@@ -190,6 +159,36 @@ namespace SurveyConfiguratorApp.Forms
             {
 
                 errorLoggerFile.HandleException(ex);
+            }
+        }
+
+        private void dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+
+                DataGridViewRow selectedRow = dataGridView.Rows[e.RowIndex];
+
+                questionId = Convert.ToInt32(selectedRow.Cells["id"].Value);
+                questionType = Convert.ToInt32(selectedRow.Cells["typeNumber"].Value);
+
+            }
+            //? Check if a row is selected
+            else if (dataGridView.SelectedRows.Count > 0)
+            {
+                //# Get the selected row
+                DataGridViewRow selectedRow = dataGridView.SelectedRows[0];
+                //# Get the ID value from the selected row
+                questionId = Convert.ToInt32(selectedRow.Cells["id"].Value);
+                questionType = Convert.ToInt32(selectedRow.Cells["typeNumber"].Value);
+
+
+            }
+            else
+            {
+                questionId = -1;
+                questionType = -1;
+
             }
         }
     }

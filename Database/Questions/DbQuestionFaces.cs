@@ -5,50 +5,52 @@ using System.Windows.Forms;
 
 namespace SurveyConfiguratorApp.Database.Questions
 {
+    /// <summary>
+    /// The class handles CRUD operations for the QuestionFaces table in the database
+    /// </summary>
     public class DbQuestionFaces : DbQuestion, ICRUD<QuestionFaces>
     {
         private const string tableName = "QuestionFaces";
-
         public DbQuestionFaces() : base() { }
         static public string TableName { get { return tableName; } }
 
+        // Create a new QuestionFaces entry in the database
         public bool create(QuestionFaces data)
         {
             try
             {
-                bool isBaseInfoAdded=base.create(data);
+                bool isBaseInfoAdded = base.create(data);
                 if (isBaseInfoAdded)
                 {
- int questionId = base.getLastId();
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    base.OpenConnection();
+                    int questionId = base.getLastId();
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        base.OpenConnection();
 
-                    cmd.Connection = base.conn;
-
-
-
-                    cmd.CommandText = "INSERT INTO [QuestionFaces] ([QuestionId],[FacesNumber]) VALUES (@QuestionId,@FacesNumber);";
-
-                    cmd.Parameters.AddWithValue("@QuestionId", questionId);
-                    cmd.Parameters.AddWithValue("@FacesNumber", data.FacesNumber);
+                        cmd.Connection = base.conn;
 
 
 
-                   int rowAffectrowsAffected = cmd.ExecuteNonQuery();
+                        cmd.CommandText = "INSERT INTO [QuestionFaces] ([QuestionId],[FacesNumber]) VALUES (@QuestionId,@FacesNumber);";
+
+                        cmd.Parameters.AddWithValue("@QuestionId", questionId);
+                        cmd.Parameters.AddWithValue("@FacesNumber", data.FacesNumber);
+
+
+
+                        int rowAffectrowsAffected = cmd.ExecuteNonQuery();
                         if (rowAffectrowsAffected > 0)
                             return true;
 
+                    }
                 }
-                }
-               
+
 
             }
             catch (SqlException e)
             {
-                return false;
-                //throw;
-                //TODO:user log here
+                handleExceptionLog(e);
+               
             }
             finally
             {
@@ -63,6 +65,7 @@ namespace SurveyConfiguratorApp.Database.Questions
             throw new NotImplementedException();
         }
 
+        // Read a QuestionFaces entry from the database based on the ID
         public QuestionFaces read(int id)
         {
             try
@@ -91,8 +94,7 @@ namespace SurveyConfiguratorApp.Database.Questions
             }
             catch (SqlException e)
             {
-                //TODO:add log here
-                //!Error deleting row
+                handleExceptionLog(e);
                 MessageBox.Show("Error While fetch data " + e.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
@@ -103,6 +105,7 @@ namespace SurveyConfiguratorApp.Database.Questions
             return null;
         }
 
+        // Update a QuestionFaces entry in the database
         public bool update(QuestionFaces questionFaces)
         {
             using (SqlCommand command = new SqlCommand())
@@ -131,13 +134,13 @@ namespace SurveyConfiguratorApp.Database.Questions
                 }
                 catch (SqlException ex)
                 {
-                    // Handle any SQL errors
+                    handleExceptionLog(ex);
                 }
                 finally
                 {
                     base.CloseConnection();
                 }
-                return false ;
+                return false;
 
 
             }
