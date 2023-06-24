@@ -11,13 +11,32 @@ namespace SurveyConfiguratorApp.Models.Questions
     {
         private DbQuestionStars dbQuestionStars;
         public int StarsNumber { get; set; }
-        public QuestionStars() : base() {
-            dbQuestionStars=new DbQuestionStars();
-            TypeNumber = (int)QuestionTypes.STARS;
+        public QuestionStars() : base()
+        {
+
+            try
+            {
+                dbQuestionStars = new DbQuestionStars();
+                TypeNumber = (int)QuestionTypes.STARS;
+            }
+            catch (Exception e)
+            {
+                handleExceptionLog(e);
+            }
         }
         public override bool add()
         {
-            return dbQuestionStars.create(this);
+
+            try
+            {
+                return dbQuestionStars.create(this);
+            }
+            catch (Exception e)
+            {
+                handleExceptionLog(e);
+
+            }
+            return false;
         }
 
         public override bool delete()
@@ -27,7 +46,17 @@ namespace SurveyConfiguratorApp.Models.Questions
 
         public override bool update()
         {
-           return dbQuestionStars.update(this);
+
+            try
+            {
+                return dbQuestionStars.update(this);
+            }
+            catch (Exception e)
+            {
+                handleExceptionLog(e);
+
+            }
+            return false;
         }
     }
 }

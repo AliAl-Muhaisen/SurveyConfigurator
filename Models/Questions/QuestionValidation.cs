@@ -31,7 +31,9 @@ namespace SurveyConfiguratorApp.Models.Questions
 
         private QuestionValidation()
         {
-            SliderMaxValue = 100;
+            try
+            {
+  SliderMaxValue = 100;
             SliderMinValue = 0;
             
 
@@ -40,6 +42,13 @@ namespace SurveyConfiguratorApp.Models.Questions
 
             FacesMaxValue = 5;
             FacesMinValue = 2;
+            }
+            catch (Exception e)
+            {
+                handleExceptionLog(e);
+
+            }
+          
         }
 
         public static QuestionValidation Instance()
@@ -173,6 +182,16 @@ namespace SurveyConfiguratorApp.Models.Questions
         {
             return DbQuestion.isOrderAlreadyExists(order, oldOrder);
         }
-
+        private void handleExceptionLog(Exception ex)
+        {
+            try
+            {
+                ErrorLoggerFile errorLoggerFile = new ErrorLoggerFile();
+                errorLoggerFile.HandleException(ex);
+            }
+            catch
+            {
+            }
+        }
     }
 }

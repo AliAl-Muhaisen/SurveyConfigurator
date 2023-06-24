@@ -36,11 +36,10 @@
             this.panelLog = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panelHeadreBar = new System.Windows.Forms.Panel();
+            this.dividerPanelVerticalControl1 = new SurveyConfiguratorApp.UserController.Controllers.DividerPanelVerticalControl();
             this.labelMainBarTitle = new System.Windows.Forms.Label();
             this.panelMain = new System.Windows.Forms.Panel();
             this.panelContainer = new System.Windows.Forms.Panel();
-            this.buttonError = new System.Windows.Forms.Button();
-            this.dividerPanelVerticalControl1 = new SurveyConfiguratorApp.UserController.Controllers.DividerPanelVerticalControl();
             this.panelSideBar.SuspendLayout();
             this.panelLog.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -51,7 +50,6 @@
             // panelSideBar
             // 
             this.panelSideBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
-            this.panelSideBar.Controls.Add(this.buttonError);
             this.panelSideBar.Controls.Add(this.buttonLog);
             this.panelSideBar.Controls.Add(this.buttonHome);
             this.panelSideBar.Controls.Add(this.panelColorBottom);
@@ -154,6 +152,16 @@
             this.panelHeadreBar.Size = new System.Drawing.Size(1237, 95);
             this.panelHeadreBar.TabIndex = 1;
             // 
+            // dividerPanelVerticalControl1
+            // 
+            this.dividerPanelVerticalControl1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
+            this.dividerPanelVerticalControl1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.dividerPanelVerticalControl1.Location = new System.Drawing.Point(0, 0);
+            this.dividerPanelVerticalControl1.Margin = new System.Windows.Forms.Padding(5);
+            this.dividerPanelVerticalControl1.Name = "dividerPanelVerticalControl1";
+            this.dividerPanelVerticalControl1.Size = new System.Drawing.Size(67, 95);
+            this.dividerPanelVerticalControl1.TabIndex = 1;
+            // 
             // labelMainBarTitle
             // 
             this.labelMainBarTitle.AutoSize = true;
@@ -188,38 +196,6 @@
             this.panelContainer.Size = new System.Drawing.Size(1170, 658);
             this.panelContainer.TabIndex = 3;
             this.panelContainer.Paint += new System.Windows.Forms.PaintEventHandler(this.panelContainer_Paint);
-            // 
-            // buttonError
-            // 
-            this.buttonError.Cursor = System.Windows.Forms.Cursors.No;
-            this.buttonError.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonError.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.buttonError.FlatAppearance.BorderSize = 0;
-            this.buttonError.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonError.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonError.ForeColor = System.Drawing.SystemColors.Control;
-            this.buttonError.Image = global::SurveyConfiguratorApp.Properties.Resources.files;
-            this.buttonError.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonError.Location = new System.Drawing.Point(0, 227);
-            this.buttonError.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonError.Name = "buttonError";
-            this.buttonError.Padding = new System.Windows.Forms.Padding(9, 0, 0, 0);
-            this.buttonError.Size = new System.Drawing.Size(215, 66);
-            this.buttonError.TabIndex = 10;
-            this.buttonError.Text = "GError";
-            this.buttonError.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.buttonError.UseVisualStyleBackColor = true;
-            this.buttonError.Click += new System.EventHandler(this.buttonError_Click);
-            // 
-            // dividerPanelVerticalControl1
-            // 
-            this.dividerPanelVerticalControl1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            this.dividerPanelVerticalControl1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.dividerPanelVerticalControl1.Location = new System.Drawing.Point(0, 0);
-            this.dividerPanelVerticalControl1.Margin = new System.Windows.Forms.Padding(5);
-            this.dividerPanelVerticalControl1.Name = "dividerPanelVerticalControl1";
-            this.dividerPanelVerticalControl1.Size = new System.Drawing.Size(67, 95);
-            this.dividerPanelVerticalControl1.TabIndex = 1;
             // 
             // FormMain
             // 
@@ -261,7 +237,6 @@
         private System.Windows.Forms.Panel panelContainer;
         private UserController.Controllers.DividerPanelVerticalControl dividerPanelVerticalControl1;
         private System.Windows.Forms.Button buttonLog;
-        private System.Windows.Forms.Button buttonError;
     }
 }
 

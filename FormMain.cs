@@ -138,21 +138,6 @@ namespace SurveyConfiguratorApp
            
         }
 
-        private void buttonError_Click(object sender, EventArgs e)
-        {
-            //Just for test
-            DbQuestion question = null;
-            ErrorLoggerFile log = new ErrorLoggerFile();
-            try
-            {
-                question.OpenConnection();
-            }
-            catch (Exception ex)
-            {
-
-                log.HandleException(ex);
-            }
-        }
     }
 }
 

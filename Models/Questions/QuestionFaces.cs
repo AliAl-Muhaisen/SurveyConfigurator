@@ -9,11 +9,21 @@ namespace SurveyConfiguratorApp.Models.Questions
 {
     public class QuestionFaces : Question
     {
-        
+
         private DbQuestionFaces dbQuestionFaces;
-        public QuestionFaces():base() {
-            dbQuestionFaces=new DbQuestionFaces();
-            TypeNumber = (int)QuestionTypes.FACES;
+        public QuestionFaces() : base()
+        {
+            try
+            {
+                dbQuestionFaces = new DbQuestionFaces();
+                TypeNumber = (int)QuestionTypes.FACES;
+            }
+            catch (Exception e)
+            {
+                handleExceptionLog(e);
+
+            }
+
 
         }
         public int FacesNumber { get; set; }
@@ -21,7 +31,16 @@ namespace SurveyConfiguratorApp.Models.Questions
 
         public override bool add()
         {
-           return dbQuestionFaces.create(this);
+            try
+            {
+                return dbQuestionFaces.create(this);
+            }
+            catch (Exception e)
+            {
+                handleExceptionLog(e);
+            }
+            return false;
+
         }
 
         public override bool delete()
@@ -31,8 +50,17 @@ namespace SurveyConfiguratorApp.Models.Questions
 
         public override bool update()
         {
-            return dbQuestionFaces.update(this);
+            try
+            {
+                return dbQuestionFaces.update(this);
+            }
+            catch (Exception e)
+            {
+                handleExceptionLog(e);
+            }
+            return false;
+
         }
-       
+
     }
 }

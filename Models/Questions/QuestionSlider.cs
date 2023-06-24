@@ -16,13 +16,30 @@ namespace SurveyConfiguratorApp.Models.Questions
         public string EndCaption { get; set; }
         public QuestionSlider() : base()
         {
-            dbQuestionSlider=new DbQuestionSlider();
 
-            TypeNumber = (int)QuestionTypes.SLIDER;
+            try
+            {
+                dbQuestionSlider = new DbQuestionSlider();
+
+                TypeNumber = (int)QuestionTypes.SLIDER;
+            }
+            catch (Exception e)
+            {
+                handleExceptionLog(e);
+            }
         }
         public override bool add()
         {
-            return dbQuestionSlider.create(this);
+            try
+            {
+                return dbQuestionSlider.create(this);
+            }
+            catch (Exception e)
+            {
+                handleExceptionLog(e);
+            }
+            return false;
+
 
         }
 
@@ -33,7 +50,16 @@ namespace SurveyConfiguratorApp.Models.Questions
 
         public override bool update()
         {
-           return dbQuestionSlider.update(this);
+
+            try
+            {
+                return dbQuestionSlider.update(this);
+            }
+            catch (Exception e)
+            {
+                handleExceptionLog(e);
+            }
+            return false;
         }
     }
 }
