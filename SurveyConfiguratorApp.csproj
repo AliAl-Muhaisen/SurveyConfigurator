@@ -300,13 +300,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Database\Surveydb.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Database\Surveydb_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>Surveydb.mdf</DependentUpon>
-    </Content>
     <None Include="Resources\files.png" />
     <None Include="Resources\refresh1.png" />
   </ItemGroup>
