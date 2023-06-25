@@ -81,10 +81,10 @@
     <Compile Include="Forms\FormHome.Designer.cs">
       <DependentUpon>FormHome.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Log\FormErrorLog.cs">
+    <Compile Include="Forms\FormErrorLog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Log\FormErrorLog.Designer.cs">
+    <Compile Include="Forms\FormErrorLog.Designer.cs">
       <DependentUpon>FormErrorLog.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Questions\FormFacesQuestion\FormFacesQuestion.cs">
@@ -186,7 +186,7 @@
     <EmbeddedResource Include="Forms\FormHome.resx">
       <DependentUpon>FormHome.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Log\FormErrorLog.resx">
+    <EmbeddedResource Include="Forms\FormErrorLog.resx">
       <DependentUpon>FormErrorLog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Questions\FormFacesQuestion\FormFacesQuestion.resx">
@@ -309,6 +309,9 @@
     </Content>
     <None Include="Resources\files.png" />
     <None Include="Resources\refresh1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Forms\Log\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
