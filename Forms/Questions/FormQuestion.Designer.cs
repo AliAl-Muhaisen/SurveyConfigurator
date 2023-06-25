@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.panelSideBarChild = new System.Windows.Forms.Panel();
-            this.layoutControl1 = new SurveyConfiguratorApp.UserController.LayoutControl();
             this.buttonSmileyQuestion = new System.Windows.Forms.Button();
-            this.buttonStarsQuestion = new System.Windows.Forms.Button();
             this.buttonSliderQuestion = new System.Windows.Forms.Button();
+            this.buttonStarsQuestion = new System.Windows.Forms.Button();
+            this.layoutControl1 = new SurveyConfiguratorApp.UserController.LayoutControl();
             this.panelSideBarChild.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,15 +46,6 @@
             this.panelSideBarChild.Name = "panelSideBarChild";
             this.panelSideBarChild.Size = new System.Drawing.Size(182, 441);
             this.panelSideBarChild.TabIndex = 4;
-            // 
-            // layoutControl1
-            // 
-            this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.layoutControl1.Location = new System.Drawing.Point(0, 0);
-            this.layoutControl1.Name = "layoutControl1";
-            this.layoutControl1.Size = new System.Drawing.Size(1125, 619);
-            this.layoutControl1.TabIndex = 0;
-            this.layoutControl1.Load += new System.EventHandler(this.layoutControl1_Load);
             // 
             // buttonSmileyQuestion
             // 
@@ -76,26 +67,6 @@
             this.buttonSmileyQuestion.UseVisualStyleBackColor = false;
             this.buttonSmileyQuestion.Click += new System.EventHandler(this.buttonSmileyQuestion_Click);
             // 
-            // buttonStarsQuestion
-            // 
-            this.buttonStarsQuestion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
-            this.buttonStarsQuestion.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonStarsQuestion.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.buttonStarsQuestion.FlatAppearance.BorderSize = 0;
-            this.buttonStarsQuestion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonStarsQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonStarsQuestion.ForeColor = System.Drawing.SystemColors.Control;
-            this.buttonStarsQuestion.Image = global::SurveyConfiguratorApp.Properties.Resources.star;
-            this.buttonStarsQuestion.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonStarsQuestion.Location = new System.Drawing.Point(0, 0);
-            this.buttonStarsQuestion.Name = "buttonStarsQuestion";
-            this.buttonStarsQuestion.Size = new System.Drawing.Size(182, 68);
-            this.buttonStarsQuestion.TabIndex = 2;
-            this.buttonStarsQuestion.Text = "Stars Question";
-            this.buttonStarsQuestion.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.buttonStarsQuestion.UseVisualStyleBackColor = false;
-            this.buttonStarsQuestion.Click += new System.EventHandler(this.buttonStarsQuestion_Click);
-            // 
             // buttonSliderQuestion
             // 
             this.buttonSliderQuestion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
@@ -116,14 +87,47 @@
             this.buttonSliderQuestion.UseVisualStyleBackColor = false;
             this.buttonSliderQuestion.Click += new System.EventHandler(this.buttonSliderQuestion_Click);
             // 
+            // buttonStarsQuestion
+            // 
+            this.buttonStarsQuestion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
+            this.buttonStarsQuestion.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonStarsQuestion.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.buttonStarsQuestion.FlatAppearance.BorderSize = 0;
+            this.buttonStarsQuestion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonStarsQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonStarsQuestion.ForeColor = System.Drawing.SystemColors.Control;
+            this.buttonStarsQuestion.Image = global::SurveyConfiguratorApp.Properties.Resources.star;
+            this.buttonStarsQuestion.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonStarsQuestion.Location = new System.Drawing.Point(0, 0);
+            this.buttonStarsQuestion.Name = "buttonStarsQuestion";
+            this.buttonStarsQuestion.Size = new System.Drawing.Size(182, 68);
+            this.buttonStarsQuestion.TabIndex = 2;
+            this.buttonStarsQuestion.Text = "Stars Question";
+            this.buttonStarsQuestion.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.buttonStarsQuestion.UseVisualStyleBackColor = false;
+            this.buttonStarsQuestion.Click += new System.EventHandler(this.buttonStarsQuestion_Click);
+            // 
+            // layoutControl1
+            // 
+            this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.layoutControl1.Location = new System.Drawing.Point(0, 0);
+            this.layoutControl1.Name = "layoutControl1";
+            this.layoutControl1.Size = new System.Drawing.Size(1125, 619);
+            this.layoutControl1.TabIndex = 0;
+            this.layoutControl1.Load += new System.EventHandler(this.layoutControl1_Load);
+            // 
             // FormQuestion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1125, 619);
             this.Controls.Add(this.panelSideBarChild);
             this.Controls.Add(this.layoutControl1);
+            this.MaximumSize = new System.Drawing.Size(1141, 658);
+            this.MinimumSize = new System.Drawing.Size(1141, 658);
             this.Name = "FormQuestion";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormQuestion";
             this.Load += new System.EventHandler(this.FormQuestion_Load);
             this.panelSideBarChild.ResumeLayout(false);

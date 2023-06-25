@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SurveyConfiguratorApp.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,10 +16,18 @@ namespace SurveyConfiguratorApp.UserController
         private Form activeForm;
         public LayoutControl()
         {
-            InitializeComponent();
+
+            try
+            {
+                InitializeComponent();
+            }
+            catch (Exception ex)
+            {
+                handleExceptionLog(ex);
+            }
         }
 
-        
+
 
         private void LayoutControl_Load(object sender, EventArgs e)
         {
@@ -37,42 +46,77 @@ namespace SurveyConfiguratorApp.UserController
 
         public void changeTitle(string title)
         {
-            labelMainBarTitle.Text = title;
+
+            try
+            {
+                labelMainBarTitle.Text = title;
+            }
+            catch (Exception ex)
+            {
+                handleExceptionLog(ex);
+            }
         }
 
         public void OpenChildForm(Form childForm)
         {
-            if (activeForm != null)
+
+
+            try
             {
-                activeForm.Close();
+                if (activeForm != null)
+                {
+                    activeForm.Close();
 
+                }
+                if (childForm == activeForm)
+                    return;
+
+                activeForm = childForm;
+                childForm.TopLevel = false;
+                childForm.FormBorderStyle = FormBorderStyle.None;
+                childForm.Dock = DockStyle.Fill;
+                panelMain.Controls.Add(childForm);
+                panelMain.Tag = childForm;
+                childForm.BringToFront();
+                childForm.Show();
             }
-            if (childForm == activeForm)
-                return;
-
-            activeForm = childForm;
-            childForm.TopLevel = false;
-            childForm.FormBorderStyle = FormBorderStyle.None;
-            childForm.Dock = DockStyle.Fill;
-            panelMain.Controls.Add(childForm);
-            panelMain.Tag = childForm;
-            childForm.BringToFront();
-            childForm.Show();
+            catch (Exception ex)
+            {
+                handleExceptionLog(ex);
+            }
 
         }
 
         public void addToPanelSideBar(Control control)
         {
-            if (control == null)
-                return;
+            try
+            {
+                if (control == null)
+                    return;
 
-            panelSideBar.Controls.Add(control);
+                panelSideBar.Controls.Add(control);
+            }
+            catch (Exception ex)
+            {
+                handleExceptionLog(ex);
+            }
+
         }
 
-        public Color PanelSideBarColor { 
-            get {
+        public Color PanelSideBarColor
+        {
+            get
+            {
                 return panelSideBar.BackColor;
             }
+        }
+
+        private void handleExceptionLog(Exception ex)
+        {
+
+            ErrorLoggerFile errorLoggerFile = new ErrorLoggerFile();
+            errorLoggerFile.HandleException(ex);
+
         }
     }
 }

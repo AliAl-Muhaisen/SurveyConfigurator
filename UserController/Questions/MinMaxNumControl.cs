@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SurveyConfiguratorApp.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,7 +16,7 @@ namespace SurveyConfiguratorApp.UserController.Questions
         private bool isValidMinNum = false;
         private bool isValidMaxNum = false;
 
-        
+
         public decimal StartNumMin
         {
             get
@@ -69,9 +70,18 @@ namespace SurveyConfiguratorApp.UserController.Questions
 
         public MinMaxNumControl()
         {
-            InitializeComponent();
-            customLabelControlMax.setText("Max");
-            customLabelControlMin.setText("Min");
+            try
+            {
+                InitializeComponent();
+                customLabelControlMax.setText("Max");
+                customLabelControlMin.setText("Min");
+            }
+            catch (Exception ex)
+            {
+                handleExceptionLog(ex);
+            }
+
+
         }
 
 
@@ -80,7 +90,7 @@ namespace SurveyConfiguratorApp.UserController.Questions
             customLabelControlTitle.setText(title);
         }
 
-      
+
         private void numericUpDownStart_ValueChanged(object sender, EventArgs e)
         {
             handleMinValue();
@@ -93,56 +103,74 @@ namespace SurveyConfiguratorApp.UserController.Questions
 
         private void handleMinValue()
         {
-            if (numericUpDownStart.Value >= numericUpDownEnd.Value)
+            try
             {
-                setLabelErrorMin("Min should be less than max");
-                isValidMinNum = false;
+                if (numericUpDownStart.Value >= numericUpDownEnd.Value)
+                {
+                    setLabelErrorMin("Min should be less than max");
+                    isValidMinNum = false;
 
+                }
+
+                else if (numericUpDownStart.Value < numericUpDownStart.Minimum)
+                {
+                    setLabelErrorMin("number must be greater than or equal " + numericUpDownStart.Minimum);
+
+                }
+
+                else
+                {
+                    setLabelErrorMin(null);
+                    isValidMinNum = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                handleExceptionLog(ex);
             }
 
-            else if (numericUpDownStart.Value < numericUpDownStart.Minimum)
-            {
-                setLabelErrorMin("number must be greater than or equal " + numericUpDownStart.Minimum);
 
-            }
-           
-            else
-            {
-                setLabelErrorMin(null);
-                isValidMinNum=true;
-            }
 
-            
+
 
         }
 
         private void handleMaxValue()
         {
-            if (numericUpDownEnd.Value <= numericUpDownStart.Value)
+            try
             {
-                setLabelErrorMax("Max should be greater than min");
-                isValidMaxNum = false;
+                if (numericUpDownEnd.Value <= numericUpDownStart.Value)
+                {
+                    setLabelErrorMax("Max should be greater than min");
+                    isValidMaxNum = false;
+
+                }
+
+                else if (numericUpDownEnd.Value <= numericUpDownEnd.Minimum)
+                {
+                    setLabelErrorMax("number must be greater than or equal " + numericUpDownEnd.Minimum);
+
+
+                }
+
+                else if (numericUpDownEnd.Value > numericUpDownEnd.Maximum)
+                {
+                    setLabelErrorMax("number must be less than or equal " + numericUpDownEnd.Maximum);
+                    isValidMaxNum = false;
+
+                }
+                else
+                {
+                    setLabelErrorMax(null);
+                    isValidMaxNum = true;
+                }
+
 
             }
-
-            else if (numericUpDownEnd.Value <= numericUpDownEnd.Minimum)
+            catch (Exception ex)
             {
-                setLabelErrorMax("number must be greater than or equal " + numericUpDownEnd.Minimum);
-              
-
+                handleExceptionLog(ex);
             }
-
-            else if (numericUpDownEnd.Value > numericUpDownEnd.Maximum)
-            {
-                setLabelErrorMax("number must be less than or equal " + numericUpDownEnd.Maximum);
-                isValidMaxNum = false;
-
-            }
-            else {
-                setLabelErrorMax(null);
-                isValidMaxNum=true;
-            }
-
         }
         private void numericUpDownStart_KeyDown(object sender, KeyEventArgs e)
         {
@@ -188,45 +216,103 @@ namespace SurveyConfiguratorApp.UserController.Questions
 
         public bool isValidForm()
         {
-            handleMaxValue();
-            handleMinValue();
-            return isValidMaxNum && isValidMinNum;
+            try
+            {
+                handleMaxValue();
+                handleMinValue();
+                return isValidMaxNum && isValidMinNum;
+            }
+            catch (Exception ex)
+            {
+                handleExceptionLog(ex);
+            }
+            return false;
+
         }
 
         public int getStartValue()
         {
-            return (int) numericUpDownStart.Value;
+            try
+            {
+                return (int)numericUpDownStart.Value;
+            }
+            catch (Exception ex)
+            {
+                handleExceptionLog(ex);
+            }
+            return 0;
+
         }
 
         public int getEndValue()
         {
-            return (int)numericUpDownEnd.Value;
+            try
+            {
+                return (int)numericUpDownEnd.Value;
+            }
+            catch (Exception ex)
+            {
+                handleExceptionLog(ex);
+            }
+            return 0;
+
         }
         public void setStartValue(int value)
         {
-            if (value > numericUpDownStart.Maximum || value < numericUpDownStart.Minimum)
-                numericUpDownStart.Value = numericUpDownStart.Minimum;
+            try
+            {
+                if (value > numericUpDownStart.Maximum || value < numericUpDownStart.Minimum)
+                    numericUpDownStart.Value = numericUpDownStart.Minimum;
 
 
-            else numericUpDownStart.Value = value;
-           
+                else numericUpDownStart.Value = value;
+            }
+            catch (Exception ex)
+            {
+                handleExceptionLog(ex);
+            }
+
         }
 
         public void setEndValue(int value)
         {
-            if (value > numericUpDownEnd.Maximum || value < numericUpDownEnd.Minimum)
-                numericUpDownEnd.Value = numericUpDownEnd.Minimum;
+            try
+            {
+                if (value > numericUpDownEnd.Maximum || value < numericUpDownEnd.Minimum)
+                    numericUpDownEnd.Value = numericUpDownEnd.Minimum;
 
 
-            else numericUpDownEnd.Value = value;
+                else numericUpDownEnd.Value = value;
+            }
+            catch (Exception ex)
+            {
+                handleExceptionLog(ex);
+            }
+
 
         }
 
 
         public void clearInputValues()
         {
-            numericUpDownEnd.Value = numericUpDownEnd.Maximum;
-            numericUpDownStart.Value= numericUpDownStart.Minimum;
+
+            try
+            {
+                numericUpDownEnd.Value = numericUpDownEnd.Maximum;
+                numericUpDownStart.Value = numericUpDownStart.Minimum;
+            }
+            catch (Exception ex)
+            {
+                handleExceptionLog(ex);
+            }
+
+        }
+
+        private void handleExceptionLog(Exception ex)
+        {
+
+            ErrorLoggerFile errorLoggerFile = new ErrorLoggerFile();
+            errorLoggerFile.HandleException(ex);
 
         }
     }

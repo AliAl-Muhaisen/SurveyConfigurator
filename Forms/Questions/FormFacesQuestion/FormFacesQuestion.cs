@@ -1,5 +1,6 @@
 ﻿
 using SurveyConfiguratorApp.Database.Questions;
+using SurveyConfiguratorApp.Models;
 using SurveyConfiguratorApp.Models.Questions;
 using SurveyConfiguratorApp.UserController.Questions;
 using System;
@@ -25,35 +26,52 @@ namespace SurveyConfiguratorApp.Forms
         private QuestionFaces questionFaces;
         public FormFacesQuestion()
         {
-            InitializeComponent();
-            questionFaces = new QuestionFaces();
-
-            questionValidation = QuestionValidation.Instance();
-
-            upDownWithLabelControl.setLabelTitle("Number Of Faces");
-
-            upDownWithLabelControl.setInputMinValue(questionValidation.FacesMinValue);
-            upDownWithLabelControl.setInputMaxValue(questionValidation.FacesMaxValue);
-
-            upDownWithLabelControl.clearErrorText();
-
-            upDownWithLabelControl.setCallBackFunction(new CallBackHandleErrorMsg(questionValidation.facesHandleMsg));
 
 
-            sharedBetweenQuestions.clearErrorLabelsText();
-            sharedBetweenQuestions.setIsNotEmptyCallBack(new CallBackIsNotEmpty(questionValidation.handelQuestionText));
-            sharedBetweenQuestions.setCallBackIsOrderAlreadyExists(new CallBackIsOrderAlreadyExists(questionValidation.isOrderAlreadyExists));
+            try
+            {
+                InitializeComponent();
+                questionFaces = new QuestionFaces();
+
+                questionValidation = QuestionValidation.Instance();
+
+                upDownWithLabelControl.setLabelTitle("Number Of Faces");
+
+                upDownWithLabelControl.setInputMinValue(questionValidation.FacesMinValue);
+                upDownWithLabelControl.setInputMaxValue(questionValidation.FacesMaxValue);
+
+                upDownWithLabelControl.clearErrorText();
+
+                upDownWithLabelControl.setCallBackFunction(new CallBackHandleErrorMsg(questionValidation.facesHandleMsg));
+
+
+                sharedBetweenQuestions.clearErrorLabelsText();
+                sharedBetweenQuestions.setIsNotEmptyCallBack(new CallBackIsNotEmpty(questionValidation.handelQuestionText));
+                sharedBetweenQuestions.setCallBackIsOrderAlreadyExists(new CallBackIsOrderAlreadyExists(questionValidation.isOrderAlreadyExists));
+            }
+            catch (Exception ex)
+            {
+                handleExceptionLog(ex);
+            }
 
         }
         public FormFacesQuestion(QuestionFaces questionFaces) : this()
         {
-            isUpdate = true;
-            this.questionFaces = questionFaces;
-            sharedBetweenQuestions.setQuestionText(questionFaces.Text);
-            sharedBetweenQuestions.setQuestionOrderValue(questionFaces.Order);
-            upDownWithLabelControl.setNumericValue(questionFaces.FacesNumber);
-            sharedBetweenQuestions.setOldOrder(questionFaces.Order);
-            buttonSave.Text = "Update";
+
+            try
+            {
+                isUpdate = true;
+                this.questionFaces = questionFaces;
+                sharedBetweenQuestions.setQuestionText(questionFaces.Text);
+                sharedBetweenQuestions.setQuestionOrderValue(questionFaces.Order);
+                upDownWithLabelControl.setNumericValue(questionFaces.FacesNumber);
+                sharedBetweenQuestions.setOldOrder(questionFaces.Order);
+                buttonSave.Text = "Update";
+            }
+            catch (Exception ex)
+            {
+                handleExceptionLog(ex);
+            }
         }
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
@@ -67,44 +85,61 @@ namespace SurveyConfiguratorApp.Forms
 
         private void button2_Click(object sender, EventArgs e)
         {
-            bool isValidGeneralQuestions = sharedBetweenQuestions.isValidForm();
-            bool isValidFacesNumber = upDownWithLabelControl.isValidForm();
-            if (isValidGeneralQuestions && isValidFacesNumber)
+            try
             {
-                questionFaces.Text = sharedBetweenQuestions.getQuestionText();
-                questionFaces.Order = Convert.ToInt32(sharedBetweenQuestions.getQuestionOrder());
-                bool result = false;
-
-                questionFaces.FacesNumber = upDownWithLabelControl.getFacesNumber();
-                if (!isUpdate)
+                bool isValidGeneralQuestions = sharedBetweenQuestions.isValidForm();
+                bool isValidFacesNumber = upDownWithLabelControl.isValidForm();
+                if (isValidGeneralQuestions && isValidFacesNumber)
                 {
+                    questionFaces.Text = sharedBetweenQuestions.getQuestionText();
+                    questionFaces.Order = Convert.ToInt32(sharedBetweenQuestions.getQuestionOrder());
+                    bool result = false;
 
-                    result = questionFaces.add();
-                    customMessageBoxControl1.sqlInsert(result);
-                    if (result)
+                    questionFaces.FacesNumber = upDownWithLabelControl.getFacesNumber();
+                    if (!isUpdate)
                     {
-                        sharedBetweenQuestions.clearInputValues();
-                        sharedBetweenQuestions.clearErrorLabelsText();
-                        upDownWithLabelControl.clearInputValues();
-                        upDownWithLabelControl.clearErrorText();
+
+                        result = questionFaces.add();
+                        customMessageBoxControl1.sqlInsert(result);
+                        if (result)
+                        {
+                            sharedBetweenQuestions.clearInputValues();
+                            sharedBetweenQuestions.clearErrorLabelsText();
+                            upDownWithLabelControl.clearInputValues();
+                            upDownWithLabelControl.clearErrorText();
+                        }
                     }
+                    else
+                    {
+                        result = questionFaces.update();
+
+                        customMessageBoxControl1.sqlUpdate(result);
+                        sharedBetweenQuestions.setOldOrder(questionFaces.Order);
+
+                    }
+
+
+
                 }
-                else
-                {
-                    result = questionFaces.update();
-
-                    customMessageBoxControl1.sqlUpdate(result);
-                    sharedBetweenQuestions.setOldOrder(questionFaces.Order);
-
-                }
-
-
 
             }
+            catch (Exception ex)
+            {
+                handleExceptionLog(ex);
+            }
+
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
+
+        }
+
+        private void handleExceptionLog(Exception ex)
+        {
+
+            ErrorLoggerFile errorLoggerFile = new ErrorLoggerFile();
+            errorLoggerFile.HandleException(ex);
 
         }
     }

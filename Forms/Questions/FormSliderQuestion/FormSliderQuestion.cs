@@ -26,53 +26,79 @@ namespace SurveyConfiguratorApp.Forms.Questions
         private QuestionSlider questionSlider;
         public FormSliderQuestion()
         {
-            InitializeComponent();
-            questionValidation = QuestionValidation.Instance();
-            questionSlider = new QuestionSlider();
+            try
+            {
+                InitializeComponent();
+                questionValidation = QuestionValidation.Instance();
+                questionSlider = new QuestionSlider();
 
-            minMaxNumControl1.setLabelTitleText("Slider Values");
-            customLabelControlTitleCaption.setText("Captions");
+                minMaxNumControl1.setLabelTitleText("Slider Values");
+                customLabelControlTitleCaption.setText("Captions");
 
-            labelErrorCaptionMin.clearText();
-            customLabelControlMin.setText("Min");
-            customLabelControlMax.setText("Max");
-            labelErrorCaptionMax.clearText();
-
-
-            sharedBetweenQuestions.clearErrorLabelsText();
-            minMaxNumControl1.StartNumMin = questionValidation.SliderMinValue;
-            minMaxNumControl1.StartNumMax = questionValidation.SliderMaxValue - 1;
-            minMaxNumControl1.EndNumMax = questionValidation.SliderMaxValue;
-            minMaxNumControl1.EndNumMin = questionValidation.SliderMinValue + 1;
-            minMaxNumControl1.clearErrorLabelsText();
-            //minMaxNumControl1.setIsNotEmptyCallBack(new CallBackIsNotEmpty(questionValidation.handelCaptionText));
+                labelErrorCaptionMin.clearText();
+                customLabelControlMin.setText("Min");
+                customLabelControlMax.setText("Max");
+                labelErrorCaptionMax.clearText();
 
 
-            sharedBetweenQuestions.setIsNotEmptyCallBack(new CallBackIsNotEmpty(questionValidation.handelQuestionText));
-            sharedBetweenQuestions.setCallBackIsOrderAlreadyExists(new CallBackIsOrderAlreadyExists(questionValidation.isOrderAlreadyExists));
+                sharedBetweenQuestions.clearErrorLabelsText();
+                minMaxNumControl1.StartNumMin = questionValidation.SliderMinValue;
+                minMaxNumControl1.StartNumMax = questionValidation.SliderMaxValue - 1;
+                minMaxNumControl1.EndNumMax = questionValidation.SliderMaxValue;
+                minMaxNumControl1.EndNumMin = questionValidation.SliderMinValue + 1;
+                minMaxNumControl1.clearErrorLabelsText();
+                //minMaxNumControl1.setIsNotEmptyCallBack(new CallBackIsNotEmpty(questionValidation.handelCaptionText));
+
+
+                sharedBetweenQuestions.setIsNotEmptyCallBack(new CallBackIsNotEmpty(questionValidation.handelQuestionText));
+                sharedBetweenQuestions.setCallBackIsOrderAlreadyExists(new CallBackIsOrderAlreadyExists(questionValidation.isOrderAlreadyExists));
+            }
+            catch (Exception ex)
+            {
+                handleExceptionLog(ex);
+            }
+
 
 
         }
 
         public FormSliderQuestion(QuestionSlider questionSlider) : this()
         {
-            isUpdate = true;
-            this.questionSlider = questionSlider;
-            sharedBetweenQuestions.setQuestionText(questionSlider.Text);
-            sharedBetweenQuestions.setQuestionOrderValue(questionSlider.Order);
-            textBoxCaptionMin.Text = questionSlider.StartCaption;
-            textBoxCaptionMax.Text = questionSlider.EndCaption;
-            minMaxNumControl1.setEndValue(questionSlider.EndValue);
-            minMaxNumControl1.setStartValue(questionSlider.StartValue);
-            sharedBetweenQuestions.setOldOrder(questionSlider.Order);
 
-            buttonSave.Text = "Update";
+
+            try
+            {
+                isUpdate = true;
+                this.questionSlider = questionSlider;
+                sharedBetweenQuestions.setQuestionText(questionSlider.Text);
+                sharedBetweenQuestions.setQuestionOrderValue(questionSlider.Order);
+                textBoxCaptionMin.Text = questionSlider.StartCaption;
+                textBoxCaptionMax.Text = questionSlider.EndCaption;
+                minMaxNumControl1.setEndValue(questionSlider.EndValue);
+                minMaxNumControl1.setStartValue(questionSlider.StartValue);
+                sharedBetweenQuestions.setOldOrder(questionSlider.Order);
+
+                buttonSave.Text = "Update";
+            }
+            catch (Exception ex)
+            {
+                handleExceptionLog(ex);
+            }
         }
         private bool isValidForm()
         {
-            handleCaptionMin();
-            handleCaptionMax();
-            return isValidCaptionMinText && isValidCaptionMaxText;
+            try
+            {
+                handleCaptionMin();
+                handleCaptionMax();
+                return isValidCaptionMinText && isValidCaptionMaxText;
+            }
+            catch (Exception ex)
+            {
+                handleExceptionLog(ex);
+            }
+            return false;
+
         }
 
         private void textBoxCaptionMin_TextChanged(object sender, EventArgs e)
@@ -82,33 +108,51 @@ namespace SurveyConfiguratorApp.Forms.Questions
 
         private void handleCaptionMin()
         {
-            string msg =
-            questionValidation.handelCaptionText(textBoxCaptionMin.Text);
 
-            labelErrorCaptionMin.setText(msg);
 
-            if (msg == null)
+            try
             {
-                isValidCaptionMinText = true;
+                string msg =
+                           questionValidation.handelCaptionText(textBoxCaptionMin.Text);
+
+                labelErrorCaptionMin.setText(msg);
+
+                if (msg == null)
+                {
+                    isValidCaptionMinText = true;
+                }
+                else
+                    isValidCaptionMinText = false;
             }
-            else
-                isValidCaptionMinText = false;
+            catch (Exception ex)
+            {
+                handleExceptionLog(ex);
+            }
 
         }
 
         private void handleCaptionMax()
         {
-            string msg =
-            questionValidation.handelCaptionText(textBoxCaptionMax.Text);
 
-            labelErrorCaptionMax.setText(msg);
 
-            if (msg == null)
+            try
             {
-                isValidCaptionMaxText = true;
+                string msg =
+                           questionValidation.handelCaptionText(textBoxCaptionMax.Text);
+
+                labelErrorCaptionMax.setText(msg);
+
+                if (msg == null)
+                {
+                    isValidCaptionMaxText = true;
+                }
+                else
+                    isValidCaptionMaxText = false;
             }
-            else
-                isValidCaptionMaxText = false;
+            catch (Exception ex)
+            {
+                handleExceptionLog(ex);
+            }
 
         }
 
@@ -119,50 +163,75 @@ namespace SurveyConfiguratorApp.Forms.Questions
 
         private void clearInputsValue()
         {
-            textBoxCaptionMax.Text = string.Empty;
-            textBoxCaptionMin.Text = string.Empty;
+            try
+            {
+                textBoxCaptionMax.Text = string.Empty;
+                textBoxCaptionMin.Text = string.Empty;
+            }
+            catch (Exception ex)
+            {
+                handleExceptionLog(ex);
+            }
+
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            bool checkGeneralQuestions = sharedBetweenQuestions.isValidForm();
-            bool checkCaption = isValidForm();
-            bool checkMinMaxValues = minMaxNumControl1.isValidForm();
-            if (checkGeneralQuestions && checkCaption && checkMinMaxValues)
+            try
             {
-                questionSlider.Text = sharedBetweenQuestions.getQuestionText();
-                questionSlider.Order = Convert.ToInt32(sharedBetweenQuestions.getQuestionOrder());
-
-                questionSlider.StartValue = minMaxNumControl1.getStartValue();
-                questionSlider.EndValue = minMaxNumControl1.getEndValue();
-
-                questionSlider.StartCaption = textBoxCaptionMin.Text;
-                questionSlider.EndCaption = textBoxCaptionMax.Text;
-                bool result = false;
-                if (!isUpdate)
+                bool checkGeneralQuestions = sharedBetweenQuestions.isValidForm();
+                bool checkCaption = isValidForm();
+                bool checkMinMaxValues = minMaxNumControl1.isValidForm();
+                if (checkGeneralQuestions && checkCaption && checkMinMaxValues)
                 {
-                    result = questionSlider.add();
-                    customMessageBoxControl1.sqlInsert(result);
-                    if (result)
+                    questionSlider.Text = sharedBetweenQuestions.getQuestionText();
+                    questionSlider.Order = Convert.ToInt32(sharedBetweenQuestions.getQuestionOrder());
+
+                    questionSlider.StartValue = minMaxNumControl1.getStartValue();
+                    questionSlider.EndValue = minMaxNumControl1.getEndValue();
+
+                    questionSlider.StartCaption = textBoxCaptionMin.Text;
+                    questionSlider.EndCaption = textBoxCaptionMax.Text;
+                    bool result = false;
+                    if (!isUpdate)
                     {
-                        sharedBetweenQuestions.clearInputValues();
-                        sharedBetweenQuestions.clearErrorLabelsText();
-                        minMaxNumControl1.clearErrorLabelsText();
-                        minMaxNumControl1.clearInputValues();
-                        clearInputsValue();
+                        result = questionSlider.add();
+                        customMessageBoxControl1.sqlInsert(result);
+                        if (result)
+                        {
+                            sharedBetweenQuestions.clearInputValues();
+                            sharedBetweenQuestions.clearErrorLabelsText();
+                            minMaxNumControl1.clearErrorLabelsText();
+                            minMaxNumControl1.clearInputValues();
+                            clearInputsValue();
+                        }
+
+                    }
+                    else
+                    {
+                        result = questionSlider.update();
+                        customMessageBoxControl1.sqlUpdate(result);
+                        sharedBetweenQuestions.setOldOrder(questionSlider.Order);
                     }
 
-                }
-                else
-                {
-                    result = questionSlider.update();
-                    customMessageBoxControl1.sqlUpdate(result);
-                    sharedBetweenQuestions.setOldOrder(questionSlider.Order);
-                }
-                
 
+
+                }
 
             }
+            catch (Exception ex)
+            {
+                handleExceptionLog(ex);
+            }
         }
+
+        private void handleExceptionLog(Exception ex)
+        {
+
+            ErrorLoggerFile errorLoggerFile = new ErrorLoggerFile();
+            errorLoggerFile.HandleException(ex);
+
+        }
+
     }
 }

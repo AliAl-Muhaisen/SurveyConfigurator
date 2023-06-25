@@ -1,4 +1,5 @@
-﻿using SurveyConfiguratorApp.Models.Questions;
+﻿using SurveyConfiguratorApp.Models;
+using SurveyConfiguratorApp.Models.Questions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,8 +23,16 @@ namespace SurveyConfiguratorApp.UserController.Questions
         private CallBackHandleErrorMsg callBackHandleErrorMsg;
         public UpDownWithLabelControl()
         {
-            InitializeComponent();
-            labelInputValue.setText("Value");
+
+            try
+            {
+                InitializeComponent();
+                labelInputValue.setText("Value");
+            }
+            catch (Exception e)
+            {
+                handleExceptionLog(e);
+            }
 
 
         }
@@ -55,11 +64,19 @@ namespace SurveyConfiguratorApp.UserController.Questions
         }
         public void setNumericValue(int value)
         {
-            if (value > numericUpDown.Maximum || value < numericUpDown.Minimum)
-                numericUpDown.Value = numericUpDown.Minimum;
+
+            try
+            {
+                if (value > numericUpDown.Maximum || value < numericUpDown.Minimum)
+                    numericUpDown.Value = numericUpDown.Minimum;
 
 
-            else numericUpDown.Value = value;
+                else numericUpDown.Value = value;
+            }
+            catch (Exception ex)
+            {
+                handleExceptionLog(ex);
+            }
         }
 
 
@@ -88,7 +105,9 @@ namespace SurveyConfiguratorApp.UserController.Questions
             catch (Exception ex)
             {
 
-                MessageBox.Show("Call Back Failed 2" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Something went wrong please try again" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                handleExceptionLog(ex);
+
             }
 
         }
@@ -100,7 +119,8 @@ namespace SurveyConfiguratorApp.UserController.Questions
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Call Back Failed ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Something went wrong please try again" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                handleExceptionLog(ex);
             }
 
         }
@@ -118,6 +138,13 @@ namespace SurveyConfiguratorApp.UserController.Questions
         public void clearInputValues()
         {
             numericUpDown.Value = numericUpDown.Minimum;
+
+        }
+        private void handleExceptionLog(Exception ex)
+        {
+
+            ErrorLoggerFile errorLoggerFile = new ErrorLoggerFile();
+            errorLoggerFile.HandleException(ex);
 
         }
 

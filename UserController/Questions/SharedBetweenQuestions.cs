@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SurveyConfiguratorApp.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,7 +15,7 @@ namespace SurveyConfiguratorApp.UserController.Questions
     {
 
         public delegate string CallBackIsNotEmpty(string text);
-        public delegate bool CallBackIsOrderAlreadyExists(int order,int oldOrder);
+        public delegate bool CallBackIsOrderAlreadyExists(int order, int oldOrder);
         private CallBackIsNotEmpty callBackIsNotEmptyMsg;
         private CallBackIsOrderAlreadyExists callBackIsOrderAlreadyExists;
 
@@ -23,9 +24,17 @@ namespace SurveyConfiguratorApp.UserController.Questions
         private int oldOrder = -1;
         public SharedBetweenQuestions()
         {
-            InitializeComponent();
-            labelQuestionText.setText("Text");
-            labelQuestionOrder.setText("Order");
+
+            try
+            {
+                InitializeComponent();
+                labelQuestionText.setText("Text");
+                labelQuestionOrder.setText("Order");
+            }
+            catch (Exception ex)
+            {
+                handleExceptionLog(ex);
+            }
         }
 
         private void customLabelControl1_Load(object sender, EventArgs e)
@@ -46,21 +55,30 @@ namespace SurveyConfiguratorApp.UserController.Questions
 
         public void handelQuestionText()
         {
-            string msg = null;
-            if (callBackIsNotEmptyMsg != null)
+
+
+            try
             {
-                string inputText = textBoxQuestionText.Text;
-                msg = callBackIsNotEmptyMsg(inputText);
-                labelErrorQuestionText.setText(msg);
-
-
-                if (msg == null)
+                string msg = null;
+                if (callBackIsNotEmptyMsg != null)
                 {
-                    isValidQuestionText = true;
-                }
-                else
-                    isValidQuestionText = false;
+                    string inputText = textBoxQuestionText.Text;
+                    msg = callBackIsNotEmptyMsg(inputText);
+                    labelErrorQuestionText.setText(msg);
 
+
+                    if (msg == null)
+                    {
+                        isValidQuestionText = true;
+                    }
+                    else
+                        isValidQuestionText = false;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                handleExceptionLog(ex);
             }
         }
 
@@ -128,8 +146,9 @@ namespace SurveyConfiguratorApp.UserController.Questions
             }
             catch (Exception ex)
             {
+                handleExceptionLog(ex);
                 MessageBox.Show("callBackIsNotEmptyMsg Failed ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //TODO:use log here
+               
 
             }
         }
@@ -137,41 +156,49 @@ namespace SurveyConfiguratorApp.UserController.Questions
         public void setCallBackIsOrderAlreadyExists(CallBackIsOrderAlreadyExists callBack)
         {
 
+
             try
             {
                 callBackIsOrderAlreadyExists = callBack;
             }
             catch (Exception ex)
             {
+                handleExceptionLog(ex);
                 MessageBox.Show("callBackIsNotEmptyMsg Failed ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //TODO:use log here
-
             }
         }
 
         private void handleOrderValue()
         {
-            bool isExists = false;
-            if (callBackIsOrderAlreadyExists != null)
+            try
             {
-                int newOderValue = (int)numericUpDownQuestionOrder.Value;
-                
-                isExists = callBackIsOrderAlreadyExists(newOderValue, oldOrder);
-
-
-
-                if (isExists)
+                bool isExists = false;
+                if (callBackIsOrderAlreadyExists != null)
                 {
-                    labelErrorQuestionOrder.setText("This Order Alread Exists");
-                    isValidOrderValue = false;
-                }
-                else
-                {
-                    isValidOrderValue = true;
-                    labelErrorQuestionOrder.clearText();
-                }
+                    int newOderValue = (int)numericUpDownQuestionOrder.Value;
+
+                    isExists = callBackIsOrderAlreadyExists(newOderValue, oldOrder);
 
 
+
+                    if (isExists)
+                    {
+                        labelErrorQuestionOrder.setText("This Order Alread Exists");
+                        isValidOrderValue = false;
+                    }
+                    else
+                    {
+                        isValidOrderValue = true;
+                        labelErrorQuestionOrder.clearText();
+                    }
+
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                handleExceptionLog(ex);
             }
         }
         public void clearInputValues()
@@ -186,8 +213,23 @@ namespace SurveyConfiguratorApp.UserController.Questions
         }
         public void setOldOrder(int value)
         {
-            oldOrder = value;
-            handleOrderValue();
+
+            try
+            {
+                oldOrder = value;
+                handleOrderValue();
+            }
+            catch (Exception ex)
+            {
+                handleExceptionLog(ex);
+            }
+        }
+        private void handleExceptionLog(Exception ex)
+        {
+
+            ErrorLoggerFile errorLoggerFile = new ErrorLoggerFile();
+            errorLoggerFile.HandleException(ex);
+
         }
     }
 }
