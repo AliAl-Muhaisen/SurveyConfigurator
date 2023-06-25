@@ -25,7 +25,7 @@ namespace SurveyConfiguratorApp
     {
 
         private DbQuestion dbQuestion;
-    
+
 
         // Active form and current button variables
         private Form activeForm;
@@ -37,11 +37,19 @@ namespace SurveyConfiguratorApp
         /// </summary>
         public FormMain()
         {
-            InitializeComponent();
-            dbQuestion = new DbQuestion();
-            currentButton = buttonHome;
-            OpenChildForm(new FormHome());
-           
+            try
+            {
+                InitializeComponent();
+                dbQuestion = new DbQuestion();
+                currentButton = buttonHome;
+                OpenChildForm(new FormHome());
+            }
+            catch (Exception e)
+            {
+                handleExceptionLog(e);
+            }
+
+
 
         }
 
@@ -60,7 +68,7 @@ namespace SurveyConfiguratorApp
         /// <param name="e"></param>
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            dbQuestion.CloseConnection();        
+            dbQuestion.CloseConnection();
 
         }
 
@@ -72,10 +80,18 @@ namespace SurveyConfiguratorApp
         /// <param name="e"></param>
         private void buttonHome_Click(object sender, EventArgs e)
         {
-            if (sender != null && (Button)sender != currentButton)
-                OpenChildForm(new FormHome());
 
-            currentButton = (Button)sender;
+            try
+            {
+                if (sender != null && (Button)sender != currentButton)
+                    OpenChildForm(new FormHome());
+
+                currentButton = (Button)sender;
+            }
+            catch (Exception ex)
+            {
+                handleExceptionLog(ex);
+            }
         }
 
 
@@ -88,13 +104,21 @@ namespace SurveyConfiguratorApp
         /// <param name="e"></param>
         private void buttonLog_Click(object sender, EventArgs e)
         {
-            if (sender != null && (Button)sender != currentButton)
+            try
             {
-               
-                OpenChildForm(new FormErrorLog());
+                if (sender != null && (Button)sender != currentButton)
+                {
+
+                    OpenChildForm(new FormErrorLog());
+                }
+
+                currentButton = (Button)sender;
+            }
+            catch (Exception ex)
+            {
+                handleExceptionLog(ex);
             }
 
-            currentButton = (Button)sender;
 
         }
 
@@ -106,36 +130,53 @@ namespace SurveyConfiguratorApp
         /// <param name="childForm" type="Form"></param>
         private void OpenChildForm(Form childForm)
         {
-
-            // Close any previously active form
-            if (activeForm != null)
+            try
             {
-                activeForm.Close();
+                // Close any previously active form
+                if (activeForm != null)
+                {
+                    activeForm.Close();
 
+                }
+
+                // If the child form is already active, return
+                if (childForm == activeForm)
+                    return;
+
+                // Set the child form as the active form
+                activeForm = childForm;
+                childForm.TopLevel = false;
+                childForm.FormBorderStyle = FormBorderStyle.None;
+                childForm.Dock = DockStyle.Fill;
+
+                // Add the child form to the Controls collection of the panelContainer, making it a child control of the panel
+                panelContainer.Controls.Add(childForm);
+                // Set the Tag of the panelContainer to the child form, allowing easy access to the child form later
+                panelContainer.Tag = childForm;
+                childForm.BringToFront();
+                childForm.Show();
+            }
+            catch (Exception e)
+            {
+                handleExceptionLog(e);
             }
 
-            // If the child form is already active, return
-            if (childForm == activeForm)
-                return;
 
-            // Set the child form as the active form
-            activeForm = childForm;
-            childForm.TopLevel = false;
-            childForm.FormBorderStyle = FormBorderStyle.None;
-            childForm.Dock = DockStyle.Fill;
-
-            // Add the child form to the Controls collection of the panelContainer, making it a child control of the panel
-            panelContainer.Controls.Add(childForm);
-            // Set the Tag of the panelContainer to the child form, allowing easy access to the child form later
-            panelContainer.Tag = childForm;
-            childForm.BringToFront();
-            childForm.Show();
 
         }
 
         private void panelContainer_Paint(object sender, PaintEventArgs e)
         {
-           
+
+        }
+        protected void handleExceptionLog(Exception ex)
+        {
+            try
+            {
+                ErrorLoggerFile errorLoggerFile = new ErrorLoggerFile();
+                errorLoggerFile.HandleException(ex);
+            }
+            catch { }
         }
 
     }

@@ -19,7 +19,7 @@ namespace SurveyConfiguratorApp.Forms
     public partial class FormHome : Form
     {
         private DbQuestion dbQuestion;
-        private ErrorLoggerFile errorLoggerFile;
+
         int questionId = -1;
         int questionType = -1;
         public FormHome()
@@ -27,7 +27,6 @@ namespace SurveyConfiguratorApp.Forms
             InitializeComponent();
             dbQuestion = new DbQuestion();
             loadDataGridView();
-            errorLoggerFile=new ErrorLoggerFile();
 
         }
 
@@ -105,22 +104,30 @@ namespace SurveyConfiguratorApp.Forms
 
         private void buttonDelete_Click(object sender, EventArgs e)
         {
-            if (questionId != -1)
+            try
             {
-                DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete this record", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (dialogResult == DialogResult.Yes)
+                if (questionId != -1)
                 {
-                    dbQuestion.delete(questionId);
-                    loadDataGridView();
-                    questionId = -1;
+                    DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete this record", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        dbQuestion.delete(questionId);
+                        loadDataGridView();
+                        questionId = -1;
+                    }
+
+
                 }
-
-
+                else
+                {
+                    MessageBox.Show("No row selected.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("No row selected.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                handleExceptionLog(ex);
             }
+
 
         }
 
@@ -131,18 +138,26 @@ namespace SurveyConfiguratorApp.Forms
 
         private void loadDataGridView()
         {
-
-            DataTable table = new DataTable();
-
-            using (SqlDataReader reader = dbQuestion.readAll())
+            try
             {
-                if (reader != null)
+                DataTable table = new DataTable();
+
+                using (SqlDataReader reader = dbQuestion.readAll())
                 {
-                    table.Load(reader);
+                    if (reader != null)
+                    {
+                        table.Load(reader);
+                    }
                 }
+
+                dataGridView.DataSource = table;
+            }
+            catch (Exception ex)
+            {
+                handleExceptionLog(ex);
             }
 
-            dataGridView.DataSource = table;
+
         }
         private void displayRefreshMessageBox()
         {
@@ -158,38 +173,56 @@ namespace SurveyConfiguratorApp.Forms
             catch (Exception ex)
             {
 
-                errorLoggerFile.HandleException(ex);
+                handleExceptionLog(ex);
             }
         }
 
         private void dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            try
             {
+                if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+                {
 
-                DataGridViewRow selectedRow = dataGridView.Rows[e.RowIndex];
+                    DataGridViewRow selectedRow = dataGridView.Rows[e.RowIndex];
 
-                questionId = Convert.ToInt32(selectedRow.Cells["id"].Value);
-                questionType = Convert.ToInt32(selectedRow.Cells["typeNumber"].Value);
+                    questionId = Convert.ToInt32(selectedRow.Cells["id"].Value);
+                    questionType = Convert.ToInt32(selectedRow.Cells["typeNumber"].Value);
 
+                }
+                //? Check if a row is selected
+                else if (dataGridView.SelectedRows.Count > 0)
+                {
+                    //# Get the selected row
+                    DataGridViewRow selectedRow = dataGridView.SelectedRows[0];
+                    //# Get the ID value from the selected row
+                    questionId = Convert.ToInt32(selectedRow.Cells["id"].Value);
+                    questionType = Convert.ToInt32(selectedRow.Cells["typeNumber"].Value);
+
+
+                }
+                else
+                {
+                    questionId = -1;
+                    questionType = -1;
+
+                }
             }
-            //? Check if a row is selected
-            else if (dataGridView.SelectedRows.Count > 0)
+            catch (Exception ex)
             {
-                //# Get the selected row
-                DataGridViewRow selectedRow = dataGridView.SelectedRows[0];
-                //# Get the ID value from the selected row
-                questionId = Convert.ToInt32(selectedRow.Cells["id"].Value);
-                questionType = Convert.ToInt32(selectedRow.Cells["typeNumber"].Value);
-
-
+                handleExceptionLog(ex);
             }
-            else
+
+        }
+
+        protected void handleExceptionLog(Exception ex)
+        {
+            try
             {
-                questionId = -1;
-                questionType = -1;
-
+                ErrorLoggerFile errorLoggerFile = new ErrorLoggerFile();
+                errorLoggerFile.HandleException(ex);
             }
+            catch { }
         }
     }
 }
