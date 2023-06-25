@@ -21,29 +21,30 @@ namespace SurveyConfiguratorApp.Database.Questions
             {
                 base.create(data);
                 int questionId = base.getLastId();
-                using (SqlCommand cmd = new SqlCommand())
-                {
+                SqlCommand cmd = new SqlCommand();
+
+
                     base.OpenConnection();
 
-                    cmd.Connection = base.conn;
+                cmd.Connection = base.conn;
 
 
 
-                    cmd.CommandText = "INSERT INTO [QuestionStars] ([QuestionId],[StarsNumber]) VALUES (@QuestionId,@StarsNumber);";
+                cmd.CommandText = "INSERT INTO [QuestionStars] ([QuestionId],[StarsNumber]) VALUES (@QuestionId,@StarsNumber);";
 
-                    cmd.Parameters.AddWithValue("@QuestionId", questionId);
-                    cmd.Parameters.AddWithValue("@StarsNumber", data.StarsNumber);
-
-
-
-                    int rowAffected = cmd.ExecuteNonQuery();
-                    if (rowAffected > 0)
-                    {
-                        return true;
-                    }
+                cmd.Parameters.AddWithValue("@QuestionId", questionId);
+                cmd.Parameters.AddWithValue("@StarsNumber", data.StarsNumber);
 
 
+
+                int rowAffected = cmd.ExecuteNonQuery();
+                if (rowAffected > 0)
+                {
+                    return true;
                 }
+
+
+
 
             }
             catch (SqlException ex)
@@ -94,7 +95,7 @@ namespace SurveyConfiguratorApp.Database.Questions
             {
                 handleExceptionLog(e);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 handleExceptionLog(e);
 

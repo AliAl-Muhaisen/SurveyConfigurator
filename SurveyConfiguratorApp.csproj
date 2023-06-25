@@ -306,5 +306,8 @@
   <ItemGroup>
     <Folder Include="Forms\Log\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Database\createDatabase.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
