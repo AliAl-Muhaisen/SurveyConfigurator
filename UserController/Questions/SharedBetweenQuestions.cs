@@ -1,5 +1,4 @@
-﻿using SurveyConfiguratorApp.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -227,8 +226,8 @@ namespace SurveyConfiguratorApp.UserController.Questions
         private void handleExceptionLog(Exception ex)
         {
 
-            ErrorLoggerFile errorLoggerFile = new ErrorLoggerFile();
-            errorLoggerFile.HandleException(ex);
+            //ErrorLoggerFile errorLoggerFile = new ErrorLoggerFile();
+            //errorLoggerFile.HandleException(ex);
 
         }
     }

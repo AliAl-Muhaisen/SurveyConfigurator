@@ -1,4 +1,7 @@
-﻿using SurveyConfiguratorApp.Models;
+﻿using Microsoft.Extensions.DependencyInjection;
+using SurveyConfiguratorApp.Data.Questions;
+using SurveyConfiguratorApp.Forms;
+using SurveyConfiguratorApp.Logic.Questions;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -17,33 +20,27 @@ namespace SurveyConfiguratorApp
         [STAThread]
         static void Main()
         {
-            // global exception handler
-            Application.ThreadException += Application_ThreadException;
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Application.Run(new FormMain());
+            var services = new ServiceCollection();
+            services.AddScoped<IQuestionRepository, DbQuestion>();
+            services.AddScoped<IQuestionService, QuestionService>();
+            using (ServiceProvider serviceProvider = services.BuildServiceProvider())
+            {
+                // Resolve and run the main form
+                var mainForm = new FormLayout();
+
+                // Manually inject the dependencies
+                mainForm.questionService = serviceProvider.GetRequiredService<IQuestionService>();
+                Application.Run(mainForm);
+            }
+
+           // Application.Run(new FormLayout());
         }
 
-        private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
-        {
-            // Handle the exception
-            HandleException(e.Exception);
-        }
-
-        private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
-        {
-            // Handle the exception
-            HandleException(e.ExceptionObject as Exception);
-        }
-        private static void HandleException(Exception exception)
-        {
-            ErrorLoggerFile errorLoggerFile = new ErrorLoggerFile();
-            errorLoggerFile.HandleException(exception);
-           
-        }
+       
 
     }
 }

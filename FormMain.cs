@@ -1,10 +1,5 @@
-﻿using SurveyConfiguratorApp.Database;
-using SurveyConfiguratorApp.Database.Questions;
+﻿
 using SurveyConfiguratorApp.Forms;
-using SurveyConfiguratorApp.Forms.Log;
-using SurveyConfiguratorApp.Forms.Questions;
-using SurveyConfiguratorApp.Models;
-using SurveyConfiguratorApp.Models.Questions;
 using SurveyConfiguratorApp.UserController;
 using System;
 using System.Collections.Generic;
@@ -17,14 +12,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static SurveyConfiguratorApp.Models.Questions.Question;
 
 namespace SurveyConfiguratorApp
 {
     public partial class FormMain : Form
     {
 
-        private DbQuestion dbQuestion;
 
 
         // Active form and current button variables
@@ -40,7 +33,6 @@ namespace SurveyConfiguratorApp
             try
             {
                 InitializeComponent();
-                dbQuestion = new DbQuestion();
                 currentButton = buttonHome;
                 OpenChildForm(new FormHome());
             }
@@ -68,7 +60,7 @@ namespace SurveyConfiguratorApp
         /// <param name="e"></param>
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            dbQuestion.CloseConnection();
+          
 
         }
 
@@ -104,20 +96,7 @@ namespace SurveyConfiguratorApp
         /// <param name="e"></param>
         private void buttonLog_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (sender != null && (Button)sender != currentButton)
-                {
-
-                    OpenChildForm(new FormErrorLog());
-                }
-
-                currentButton = (Button)sender;
-            }
-            catch (Exception ex)
-            {
-                handleExceptionLog(ex);
-            }
+           
 
 
         }
@@ -171,12 +150,7 @@ namespace SurveyConfiguratorApp
         }
         protected void handleExceptionLog(Exception ex)
         {
-            try
-            {
-                ErrorLoggerFile errorLoggerFile = new ErrorLoggerFile();
-                errorLoggerFile.HandleException(ex);
-            }
-            catch { }
+          
         }
 
     }
