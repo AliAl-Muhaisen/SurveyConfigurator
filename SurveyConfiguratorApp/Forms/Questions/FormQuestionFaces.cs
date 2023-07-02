@@ -62,7 +62,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
 
                         result = questionFacesService.add(questionFaces);
                         MessageBox.Show("added");
-                        this.Close();
+                        closeParentFrom();
 
                         if (result)
                         {
@@ -73,7 +73,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
                     }
                     else
                     {
-                        //  result = questionFaces.update();
+                        //  result = questionStars.update();
 
 
                         sharedBetweenQuestions.setOldOrder(questionFaces.Order);
@@ -88,6 +88,15 @@ namespace SurveyConfiguratorApp.Forms.Questions
             catch (Exception ex)
             {
 
+            }
+        }
+        private void closeParentFrom()
+        {
+            if (Application.OpenForms.OfType<FormQuestionAdd>().Any())
+            {
+                // Close the form
+                FormQuestionAdd form = (FormQuestionAdd)Application.OpenForms["FormQuestionAdd"];
+                form.Close();
             }
         }
     }

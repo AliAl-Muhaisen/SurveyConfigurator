@@ -2,6 +2,7 @@
 using SurveyConfiguratorApp.Data.Questions;
 using SurveyConfiguratorApp.Logic.Questions;
 using SurveyConfiguratorApp.Logic.Questions.Faces;
+using SurveyConfiguratorApp.Logic.Questions.Stars;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,6 +11,7 @@ using System.Drawing;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static SurveyConfiguratorApp.Domain.Questions.Question;
@@ -44,7 +46,17 @@ namespace SurveyConfiguratorApp.Forms.Questions
             int typeNumber = (int)(QuestionTypes)Enum.Parse(typeof(QuestionTypes), comboBox1.SelectedItem.ToString(), true);
             if (typeNumber == (int)QuestionTypes.STARS)
             {
-                handleOpenChildForm(new FormQuestionStars());
+                services.AddScoped<IQuestionStarsRepository, DbQuestionStars>();
+                services.AddScoped<IQuestionStarsService, QuestionStarsService>();
+                using (ServiceProvider serviceProvider = services.BuildServiceProvider())
+                {
+                    var mainForm = new FormQuestionStars();
+
+                    // Manually inject the dependencies
+                    mainForm.questionStarsService = serviceProvider.GetRequiredService<IQuestionStarsService>();
+                    handleOpenChildForm(mainForm);
+                }
+
             }
             else if (typeNumber == (int)QuestionTypes.SLIDER)
             {
@@ -88,6 +100,10 @@ namespace SurveyConfiguratorApp.Forms.Questions
             panelContainer.Tag = childForm;
             childForm.BringToFront();
             childForm.Show();
+        }
+        public void CloseForm()
+        {
+            Close();
         }
 
 

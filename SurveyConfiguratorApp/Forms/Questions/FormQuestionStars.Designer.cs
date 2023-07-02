@@ -29,10 +29,11 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.numericStarsNumber = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
-            this.sharedBetweenQuestions1 = new SurveyConfiguratorApp.UserController.Questions.SharedBetweenQuestions();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            this.sharedBetweenQuestions = new SurveyConfiguratorApp.UserController.Questions.SharedBetweenQuestions();
+            this.btnSave = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.numericStarsNumber)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -43,12 +44,12 @@
             this.label1.Size = new System.Drawing.Size(0, 13);
             this.label1.TabIndex = 0;
             // 
-            // numericUpDown1
+            // numericStarsNumber
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(150, 192);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(417, 20);
-            this.numericUpDown1.TabIndex = 5;
+            this.numericStarsNumber.Location = new System.Drawing.Point(150, 192);
+            this.numericStarsNumber.Name = "numericStarsNumber";
+            this.numericStarsNumber.Size = new System.Drawing.Size(417, 20);
+            this.numericStarsNumber.TabIndex = 5;
             // 
             // label2
             // 
@@ -59,26 +60,37 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "Stars Number";
             // 
-            // sharedBetweenQuestions1
+            // sharedBetweenQuestions
             // 
-            this.sharedBetweenQuestions1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.sharedBetweenQuestions1.Location = new System.Drawing.Point(12, 12);
-            this.sharedBetweenQuestions1.Name = "sharedBetweenQuestions1";
-            this.sharedBetweenQuestions1.Size = new System.Drawing.Size(647, 159);
-            this.sharedBetweenQuestions1.TabIndex = 3;
+            this.sharedBetweenQuestions.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.sharedBetweenQuestions.Location = new System.Drawing.Point(12, 12);
+            this.sharedBetweenQuestions.Name = "sharedBetweenQuestions";
+            this.sharedBetweenQuestions.Size = new System.Drawing.Size(647, 159);
+            this.sharedBetweenQuestions.TabIndex = 3;
+            // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(491, 329);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 6;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // FormQuestionStars
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.btnSave);
+            this.Controls.Add(this.numericStarsNumber);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.sharedBetweenQuestions1);
+            this.Controls.Add(this.sharedBetweenQuestions);
             this.Controls.Add(this.label1);
             this.Name = "FormQuestionStars";
             this.Text = "FormQuestionStars";
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericStarsNumber)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -87,8 +99,9 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown numericStarsNumber;
         private System.Windows.Forms.Label label2;
-        private UserController.Questions.SharedBetweenQuestions sharedBetweenQuestions1;
+        private UserController.Questions.SharedBetweenQuestions sharedBetweenQuestions;
+        private System.Windows.Forms.Button btnSave;
     }
 }

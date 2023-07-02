@@ -38,6 +38,8 @@
             // 
             // dataGridViewQuestion
             // 
+        
+
             this.dataGridViewQuestion.AllowUserToAddRows = false;
             this.dataGridViewQuestion.AllowUserToDeleteRows = false;
             this.dataGridViewQuestion.AllowUserToResizeColumns = false;

@@ -27,9 +27,8 @@ namespace SurveyConfiguratorApp
 
 
         // Active form and current button variables
-        private Form activeForm;
-        private Button currentButton;
-        int questionId = -1;
+
+        int questionOrder = -1;
         public IQuestionService questionService { get; set; }
         private string questionType = null;
 
@@ -89,7 +88,6 @@ namespace SurveyConfiguratorApp
                 dataGridViewQuestion.DataSource = source;
 
 
-
             }
             catch (Exception ex)
             {
@@ -107,6 +105,7 @@ namespace SurveyConfiguratorApp
         {
             Form fromAdd = new FormQuestionAdd();
             fromAdd.ShowDialog();
+            loadDataGridView();
 
         }
 
@@ -119,14 +118,14 @@ namespace SurveyConfiguratorApp
         {
             try
             {
-                if (questionId != -1)
+                if (questionOrder != -1)
                 {
                     DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete this record", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (dialogResult == DialogResult.Yes)
                     {
-                        questionService.deleteByOrder(questionId);
+                        questionService.deleteByOrder(questionOrder);
                         loadDataGridView();
-                        questionId = -1;
+                        questionOrder = -1;
                     }
 
 
@@ -151,7 +150,7 @@ namespace SurveyConfiguratorApp
 
                    DataGridViewRow selectedRow = dataGridViewQuestion.Rows[e.RowIndex];
 
-                    questionId = Convert.ToInt32(selectedRow.Cells["order"].Value);
+                    questionOrder = Convert.ToInt32(selectedRow.Cells["order"].Value);
                     questionType = ((string)selectedRow.Cells["typeName"].Value);
                    // dataGridViewQuestion.Rows[e.RowIndex].Selected = true;
                 }
@@ -161,17 +160,19 @@ namespace SurveyConfiguratorApp
                     //# Get the selected row
                     DataGridViewRow selectedRow = dataGridViewQuestion.SelectedRows[0];
                     //# Get the ID value from the selected row
-                    questionId = Convert.ToInt32(selectedRow.Cells["order"].Value);
+                    questionOrder = Convert.ToInt32(selectedRow.Cells["order"].Value);
                     questionType = ((string)selectedRow.Cells["typeName"].Value);
 
 
                 }
+
                 else
                 {
-                    questionId = -1;
+                    questionOrder = -1;
                     questionType = null;
 
                 }
+                MessageBox.Show(questionType);
             }
             catch (Exception ex)
             {
