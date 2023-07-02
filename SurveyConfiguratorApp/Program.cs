@@ -29,7 +29,6 @@ namespace SurveyConfiguratorApp
             services.AddScoped<IQuestionService, QuestionService>();
             using (ServiceProvider serviceProvider = services.BuildServiceProvider())
             {
-                // Resolve and run the main form
                 var mainForm = new FormLayout();
 
                 // Manually inject the dependencies
