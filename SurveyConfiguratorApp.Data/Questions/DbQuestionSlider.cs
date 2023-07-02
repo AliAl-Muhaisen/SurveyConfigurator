@@ -1,4 +1,5 @@
 ﻿using SurveyConfiguratorApp.Domain.Questions;
+using SurveyConfiguratorApp.Logic.Questions.Slider;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -8,16 +9,23 @@ using System.Threading.Tasks;
 
 namespace SurveyConfiguratorApp.Data.Questions
 {
-    public class DbQuestionSlider : DbQuestion, ICRUD<QuestionSlider>
+    public class DbQuestionSlider : DbQuestion, IQuestionSliderRepository
     {
         private const string tableName = "QuestionSlider";
         static public string TableName { get { return tableName; } }
-
-        public bool create(QuestionSlider data)
+        public enum ColumnNames
+        {
+            QuestionId,
+            StartValue,
+            EndValue,
+            StartCaption,
+            EndCaption,
+        }
+        public bool add(QuestionSlider data)
         {
             try
             {
-                base.create(data);
+                base.add(data);
                 int questionId = base.getLastId();
                 using (SqlCommand cmd = new SqlCommand())
                 {
@@ -149,6 +157,11 @@ namespace SurveyConfiguratorApp.Data.Questions
 
             }
 
+        }
+
+       public QuestionSlider Get(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

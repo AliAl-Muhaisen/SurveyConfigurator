@@ -41,11 +41,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Comman\ICRUD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Questions\IQuestionRepository.cs" />
     <Compile Include="Questions\IQuestionService.cs" />
+    <Compile Include="Questions\Faces\IQuestionFacesRepository.cs" />
+    <Compile Include="Questions\Faces\IQuestionFacesService.cs" />
+    <Compile Include="Questions\Faces\QuestionFacesService.cs" />
     <Compile Include="Questions\QuestionService.cs" />
+    <Compile Include="Questions\Slider\IQuestionSliderRepository.cs" />
+    <Compile Include="Questions\Slider\IQuestionSliderService.cs" />
+    <Compile Include="Questions\Slider\QuestionSliderService.cs" />
+    <Compile Include="Questions\Stars\IQuestionStarsRepository.cs" />
+    <Compile Include="Questions\Stars\IQuestionStarsService.cs" />
+    <Compile Include="Questions\Stars\QuestionStarsService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SurveyConfiguratorApp.Domain\SurveyConfiguratorApp.Domain.csproj">
@@ -53,5 +62,6 @@
       <Name>SurveyConfiguratorApp.Domain</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

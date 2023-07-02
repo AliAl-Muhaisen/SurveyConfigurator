@@ -6,13 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SurveyConfiguratorApp.Logic.Questions
+namespace SurveyConfiguratorApp.Logic.Questions.Stars
 {
-    public interface IQuestionService : ICRUD<Question>
-    {
-        List<Question> GetQuestions();
-        bool delete(int  id);
-       
-        
+    public interface IQuestionStarsService : ICRUD<QuestionStars>
+    {    
     }
 }

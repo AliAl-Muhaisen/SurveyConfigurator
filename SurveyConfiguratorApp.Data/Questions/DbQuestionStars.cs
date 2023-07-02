@@ -1,4 +1,5 @@
 ﻿using SurveyConfiguratorApp.Domain.Questions;
+using SurveyConfiguratorApp.Logic.Questions.Stars;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -8,17 +9,17 @@ using System.Threading.Tasks;
 
 namespace SurveyConfiguratorApp.Data.Questions
 {
-    public class DbQuestionStars : DbQuestion, ICRUD<QuestionStars>
+    public class DbQuestionStars : DbQuestion, IQuestionStarsRepository
     {
         private const string tableName = "QuestionStars";
         public DbQuestionStars() : base() { }
 
         static public string TableName { get { return tableName; } }
-        public bool create(QuestionStars data)
+        public bool add(QuestionStars data)
         {
             try
             {
-                base.create(data);
+                base.add(data);
                 int questionId = base.getLastId();
                 SqlCommand cmd = new SqlCommand();
 
@@ -144,6 +145,11 @@ namespace SurveyConfiguratorApp.Data.Questions
 
 
             }
+        }
+
+       public QuestionStars Get(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

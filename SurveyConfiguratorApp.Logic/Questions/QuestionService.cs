@@ -15,14 +15,30 @@ namespace SurveyConfiguratorApp.Logic.Questions
             this.questionRepository = questionRepository;
         }
 
-        public void add(Question question)
+        public bool add(Question question)
         {
-            questionRepository.add(question);
+           return questionRepository.add(question);
+            
+        }
+
+        public bool delete(int id)
+        {
+           return questionRepository.delete(id);
+        }
+
+        public Question Get(int id)
+        {
+            return questionRepository.Get(id);
         }
 
         public List<Question> GetQuestions()
         {
             return questionRepository.GetQuestions();
+        }
+
+        public bool update(Question question)
+        {
+            return questionRepository.update(question);
         }
     }
 }

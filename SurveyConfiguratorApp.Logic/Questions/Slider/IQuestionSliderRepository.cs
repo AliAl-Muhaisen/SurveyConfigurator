@@ -6,13 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SurveyConfiguratorApp.Logic.Questions
+namespace SurveyConfiguratorApp.Logic.Questions.Slider
 {
-    public interface IQuestionService : ICRUD<Question>
+    public interface IQuestionSliderRepository:ICRUD<QuestionSlider>
     {
-        List<Question> GetQuestions();
-        bool delete(int  id);
-       
-        
+      
     }
 }

@@ -14,18 +14,19 @@ namespace SurveyConfiguratorApp.Data.Questions
 
     /// <summary>
     /// The DbQuestion class extends the DB class and implements the ICRUD<Question> interface. 
-    /// It provides methods to perform CRUD operations (create, read, update, delete) on the Question entity.
+    /// It provides methods to perform CRUD operations (add, read, update, delete) on the Question entity.
     /// The class includes a ColumnsName enumeration representing the column names in the Question table. 
     /// It also includes additional methods,
     /// retrieve the last inserted ID, and read all questions from the database.
     /// </summary>
-    public class DbQuestion : DB, ICRUD<Question>,IQuestionRepository
+    public class DbQuestion : DB,IQuestionRepository
     {
 
         public DbQuestion() : base() { }
 
-        enum ColumsName
+        enum ColumNames
         {
+            Id,
             Order,
             Text,
             TypeNumber
@@ -34,12 +35,12 @@ namespace SurveyConfiguratorApp.Data.Questions
 
 
         /// <summary>
-        /// The create method inserts a new record into the Question table by constructing a parameterized SQL query.
+        /// The add method inserts a new record into the Question table by constructing a parameterized SQL query.
         /// It catches any SQL exceptions and returns false in case of an error.
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public bool create(Question data)
+        public bool add(Question data)
         {
             try
             {
@@ -262,9 +263,11 @@ namespace SurveyConfiguratorApp.Data.Questions
             return new List<Question> { new Question() { Id = 1, Order = 1, Text = "asdfsdf", } };
         }
 
-        public void add(Question question)
+
+
+        public Question Get(int id)
         {
-           this.create(question);
+            throw new NotImplementedException();
         }
     }
 }

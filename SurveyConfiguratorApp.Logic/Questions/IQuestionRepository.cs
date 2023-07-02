@@ -1,4 +1,5 @@
 ﻿using SurveyConfiguratorApp.Domain.Questions;
+using SurveyConfiguratorApp.Logic.Comman;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +8,11 @@ using System.Threading.Tasks;
 
 namespace SurveyConfiguratorApp.Logic.Questions
 {
-    public interface IQuestionRepository
+    public interface IQuestionRepository: ICRUD<Question>
     {
         List<Question> GetQuestions();
-        void add(Question question);
+        bool delete(int id);
 
     }
+    
 }

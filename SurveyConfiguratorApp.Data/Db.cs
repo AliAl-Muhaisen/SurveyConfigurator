@@ -12,7 +12,7 @@ namespace SurveyConfiguratorApp.Data
 
     public interface ICRUD<T>
     {
-        bool create(T data);
+        bool add(T data);
         bool update(T data);
         bool delete(int id);
         T read(int id);

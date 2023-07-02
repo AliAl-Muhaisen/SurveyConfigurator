@@ -1,4 +1,5 @@
 ﻿using SurveyConfiguratorApp.Domain.Questions;
+using SurveyConfiguratorApp.Logic.Questions.Faces;
 using System;
 using System.Data.SqlClient;
 
@@ -7,18 +8,23 @@ namespace SurveyConfiguratorApp.Data.Questions
     /// <summary>
     /// The class handles CRUD operations for the QuestionFaces table in the database
     /// </summary>
-    public class DbQuestionFaces : DbQuestion, ICRUD<QuestionFaces>
+    public class DbQuestionFaces : DbQuestion,IQuestionFacesRepository
     {
         private const string tableName = "QuestionFaces";
+        public enum ColumnNames
+        {
+            QuestionId,
+            FacesNumber, 
+        }
         public DbQuestionFaces() : base() { }
         static public string TableName { get { return tableName; } }
 
         // Create a new QuestionFaces entry in the database
-        public bool create(QuestionFaces data)
+        public bool add(QuestionFaces data)
         {
             try
             {
-                bool isBaseInfoAdded = base.create(data);
+                bool isBaseInfoAdded = base.add(data);
                 if (isBaseInfoAdded)
                 {
                     int questionId = base.getLastId();
@@ -58,10 +64,7 @@ namespace SurveyConfiguratorApp.Data.Questions
 
         }
 
-        public bool delete(int id)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         // Read a QuestionFaces entry from the database based on the ID
         public QuestionFaces read(int id)
@@ -140,6 +143,11 @@ namespace SurveyConfiguratorApp.Data.Questions
 
             }
 
+        }
+
+       public QuestionFaces Get(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
