@@ -17,8 +17,8 @@ namespace SurveyConfiguratorApp.Domain.Questions
 
             try
             {
+                setTypeNumber( (int)QuestionTypes.SLIDER);
 
-                TypeNumber = (int)QuestionTypes.SLIDER;
             }
             catch (Exception e)
             {

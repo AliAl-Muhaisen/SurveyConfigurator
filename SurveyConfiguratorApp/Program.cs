@@ -29,7 +29,7 @@ namespace SurveyConfiguratorApp
             services.AddScoped<IQuestionService, QuestionService>();
             using (ServiceProvider serviceProvider = services.BuildServiceProvider())
             {
-                var mainForm = new FormLayout();
+                var mainForm = new FormMain();
 
                 // Manually inject the dependencies
                 mainForm.questionService = serviceProvider.GetRequiredService<IQuestionService>();

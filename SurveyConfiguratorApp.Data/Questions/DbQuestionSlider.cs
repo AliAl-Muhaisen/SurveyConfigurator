@@ -87,7 +87,7 @@ namespace SurveyConfiguratorApp.Data.Questions
                         if (reader.Read())
                         {
                             questionSlider.Order = (int)reader["Order"];
-                            questionSlider.Id = id;
+                            questionSlider.setId(id);
                             questionSlider.Text = reader["Text"].ToString();
                             questionSlider.EndCaption = reader["EndCaption"].ToString();
                             questionSlider.StartCaption = reader["StartCaption"].ToString();
@@ -128,7 +128,7 @@ namespace SurveyConfiguratorApp.Data.Questions
                     command.Parameters.AddWithValue("@EndCaption", questionSlider.EndCaption);
                     command.Parameters.AddWithValue("@StartValue", questionSlider.StartValue);
                     command.Parameters.AddWithValue("@EndValue", questionSlider.EndValue);
-                    command.Parameters.AddWithValue("@Id", questionSlider.Id);
+                    command.Parameters.AddWithValue("@Id", questionSlider.getId());
 
                     int rowsAffected = command.ExecuteNonQuery();
 

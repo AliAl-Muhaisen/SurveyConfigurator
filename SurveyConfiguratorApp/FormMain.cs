@@ -1,5 +1,8 @@
 ﻿
+using SurveyConfiguratorApp.Data.Questions;
+using SurveyConfiguratorApp.Domain.Questions;
 using SurveyConfiguratorApp.Forms;
+using SurveyConfiguratorApp.Logic.Questions;
 using SurveyConfiguratorApp.UserController;
 using System;
 using System.Collections.Generic;
@@ -23,6 +26,8 @@ namespace SurveyConfiguratorApp
         // Active form and current button variables
         private Form activeForm;
         private Button currentButton;
+        public IQuestionService questionService { get; set; }
+
 
         /// <summary>
         /// the FormMain constructor initializes the form's components, creates an instance of the DbQuestion class, 
@@ -33,12 +38,9 @@ namespace SurveyConfiguratorApp
             try
             {
                 InitializeComponent();
-                currentButton = buttonHome;
-                OpenChildForm(new FormHome());
             }
             catch (Exception e)
             {
-                handleExceptionLog(e);
             }
 
 
@@ -64,95 +66,53 @@ namespace SurveyConfiguratorApp
 
         }
 
-        /// <summary>
-        /// this event handler is responsible for opening the FormHome form as a child form when the
-        /// "HOME" button is clicked, and it keeps track of the currently selected button.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void buttonHome_Click(object sender, EventArgs e)
+
+
+        private void loadDataGridView()
         {
 
             try
             {
-                if (sender != null && (Button)sender != currentButton)
-                    OpenChildForm(new FormHome());
+               
 
-                currentButton = (Button)sender;
+                DataTable table = new DataTable();
+                    List<Question> list;
+                 list = questionService.GetQuestions();
+
+                var bindingList = new BindingList<Question>(list);
+
+                var source = new BindingSource(bindingList, null);
+                dataGridViewQuestion.DataSource = source;
+                
+               
+           
             }
             catch (Exception ex)
             {
-                handleExceptionLog(ex);
-            }
-        }
-
-
-
-        /// <summary>
-        /// this event handler is responsible for opening the FormErrorLog form as a child form when the
-        /// "Log" button is clicked, and it keeps track of the currently selected button.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void buttonLog_Click(object sender, EventArgs e)
-        {
-           
-
-
-        }
-
-
-
-        /// <summary>
-        /// Opens a child form within the main form as a controller.
-        /// </summary>
-        /// <param name="childForm" type="Form"></param>
-        private void OpenChildForm(Form childForm)
-        {
-            try
-            {
-                // Close any previously active form
-                if (activeForm != null)
-                {
-                    activeForm.Close();
-
-                }
-
-                // If the child form is already active, return
-                if (childForm == activeForm)
-                    return;
-
-                // Set the child form as the active form
-                activeForm = childForm;
-                childForm.TopLevel = false;
-                childForm.FormBorderStyle = FormBorderStyle.None;
-                childForm.Dock = DockStyle.Fill;
-
-                // Add the child form to the Controls collection of the panelContainer, making it a child control of the panel
-                panelContainer.Controls.Add(childForm);
-                // Set the Tag of the panelContainer to the child form, allowing easy access to the child form later
-                panelContainer.Tag = childForm;
-                childForm.BringToFront();
-                childForm.Show();
-            }
-            catch (Exception e)
-            {
-                handleExceptionLog(e);
             }
 
 
-
         }
 
-        private void panelContainer_Paint(object sender, PaintEventArgs e)
+        private void FormMain_Load(object sender, EventArgs e)
+        {
+            loadDataGridView();
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
         {
 
         }
-        protected void handleExceptionLog(Exception ex)
+
+        private void btnUpdate_Click(object sender, EventArgs e)
         {
-          
+
         }
 
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 

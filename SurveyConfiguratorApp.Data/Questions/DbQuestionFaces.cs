@@ -83,7 +83,7 @@ namespace SurveyConfiguratorApp.Data.Questions
                         if (reader.Read())
                         {
                             questionFaces.Order = (int)reader["Order"];
-                            questionFaces.Id = id;
+                            questionFaces.setId(id);
                             questionFaces.Text = reader["Text"].ToString();
                             questionFaces.FacesNumber = (int)reader["FacesNumber"];
                             return questionFaces;
@@ -114,7 +114,7 @@ namespace SurveyConfiguratorApp.Data.Questions
                 command.CommandText = $"UPDATE [{TableName}] SET [FacesNumber] = @FacesNumber WHERE [questionId] = @Id";
 
                 command.Parameters.AddWithValue("@FacesNumber", questionFaces.FacesNumber);
-                command.Parameters.AddWithValue("@Id", questionFaces.Id);
+                command.Parameters.AddWithValue("@Id", questionFaces.getId());
 
                 try
                 {

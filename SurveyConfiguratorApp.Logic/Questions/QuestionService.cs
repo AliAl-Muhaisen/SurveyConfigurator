@@ -10,7 +10,7 @@ namespace SurveyConfiguratorApp.Logic.Questions
     public class QuestionService : IQuestionService
     {
         private readonly IQuestionRepository questionRepository;
-
+        public static List<Question> questionsList = new List<Question>();
         public QuestionService(IQuestionRepository questionRepository) {
             this.questionRepository = questionRepository;
         }

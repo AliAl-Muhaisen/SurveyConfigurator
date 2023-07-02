@@ -14,7 +14,7 @@ namespace SurveyConfiguratorApp.Domain.Questions
 
             try
             {
-                TypeNumber = (int)QuestionTypes.STARS;
+                setTypeNumber( (int)QuestionTypes.STARS);
             }
             catch (Exception e)
             {

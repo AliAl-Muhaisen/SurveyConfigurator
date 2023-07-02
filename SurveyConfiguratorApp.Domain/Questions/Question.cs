@@ -8,17 +8,11 @@ using System.Threading.Tasks;
 
 namespace SurveyConfiguratorApp.Domain.Questions
 {
-    public interface IQuestion<T>
-    {
-        bool add();
-        bool delete();
-        bool update();
-    }
 
     public class Question 
     {
 
-        public static List<Question> AllQuestions = new List<Question>();
+       
         public enum QuestionTypes
         {
             FACES = 1,
@@ -27,19 +21,39 @@ namespace SurveyConfiguratorApp.Domain.Questions
 
         }
 
-        public int Id { get; set; }
+        private int id;
         public string Text { get; set; }
-        public int TypeNumber { get; protected set; }
+        private int typeNumber;
+        public string TypeName { get; set; }
         public int Order { get; set; }
 
        public Question() { }
         public Question(int id, string text, int type, int order) : this()
         {
             Text = text;
-            TypeNumber = type;
-            Id = id;
+            setTypeNumber(type);
+
+            setId(id);
             Order = order;
 
+        }
+    
+        public void setId(int id)
+        {
+            this.id = id;
+        }
+        public int getId()
+        {
+                return this.id;
+        }
+
+        public void setTypeNumber(int type)
+        {
+            typeNumber=type;
+        }
+        public int getTypeNumber()
+        {
+            return typeNumber;
         }
        
     }

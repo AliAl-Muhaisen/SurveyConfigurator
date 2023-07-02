@@ -13,7 +13,8 @@ namespace SurveyConfiguratorApp.Domain.Questions
         {
             try
             {
-                TypeNumber = (int)QuestionTypes.FACES;
+                setTypeNumber((int)QuestionTypes.FACES);
+               
             }
             catch (Exception e)
             {

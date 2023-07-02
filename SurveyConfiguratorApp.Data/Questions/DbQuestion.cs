@@ -19,7 +19,7 @@ namespace SurveyConfiguratorApp.Data.Questions
     /// It also includes additional methods,
     /// retrieve the last inserted ID, and read all questions from the database.
     /// </summary>
-    public class DbQuestion : DB,IQuestionRepository
+    public class DbQuestion : DB, IQuestionRepository
     {
 
         public DbQuestion() : base() { }
@@ -53,7 +53,7 @@ namespace SurveyConfiguratorApp.Data.Questions
 
                     cmd.Parameters.AddWithValue("@Order", data.Order);
                     cmd.Parameters.AddWithValue("@Text", data.Text);
-                    cmd.Parameters.AddWithValue("@TypeNumber", data.TypeNumber);
+                    cmd.Parameters.AddWithValue("@TypeNumber", data.getTypeNumber());
                     int rowsAffected = cmd.ExecuteNonQuery();
                     if (rowsAffected > 0)
                     {
@@ -127,32 +127,7 @@ namespace SurveyConfiguratorApp.Data.Questions
         }
 
 
-        public SqlDataReader readAll()
-        {
-            try
-            {
-                base.OpenConnection();
-
-                SqlCommand cmd = new SqlCommand();
-                cmd.Connection = base.conn;
-                cmd.CommandText = "SELECT * FROM [Question]";
-
-                SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-                return reader;
-            }
-            catch (SqlException ex)
-            {
-
-
-            }
-            catch (Exception ex)
-            {
-
-
-            }
-
-            return null;
-        }
+  
 
         /// <summary>
         /// The update method updates a specific record in the Question table based on the provided Question object.
@@ -168,7 +143,7 @@ namespace SurveyConfiguratorApp.Data.Questions
 
                 command.Parameters.AddWithValue("@Text", question.Text);
                 command.Parameters.AddWithValue("@Order", question.Order);
-                command.Parameters.AddWithValue("@Id", question.Id);
+                command.Parameters.AddWithValue("@Id", question.getId());
 
                 try
                 {
@@ -218,7 +193,7 @@ namespace SurveyConfiguratorApp.Data.Questions
             catch (SqlException ex)
             {
 
-               
+
             }
             finally
             {
@@ -260,7 +235,43 @@ namespace SurveyConfiguratorApp.Data.Questions
 
         public List<Question> GetQuestions()
         {
-            return new List<Question> { new Question() { Id = 1, Order = 1, Text = "asdfsdf", } };
+           // return new List<Question> { new Question() {Order = 1, Text = "asdfsdf", TypeName="Stars" } };
+            List<Question> list = new List<Question>();
+            try
+            {
+                base.OpenConnection();
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = base.conn;
+                cmd.CommandText = "SELECT * FROM [Question]";
+
+                SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                if (reader.HasRows)
+                {
+
+                    while (reader.Read())
+                    {
+                        Question question = new Question()
+                        {
+                            Order = Convert.ToInt32(reader[$"{ColumNames.Order}"]),
+                            TypeName = ((Question.QuestionTypes)Convert.ToInt32(reader[$"{ColumNames.TypeNumber}"])).ToString(),
+                            Text = (reader[$"{ColumNames.Text}"]).ToString()
+
+                        };
+                        list.Add(question);
+                    }
+
+                }
+                return list;
+            }
+
+            catch (Exception ex)
+            {
+
+
+            }
+
+            return list;
         }
 
 
