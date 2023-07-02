@@ -47,7 +47,7 @@ namespace SurveyConfiguratorApp.Domain.Questions
                 return this.id;
         }
 
-        public void setTypeNumber(int type)
+        protected void setTypeNumber(int type)
         {
             typeNumber=type;
         }

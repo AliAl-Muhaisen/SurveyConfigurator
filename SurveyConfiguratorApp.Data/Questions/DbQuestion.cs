@@ -280,5 +280,43 @@ namespace SurveyConfiguratorApp.Data.Questions
         {
             throw new NotImplementedException();
         }
+
+        public bool deleteByOrder(int order)
+        {
+
+            try
+            {
+                base.OpenConnection();
+
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = base.conn;
+                    cmd.CommandText = $"DELETE FROM [Question] WHERE [{ColumNames.Order}]={order};";
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+
+                    if (rowsAffected > 0)
+                    {
+                        // Row deleted successfully
+                        return true;
+
+                    }
+                    else
+                    {
+                        // Row not found or not deleted
+                        return false;
+
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+
+
+
+            }
+            finally { base.CloseConnection(); }
+            return false;
+        }
     }
 }

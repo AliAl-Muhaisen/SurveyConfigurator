@@ -85,17 +85,29 @@
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FormHome.cs">
+    <Compile Include="Forms\Questions\FormQuestionAdd.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FormHome.Designer.cs">
-      <DependentUpon>FormHome.cs</DependentUpon>
+    <Compile Include="Forms\Questions\FormQuestionAdd.Designer.cs">
+      <DependentUpon>FormQuestionAdd.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FormLayout.cs">
+    <Compile Include="Forms\Questions\FormQuestionFaces.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FormLayout.Designer.cs">
-      <DependentUpon>FormLayout.cs</DependentUpon>
+    <Compile Include="Forms\Questions\FormQuestionFaces.Designer.cs">
+      <DependentUpon>FormQuestionFaces.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Questions\FormQuestionSlider.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Questions\FormQuestionSlider.Designer.cs">
+      <DependentUpon>FormQuestionSlider.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Questions\FormQuestionStars.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Questions\FormQuestionStars.Designer.cs">
+      <DependentUpon>FormQuestionStars.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -129,10 +141,10 @@
     <Compile Include="UserController\LayoutControl.Designer.cs">
       <DependentUpon>LayoutControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserController\Questions\LabelErrorControl.cs">
+    <Compile Include="UserController\Controllers\LabelErrorControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserController\Questions\LabelErrorControl.Designer.cs">
+    <Compile Include="UserController\Controllers\LabelErrorControl.Designer.cs">
       <DependentUpon>LabelErrorControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UserController\Questions\MinMaxNumControl.cs">
@@ -156,11 +168,17 @@
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormHome.resx">
-      <DependentUpon>FormHome.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Questions\FormQuestionAdd.resx">
+      <DependentUpon>FormQuestionAdd.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormLayout.resx">
-      <DependentUpon>FormLayout.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Questions\FormQuestionFaces.resx">
+      <DependentUpon>FormQuestionFaces.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Questions\FormQuestionSlider.resx">
+      <DependentUpon>FormQuestionSlider.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Questions\FormQuestionStars.resx">
+      <DependentUpon>FormQuestionStars.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -187,7 +205,7 @@
     <EmbeddedResource Include="UserController\LayoutControl.resx">
       <DependentUpon>LayoutControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserController\Questions\LabelErrorControl.resx">
+    <EmbeddedResource Include="UserController\Controllers\LabelErrorControl.resx">
       <DependentUpon>LabelErrorControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserController\Questions\MinMaxNumControl.resx">

@@ -40,5 +40,10 @@ namespace SurveyConfiguratorApp.Logic.Questions
         {
             return questionRepository.update(question);
         }
+
+        public bool deleteByOrder(int order)
+        {
+            return questionRepository.deleteByOrder(order);
+        }
     }
 }

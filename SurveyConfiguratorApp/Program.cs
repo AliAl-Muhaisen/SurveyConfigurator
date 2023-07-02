@@ -2,6 +2,7 @@
 using SurveyConfiguratorApp.Data.Questions;
 using SurveyConfiguratorApp.Forms;
 using SurveyConfiguratorApp.Logic.Questions;
+using SurveyConfiguratorApp.Logic.Questions.Faces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -23,10 +24,12 @@ namespace SurveyConfiguratorApp
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
+            
             var services = new ServiceCollection();
             services.AddScoped<IQuestionRepository, DbQuestion>();
             services.AddScoped<IQuestionService, QuestionService>();
+
+            
             using (ServiceProvider serviceProvider = services.BuildServiceProvider())
             {
                 var mainForm = new FormMain();

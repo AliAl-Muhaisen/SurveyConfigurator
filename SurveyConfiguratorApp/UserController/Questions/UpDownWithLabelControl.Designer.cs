@@ -30,16 +30,16 @@
         {
             this.numericUpDown = new System.Windows.Forms.NumericUpDown();
             this.labelErrorControl = new SurveyConfiguratorApp.UserController.Questions.LabelErrorControl();
-            this.labelTitle = new SurveyConfiguratorApp.UserController.Controllers.CustomLabelControl();
-            this.labelInputValue = new SurveyConfiguratorApp.UserController.Controllers.CustomLabelControl();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // numericUpDown
             // 
-            this.numericUpDown.Location = new System.Drawing.Point(221, 72);
+            this.numericUpDown.Location = new System.Drawing.Point(166, 58);
+            this.numericUpDown.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.numericUpDown.Name = "numericUpDown";
-            this.numericUpDown.Size = new System.Drawing.Size(568, 22);
+            this.numericUpDown.Size = new System.Drawing.Size(426, 20);
             this.numericUpDown.TabIndex = 8;
             this.numericUpDown.ValueChanged += new System.EventHandler(this.numericUpDown_ValueChanged);
             // 
@@ -47,43 +47,33 @@
             // 
             this.labelErrorControl.AutoSize = true;
             this.labelErrorControl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.labelErrorControl.Location = new System.Drawing.Point(221, 100);
+            this.labelErrorControl.Location = new System.Drawing.Point(166, 81);
+            this.labelErrorControl.Margin = new System.Windows.Forms.Padding(2);
             this.labelErrorControl.Name = "labelErrorControl";
-            this.labelErrorControl.Size = new System.Drawing.Size(54, 25);
+            this.labelErrorControl.Size = new System.Drawing.Size(40, 20);
             this.labelErrorControl.TabIndex = 10;
             // 
-            // labelTitle
+            // label1
             // 
-            this.labelTitle.AutoSize = true;
-            this.labelTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.labelTitle.Location = new System.Drawing.Point(481, 10);
-            this.labelTitle.Margin = new System.Windows.Forms.Padding(0);
-            this.labelTitle.Name = "labelTitle";
-            this.labelTitle.Size = new System.Drawing.Size(59, 23);
-            this.labelTitle.TabIndex = 9;
-            // 
-            // labelInputValue
-            // 
-            this.labelInputValue.AutoSize = true;
-            this.labelInputValue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.labelInputValue.Location = new System.Drawing.Point(39, 72);
-            this.labelInputValue.Margin = new System.Windows.Forms.Padding(0);
-            this.labelInputValue.Name = "labelInputValue";
-            this.labelInputValue.Size = new System.Drawing.Size(59, 23);
-            this.labelInputValue.TabIndex = 7;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(48, 64);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "label1";
             // 
             // UpDownWithLabelControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.labelErrorControl);
-            this.Controls.Add(this.labelTitle);
-            this.Controls.Add(this.labelInputValue);
             this.Controls.Add(this.numericUpDown);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "UpDownWithLabelControl";
-            this.Padding = new System.Windows.Forms.Padding(10, 10, 30, 10);
-            this.Size = new System.Drawing.Size(847, 159);
+            this.Padding = new System.Windows.Forms.Padding(8, 8, 22, 8);
+            this.Size = new System.Drawing.Size(635, 129);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -91,10 +81,8 @@
         }
 
         #endregion
-
-        private Controllers.CustomLabelControl labelTitle;
-        private Controllers.CustomLabelControl labelInputValue;
         private System.Windows.Forms.NumericUpDown numericUpDown;
         private LabelErrorControl labelErrorControl;
+        private System.Windows.Forms.Label label1;
     }
 }

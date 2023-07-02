@@ -27,8 +27,7 @@ namespace SurveyConfiguratorApp.UserController.Questions
             try
             {
                 InitializeComponent();
-                labelQuestionText.setText("Text");
-                labelQuestionOrder.setText("Order");
+               
             }
             catch (Exception ex)
             {

@@ -38,12 +38,22 @@
             // 
             // dataGridViewQuestion
             // 
+            this.dataGridViewQuestion.AllowUserToAddRows = false;
+            this.dataGridViewQuestion.AllowUserToDeleteRows = false;
+            this.dataGridViewQuestion.AllowUserToResizeColumns = false;
+            this.dataGridViewQuestion.AllowUserToResizeRows = false;
             this.dataGridViewQuestion.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewQuestion.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridViewQuestion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewQuestion.Location = new System.Drawing.Point(192, 75);
+            this.dataGridViewQuestion.MultiSelect = false;
             this.dataGridViewQuestion.Name = "dataGridViewQuestion";
+            this.dataGridViewQuestion.ReadOnly = true;
+            this.dataGridViewQuestion.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewQuestion.ShowEditingIcon = false;
             this.dataGridViewQuestion.Size = new System.Drawing.Size(602, 310);
             this.dataGridViewQuestion.TabIndex = 0;
+            this.dataGridViewQuestion.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewQuestion_CellClick);
             // 
             // btnAdd
             // 

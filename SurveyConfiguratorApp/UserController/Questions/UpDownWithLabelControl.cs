@@ -26,7 +26,7 @@ namespace SurveyConfiguratorApp.UserController.Questions
             try
             {
                 InitializeComponent();
-                labelInputValue.setText("Value");
+              //  labelInputValue.setText("Value");
             }
             catch (Exception e)
             {
@@ -39,12 +39,12 @@ namespace SurveyConfiguratorApp.UserController.Questions
 
         public void setLabelTitle(string title)
         {
-            labelTitle.setText(title);
+           // labelTitle.setText(title);
         }
 
         public void setLeableValueText(string leableValueText)
         {
-            labelInputValue.setText(leableValueText);
+            //labelInputValue.setText(leableValueText);
         }
 
         public void setInputMinValue(int value)

@@ -29,57 +29,34 @@
         private void InitializeComponent()
         {
             this.textBoxQuestionText = new System.Windows.Forms.TextBox();
-            this.labelQuestionOrder = new SurveyConfiguratorApp.UserController.Controllers.CustomLabelControl();
-            this.labelQuestionText = new SurveyConfiguratorApp.UserController.Controllers.CustomLabelControl();
             this.numericUpDownQuestionOrder = new System.Windows.Forms.NumericUpDown();
-            this.labelErrorQuestionText = new SurveyConfiguratorApp.UserController.Questions.LabelErrorControl();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.labelErrorQuestionOrder = new SurveyConfiguratorApp.UserController.Questions.LabelErrorControl();
+            this.labelErrorQuestionText = new SurveyConfiguratorApp.UserController.Questions.LabelErrorControl();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownQuestionOrder)).BeginInit();
             this.SuspendLayout();
             // 
             // textBoxQuestionText
             // 
             this.textBoxQuestionText.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.textBoxQuestionText.Location = new System.Drawing.Point(215, 48);
-            this.textBoxQuestionText.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxQuestionText.Location = new System.Drawing.Point(134, 3);
             this.textBoxQuestionText.Multiline = true;
             this.textBoxQuestionText.Name = "textBoxQuestionText";
-            this.textBoxQuestionText.Size = new System.Drawing.Size(563, 83);
+            this.textBoxQuestionText.Size = new System.Drawing.Size(423, 68);
             this.textBoxQuestionText.TabIndex = 0;
             this.textBoxQuestionText.TextChanged += new System.EventHandler(this.textBoxQuestionText_TextChanged);
             // 
-            // labelQuestionOrder
-            // 
-            this.labelQuestionOrder.AutoSize = true;
-            this.labelQuestionOrder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.labelQuestionOrder.Location = new System.Drawing.Point(44, 170);
-            this.labelQuestionOrder.Margin = new System.Windows.Forms.Padding(0);
-            this.labelQuestionOrder.Name = "labelQuestionOrder";
-            this.labelQuestionOrder.Size = new System.Drawing.Size(64, 25);
-            this.labelQuestionOrder.TabIndex = 5;
-            // 
-            // labelQuestionText
-            // 
-            this.labelQuestionText.AutoSize = true;
-            this.labelQuestionText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.labelQuestionText.Location = new System.Drawing.Point(44, 78);
-            this.labelQuestionText.Margin = new System.Windows.Forms.Padding(0);
-            this.labelQuestionText.Name = "labelQuestionText";
-            this.labelQuestionText.Size = new System.Drawing.Size(64, 25);
-            this.labelQuestionText.TabIndex = 4;
-            this.labelQuestionText.Load += new System.EventHandler(this.customLabelControl1_Load);
-            // 
             // numericUpDownQuestionOrder
             // 
-            this.numericUpDownQuestionOrder.Location = new System.Drawing.Point(215, 170);
-            this.numericUpDownQuestionOrder.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.numericUpDownQuestionOrder.Location = new System.Drawing.Point(134, 102);
             this.numericUpDownQuestionOrder.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.numericUpDownQuestionOrder.Name = "numericUpDownQuestionOrder";
-            this.numericUpDownQuestionOrder.Size = new System.Drawing.Size(564, 22);
+            this.numericUpDownQuestionOrder.Size = new System.Drawing.Size(423, 20);
             this.numericUpDownQuestionOrder.TabIndex = 6;
             this.numericUpDownQuestionOrder.Value = new decimal(new int[] {
             1,
@@ -88,40 +65,57 @@
             0});
             this.numericUpDownQuestionOrder.ValueChanged += new System.EventHandler(this.numericUpDownQuestionOrder_ValueChanged);
             // 
-            // labelErrorQuestionText
+            // label1
             // 
-            this.labelErrorQuestionText.AutoSize = true;
-            this.labelErrorQuestionText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.labelErrorQuestionText.Location = new System.Drawing.Point(215, 140);
-            this.labelErrorQuestionText.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.labelErrorQuestionText.Name = "labelErrorQuestionText";
-            this.labelErrorQuestionText.Size = new System.Drawing.Size(57, 23);
-            this.labelErrorQuestionText.TabIndex = 7;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(-1, 28);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(73, 13);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "Question Text";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(-1, 102);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(78, 13);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "Question Order";
             // 
             // labelErrorQuestionOrder
             // 
             this.labelErrorQuestionOrder.AutoSize = true;
             this.labelErrorQuestionOrder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.labelErrorQuestionOrder.Location = new System.Drawing.Point(215, 203);
-            this.labelErrorQuestionOrder.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.labelErrorQuestionOrder.Location = new System.Drawing.Point(134, 129);
+            this.labelErrorQuestionOrder.Margin = new System.Windows.Forms.Padding(2);
             this.labelErrorQuestionOrder.Name = "labelErrorQuestionOrder";
-            this.labelErrorQuestionOrder.Size = new System.Drawing.Size(57, 23);
+            this.labelErrorQuestionOrder.Size = new System.Drawing.Size(43, 19);
             this.labelErrorQuestionOrder.TabIndex = 8;
+            // 
+            // labelErrorQuestionText
+            // 
+            this.labelErrorQuestionText.AutoSize = true;
+            this.labelErrorQuestionText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.labelErrorQuestionText.Location = new System.Drawing.Point(134, 78);
+            this.labelErrorQuestionText.Margin = new System.Windows.Forms.Padding(2);
+            this.labelErrorQuestionText.Name = "labelErrorQuestionText";
+            this.labelErrorQuestionText.Size = new System.Drawing.Size(43, 19);
+            this.labelErrorQuestionText.TabIndex = 7;
             // 
             // SharedBetweenQuestions
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.labelErrorQuestionOrder);
             this.Controls.Add(this.labelErrorQuestionText);
             this.Controls.Add(this.numericUpDownQuestionOrder);
-            this.Controls.Add(this.labelQuestionOrder);
-            this.Controls.Add(this.labelQuestionText);
             this.Controls.Add(this.textBoxQuestionText);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "SharedBetweenQuestions";
-            this.Size = new System.Drawing.Size(863, 279);
+            this.Size = new System.Drawing.Size(647, 155);
             this.Load += new System.EventHandler(this.SharedBetweenQuestions_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownQuestionOrder)).EndInit();
             this.ResumeLayout(false);
@@ -132,10 +126,10 @@
         #endregion
 
         private System.Windows.Forms.TextBox textBoxQuestionText;
-        private Controllers.CustomLabelControl labelQuestionText;
-        private Controllers.CustomLabelControl labelQuestionOrder;
         private System.Windows.Forms.NumericUpDown numericUpDownQuestionOrder;
         private LabelErrorControl labelErrorQuestionText;
         private LabelErrorControl labelErrorQuestionOrder;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }

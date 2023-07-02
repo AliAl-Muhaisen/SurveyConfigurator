@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace SurveyConfiguratorApp.Logic.Questions.Faces
 {
-    public class QuestionStarsService : IQuestionFacesService
+    public class QuestionFacesService : IQuestionFacesService
     {
         private readonly IQuestionFacesRepository iQuestionFacesRepository;
 
-        public QuestionStarsService(IQuestionFacesRepository iQuestionFacesRepository)
+        public QuestionFacesService(IQuestionFacesRepository iQuestionFacesRepository)
         {
             this.iQuestionFacesRepository = iQuestionFacesRepository;
         }

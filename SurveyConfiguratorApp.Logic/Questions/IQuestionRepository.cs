@@ -12,7 +12,8 @@ namespace SurveyConfiguratorApp.Logic.Questions
     {
         List<Question> GetQuestions();
         bool delete(int id);
+        bool deleteByOrder(int order);
 
     }
-    
+
 }
