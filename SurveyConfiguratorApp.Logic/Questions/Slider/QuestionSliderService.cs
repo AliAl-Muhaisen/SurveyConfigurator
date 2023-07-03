@@ -20,7 +20,7 @@ namespace SurveyConfiguratorApp.Logic.Questions.Slider
             }
             catch (Exception e)
             {
-                LogError.log(e);
+                Log.Error(e);
             }
 
         }
@@ -32,7 +32,7 @@ namespace SurveyConfiguratorApp.Logic.Questions.Slider
             }
             catch (Exception e)
             {
-                LogError.log(e);
+                Log.Error(e);
             }
             return false;
         }
@@ -45,7 +45,7 @@ namespace SurveyConfiguratorApp.Logic.Questions.Slider
             }
             catch (Exception e)
             {
-                LogError.log(e);
+                Log.Error(e);
             }
             return null;
         }
@@ -58,7 +58,7 @@ namespace SurveyConfiguratorApp.Logic.Questions.Slider
             }
             catch (Exception e)
             {
-                LogError.log(e);
+                Log.Error(e);
             }
             return false;
         }

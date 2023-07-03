@@ -45,7 +45,7 @@ namespace SurveyConfiguratorApp.Data.Questions
             }
             catch (Exception ex)
             {
-                LogError.log(ex);
+                Log.Error(ex);
             }
             finally
             {
@@ -86,7 +86,7 @@ namespace SurveyConfiguratorApp.Data.Questions
                 catch (Exception ex)
                 {
                     // Handle any SQL errors
-                    LogError.log(ex);
+                    Log.Error(ex);
                 }
                 finally
                 {
@@ -127,7 +127,7 @@ namespace SurveyConfiguratorApp.Data.Questions
             
             catch (Exception e)
             {
-                LogError.log(e);
+                Log.Error(e);
             }
             finally
             {

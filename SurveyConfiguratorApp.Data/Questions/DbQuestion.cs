@@ -70,7 +70,7 @@ namespace SurveyConfiguratorApp.Data.Questions
             }
             catch (SqlException e)
             {
-                LogError.log(e);
+                Log.Error(e);
             }
             finally
             {
@@ -112,7 +112,7 @@ namespace SurveyConfiguratorApp.Data.Questions
             }
             catch (Exception e)
             {
-                LogError.log(e);
+                Log.Error(e);
             }
             finally { base.CloseConnection(); }
             return false;
@@ -163,7 +163,7 @@ namespace SurveyConfiguratorApp.Data.Questions
             }
             catch (Exception ex)
             {
-                LogError.log(ex);
+                Log.Error(ex);
             }
             finally
             {
@@ -197,7 +197,7 @@ namespace SurveyConfiguratorApp.Data.Questions
             }
             catch (Exception ex)
             {
-                LogError.log(ex);
+                Log.Error(ex);
             }
             finally
             {
@@ -244,7 +244,7 @@ namespace SurveyConfiguratorApp.Data.Questions
 
             catch (Exception ex)
             {
-                LogError.log(ex);
+                Log.Error(ex);
             }
 
             return list;
@@ -283,7 +283,7 @@ namespace SurveyConfiguratorApp.Data.Questions
             }
             catch (Exception ex)
             {
-                LogError.log(ex);
+                Log.Error(ex);
             }
             finally
             {
@@ -323,7 +323,7 @@ namespace SurveyConfiguratorApp.Data.Questions
             }
             catch (Exception ex)
             {
-                LogError.log(ex);
+                Log.Error(ex);
             }
             finally { base.CloseConnection(); }
             return false;
@@ -347,7 +347,7 @@ namespace SurveyConfiguratorApp.Data.Questions
             }
             catch (Exception ex)
             {
-                LogError.log(ex);
+                Log.Error(ex);
             }
             finally
             {

@@ -47,7 +47,7 @@ namespace SurveyConfiguratorApp.Domain.Questions
             }
             catch (Exception e)
             {
-                LogError.log(e);
+                Log.Error(e);
 
             }
 
