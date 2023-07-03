@@ -1,4 +1,5 @@
 ﻿using SurveyConfiguratorApp.Domain.Questions;
+using SurveyConfiguratorApp.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,21 +14,56 @@ namespace SurveyConfiguratorApp.Logic.Questions.Faces
 
         public QuestionFacesService(IQuestionFacesRepository iQuestionFacesRepository)
         {
-            this.iQuestionFacesRepository = iQuestionFacesRepository;
+            try
+            {
+                this.iQuestionFacesRepository = iQuestionFacesRepository;
+            }
+            catch (Exception e)
+            {
+                LogError.log(e);
+            }
+
         }
         public bool add(QuestionFaces data)
         {
-            return iQuestionFacesRepository.add(data);
+            try
+            {
+                return iQuestionFacesRepository.add(data);
+            }
+            catch (Exception e)
+            {
+                LogError.log(e);
+            }
+            return false;
+
         }
 
         public QuestionFaces Get(int id)
         {
-            return iQuestionFacesRepository.Get(id);
+            try
+            {
+                return iQuestionFacesRepository.Get(id);
+            }
+            catch (Exception e)
+            {
+                LogError.log(e);
+            }
+            return null;
+
         }
 
         public bool update(QuestionFaces data)
         {
-            return iQuestionFacesRepository.update(data);
+            try
+            {
+                return iQuestionFacesRepository.update(data);
+            }
+            catch (Exception e)
+            {
+                LogError.log(e);
+            }
+            return false;
+
         }
     }
 }

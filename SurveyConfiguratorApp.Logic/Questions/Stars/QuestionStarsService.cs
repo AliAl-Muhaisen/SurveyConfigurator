@@ -1,4 +1,5 @@
 ﻿using SurveyConfiguratorApp.Domain.Questions;
+using SurveyConfiguratorApp.Helper;
 using SurveyConfiguratorApp.Logic.Questions.Stars;
 using System;
 using System.Collections.Generic;
@@ -14,21 +15,53 @@ namespace SurveyConfiguratorApp.Logic.Questions.Stars
 
         public QuestionStarsService(IQuestionStarsRepository iQuestionStarsRepository)
         {
-            this.iQuestionStarsRepository = iQuestionStarsRepository;
+            try
+            {
+                this.iQuestionStarsRepository = iQuestionStarsRepository;
+            }
+            catch (Exception e)
+            {
+                LogError.log(e);
+            }
+
         }
         public bool add(QuestionStars data)
         {
-            return iQuestionStarsRepository.add(data);
+            try
+            {
+                return iQuestionStarsRepository.add(data);
+            }
+            catch (Exception e)
+            {
+                LogError.log(e);
+            }
+            return false;
         }
 
         public QuestionStars Get(int id)
         {
-            return iQuestionStarsRepository.Get(id);
+            try
+            {
+                return iQuestionStarsRepository.Get(id);
+            }
+            catch (Exception e)
+            {
+                LogError.log(e);
+            }
+            return null;
         }
 
         public bool update(QuestionStars data)
         {
-            return iQuestionStarsRepository.update(data);
+            try
+            {
+                return iQuestionStarsRepository.update(data);
+            }
+            catch (Exception e)
+            {
+                LogError.log(e);
+            }
+            return false;
         }
     }
 }

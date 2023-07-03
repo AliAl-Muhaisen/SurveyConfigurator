@@ -1,4 +1,5 @@
 ﻿using SurveyConfiguratorApp.Domain.Questions;
+using SurveyConfiguratorApp.Helper;
 using SurveyConfiguratorApp.Logic.Questions.Slider;
 using System;
 using System.Collections.Generic;
@@ -55,8 +56,9 @@ namespace SurveyConfiguratorApp.Data.Questions
                 }
 
             }
-            catch (SqlException e)
+            catch (Exception e)
             {
+                LogError.log(e);
             }
             finally
             {
@@ -69,11 +71,9 @@ namespace SurveyConfiguratorApp.Data.Questions
 
         public bool update(QuestionSlider questionSlider)
         {
-            using (SqlCommand command = new SqlCommand())
+            try
             {
-
-
-                try
+                using (SqlCommand command = new SqlCommand())
                 {
                     base.OpenConnection();
                     command.Connection = base.conn;
@@ -97,25 +97,24 @@ namespace SurveyConfiguratorApp.Data.Questions
 
                     return true && base.update(questionSlider);
                 }
-                catch (SqlException ex)
-                {
-                }
-                catch (Exception e)
-                {
-
-                }
-                finally
-                {
-                    base.CloseConnection();
-                }
-                return false;
-
-
             }
+
+            catch (Exception e)
+            {
+                LogError.log(e);
+            }
+            finally
+            {
+                base.CloseConnection();
+            }
+            return false;
+
+
+
 
         }
 
-       public QuestionSlider Get(int id)
+        public QuestionSlider Get(int id)
         {
             try
             {
@@ -146,11 +145,11 @@ namespace SurveyConfiguratorApp.Data.Questions
             }
             catch (SqlException e)
             {
+                LogError.log(e);
             }
             finally
             {
                 base.CloseConnection();
-
             }
             return null;
         }

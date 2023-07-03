@@ -1,4 +1,5 @@
 ﻿using SurveyConfiguratorApp.Domain.Questions;
+using SurveyConfiguratorApp.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,21 +14,53 @@ namespace SurveyConfiguratorApp.Logic.Questions.Slider
 
         public QuestionSliderService(IQuestionSliderRepository iQuestionSliderRepository)
         {
-            this.iQuestionSliderRepository = iQuestionSliderRepository;
+            try
+            {
+                this.iQuestionSliderRepository = iQuestionSliderRepository;
+            }
+            catch (Exception e)
+            {
+                LogError.log(e);
+            }
+
         }
         public bool add(QuestionSlider data)
         {
-            return iQuestionSliderRepository.add(data);
+            try
+            {
+                return iQuestionSliderRepository.add(data);
+            }
+            catch (Exception e)
+            {
+                LogError.log(e);
+            }
+            return false;
         }
 
         public QuestionSlider Get(int id)
         {
-            return iQuestionSliderRepository.Get(id);
+            try
+            {
+                return iQuestionSliderRepository.Get(id);
+            }
+            catch (Exception e)
+            {
+                LogError.log(e);
+            }
+            return null;
         }
 
         public bool update(QuestionSlider data)
         {
-            return iQuestionSliderRepository.update(data);
+            try
+            {
+                return iQuestionSliderRepository.update(data);
+            }
+            catch (Exception e)
+            {
+                LogError.log(e);
+            }
+            return false;
         }
     }
 }

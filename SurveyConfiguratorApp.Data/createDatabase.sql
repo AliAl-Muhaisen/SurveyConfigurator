@@ -27,7 +27,7 @@ BEGIN
         [QuestionId]  INT NOT NULL,
         PRIMARY KEY CLUSTERED ([Id] ASC),
         CONSTRAINT [FK_QuestionId] FOREIGN KEY ([QuestionId]) REFERENCES [dbo].[Question] ([Id]) ON DELETE CASCADE,
-        CONSTRAINT [Check_Faces_Number] CHECK ([FacesNumber] >= (0) AND [FacesNumber] <= (10))
+        CONSTRAINT [Check_Faces_Number] CHECK ([FacesNumber] >= (2) AND [FacesNumber] <= (5))
     );
 END
 

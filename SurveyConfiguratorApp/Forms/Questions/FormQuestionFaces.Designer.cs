@@ -30,9 +30,9 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.numericFaceNumber = new System.Windows.Forms.NumericUpDown();
-            this.sharedBetweenQuestions = new SurveyConfiguratorApp.UserController.Questions.SharedBetweenQuestions();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.sharedBetweenQuestions = new SurveyConfiguratorApp.UserController.Questions.SharedBetweenQuestions();
             ((System.ComponentModel.ISupportInitialize)(this.numericFaceNumber)).BeginInit();
             this.SuspendLayout();
             // 
@@ -51,15 +51,6 @@
             this.numericFaceNumber.Name = "numericFaceNumber";
             this.numericFaceNumber.Size = new System.Drawing.Size(417, 20);
             this.numericFaceNumber.TabIndex = 2;
-            // 
-            // sharedBetweenQuestions
-            // 
-            this.sharedBetweenQuestions.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.sharedBetweenQuestions.Location = new System.Drawing.Point(12, 1);
-            this.sharedBetweenQuestions.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.sharedBetweenQuestions.Name = "sharedBetweenQuestions";
-            this.sharedBetweenQuestions.Size = new System.Drawing.Size(647, 159);
-            this.sharedBetweenQuestions.TabIndex = 0;
             // 
             // btnSave
             // 
@@ -81,6 +72,15 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // sharedBetweenQuestions
+            // 
+            this.sharedBetweenQuestions.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.sharedBetweenQuestions.Location = new System.Drawing.Point(12, 1);
+            this.sharedBetweenQuestions.Margin = new System.Windows.Forms.Padding(4);
+            this.sharedBetweenQuestions.Name = "sharedBetweenQuestions";
+            this.sharedBetweenQuestions.Size = new System.Drawing.Size(647, 159);
+            this.sharedBetweenQuestions.TabIndex = 0;
+            // 
             // FormQuestionFaces
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -92,7 +92,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.sharedBetweenQuestions);
             this.Name = "FormQuestionFaces";
-            this.Text = "FormQuestionFaces";
+            this.Text = "Faces Question";
             this.Load += new System.EventHandler(this.FormQuestionFaces_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericFaceNumber)).EndInit();
             this.ResumeLayout(false);

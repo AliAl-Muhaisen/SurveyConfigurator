@@ -78,3 +78,5 @@ C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\S
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.Forms.Questions.FormQuestionStars.resources
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.Forms.Questions.FormQuestionFaces.resources
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.Forms.Questions.FormQuestion.resources
+C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\bin\Debug\SurveyConfiguratorApp.Helper.dll
+C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\bin\Debug\SurveyConfiguratorApp.Helper.pdb

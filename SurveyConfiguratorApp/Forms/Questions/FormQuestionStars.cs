@@ -1,5 +1,6 @@
 ﻿using SurveyConfiguratorApp.Data.Questions;
 using SurveyConfiguratorApp.Domain.Questions;
+using SurveyConfiguratorApp.Helper;
 using SurveyConfiguratorApp.Logic.Questions.Faces;
 using SurveyConfiguratorApp.Logic.Questions.Stars;
 using SurveyConfiguratorApp.UserController.Questions;
@@ -21,28 +22,40 @@ namespace SurveyConfiguratorApp.Forms.Questions
         private bool isUpdate = false;
         private int questionId = -1;
         private QuestionStars questionStars;
+
+        private QuestionValidation questionValidation;
         public FormQuestionStars()
         {
-            InitializeComponent();
-            questionStars = new QuestionStars();
+
+            try
+            {
+                InitializeComponent();
+                questionStars = new QuestionStars();
+                questionValidation = QuestionValidation.Instance();
+            }
+            catch (Exception ex)
+            {
+                LogError.log(ex);
+            }
         }
 
-        public FormQuestionStars( int questionId) : this()
+        public FormQuestionStars(int questionId) : this()
         {
 
             try
             {
                 if (questionId != -1)
                 {
-                    this.questionId= questionId;
+                    this.questionId = questionId;
                     isUpdate = true;
-                    
+
                     btnSave.Text = "Update";
                 }
 
             }
             catch (Exception ex)
             {
+                LogError.log(ex);
             }
 
             this.questionId = questionId;
@@ -76,7 +89,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
                     }
                     else
                     {
-                          result = questionStarsService.update(questionStars);
+                        result = questionStarsService.update(questionStars);
 
 
                     }
@@ -88,46 +101,82 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
             catch (Exception ex)
             {
-
+                LogError.log(ex);
             }
         }
         private void closeParentFrom()
         {
-            if (Application.OpenForms.OfType<FormQuestion>().Any())
+            try
             {
-                // Close the form
-                FormQuestion form = (FormQuestion)Application.OpenForms["FormQuestion"];
-                form.Close();
+                if (Application.OpenForms.OfType<FormQuestion>().Any())
+                {
+                    // Close the form
+                    FormQuestion form = (FormQuestion)Application.OpenForms["FormQuestion"];
+                    form.Close();
+                }
             }
+            catch (Exception ex)
+            {
+                LogError.log(ex);
+            }
+
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            closeParentFrom();
+            try
+            {
+                closeParentFrom();
+
+            }
+            catch (Exception ex)
+            {
+                LogError.log(ex);
+            }
         }
 
         private void FormQuestionStars_Load(object sender, EventArgs e)
         {
-            if (questionStarsService != null && questionId != -1)
+            try
             {
-                questionStars = questionStarsService.Get(questionId);
-                if (questionStars == null)
+                numericStarsNumber.Minimum = questionValidation.StarsMinValue;
+                numericStarsNumber.Maximum = questionValidation.StarsMaxValue;
+                if (questionStarsService != null && questionId != -1)
                 {
-                    MessageBox.Show("This Question does not exists", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    closeParentFrom();
-                }
-                fillInputs(questionStars);
+                    questionStars = questionStarsService.Get(questionId);
+                    if (questionStars == null)
+                    {
+                        MessageBox.Show("This Question does not exists", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        closeParentFrom();
+                    }
+                    fillInputs(questionStars);
 
+                }
             }
+            catch (Exception ex)
+            {
+                LogError.log(ex);
+            }
+
+
+
         }
 
         private void fillInputs(QuestionStars questionStars)
         {
-            sharedBetweenQuestions.setQuestionText(questionStars.Text);
-            sharedBetweenQuestions.setQuestionOrderValue(questionStars.Order);
-            numericStarsNumber.Value = questionStars.StarsNumber;
-            sharedBetweenQuestions.setOldOrder(questionStars.Order);
-            btnSave.Text = "Update";
+            try
+            {
+                sharedBetweenQuestions.setQuestionText(questionStars.Text);
+                sharedBetweenQuestions.setQuestionOrderValue(questionStars.Order);
+                numericStarsNumber.Value = questionStars.StarsNumber;
+                sharedBetweenQuestions.setOldOrder(questionStars.Order);
+                btnSave.Text = "Update";
+            }
+            catch (Exception ex)
+            {
+                LogError.log(ex);
+            }
+
         }
     }
 }

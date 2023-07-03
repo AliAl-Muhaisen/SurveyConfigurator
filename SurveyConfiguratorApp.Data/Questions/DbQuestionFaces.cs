@@ -1,4 +1,5 @@
 ﻿using SurveyConfiguratorApp.Domain.Questions;
+using SurveyConfiguratorApp.Helper;
 using SurveyConfiguratorApp.Logic.Questions.Faces;
 using System;
 using System.Data.SqlClient;
@@ -8,13 +9,13 @@ namespace SurveyConfiguratorApp.Data.Questions
     /// <summary>
     /// The class handles CRUD operations for the QuestionFaces table in the database
     /// </summary>
-    public class DbQuestionFaces : DbQuestion,IQuestionFacesRepository
+    public class DbQuestionFaces : DbQuestion, IQuestionFacesRepository
     {
         private const string tableName = "QuestionFaces";
         public enum ColumnNames
         {
             QuestionId,
-            FacesNumber, 
+            FacesNumber,
         }
         public DbQuestionFaces() : base() { }
         static public string TableName { get { return tableName; } }
@@ -52,9 +53,9 @@ namespace SurveyConfiguratorApp.Data.Questions
 
 
             }
-            catch (SqlException e)
+            catch (Exception e)
             {
-               
+                LogError.log(e);
             }
             finally
             {
@@ -67,17 +68,18 @@ namespace SurveyConfiguratorApp.Data.Questions
         // Update a QuestionFaces entry in the database
         public bool update(QuestionFaces questionFaces)
         {
-            using (SqlCommand command = new SqlCommand())
+
+
+            try
             {
-                base.OpenConnection();
-                command.Connection = base.conn;
-                command.CommandText = $"UPDATE [{TableName}] SET [FacesNumber] = @FacesNumber WHERE [questionId] = @Id";
-
-                command.Parameters.AddWithValue("@FacesNumber", questionFaces.FacesNumber);
-                command.Parameters.AddWithValue("@Id", questionFaces.getId());
-
-                try
+                using (SqlCommand command = new SqlCommand())
                 {
+                    base.OpenConnection();
+                    command.Connection = base.conn;
+                    command.CommandText = $"UPDATE [{TableName}] SET [FacesNumber] = @FacesNumber WHERE [questionId] = @Id";
+
+                    command.Parameters.AddWithValue("@FacesNumber", questionFaces.FacesNumber);
+                    command.Parameters.AddWithValue("@Id", questionFaces.getId());
 
                     int rowsAffected = command.ExecuteNonQuery();
 
@@ -89,19 +91,20 @@ namespace SurveyConfiguratorApp.Data.Questions
                     base.CloseConnection();
                     base.update(questionFaces);
                     return true;
-
                 }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                    base.CloseConnection();
-                }
-
+            }
+            catch (Exception e)
+            {
+                LogError.log(e);
+            }
+            finally
+            {
+                base.CloseConnection();
 
             }
+            return false;
+
+
 
         }
 
@@ -133,8 +136,9 @@ namespace SurveyConfiguratorApp.Data.Questions
 
                 }
             }
-            catch (SqlException e)
+            catch (Exception e)
             {
+                LogError.log(e);
             }
             finally
             {

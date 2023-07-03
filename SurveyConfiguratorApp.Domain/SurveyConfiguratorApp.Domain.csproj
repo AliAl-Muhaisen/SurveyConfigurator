@@ -46,7 +46,6 @@
     <Compile Include="Questions\QuestionFaces.cs" />
     <Compile Include="Questions\QuestionSlider.cs" />
     <Compile Include="Questions\QuestionStars.cs" />
-    <Compile Include="Questions\QuestionValidation.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

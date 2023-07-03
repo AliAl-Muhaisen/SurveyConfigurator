@@ -52,7 +52,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(10, 10);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(816, 90);
+            this.panel1.Size = new System.Drawing.Size(648, 90);
             this.panel1.TabIndex = 1;
             // 
             // label1
@@ -69,16 +69,19 @@
             this.panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContainer.Location = new System.Drawing.Point(10, 100);
             this.panelContainer.Name = "panelContainer";
-            this.panelContainer.Size = new System.Drawing.Size(816, 423);
+            this.panelContainer.Size = new System.Drawing.Size(648, 423);
             this.panelContainer.TabIndex = 2;
             // 
             // FormQuestion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(836, 533);
+            this.ClientSize = new System.Drawing.Size(668, 533);
             this.Controls.Add(this.panelContainer);
             this.Controls.Add(this.panel1);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(684, 572);
+            this.MinimumSize = new System.Drawing.Size(684, 572);
             this.Name = "FormQuestion";
             this.Padding = new System.Windows.Forms.Padding(10);
             this.Text = "Add Question";

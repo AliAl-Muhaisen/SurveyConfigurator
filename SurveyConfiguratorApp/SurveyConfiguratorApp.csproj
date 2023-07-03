@@ -290,6 +290,10 @@
       <Project>{7f930a94-c067-4348-80db-ac0f53536ff9}</Project>
       <Name>SurveyConfiguratorApp.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SurveyConfiguratorApp.Helper\SurveyConfiguratorApp.Helper.csproj">
+      <Project>{D95358EE-4F7B-4F34-B97A-7D68CC382976}</Project>
+      <Name>SurveyConfiguratorApp.Helper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SurveyConfiguratorApp.Logic\SurveyConfiguratorApp.Logic.csproj">
       <Project>{a2c2d0c3-b661-4da9-9de5-08fcb650c939}</Project>
       <Name>SurveyConfiguratorApp.Logic</Name>

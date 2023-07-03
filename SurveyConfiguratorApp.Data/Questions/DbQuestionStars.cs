@@ -1,4 +1,5 @@
 ﻿using SurveyConfiguratorApp.Domain.Questions;
+using SurveyConfiguratorApp.Helper;
 using SurveyConfiguratorApp.Logic.Questions.Stars;
 using System;
 using System.Collections.Generic;
@@ -28,10 +29,7 @@ namespace SurveyConfiguratorApp.Data.Questions
 
                 cmd.Connection = base.conn;
 
-
-
                 cmd.CommandText = "INSERT INTO [QuestionStars] ([QuestionId],[StarsNumber]) VALUES (@QuestionId,@StarsNumber);";
-
                 cmd.Parameters.AddWithValue("@QuestionId", questionId);
                 cmd.Parameters.AddWithValue("@StarsNumber", data.StarsNumber);
 
@@ -44,23 +42,16 @@ namespace SurveyConfiguratorApp.Data.Questions
                 }
 
 
-
-
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
-
+                LogError.log(ex);
             }
             finally
             {
                 base.CloseConnection();
             }
             return false;
-        }
-
-        public bool delete(int id)
-        {
-            throw new NotImplementedException();
         }
 
     
@@ -95,7 +86,7 @@ namespace SurveyConfiguratorApp.Data.Questions
                 catch (Exception ex)
                 {
                     // Handle any SQL errors
-
+                    LogError.log(ex);
                 }
                 finally
                 {
@@ -133,12 +124,10 @@ namespace SurveyConfiguratorApp.Data.Questions
 
                 }
             }
-            catch (SqlException e)
-            {
-            }
+            
             catch (Exception e)
             {
-
+                LogError.log(e);
             }
             finally
             {

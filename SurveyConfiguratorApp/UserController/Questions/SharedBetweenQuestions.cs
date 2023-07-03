@@ -14,7 +14,7 @@ namespace SurveyConfiguratorApp.UserController.Questions
     {
 
         public delegate string CallBackIsNotEmpty(string text);
-        public delegate bool CallBackIsOrderAlreadyExists(int order, int oldOrder);
+        public delegate bool CallBackIsOrderAlreadyExists(int order);
         private CallBackIsNotEmpty callBackIsNotEmptyMsg;
         private CallBackIsOrderAlreadyExists callBackIsOrderAlreadyExists;
 
@@ -154,7 +154,7 @@ namespace SurveyConfiguratorApp.UserController.Questions
         public void setCallBackIsOrderAlreadyExists(CallBackIsOrderAlreadyExists callBack)
         {
 
-
+            
             try
             {
                 callBackIsOrderAlreadyExists = callBack;
@@ -170,13 +170,13 @@ namespace SurveyConfiguratorApp.UserController.Questions
         {
             try
             {
+               
                 bool isExists = false;
                 if (callBackIsOrderAlreadyExists != null)
                 {
                     int newOderValue = (int)numericUpDownQuestionOrder.Value;
 
-                    isExists = callBackIsOrderAlreadyExists(newOderValue, oldOrder);
-
+                    isExists = callBackIsOrderAlreadyExists(newOderValue);
 
 
                     if (isExists)
@@ -190,13 +190,13 @@ namespace SurveyConfiguratorApp.UserController.Questions
                         labelErrorQuestionOrder.clearText();
                     }
 
-
                 }
 
             }
             catch (Exception ex)
             {
-                handleExceptionLog(ex);
+                MessageBox.Show("Error " + ex.Message);
+
             }
         }
         public void clearInputValues()

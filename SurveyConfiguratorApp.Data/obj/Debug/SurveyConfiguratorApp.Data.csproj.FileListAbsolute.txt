@@ -24,3 +24,13 @@ C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp.Data\obj\De
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp.Data\obj\Debug\SurveyConfiguratorApp.Data.csproj.CopyComplete
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp.Data\obj\Debug\SurveyConfiguratorApp.Data.dll
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp.Data\obj\Debug\SurveyConfiguratorApp.Data.pdb
+C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp.Data\bin\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp.Data\bin\Debug\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp.Data\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp.Data\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp.Data\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp.Data\bin\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.xml
+C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp.Data\bin\Debug\Microsoft.Extensions.DependencyInjection.xml
+C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp.Data\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp.Data\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp.Data\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml

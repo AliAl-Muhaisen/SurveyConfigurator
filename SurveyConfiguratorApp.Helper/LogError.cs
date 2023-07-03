@@ -51,59 +51,26 @@ namespace SurveyConfiguratorApp.Helper
             }
         }
 
-        private void LogError2(Exception ex)
+        //private void log(Exception ex)
+        //{
+        //    try
+        //    {
+        //        fileStream.Seek(0, SeekOrigin.End);
+        //        binaryFormatter.Serialize(fileStream, ex);
+        //    }
+        //    catch (Exception innerEx)
+        //    {
+        //        Console.WriteLine($"Error logging exception: {innerEx.Message}");
+        //    }
+        //}
+
+       
+      static public void log(Exception ex)
         {
             try
             {
-                fileStream.Seek(0, SeekOrigin.End);
-                binaryFormatter.Serialize(fileStream, ex);
-            }
-            catch (Exception innerEx)
-            {
-                Console.WriteLine($"Error logging exception: {innerEx.Message}");
-            }
-        }
-
-        public List<Exception> DeserializeLogFile()
-        {
-            try
-            {
-
-                List<Exception> strings = new List<Exception>();
-                //# repositioning the file stream's current position to the start of the file
-                if (fileStream == null)
-                {
-                    OpenLogFile();
-                }
-              
-                fileStream.Seek(0, SeekOrigin.Begin);
-                while (fileStream.Position < fileStream.Length)
-                {
-                    var exception = (Exception)binaryFormatter.Deserialize(fileStream);
-                    strings.Add(exception);
-                    Console.WriteLine(exception.ToString());
-                }
-                return strings;
-            }
-            catch (Exception ex)
-            {
-
-                Console.WriteLine($"Error deserializing log file: {ex.Message}");
-
-            }
-            finally
-            {
-                CloseLogFile();
-            }
-            return new List<Exception>();
-        }
-
-        public void HandleException(Exception ex)
-        {
-            try
-            {
-                OpenLogFile();
-                LogError2(ex);
+               // OpenLogFile();
+                //log(ex);
             }
             catch (Exception handleEx)
             {
@@ -111,7 +78,7 @@ namespace SurveyConfiguratorApp.Helper
             }
             finally
             {
-                CloseLogFile();
+               // CloseLogFile();
             }
         }
 

@@ -1,4 +1,5 @@
 ﻿using SurveyConfiguratorApp.Domain.Questions;
+using SurveyConfiguratorApp.Helper;
 using SurveyConfiguratorApp.Logic.Questions.Faces;
 using SurveyConfiguratorApp.UserController.Controllers;
 using SurveyConfiguratorApp.UserController.Questions;
@@ -11,11 +12,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static SurveyConfiguratorApp.UserController.Questions.SharedBetweenQuestions;
 
 namespace SurveyConfiguratorApp.Forms.Questions
 {
     public partial class FormQuestionFaces : Form
     {
+        QuestionValidation questionValidation;
         public IQuestionFacesService questionFacesService { get; set; }
         private bool isUpdate = false;
         private int questionId = -1;
@@ -23,9 +26,17 @@ namespace SurveyConfiguratorApp.Forms.Questions
         private QuestionFaces questionFaces;
         public FormQuestionFaces()
         {
-            InitializeComponent();
-            questionFaces=new QuestionFaces();
 
+            try
+            {
+                InitializeComponent();
+                questionFaces = new QuestionFaces();
+                questionValidation = QuestionValidation.Instance();
+            }
+            catch (Exception ex)
+            {
+                LogError.log(ex);
+            }
         }
         public FormQuestionFaces(int questionId) : this()
         {
@@ -42,7 +53,9 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
             catch (Exception ex)
             {
+                LogError.log(ex);
             }
+
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -107,46 +120,82 @@ namespace SurveyConfiguratorApp.Forms.Questions
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                LogError.log(ex);
             }
         }
         private void closeParentFrom()
         {
-            if (Application.OpenForms.OfType<FormQuestion>().Any())
+            try
             {
-                // Close the form
-                FormQuestion form = (FormQuestion)Application.OpenForms["FormQuestion"];
-                form.Close();
+                if (Application.OpenForms.OfType<FormQuestion>().Any())
+                {
+                    // Close the form
+                    FormQuestion form = (FormQuestion)Application.OpenForms["FormQuestion"];
+                    form.Close();
+                }
             }
+            catch (Exception ex)
+            {
+                LogError.log(ex);
+            }
+
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            closeParentFrom();
+
+            try
+            {
+                closeParentFrom();
+            }
+            catch (Exception ex)
+            {
+                LogError.log(ex);
+            }
         }
 
         private void FormQuestionFaces_Load(object sender, EventArgs e)
         {
-
-            if (questionFacesService != null && questionId != -1)
+            try
             {
-                questionFaces = questionFacesService.Get(questionId);
-                if (questionFaces == null)
+                numericFaceNumber.Maximum = questionValidation.FacesMaxValue;
+                numericFaceNumber.Minimum = questionValidation.FacesMinValue;
+                if (questionFacesService != null && questionId != -1)
                 {
-                    MessageBox.Show("This Question does not exists", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    closeParentFrom();
-                }
-                fillInputs(questionFaces);
+                    questionFaces = questionFacesService.Get(questionId);
+                    if (questionFaces == null)
+                    {
+                        MessageBox.Show("This Question does not exists", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        closeParentFrom();
+                    }
+                    fillInputs(questionFaces);
 
+                }
             }
+            catch (Exception ex)
+            {
+                LogError.log(ex);
+            }
+
+
+
         }
 
         private void fillInputs(QuestionFaces questionFaces)
         {
-            sharedBetweenQuestions.setQuestionText(questionFaces.Text);
-            sharedBetweenQuestions.setQuestionOrderValue(questionFaces.Order);
-            numericFaceNumber.Value = questionFaces.FacesNumber;
-            sharedBetweenQuestions.setOldOrder(questionFaces.Order);
-            btnSave.Text = "Update";
+
+            try
+            {
+                sharedBetweenQuestions.setQuestionText(questionFaces.Text);
+                sharedBetweenQuestions.setQuestionOrderValue(questionFaces.Order);
+                numericFaceNumber.Value = questionFaces.FacesNumber;
+                sharedBetweenQuestions.setOldOrder(questionFaces.Order);
+                btnSave.Text = "Update";
+            }
+            catch (Exception ex)
+            {
+                LogError.log(ex);
+            }
         }
 
         private void save()

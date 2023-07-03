@@ -1,4 +1,5 @@
 ﻿using SurveyConfiguratorApp.Domain.Questions;
+using SurveyConfiguratorApp.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,39 +12,114 @@ namespace SurveyConfiguratorApp.Logic.Questions
     {
         private readonly IQuestionRepository questionRepository;
         public static List<Question> questionsList = new List<Question>();
-        public QuestionService(IQuestionRepository questionRepository) {
-            this.questionRepository = questionRepository;
+        public QuestionService(IQuestionRepository questionRepository)
+        {
+
+            try
+            {
+                this.questionRepository = questionRepository;
+            }
+            catch (Exception e)
+            {
+                LogError.log(e);
+            }
         }
 
         public bool add(Question question)
         {
-           return questionRepository.add(question);
-            
+
+            try
+            {
+                return questionRepository.add(question);
+            }
+            catch (Exception e)
+            {
+                LogError.log(e);
+            }
+            return false;
         }
 
         public bool delete(int id)
         {
-           return questionRepository.delete(id);
+
+            try
+            {
+                return questionRepository.delete(id);
+            }
+            catch (Exception e)
+            {
+                LogError.log(e);
+            }
+            return false;
         }
 
         public Question Get(int id)
         {
-            return questionRepository.Get(id);
+
+            try
+            {
+                return questionRepository.Get(id);
+            }
+            catch (Exception e)
+            {
+                LogError.log(e);
+            }
+            return null;
         }
 
         public List<Question> GetQuestions()
         {
-            return questionRepository.GetQuestions();
+
+            try
+            {
+                return questionRepository.GetQuestions();
+            }
+            catch (Exception e)
+            {
+                LogError.log(e);
+            }
+            return new List<Question>();
         }
 
         public bool update(Question question)
         {
-            return questionRepository.update(question);
+
+            try
+            {
+                return questionRepository.update(question);
+            }
+            catch (Exception e)
+            {
+                LogError.log(e);
+            }
+            return false;
         }
 
         public bool deleteByOrder(int order)
         {
-            return questionRepository.deleteByOrder(order);
+
+            try
+            {
+                return questionRepository.deleteByOrder(order);
+            }
+            catch (Exception e)
+            {
+                LogError.log(e);
+            }
+            return false;
+        }
+        public bool isOrderAlreadyExists(int order)
+        {
+
+            try
+            {
+                return questionRepository.isOrderAlreadyExists(order);
+            }
+            catch (Exception e)
+            {
+                LogError.log(e);
+            }
+            return false;
         }
     }
 }

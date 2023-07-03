@@ -1,4 +1,5 @@
 ﻿using SurveyConfiguratorApp.Domain.Questions;
+using SurveyConfiguratorApp.Helper;
 using SurveyConfiguratorApp.Logic.Questions;
 using System;
 using System.Collections.Generic;
@@ -69,6 +70,7 @@ namespace SurveyConfiguratorApp.Data.Questions
             }
             catch (SqlException e)
             {
+                LogError.log(e);
             }
             finally
             {
@@ -108,11 +110,9 @@ namespace SurveyConfiguratorApp.Data.Questions
                     }
                 }
             }
-            catch (SqlException e)
+            catch (Exception e)
             {
-
-
-
+                LogError.log(e);
             }
             finally { base.CloseConnection(); }
             return false;
@@ -121,10 +121,10 @@ namespace SurveyConfiguratorApp.Data.Questions
 
 
 
-      
 
 
-  
+
+
 
         /// <summary>
         /// The update method updates a specific record in the Question table based on the provided Question object.
@@ -132,18 +132,19 @@ namespace SurveyConfiguratorApp.Data.Questions
         /// </summary>
         public bool update(Question question)
         {
-            base.OpenConnection();
-            using (SqlCommand command = new SqlCommand())
+
+
+            try
             {
-                command.Connection = base.conn;
-                command.CommandText = $"UPDATE [Question] SET [Text] = @Text,[Order]=@Order WHERE [Id] = @Id";
-
-                command.Parameters.AddWithValue("@Text", question.Text);
-                command.Parameters.AddWithValue("@Order", question.Order);
-                command.Parameters.AddWithValue("@Id", question.getId());
-
-                try
+                base.OpenConnection();
+                using (SqlCommand command = new SqlCommand())
                 {
+                    command.Connection = base.conn;
+                    command.CommandText = $"UPDATE [Question] SET [Text] = @Text,[Order]=@Order WHERE [Id] = @Id";
+
+                    command.Parameters.AddWithValue("@Text", question.Text);
+                    command.Parameters.AddWithValue("@Order", question.Order);
+                    command.Parameters.AddWithValue("@Id", question.getId());
 
                     int rowsAffected = command.ExecuteNonQuery();
 
@@ -157,47 +158,22 @@ namespace SurveyConfiguratorApp.Data.Questions
                         // Row not found or not updated
                         return false;
                     }
-                }
-                catch (SqlException ex)
-                {
-                }
-                finally
-                {
-                    base.CloseConnection();
-                }
-                return false;
-            }
 
-        }
-
-        public static bool isOrderAlreadyExists(int order, int oldOrder = -1)
-        {
-            DbQuestion dbQuestion = new DbQuestion();
-            try
-            {
-                dbQuestion.OpenConnection();
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.Connection = dbQuestion.conn;
-                    cmd.CommandText = "SELECT [Order] FROM [Question] WHERE ([Order] = @order AND [Order]!= @oldOrder);";
-                    cmd.Parameters.AddWithValue("@order", order);
-                    cmd.Parameters.AddWithValue("@oldOrder", oldOrder);
-                    SqlDataReader dataReader = cmd.ExecuteReader();
-                    if (dataReader.HasRows)
-                        return true;
                 }
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
-
-
+                LogError.log(ex);
             }
             finally
             {
-                dbQuestion.CloseConnection();
+                base.CloseConnection();
             }
             return false;
+
+
         }
+
 
 
         /// <summary>
@@ -219,8 +195,9 @@ namespace SurveyConfiguratorApp.Data.Questions
                     return Convert.ToInt32(dr["MaxId"]);
                 }
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
+                LogError.log(ex);
             }
             finally
             {
@@ -232,7 +209,7 @@ namespace SurveyConfiguratorApp.Data.Questions
 
         public List<Question> GetQuestions()
         {
-           // return new List<Question> { new Question() {Order = 1, Text = "asdfsdf", TypeName="Stars" } };
+            // return new List<Question> { new Question() {Order = 1, Text = "asdfsdf", TypeName="Stars" } };
             List<Question> list = new List<Question>();
             try
             {
@@ -255,16 +232,9 @@ namespace SurveyConfiguratorApp.Data.Questions
                                (int)reader["Order"]
                                );
 
-                        //Question question = new Question()
-                        //{
-                        //    Order = Convert.ToInt32(reader[$"{ColumNames.Order}"]),
-                        //    TypeName = ((Question.QuestionTypes)Convert.ToInt32(reader[$"{ColumNames.TypeNumber}"])).ToString(),
-                        //    Text = (reader[$"{ColumNames.Text}"]).ToString(),
-                            
-
-                        //};
-                        question.setId(Convert.ToInt32(reader[$"{ColumNames.Id}"]));
                         
+                        question.setId(Convert.ToInt32(reader[$"{ColumNames.Id}"]));
+
                         list.Add(question);
                     }
 
@@ -274,8 +244,7 @@ namespace SurveyConfiguratorApp.Data.Questions
 
             catch (Exception ex)
             {
-
-
+                LogError.log(ex);
             }
 
             return list;
@@ -287,7 +256,7 @@ namespace SurveyConfiguratorApp.Data.Questions
         {
             try
             {
-               
+
                 base.OpenConnection();
 
                 using (SqlCommand cmd = new SqlCommand())
@@ -304,7 +273,7 @@ namespace SurveyConfiguratorApp.Data.Questions
                                 (int)reader["TypeNumber"],
                                 (int)reader["Order"]
                                 );
-                            
+
                             return question;
 
                         }
@@ -312,8 +281,9 @@ namespace SurveyConfiguratorApp.Data.Questions
 
                 }
             }
-            catch (SqlException e)
+            catch (Exception ex)
             {
+                LogError.log(ex);
             }
             finally
             {
@@ -351,13 +321,38 @@ namespace SurveyConfiguratorApp.Data.Questions
                     }
                 }
             }
-            catch (SqlException e)
+            catch (Exception ex)
             {
-
-
-
+                LogError.log(ex);
             }
             finally { base.CloseConnection(); }
+            return false;
+        }
+
+        public bool isOrderAlreadyExists(int order)
+        {
+            DbQuestion dbQuestion = new DbQuestion();
+            try
+            {
+                dbQuestion.OpenConnection();
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = dbQuestion.conn;
+                    cmd.CommandText = "SELECT [Order] FROM [Question] WHERE ([Order] = @order);";
+                    cmd.Parameters.AddWithValue("@order", order);
+                    SqlDataReader dataReader = cmd.ExecuteReader();
+                    if (dataReader.HasRows)
+                        return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogError.log(ex);
+            }
+            finally
+            {
+                dbQuestion.CloseConnection();
+            }
             return false;
         }
     }

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using SurveyConfiguratorApp.Helper;
+using SurveyConfiguratorApp.Logic.Questions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
@@ -26,28 +29,28 @@ namespace SurveyConfiguratorApp.Domain.Questions
 
         const int questionTextLength = 100;
         const int sliderCaptionTextLength = 100;
-      
+
 
         private QuestionValidation()
         {
             try
             {
-  SliderMaxValue = 100;
-            SliderMinValue = 0;
-            
+                SliderMaxValue = 100;
+                SliderMinValue = 0;
 
-            StarsMaxValue = 10;
-            StarsMinValue = 1;
 
-            FacesMaxValue = 5;
-            FacesMinValue = 2;
+                StarsMaxValue = 10;
+                StarsMinValue = 1;
+
+                FacesMaxValue = 5;
+                FacesMinValue = 2;
             }
             catch (Exception e)
             {
-               
+                LogError.log(e);
 
             }
-          
+
         }
 
         public static QuestionValidation Instance()
@@ -97,17 +100,17 @@ namespace SurveyConfiguratorApp.Domain.Questions
 
         public string handelQuestionText(string text)
         {
-            if(isEmpty(text))
+            if (isEmpty(text))
             {
                 return "Required Field";
             }
-            else if( text.Length > questionTextLength)
+            else if (text.Length > questionTextLength)
             {
                 return "Maximum input length exceeded. Please enter a value that is within 100 character";
             }
             return null;
 
-            
+
         }
 
 
@@ -164,7 +167,7 @@ namespace SurveyConfiguratorApp.Domain.Questions
 
 
         }
-        private bool isMinEqualMax(int min,int max)
+        private bool isMinEqualMax(int min, int max)
         {
             return min == max;
         }
@@ -177,20 +180,17 @@ namespace SurveyConfiguratorApp.Domain.Questions
         //! End Slider Question Validation
 
 
-        //public bool isOrderAlreadyExists(int order,int oldOrder=-1)
-        //{
-        //    return DbQuestion.isOrderAlreadyExists(order, oldOrder);
-        //}
-        //private void handleExceptionLog(Exception ex)
-        //{
-        //    try
-        //    {
-        //        ErrorLoggerFile errorLoggerFile = new ErrorLoggerFile();
-        //        errorLoggerFile.HandleException(ex);
-        //    }
-        //    catch
-        //    {
-        //    }
-        //}
+        public bool isOrderAlreadyExists(int order)
+        {
+            var services = new ServiceCollection();
+           
+            services.AddScoped<IQuestionService, QuestionService>();
+            using (ServiceProvider serviceProvider = services.BuildServiceProvider())
+            {
+                IQuestionService questionService = serviceProvider.GetRequiredService<IQuestionService>();
+                return questionService.isOrderAlreadyExists(order);
+            }
+        }
+       
     }
 }

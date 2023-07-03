@@ -39,6 +39,8 @@
             this.textBoxEndCaption = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.sharedBetweenQuestions = new SurveyConfiguratorApp.UserController.Questions.SharedBetweenQuestions();
+            this.labelErrorEndValue = new SurveyConfiguratorApp.UserController.Questions.LabelErrorControl();
+            this.labelErrorStartValue = new SurveyConfiguratorApp.UserController.Questions.LabelErrorControl();
             ((System.ComponentModel.ISupportInitialize)(this.numericStartValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericEndValue)).BeginInit();
             this.SuspendLayout();
@@ -66,18 +68,20 @@
             // numericStartValue
             // 
             this.numericStartValue.Location = new System.Drawing.Point(144, 205);
-            this.numericStartValue.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.numericStartValue.Margin = new System.Windows.Forms.Padding(2);
             this.numericStartValue.Name = "numericStartValue";
             this.numericStartValue.Size = new System.Drawing.Size(112, 20);
             this.numericStartValue.TabIndex = 9;
+            this.numericStartValue.ValueChanged += new System.EventHandler(this.numericStartValue_ValueChanged);
             // 
             // numericEndValue
             // 
             this.numericEndValue.Location = new System.Drawing.Point(464, 205);
-            this.numericEndValue.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.numericEndValue.Margin = new System.Windows.Forms.Padding(2);
             this.numericEndValue.Name = "numericEndValue";
             this.numericEndValue.Size = new System.Drawing.Size(112, 20);
             this.numericEndValue.TabIndex = 11;
+            this.numericEndValue.ValueChanged += new System.EventHandler(this.numericEndValue_ValueChanged);
             // 
             // label2
             // 
@@ -92,7 +96,7 @@
             // textBoxStartCaption
             // 
             this.textBoxStartCaption.Location = new System.Drawing.Point(144, 269);
-            this.textBoxStartCaption.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxStartCaption.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxStartCaption.Name = "textBoxStartCaption";
             this.textBoxStartCaption.Size = new System.Drawing.Size(114, 20);
             this.textBoxStartCaption.TabIndex = 12;
@@ -120,7 +124,7 @@
             // textBoxEndCaption
             // 
             this.textBoxEndCaption.Location = new System.Drawing.Point(464, 269);
-            this.textBoxEndCaption.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxEndCaption.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxEndCaption.Name = "textBoxEndCaption";
             this.textBoxEndCaption.Size = new System.Drawing.Size(114, 20);
             this.textBoxEndCaption.TabIndex = 14;
@@ -139,16 +143,38 @@
             // 
             this.sharedBetweenQuestions.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.sharedBetweenQuestions.Location = new System.Drawing.Point(10, 11);
-            this.sharedBetweenQuestions.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.sharedBetweenQuestions.Margin = new System.Windows.Forms.Padding(4);
             this.sharedBetweenQuestions.Name = "sharedBetweenQuestions";
             this.sharedBetweenQuestions.Size = new System.Drawing.Size(647, 159);
             this.sharedBetweenQuestions.TabIndex = 4;
+            // 
+            // labelErrorEndValue
+            // 
+            this.labelErrorEndValue.AutoSize = true;
+            this.labelErrorEndValue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.labelErrorEndValue.Location = new System.Drawing.Point(464, 229);
+            this.labelErrorEndValue.Margin = new System.Windows.Forms.Padding(2);
+            this.labelErrorEndValue.Name = "labelErrorEndValue";
+            this.labelErrorEndValue.Size = new System.Drawing.Size(29, 13);
+            this.labelErrorEndValue.TabIndex = 17;
+            // 
+            // labelErrorStartValue
+            // 
+            this.labelErrorStartValue.AutoSize = true;
+            this.labelErrorStartValue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.labelErrorStartValue.Location = new System.Drawing.Point(144, 231);
+            this.labelErrorStartValue.Margin = new System.Windows.Forms.Padding(2);
+            this.labelErrorStartValue.Name = "labelErrorStartValue";
+            this.labelErrorStartValue.Size = new System.Drawing.Size(29, 13);
+            this.labelErrorStartValue.TabIndex = 18;
             // 
             // FormQuestionSlider
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.labelErrorStartValue);
+            this.Controls.Add(this.labelErrorEndValue);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.textBoxEndCaption);
@@ -183,5 +209,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBoxEndCaption;
         private System.Windows.Forms.Button btnSave;
+        private UserController.Questions.LabelErrorControl labelErrorEndValue;
+        private UserController.Questions.LabelErrorControl labelErrorStartValue;
     }
 }
