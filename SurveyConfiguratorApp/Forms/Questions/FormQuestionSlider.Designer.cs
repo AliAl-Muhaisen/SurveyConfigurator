@@ -45,10 +45,9 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(618, 416);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCancel.Location = new System.Drawing.Point(464, 338);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(150, 28);
+            this.btnCancel.Size = new System.Drawing.Size(112, 23);
             this.btnCancel.TabIndex = 7;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -57,73 +56,80 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 252);
+            this.label1.Location = new System.Drawing.Point(10, 205);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(72, 16);
+            this.label1.Size = new System.Drawing.Size(59, 13);
             this.label1.TabIndex = 8;
             this.label1.Text = "Start Value";
             // 
             // numericStartValue
             // 
-            this.numericStartValue.Location = new System.Drawing.Point(192, 252);
+            this.numericStartValue.Location = new System.Drawing.Point(144, 205);
+            this.numericStartValue.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.numericStartValue.Name = "numericStartValue";
-            this.numericStartValue.Size = new System.Drawing.Size(150, 22);
+            this.numericStartValue.Size = new System.Drawing.Size(112, 20);
             this.numericStartValue.TabIndex = 9;
             // 
             // numericEndValue
             // 
-            this.numericEndValue.Location = new System.Drawing.Point(618, 252);
+            this.numericEndValue.Location = new System.Drawing.Point(464, 205);
+            this.numericEndValue.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.numericEndValue.Name = "numericEndValue";
-            this.numericEndValue.Size = new System.Drawing.Size(150, 22);
+            this.numericEndValue.Size = new System.Drawing.Size(112, 20);
             this.numericEndValue.TabIndex = 11;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(440, 252);
+            this.label2.Location = new System.Drawing.Point(330, 205);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(69, 16);
+            this.label2.Size = new System.Drawing.Size(56, 13);
             this.label2.TabIndex = 10;
             this.label2.Text = "End Value";
             // 
             // textBoxStartCaption
             // 
-            this.textBoxStartCaption.Location = new System.Drawing.Point(192, 331);
+            this.textBoxStartCaption.Location = new System.Drawing.Point(144, 269);
+            this.textBoxStartCaption.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBoxStartCaption.Name = "textBoxStartCaption";
-            this.textBoxStartCaption.Size = new System.Drawing.Size(150, 22);
+            this.textBoxStartCaption.Size = new System.Drawing.Size(114, 20);
             this.textBoxStartCaption.TabIndex = 12;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(14, 337);
+            this.label3.Location = new System.Drawing.Point(10, 274);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(83, 16);
+            this.label3.Size = new System.Drawing.Size(68, 13);
             this.label3.TabIndex = 13;
             this.label3.Text = "Start Caption";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(440, 337);
+            this.label4.Location = new System.Drawing.Point(330, 274);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(80, 16);
+            this.label4.Size = new System.Drawing.Size(65, 13);
             this.label4.TabIndex = 15;
             this.label4.Text = "End Caption";
             // 
             // textBoxEndCaption
             // 
-            this.textBoxEndCaption.Location = new System.Drawing.Point(618, 331);
+            this.textBoxEndCaption.Location = new System.Drawing.Point(464, 269);
+            this.textBoxEndCaption.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBoxEndCaption.Name = "textBoxEndCaption";
-            this.textBoxEndCaption.Size = new System.Drawing.Size(150, 22);
+            this.textBoxEndCaption.Size = new System.Drawing.Size(114, 20);
             this.textBoxEndCaption.TabIndex = 14;
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(415, 416);
-            this.btnSave.Margin = new System.Windows.Forms.Padding(4);
+            this.btnSave.Location = new System.Drawing.Point(311, 338);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(150, 28);
+            this.btnSave.Size = new System.Drawing.Size(112, 23);
             this.btnSave.TabIndex = 16;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -132,17 +138,17 @@
             // sharedBetweenQuestions
             // 
             this.sharedBetweenQuestions.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.sharedBetweenQuestions.Location = new System.Drawing.Point(14, 14);
-            this.sharedBetweenQuestions.Margin = new System.Windows.Forms.Padding(5);
+            this.sharedBetweenQuestions.Location = new System.Drawing.Point(10, 11);
+            this.sharedBetweenQuestions.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.sharedBetweenQuestions.Name = "sharedBetweenQuestions";
-            this.sharedBetweenQuestions.Size = new System.Drawing.Size(863, 196);
+            this.sharedBetweenQuestions.Size = new System.Drawing.Size(647, 159);
             this.sharedBetweenQuestions.TabIndex = 4;
             // 
             // FormQuestionSlider
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.textBoxEndCaption);
@@ -154,9 +160,9 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.sharedBetweenQuestions);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FormQuestionSlider";
             this.Text = "FormQuestionSlider";
+            this.Load += new System.EventHandler(this.FormQuestionSlider_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericStartValue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericEndValue)).EndInit();
             this.ResumeLayout(false);

@@ -36,11 +36,13 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 comboBox1.Items.Add(type);
 
         }
-        public FormQuestion(bool isEnableSelectType, int questionId,int questionTypeNumber) : this()
+
+        public FormQuestion(bool isEnableSelectType, int questionId, int questionTypeNumber, string FormTitle = null) : this()
         {
             comboBox1.Enabled = isEnableSelectType;
             this.questionId = questionId;
-            this.questionTypeNumber = questionTypeNumber-1;
+            this.questionTypeNumber = questionTypeNumber - 1;
+            this.Text = FormTitle != null ? FormTitle : Text;
         }
         private void FormQuestionAdd_Load(object sender, EventArgs e)
         {
@@ -106,15 +108,15 @@ namespace SurveyConfiguratorApp.Forms.Questions
 
         }
 
-        private void handleQuestionFaces(int questionId=-1)
+        private void handleQuestionFaces(int questionId = -1)
         {
             services.AddScoped<IQuestionFacesRepository, DbQuestionFaces>();
             services.AddScoped<IQuestionFacesService, QuestionFacesService>();
             using (ServiceProvider serviceProvider = services.BuildServiceProvider())
             {
-               
+
                 var mainForm = new FormQuestionFaces(questionId);
-                
+
 
                 // Manually inject the dependencies
                 mainForm.questionFacesService = serviceProvider.GetRequiredService<IQuestionFacesService>();
@@ -142,7 +144,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             services.AddScoped<IQuestionSliderService, QuestionSliderService>();
             using (ServiceProvider serviceProvider = services.BuildServiceProvider())
             {
-                var mainForm = new FormQuestionSlider();
+                var mainForm = new FormQuestionSlider(questionId);
 
                 // Manually inject the dependencies
                 mainForm.questionSliderService = serviceProvider.GetRequiredService<IQuestionSliderService>();

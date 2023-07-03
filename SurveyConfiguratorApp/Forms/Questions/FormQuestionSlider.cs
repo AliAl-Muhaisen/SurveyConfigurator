@@ -1,4 +1,5 @@
-﻿using SurveyConfiguratorApp.Domain.Questions;
+﻿using SurveyConfiguratorApp.Data.Questions;
+using SurveyConfiguratorApp.Domain.Questions;
 using SurveyConfiguratorApp.Logic.Questions.Faces;
 using SurveyConfiguratorApp.Logic.Questions.Slider;
 using System;
@@ -18,12 +19,28 @@ namespace SurveyConfiguratorApp.Forms.Questions
         public IQuestionSliderService questionSliderService { get; set; }
         private bool isUpdate = false;
         private QuestionSlider questionSlider;
+        private int questionId = -1;
         public FormQuestionSlider()
         {
             InitializeComponent();
             questionSlider=new QuestionSlider();
         }
+        public FormQuestionSlider(int questionId):this() 
+        {
+            try
+            {
+                if (questionId != -1)
+                {
+                    isUpdate = true;
+                    this.questionId = questionId;
+                    btnSave.Text = "Update";
+                }
 
+            }
+            catch (Exception ex)
+            {
+            }
+        }
         private void btnCancel_Click(object sender, EventArgs e)
         {
             closeParentFrom();
@@ -73,10 +90,10 @@ namespace SurveyConfiguratorApp.Forms.Questions
                     }
                     else
                     {
-                        //  result = questionStars.update();
+                          result = questionSliderService.update(questionSlider);
 
 
-                        sharedBetweenQuestions.setOldOrder(questionSlider.Order);
+                        //sharedBetweenQuestions.setOldOrder(questionSlider.Order);
 
                     }
 
@@ -87,6 +104,33 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
             catch (Exception ex)
             {
+
+            }
+        }
+
+        private void fillInputs(QuestionSlider questionSlider)
+        {
+            sharedBetweenQuestions.setQuestionText(questionSlider.Text);
+            sharedBetweenQuestions.setQuestionOrderValue(questionSlider.Order);
+            numericStartValue.Value = questionSlider.StartValue;
+            numericEndValue.Value = questionSlider.EndValue;
+            textBoxStartCaption.Text = questionSlider.StartCaption;
+            textBoxEndCaption.Text = questionSlider.EndCaption;
+            sharedBetweenQuestions.setOldOrder(questionSlider.Order);
+            btnSave.Text = "Update";
+        }
+
+        private void FormQuestionSlider_Load(object sender, EventArgs e)
+        {
+            if (questionSliderService != null && questionId != -1)
+            {
+                questionSlider = questionSliderService.Get(questionId);
+                if (questionSlider == null)
+                {
+                    MessageBox.Show("This Question does not exists", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    closeParentFrom();
+                }
+                fillInputs(questionSlider);
 
             }
         }

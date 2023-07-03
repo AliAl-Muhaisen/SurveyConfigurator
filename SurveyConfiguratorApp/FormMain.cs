@@ -114,7 +114,7 @@ namespace SurveyConfiguratorApp
                 if (questionId != -1)
                 {
                     questionId = handleQuestionId(questionId);
-                    Form fromAdd = new FormQuestion(false, questionId, questionTypeNumber);
+                    Form fromAdd = new FormQuestion(false, questionId, questionTypeNumber,"Update Question");
                     fromAdd.ShowDialog();
                     loadDataGridView();
 

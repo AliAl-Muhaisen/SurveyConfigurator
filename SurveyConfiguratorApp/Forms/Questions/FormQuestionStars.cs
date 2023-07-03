@@ -79,8 +79,6 @@ namespace SurveyConfiguratorApp.Forms.Questions
                           result = questionStarsService.update(questionStars);
 
 
-                        //   sharedBetweenQuestions.setOldOrder(questionStars.Order);
-
                     }
 
 

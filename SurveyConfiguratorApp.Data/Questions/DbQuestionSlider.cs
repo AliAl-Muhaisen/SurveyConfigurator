@@ -66,50 +66,6 @@ namespace SurveyConfiguratorApp.Data.Questions
 
         }
 
-        public bool delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public QuestionSlider read(int id)
-        {
-            try
-            {
-                QuestionSlider questionSlider = new QuestionSlider();
-                base.OpenConnection();
-
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.Connection = base.conn;
-                    cmd.CommandText = $"SELECT [Text],[StartValue],[EndValue],[StartCaption],[EndCaption],[Order] FROM Question as q  INNER JOIN QuestionSlider as f ON q.id=f.QuestionId WHERE q.Id={id};";
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            questionSlider.Order = (int)reader["Order"];
-                            questionSlider.setId(id);
-                            questionSlider.Text = reader["Text"].ToString();
-                            questionSlider.EndCaption = reader["EndCaption"].ToString();
-                            questionSlider.StartCaption = reader["StartCaption"].ToString();
-                            questionSlider.StartValue = (int)reader["StartValue"];
-                            questionSlider.EndValue = (int)reader["EndValue"];
-                            return questionSlider;
-
-                        }
-                    }
-
-                }
-            }
-            catch (SqlException e)
-            {
-            }
-            finally
-            {
-                base.CloseConnection();
-
-            }
-            return null;
-        }
 
         public bool update(QuestionSlider questionSlider)
         {
@@ -161,7 +117,42 @@ namespace SurveyConfiguratorApp.Data.Questions
 
        public QuestionSlider Get(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                QuestionSlider questionSlider = new QuestionSlider();
+                base.OpenConnection();
+
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = base.conn;
+                    cmd.CommandText = $"SELECT [Text],[StartValue],[EndValue],[StartCaption],[EndCaption],[Order] FROM Question as q  INNER JOIN QuestionSlider as f ON q.id=f.QuestionId WHERE q.Id={id};";
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            questionSlider.Order = (int)reader["Order"];
+                            questionSlider.setId(id);
+                            questionSlider.Text = reader["Text"].ToString();
+                            questionSlider.EndCaption = reader["EndCaption"].ToString();
+                            questionSlider.StartCaption = reader["StartCaption"].ToString();
+                            questionSlider.StartValue = (int)reader["StartValue"];
+                            questionSlider.EndValue = (int)reader["EndValue"];
+                            return questionSlider;
+
+                        }
+                    }
+
+                }
+            }
+            catch (SqlException e)
+            {
+            }
+            finally
+            {
+                base.CloseConnection();
+
+            }
+            return null;
         }
     }
 }
