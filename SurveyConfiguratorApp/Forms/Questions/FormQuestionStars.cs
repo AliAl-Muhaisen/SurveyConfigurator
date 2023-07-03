@@ -103,6 +103,9 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
         }
 
-        
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            closeParentFrom();
+        }
     }
 }

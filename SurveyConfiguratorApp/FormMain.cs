@@ -28,9 +28,9 @@ namespace SurveyConfiguratorApp
 
         // Active form and current button variables
 
-        int questionOrder = -1;
+        int questionId = -1;
         public IQuestionService questionService { get; set; }
-        private string questionType = null;
+        private string questionTypeName = null;
 
         /// <summary>
         /// the FormMain constructor initializes the form's components, creates an instance of the DbQuestion class, 
@@ -85,7 +85,10 @@ namespace SurveyConfiguratorApp
                 var bindingList = new BindingList<Question>(list);
 
                 var source = new BindingSource(bindingList, null);
+
                 dataGridViewQuestion.DataSource = source;
+
+
 
 
             }
@@ -118,14 +121,14 @@ namespace SurveyConfiguratorApp
         {
             try
             {
-                if (questionOrder != -1)
+                if (questionId != -1)
                 {
                     DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete this record", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (dialogResult == DialogResult.Yes)
                     {
-                        questionService.deleteByOrder(questionOrder);
+                        questionService.delete(questionId);
                         loadDataGridView();
-                        questionOrder = -1;
+                        questionId = -1;
                     }
 
 
@@ -145,34 +148,43 @@ namespace SurveyConfiguratorApp
 
             try
             {
+                DataGridViewRow selectedRow=null;
+                bool isChecked = false;
                 if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
                 {
 
-                   DataGridViewRow selectedRow = dataGridViewQuestion.Rows[e.RowIndex];
+                    selectedRow = dataGridViewQuestion.Rows[e.RowIndex];
+                    isChecked = true;
 
-                    questionOrder = Convert.ToInt32(selectedRow.Cells["order"].Value);
-                    questionType = ((string)selectedRow.Cells["typeName"].Value);
-                   // dataGridViewQuestion.Rows[e.RowIndex].Selected = true;
                 }
                 //? Check if a row is selected
                 else if (dataGridViewQuestion.SelectedRows.Count > 0)
                 {
                     //# Get the selected row
-                    DataGridViewRow selectedRow = dataGridViewQuestion.SelectedRows[0];
-                    //# Get the ID value from the selected row
-                    questionOrder = Convert.ToInt32(selectedRow.Cells["order"].Value);
-                    questionType = ((string)selectedRow.Cells["typeName"].Value);
+                     selectedRow = dataGridViewQuestion.SelectedRows[0];
+                    isChecked = true;
 
+                    //# Get the ID value from the selected row
 
                 }
 
                 else
                 {
-                    questionOrder = -1;
-                    questionType = null;
+                    questionId = -1;
+                    questionTypeName = null;
+                    isChecked = false;
+
 
                 }
-                MessageBox.Show(questionType);
+
+                if (isChecked && selectedRow !=null)
+                {
+                    Question question = selectedRow.DataBoundItem as Question;
+                   
+                    questionTypeName = question.TypeName;
+                    
+                    questionId = question.getId();
+                }
             }
             catch (Exception ex)
             {

@@ -2,6 +2,7 @@
 using SurveyConfiguratorApp.Data.Questions;
 using SurveyConfiguratorApp.Logic.Questions;
 using SurveyConfiguratorApp.Logic.Questions.Faces;
+using SurveyConfiguratorApp.Logic.Questions.Slider;
 using SurveyConfiguratorApp.Logic.Questions.Stars;
 using System;
 using System.Collections.Generic;
@@ -35,8 +36,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
 
         private void FormQuestionAdd_Load(object sender, EventArgs e)
         {
-            comboBox1.SelectedText = "Faces";
-            comboBox1.SelectedItem = "Faces";
+            
 
             handleOpenChildForm(new FormQuestionFaces());
         }
@@ -60,7 +60,16 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
             else if (typeNumber == (int)QuestionTypes.SLIDER)
             {
-                handleOpenChildForm(new FormQuestionSlider());
+                services.AddScoped<IQuestionSliderRepository, DbQuestionSlider>();
+                services.AddScoped<IQuestionSliderService, QuestionSliderService>();
+                using (ServiceProvider serviceProvider = services.BuildServiceProvider())
+                {
+                    var mainForm = new FormQuestionSlider();
+
+                    // Manually inject the dependencies
+                    mainForm.questionSliderService = serviceProvider.GetRequiredService<IQuestionSliderService>();
+                    handleOpenChildForm(mainForm);
+                }
             }
             else if (typeNumber == (int)QuestionTypes.FACES)
             {
@@ -101,11 +110,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             childForm.BringToFront();
             childForm.Show();
         }
-        public void CloseForm()
-        {
-            Close();
-        }
-
+       
 
     }
 }

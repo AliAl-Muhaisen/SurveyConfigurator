@@ -62,7 +62,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
 
                         result = questionFacesService.add(questionFaces);
                         MessageBox.Show("added");
-                        closeParentFrom();
+                       
 
                         if (result)
                         {
@@ -70,6 +70,12 @@ namespace SurveyConfiguratorApp.Forms.Questions
                             sharedBetweenQuestions.clearErrorLabelsText();
 
                         }
+                        else
+                        {
+                            MessageBox.Show("not added");
+                        }
+ closeParentFrom();
+
                     }
                     else
                     {
@@ -98,6 +104,11 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 FormQuestionAdd form = (FormQuestionAdd)Application.OpenForms["FormQuestionAdd"];
                 form.Close();
             }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            closeParentFrom();
         }
     }
 }

@@ -37,24 +37,24 @@ namespace SurveyConfiguratorApp.Domain.Questions
             Order = order;
 
         }
-    
+
         public void setId(int id)
         {
             this.id = id;
         }
         public int getId()
         {
-                return this.id;
+            return this.id;
         }
 
         protected void setTypeNumber(int type)
         {
-            typeNumber=type;
+            typeNumber = type;
         }
         public int getTypeNumber()
         {
             return typeNumber;
         }
-       
+
     }
 }

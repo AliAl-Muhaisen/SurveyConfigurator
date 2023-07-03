@@ -255,9 +255,12 @@ namespace SurveyConfiguratorApp.Data.Questions
                         {
                             Order = Convert.ToInt32(reader[$"{ColumNames.Order}"]),
                             TypeName = ((Question.QuestionTypes)Convert.ToInt32(reader[$"{ColumNames.TypeNumber}"])).ToString(),
-                            Text = (reader[$"{ColumNames.Text}"]).ToString()
+                            Text = (reader[$"{ColumNames.Text}"]).ToString(),
+                            
 
                         };
+                        question.setId(Convert.ToInt32(reader[$"{ColumNames.Id}"]));
+                        
                         list.Add(question);
                     }
 
