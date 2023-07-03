@@ -63,6 +63,7 @@
     <Compile Include="Questions\Faces\IQuestionFacesRepository.cs" />
     <Compile Include="Questions\Faces\IQuestionFacesService.cs" />
     <Compile Include="Questions\Faces\QuestionFacesService.cs" />
+    <Compile Include="Questions\QuestionComparer.cs" />
     <Compile Include="Questions\QuestionService.cs" />
     <Compile Include="Questions\QuestionValidation.cs" />
     <Compile Include="Questions\Slider\IQuestionSliderRepository.cs" />

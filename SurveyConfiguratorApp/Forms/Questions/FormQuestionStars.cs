@@ -66,7 +66,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             try
             {
                 bool isValidGeneralQuestions = sharedBetweenQuestions.isValidForm();
-                //  if (isValidGeneralQuestions)
+                if (isValidGeneralQuestions)
                 {
                     questionStars.Text = sharedBetweenQuestions.getQuestionText();
                     questionStars.Order = Convert.ToInt32(sharedBetweenQuestions.getQuestionOrder());
@@ -77,23 +77,15 @@ namespace SurveyConfiguratorApp.Forms.Questions
                     {
 
                         result = questionStarsService.add(questionStars);
-                        MessageBox.Show("added");
-                        closeParentFrom();
-
-                        if (result)
-                        {
-                            sharedBetweenQuestions.clearInputValues();
-                            sharedBetweenQuestions.clearErrorLabelsText();
-
-                        }
+                        customMessageBoxControl1.sqlInsert(result);
                     }
                     else
                     {
                         result = questionStarsService.update(questionStars);
-
-
+                        customMessageBoxControl1.sqlUpdate(result);
                     }
-
+                    if (result)
+                        closeParentFrom();
 
 
                 }
@@ -150,6 +142,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
                         closeParentFrom();
                     }
                     fillInputs(questionStars);
+                    sharedBetweenQuestions.setOldOrder(questionStars.Order);
 
                 }
             }

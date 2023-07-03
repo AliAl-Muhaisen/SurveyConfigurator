@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SurveyConfiguratorApp.Helper;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -10,13 +11,7 @@ using System.Threading.Tasks;
 namespace SurveyConfiguratorApp.Data
 {
 
-    public interface ICRUD<T>
-    {
-        bool add(T data);
-        bool update(T data);
-        bool delete(int id);
-        T read(int id);
-    }
+  
 
     /// <summary>
     /// The DB class provides functionality for managing database connections 
@@ -27,7 +22,6 @@ namespace SurveyConfiguratorApp.Data
         public SqlConnection conn;
         //protected SqlCommand cmd;
         private string connectionString;
-
         public DB()
         {
 
@@ -42,7 +36,7 @@ namespace SurveyConfiguratorApp.Data
             }
             catch (Exception ex)
             {
-
+                Log.Error(ex);
 
             }
             finally
@@ -66,19 +60,30 @@ namespace SurveyConfiguratorApp.Data
             }
             catch (Exception ex)
             {
+                Log.Error(ex);
             }
         }
 
         // Close the database connection
         public void CloseConnection()
         {
-            if (conn != null)
+            try
             {
-                conn.Close();
-                conn = null;
+                if (conn != null)
+                {
+                    conn.Close();
+                    conn = null;
+                }
             }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+
+            }
+
         }
-       
-       
+
+
     }
+
 }

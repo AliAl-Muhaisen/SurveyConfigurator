@@ -15,5 +15,6 @@ namespace SurveyConfiguratorApp.Logic.Questions
         bool deleteByOrder(int order);
 
         bool isOrderAlreadyExists(int order);
+        void refresh();
     }
 }

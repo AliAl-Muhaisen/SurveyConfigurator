@@ -22,6 +22,12 @@ namespace SurveyConfiguratorApp.Forms.Questions
         private QuestionSlider questionSlider;
         private int questionId = -1;
         private QuestionValidation questionValidation;
+
+       private bool isValidMaxNum = false;
+        private bool isValidMinNum = false;
+
+        private bool isValidCaptionStart = false;
+        private bool isValidCaptionEnd = false;
         public FormQuestionSlider()
         {
 
@@ -45,6 +51,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
                     isUpdate = true;
                     this.questionId = questionId;
                     btnSave.Text = "Update";
+                   
                 }
 
             }
@@ -55,7 +62,6 @@ namespace SurveyConfiguratorApp.Forms.Questions
         }
         private void btnCancel_Click(object sender, EventArgs e)
         {
-
             try
             {
                 closeParentFrom();
@@ -85,13 +91,10 @@ namespace SurveyConfiguratorApp.Forms.Questions
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-
-
-
             try
             {
-                bool isValidGeneralQuestions = sharedBetweenQuestions.isValidForm();
-                //  if (isValidGeneralQuestions)
+               
+                if (isValidForm())
                 {
                     questionSlider.Text = sharedBetweenQuestions.getQuestionText();
                     questionSlider.Order = Convert.ToInt32(sharedBetweenQuestions.getQuestionOrder());
@@ -105,24 +108,18 @@ namespace SurveyConfiguratorApp.Forms.Questions
                     {
 
                         result = questionSliderService.add(questionSlider);
-                        MessageBox.Show("added");
-
-
-                        if (result)
-                        {
-                            sharedBetweenQuestions.clearInputValues();
-                            sharedBetweenQuestions.clearErrorLabelsText();
-
-                        }
-                        closeParentFrom();
+                        customMessageBoxControl1.sqlInsert(result);
                     }
                     else
                     {
                         result = questionSliderService.update(questionSlider);
-
-
                         //sharedBetweenQuestions.setOldOrder(questionSlider.Order);
+                        customMessageBoxControl1.sqlUpdate(result);
 
+                    }
+                    if (result)
+                    {
+                        closeParentFrom();
                     }
 
 
@@ -168,6 +165,8 @@ namespace SurveyConfiguratorApp.Forms.Questions
 
                 labelErrorStartValue.clearText();
                 labelErrorEndValue.clearText();
+                labelErrorCaptionStart.clearText();
+                labelErrorCaptionEnd.clearText();
 
                 if (questionSliderService != null && questionId != -1)
                 {
@@ -177,6 +176,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
                         MessageBox.Show("This Question does not exists", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         closeParentFrom();
                     }
+                    sharedBetweenQuestions.setOldOrder(questionSlider.Order);
                     fillInputs(questionSlider);
 
                 }
@@ -195,7 +195,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 if (numericStartValue.Value >= numericEndValue.Value)
                 {
                     labelErrorStartValue.setText("Min should be less than max");
-                    //isValidMinNum = false;
+                    isValidMinNum = false;
 
                 }
 
@@ -208,7 +208,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 else
                 {
                     labelErrorStartValue.clearText();
-                    //  isValidMinNum = true;
+                      isValidMinNum = true;
                 }
             }
             catch (Exception ex)
@@ -229,7 +229,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 if (numericEndValue.Value <= numericStartValue.Value)
                 {
                     labelErrorEndValue.setText("Max should be greater than min");
-                    //  isValidMaxNum = false;
+                      isValidMaxNum = false;
 
                 }
 
@@ -243,13 +243,13 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 else if (numericEndValue.Value > numericEndValue.Maximum)
                 {
                     labelErrorEndValue.setText("number must be less than or equal " + numericEndValue.Maximum);
-                    //  isValidMaxNum = false;
+                      isValidMaxNum = false;
 
                 }
                 else
                 {
                     labelErrorEndValue.clearText();
-                    //  isValidMaxNum = true;
+                      isValidMaxNum = true;
                 }
 
 
@@ -258,6 +258,27 @@ namespace SurveyConfiguratorApp.Forms.Questions
             {
                 Log.Error(ex);
             }
+        }
+        private void handleCaptionEnd()
+        {
+            try
+            {
+                string msg =
+                           questionValidation.handelCaptionText(textBoxEndCaption.Text);
+                if (msg == null)
+                {
+                    isValidCaptionEnd = true;
+                }
+                else
+                    isValidCaptionEnd = false;
+                labelErrorCaptionEnd.setText(msg);
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+            }
+
         }
 
         private void numericStartValue_ValueChanged(object sender, EventArgs e)
@@ -284,6 +305,45 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 Log.Error(ex);
             }
 
+        }
+
+        private void textBoxEndCaption_TextChanged(object sender, EventArgs e)
+        {
+            handleCaptionEnd();
+        }
+
+        private void handleCaptionStart()
+        {
+            try
+            {
+                string msg =
+                           questionValidation.handelCaptionText(textBoxStartCaption.Text);
+                if (msg == null)
+                {
+                    isValidCaptionStart = true;
+                }
+                else
+                    isValidCaptionStart = false;
+                labelErrorCaptionStart.setText(msg);
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+            }
+
+        }
+        private void textBoxStartCaption_TextChanged(object sender, EventArgs e)
+        {
+            handleCaptionStart();
+        }
+        private bool isValidForm()
+        {
+            handleCaptionEnd();
+            handleMaxValue();
+            handleMinValue();
+            handleCaptionStart();
+            return sharedBetweenQuestions.isValidForm() && isValidMaxNum && isValidMinNum && isValidCaptionStart&& isValidCaptionEnd;
         }
     }
 }

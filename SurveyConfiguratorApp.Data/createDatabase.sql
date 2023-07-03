@@ -12,7 +12,7 @@ BEGIN
     CREATE TABLE [dbo].[Question] (
         [Id]         INT           IDENTITY (1, 1) NOT NULL,
         [Order]      INT           NOT NULL,
-        [Text]       VARCHAR (100) NOT NULL,
+        [Text]       VARCHAR (1500) NOT NULL,
         [TypeNumber] INT           NOT NULL,
         PRIMARY KEY CLUSTERED ([Id] ASC),
         CONSTRAINT [unique_order] UNIQUE NONCLUSTERED ([Order] ASC)
@@ -37,8 +37,8 @@ BEGIN
         [Id]           INT           IDENTITY (1, 1) NOT NULL,
         [StartValue]   INT           NOT NULL,
         [EndValue]     INT           NOT NULL,
-        [StartCaption] VARCHAR (100) NOT NULL,
-        [EndCaption]   VARCHAR (100) NOT NULL,
+        [StartCaption] VARCHAR (500) NOT NULL,
+        [EndCaption]   VARCHAR (500) NOT NULL,
         [QuestionId]   INT           NOT NULL,
         PRIMARY KEY CLUSTERED ([Id] ASC),
         CONSTRAINT [FK_QuestionId_Slider] FOREIGN KEY ([QuestionId]) REFERENCES [dbo].[Question] ([Id]) ON DELETE CASCADE,

@@ -72,7 +72,8 @@ namespace SurveyConfiguratorApp.Logic.Questions
 
             try
             {
-                return questionRepository.GetQuestions();
+                questionsList = questionRepository.GetQuestions();
+                return questionsList;
             }
             catch (Exception e)
             {
@@ -120,6 +121,37 @@ namespace SurveyConfiguratorApp.Logic.Questions
                 Log.Error(e);
             }
             return false;
+        }
+
+        public void refresh()
+        {
+
+            try
+            {
+                questionsList = questionRepository.GetQuestions();
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+            }
+        }
+
+        public static List<int> Orders()
+        {
+            try
+            {
+                List<int> list = new List<int>();
+                for (int i = 0; i < questionsList.Count; i++)
+                {
+                    list.Add(questionsList[i].Order);
+                }
+                return list;
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+            }
+            return null;
         }
     }
 }

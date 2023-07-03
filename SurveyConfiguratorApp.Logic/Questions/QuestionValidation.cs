@@ -27,8 +27,8 @@ namespace SurveyConfiguratorApp.Domain.Questions
         public int FacesMaxValue { get; private set; }
         public int FacesMinValue { get; private set; }
 
-        const int questionTextLength = 100;
-        const int sliderCaptionTextLength = 100;
+        const int questionTextLength = 1500;
+        const int sliderCaptionTextLength = 500;
 
 
         private QuestionValidation()
@@ -106,7 +106,7 @@ namespace SurveyConfiguratorApp.Domain.Questions
             }
             else if (text.Length > questionTextLength)
             {
-                return "Maximum input length exceeded. Please enter a value that is within 100 character";
+                return $"Maximum input length exceeded. Please enter a value that is within {questionTextLength} character";
             }
             return null;
 
@@ -161,7 +161,11 @@ namespace SurveyConfiguratorApp.Domain.Questions
             }
             else if (text.Length > sliderCaptionTextLength)
             {
-                return "Maximum input length exceeded";
+                return "Too Long";
+            }
+            else if(text.Length<3)
+            {
+                return "Too Short";
             }
             return null;
 
@@ -180,17 +184,24 @@ namespace SurveyConfiguratorApp.Domain.Questions
         //! End Slider Question Validation
 
 
-        public bool isOrderAlreadyExists(int order)
+        public bool isOrderAlreadyExists(int order,int oldOrder=-1)
         {
-            var services = new ServiceCollection();
-           
-            services.AddScoped<IQuestionService, QuestionService>();
-            using (ServiceProvider serviceProvider = services.BuildServiceProvider())
+            try
             {
-                IQuestionService questionService = serviceProvider.GetRequiredService<IQuestionService>();
-                return questionService.isOrderAlreadyExists(order);
+
+               List<int> orders= QuestionService.Orders();
+                for (int i = 0;orders.Count>i;i++)
+                    if (orders[i] == order && oldOrder != orders[i])
+                        return true;
+                
             }
+            catch (Exception e)
+            {
+                Log.Error(e);
+            }
+            return false;
+
         }
-       
+
     }
 }

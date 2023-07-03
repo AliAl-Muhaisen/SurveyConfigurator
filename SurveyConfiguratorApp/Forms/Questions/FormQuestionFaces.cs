@@ -65,55 +65,30 @@ namespace SurveyConfiguratorApp.Forms.Questions
             try
             {
                 bool isValidGeneralQuestions = sharedBetweenQuestions.isValidForm();
-                //  if (isValidGeneralQuestions)
+                if(isValidGeneralQuestions)
                 {
                     questionFaces.Text = sharedBetweenQuestions.getQuestionText();
                     questionFaces.Order = Convert.ToInt32(sharedBetweenQuestions.getQuestionOrder());
                     bool result = false;
 
                     questionFaces.FacesNumber = ((int)numericFaceNumber.Value);
+                    
                     if (!isUpdate)
                     {
 
                         result = questionFacesService.add(questionFaces);
-                        MessageBox.Show("added");
-
-
-                        if (result)
-                        {
-                            sharedBetweenQuestions.clearInputValues();
-                            sharedBetweenQuestions.clearErrorLabelsText();
-
-                        }
-                        else
-                        {
-                            MessageBox.Show("not added");
-                        }
-                        closeParentFrom();
+                        customMessageBoxControl1.sqlInsert(result);
 
                     }
                     else
                     {
                         result = questionFacesService.update(questionFaces);
-
-                        if (result)
-                        {
-                            sharedBetweenQuestions.clearInputValues();
-                            sharedBetweenQuestions.clearErrorLabelsText();
-
-                        }
-                        else
-                        {
-                            MessageBox.Show("not added");
-                        }
-                        closeParentFrom();
-
+                        customMessageBoxControl1.sqlUpdate(result);
                         sharedBetweenQuestions.setOldOrder(questionFaces.Order);
 
                     }
-
-
-
+                    if (result)
+                        closeParentFrom();
                 }
 
             }
@@ -169,6 +144,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
                         closeParentFrom();
                     }
                     fillInputs(questionFaces);
+                    sharedBetweenQuestions.setOldOrder(questionFaces.Order);
 
                 }
             }

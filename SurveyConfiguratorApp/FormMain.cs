@@ -11,7 +11,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Data;
-using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -19,7 +18,6 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static SurveyConfiguratorApp.Domain.Questions.Question;
 
 namespace SurveyConfiguratorApp
 {
@@ -44,6 +42,7 @@ namespace SurveyConfiguratorApp
             try
             {
                 InitializeComponent();
+                InitializeTimer();
             }
             catch (Exception e)
             {
@@ -54,7 +53,26 @@ namespace SurveyConfiguratorApp
 
         }
 
+        private void InitializeTimer()
+        {
+            timer1 = new Timer();
+            timer1.Interval = 8000; 
 
+            timer1.Tick += Timer_Tick;
+
+            timer1.Enabled = true; // Start the timer
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            // This code will be executed every 1 second
+            loadDataGridView();
+        }
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            loadDataGridView();
+            MessageBox.Show("Timer");
+        }
         private void panelMain_Paint(object sender, PaintEventArgs e)
         {
 
@@ -88,12 +106,15 @@ namespace SurveyConfiguratorApp
 
                 dataGridViewQuestion.DataSource = source;
 
+
             }
             catch (Exception ex)
             {
+                Log.Error(ex);
             }
 
         }
+        
 
         private void FormMain_Load(object sender, EventArgs e)
         {
@@ -237,6 +258,22 @@ namespace SurveyConfiguratorApp
             }
             return -1;
         }
+
+        private void dataGridViewQuestion_ColumnHeaderMouseClick_1(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            //string columnName = dataGridViewQuestion.Columns[e.ColumnIndex].Name;
+            //System.Windows.Forms.SortOrder sortOrder = dataGridViewQuestion.Columns[e.ColumnIndex].HeaderCell.SortGlyphDirection == System.Windows.Forms.SortOrder.Ascending
+            //    ? System.Windows.Forms.SortOrder.Descending
+            //    : System.Windows.Forms.SortOrder.Ascending;
+
+            //var comparer = new QuestionComparer(columnName, sortOrder);
+            //list.Sort(comparer);
+
+            //dataGridViewQuestion.DataSource = null;
+            //dataGridViewQuestion.DataSource = list;
+        }
+
+        
     }
 }
 

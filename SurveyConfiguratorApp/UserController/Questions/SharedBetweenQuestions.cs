@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SurveyConfiguratorApp.Domain.Questions;
+using SurveyConfiguratorApp.Helper;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,10 +15,7 @@ namespace SurveyConfiguratorApp.UserController.Questions
     public partial class SharedBetweenQuestions : UserControl
     {
 
-        public delegate string CallBackIsNotEmpty(string text);
-        public delegate bool CallBackIsOrderAlreadyExists(int order);
-        private CallBackIsNotEmpty callBackIsNotEmptyMsg;
-        private CallBackIsOrderAlreadyExists callBackIsOrderAlreadyExists;
+        QuestionValidation questionValidation;
 
         private bool isValidQuestionText = false;
         private bool isValidOrderValue = false;
@@ -27,11 +26,13 @@ namespace SurveyConfiguratorApp.UserController.Questions
             try
             {
                 InitializeComponent();
-               
+                questionValidation = QuestionValidation.Instance();
+
+                clearErrorLabelsText();
             }
             catch (Exception ex)
             {
-                handleExceptionLog(ex);
+                Log.Error(ex);
             }
         }
 
@@ -58,10 +59,9 @@ namespace SurveyConfiguratorApp.UserController.Questions
             try
             {
                 string msg = null;
-                if (callBackIsNotEmptyMsg != null)
                 {
                     string inputText = textBoxQuestionText.Text;
-                    msg = callBackIsNotEmptyMsg(inputText);
+                    msg = questionValidation.handelQuestionText(inputText);
                     labelErrorQuestionText.setText(msg);
 
 
@@ -76,7 +76,7 @@ namespace SurveyConfiguratorApp.UserController.Questions
             }
             catch (Exception ex)
             {
-                handleExceptionLog(ex);
+                Log.Error(ex);
             }
         }
 
@@ -135,68 +135,39 @@ namespace SurveyConfiguratorApp.UserController.Questions
 
 
         }
-        public void setIsNotEmptyCallBack(CallBackIsNotEmpty callBack)
-        {
 
-            try
-            {
-                callBackIsNotEmptyMsg = callBack;
-            }
-            catch (Exception ex)
-            {
-                handleExceptionLog(ex);
-                MessageBox.Show("callBackIsNotEmptyMsg Failed ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-               
 
-            }
-        }
 
-        public void setCallBackIsOrderAlreadyExists(CallBackIsOrderAlreadyExists callBack)
-        {
-
-            
-            try
-            {
-                callBackIsOrderAlreadyExists = callBack;
-            }
-            catch (Exception ex)
-            {
-                handleExceptionLog(ex);
-                MessageBox.Show("callBackIsNotEmptyMsg Failed ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
 
         private void handleOrderValue()
         {
             try
             {
-               
+
                 bool isExists = false;
-                if (callBackIsOrderAlreadyExists != null)
+
+                int newOderValue = (int)numericUpDownQuestionOrder.Value;
+
+                isExists = questionValidation.isOrderAlreadyExists(newOderValue, oldOrder);
+
+
+                if (isExists)
                 {
-                    int newOderValue = (int)numericUpDownQuestionOrder.Value;
-
-                    isExists = callBackIsOrderAlreadyExists(newOderValue);
-
-
-                    if (isExists)
-                    {
-                        labelErrorQuestionOrder.setText("This Order Alread Exists");
-                        isValidOrderValue = false;
-                    }
-                    else
-                    {
-                        isValidOrderValue = true;
-                        labelErrorQuestionOrder.clearText();
-                    }
-
+                    labelErrorQuestionOrder.setText("This Order Alread Exists");
+                    isValidOrderValue = false;
                 }
+                else
+                {
+                    isValidOrderValue = true;
+                    labelErrorQuestionOrder.clearText();
+                }
+
+
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error " + ex.Message);
-
+                Log.Error(ex);
             }
         }
         public void clearInputValues()
@@ -219,15 +190,9 @@ namespace SurveyConfiguratorApp.UserController.Questions
             }
             catch (Exception ex)
             {
-                handleExceptionLog(ex);
+                Log.Error(ex);
             }
         }
-        private void handleExceptionLog(Exception ex)
-        {
 
-            //ErrorLoggerFile errorLoggerFile = new ErrorLoggerFile();
-            //errorLoggerFile.HandleException(ex);
-
-        }
     }
 }
