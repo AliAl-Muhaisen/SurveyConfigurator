@@ -114,7 +114,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             if (Application.OpenForms.OfType<FormQuestion>().Any())
             {
                 // Close the form
-                FormQuestion form = (FormQuestion)Application.OpenForms["FormQuestionAdd"];
+                FormQuestion form = (FormQuestion)Application.OpenForms["FormQuestion"];
                 form.Close();
             }
         }
@@ -135,7 +135,6 @@ namespace SurveyConfiguratorApp.Forms.Questions
                     MessageBox.Show("This Question does not exists", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     closeParentFrom();
                 }
-                MessageBox.Show("Id " + questionFaces.getId());
                 fillInputs(questionFaces);
 
             }

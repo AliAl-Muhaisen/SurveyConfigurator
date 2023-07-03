@@ -33,7 +33,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             if (Application.OpenForms.OfType<FormQuestion>().Any())
             {
                 // Close the form
-                FormQuestion form = (FormQuestion)Application.OpenForms["FormQuestionAdd"];
+                FormQuestion form = (FormQuestion)Application.OpenForms["FormQuestion"];
                 form.Close();
             }
         }

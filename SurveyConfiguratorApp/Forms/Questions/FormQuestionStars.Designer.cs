@@ -40,45 +40,41 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(529, 129);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(397, 105);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(0, 16);
+            this.label1.Size = new System.Drawing.Size(0, 13);
             this.label1.TabIndex = 0;
             // 
             // numericStarsNumber
             // 
-            this.numericStarsNumber.Location = new System.Drawing.Point(200, 236);
-            this.numericStarsNumber.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.numericStarsNumber.Location = new System.Drawing.Point(150, 192);
             this.numericStarsNumber.Name = "numericStarsNumber";
-            this.numericStarsNumber.Size = new System.Drawing.Size(556, 22);
+            this.numericStarsNumber.Size = new System.Drawing.Size(417, 20);
             this.numericStarsNumber.TabIndex = 5;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 236);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(12, 192);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(89, 16);
+            this.label2.Size = new System.Drawing.Size(71, 13);
             this.label2.TabIndex = 4;
             this.label2.Text = "Stars Number";
             // 
             // sharedBetweenQuestions
             // 
             this.sharedBetweenQuestions.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.sharedBetweenQuestions.Location = new System.Drawing.Point(16, 15);
-            this.sharedBetweenQuestions.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.sharedBetweenQuestions.Location = new System.Drawing.Point(12, 12);
+            this.sharedBetweenQuestions.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.sharedBetweenQuestions.Name = "sharedBetweenQuestions";
-            this.sharedBetweenQuestions.Size = new System.Drawing.Size(863, 196);
+            this.sharedBetweenQuestions.Size = new System.Drawing.Size(647, 159);
             this.sharedBetweenQuestions.TabIndex = 3;
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(405, 411);
-            this.btnSave.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSave.Location = new System.Drawing.Point(304, 334);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(150, 28);
+            this.btnSave.Size = new System.Drawing.Size(112, 23);
             this.btnSave.TabIndex = 6;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -86,10 +82,9 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(606, 411);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCancel.Location = new System.Drawing.Point(454, 334);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(150, 28);
+            this.btnCancel.Size = new System.Drawing.Size(112, 23);
             this.btnCancel.TabIndex = 7;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -97,18 +92,18 @@
             // 
             // FormQuestionStars
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.numericStarsNumber);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.sharedBetweenQuestions);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FormQuestionStars";
             this.Text = "FormQuestionStars";
+            this.Load += new System.EventHandler(this.FormQuestionStars_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericStarsNumber)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

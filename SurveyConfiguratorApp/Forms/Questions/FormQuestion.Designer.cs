@@ -72,14 +72,14 @@
             this.panelContainer.Size = new System.Drawing.Size(816, 423);
             this.panelContainer.TabIndex = 2;
             // 
-            // FormQuestionAdd
+            // FormQuestion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(836, 533);
             this.Controls.Add(this.panelContainer);
             this.Controls.Add(this.panel1);
-            this.Name = "FormQuestionAdd";
+            this.Name = "FormQuestion";
             this.Padding = new System.Windows.Forms.Padding(10);
             this.Text = "Add Question";
             this.Load += new System.EventHandler(this.FormQuestionAdd_Load);

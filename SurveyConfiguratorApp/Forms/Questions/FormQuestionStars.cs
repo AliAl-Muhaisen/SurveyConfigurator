@@ -19,37 +19,37 @@ namespace SurveyConfiguratorApp.Forms.Questions
     {
         public IQuestionStarsService questionStarsService { get; set; }
         private bool isUpdate = false;
-
+        private int questionId = -1;
         private QuestionStars questionStars;
         public FormQuestionStars()
         {
             InitializeComponent();
+            questionStars = new QuestionStars();
         }
 
-        public FormQuestionStars(int id) : this()
+        public FormQuestionStars( int questionId) : this()
         {
 
             try
             {
-                questionStars = new QuestionStars();
-                isUpdate = true;
-              
-                sharedBetweenQuestions.setQuestionText(questionStars.Text);
-                sharedBetweenQuestions.setQuestionOrderValue(questionStars.Order);
-                numericStarsNumber.Value = questionStars.StarsNumber;
-                sharedBetweenQuestions.setOldOrder(questionStars.Order);
-                btnSave.Text = "Update";
+                if (questionId != -1)
+                {
+                    this.questionId= questionId;
+                    isUpdate = true;
+                    
+                    btnSave.Text = "Update";
+                }
+
             }
             catch (Exception ex)
             {
             }
+
+            this.questionId = questionId;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            questionStars = new QuestionStars();
-
-
             try
             {
                 bool isValidGeneralQuestions = sharedBetweenQuestions.isValidForm();
@@ -76,10 +76,10 @@ namespace SurveyConfiguratorApp.Forms.Questions
                     }
                     else
                     {
-                        //  result = questionStars.update();
+                          result = questionStarsService.update(questionStars);
 
 
-                     //   sharedBetweenQuestions.setOldOrder(questionStars.Order);
+                        //   sharedBetweenQuestions.setOldOrder(questionStars.Order);
 
                     }
 
@@ -98,7 +98,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             if (Application.OpenForms.OfType<FormQuestion>().Any())
             {
                 // Close the form
-                FormQuestion form = (FormQuestion)Application.OpenForms["FormQuestionAdd"];
+                FormQuestion form = (FormQuestion)Application.OpenForms["FormQuestion"];
                 form.Close();
             }
         }
@@ -106,6 +106,30 @@ namespace SurveyConfiguratorApp.Forms.Questions
         private void btnCancel_Click(object sender, EventArgs e)
         {
             closeParentFrom();
+        }
+
+        private void FormQuestionStars_Load(object sender, EventArgs e)
+        {
+            if (questionStarsService != null && questionId != -1)
+            {
+                questionStars = questionStarsService.Get(questionId);
+                if (questionStars == null)
+                {
+                    MessageBox.Show("This Question does not exists", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    closeParentFrom();
+                }
+                fillInputs(questionStars);
+
+            }
+        }
+
+        private void fillInputs(QuestionStars questionStars)
+        {
+            sharedBetweenQuestions.setQuestionText(questionStars.Text);
+            sharedBetweenQuestions.setQuestionOrderValue(questionStars.Order);
+            numericStarsNumber.Value = questionStars.StarsNumber;
+            sharedBetweenQuestions.setOldOrder(questionStars.Order);
+            btnSave.Text = "Update";
         }
     }
 }

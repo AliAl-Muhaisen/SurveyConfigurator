@@ -63,47 +63,7 @@ namespace SurveyConfiguratorApp.Data.Questions
             throw new NotImplementedException();
         }
 
-        public QuestionStars read(int id)
-        {
-
-            try
-            {
-                QuestionStars questionStars = new QuestionStars();
-                base.OpenConnection();
-
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.Connection = base.conn;
-                    cmd.CommandText = $"SELECT [Text],[StarsNumber],[Order] FROM Question as q  INNER JOIN QuestionStars as s ON q.id=s.QuestionId WHERE q.Id={id};";
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            questionStars.Order = (int)reader["Order"];
-                            questionStars.setId(id);
-                            questionStars.Text = reader["Text"].ToString();
-                            questionStars.StarsNumber = (int)reader["StarsNumber"];
-                            return questionStars;
-
-                        }
-                    }
-
-                }
-            }
-            catch (SqlException e)
-            {
-            }
-            catch (Exception e)
-            {
-
-            }
-            finally
-            {
-                base.CloseConnection();
-
-            }
-            return null;
-        }
+    
 
         public bool update(QuestionStars questionStars)
         {
@@ -147,9 +107,45 @@ namespace SurveyConfiguratorApp.Data.Questions
             }
         }
 
-       public QuestionStars Get(int id)
+       public new QuestionStars Get(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                QuestionStars questionStars = new QuestionStars();
+                base.OpenConnection();
+
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = base.conn;
+                    cmd.CommandText = $"SELECT [Text],[StarsNumber],[Order] FROM Question as q  INNER JOIN QuestionStars as s ON q.id=s.QuestionId WHERE q.Id={id};";
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            questionStars.Order = (int)reader["Order"];
+                            questionStars.setId(id);
+                            questionStars.Text = reader["Text"].ToString();
+                            questionStars.StarsNumber = (int)reader["StarsNumber"];
+                            return questionStars;
+
+                        }
+                    }
+
+                }
+            }
+            catch (SqlException e)
+            {
+            }
+            catch (Exception e)
+            {
+
+            }
+            finally
+            {
+                base.CloseConnection();
+
+            }
+            return null;
         }
     }
 }
