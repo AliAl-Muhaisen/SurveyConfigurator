@@ -33,7 +33,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
             catch (Exception ex)
             {
-                LogError.log(ex);
+                Log.Error(ex);
             }
         }
         public FormQuestionSlider(int questionId) : this()
@@ -50,7 +50,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
             catch (Exception ex)
             {
-                LogError.log(ex);
+                Log.Error(ex);
             }
         }
         private void btnCancel_Click(object sender, EventArgs e)
@@ -62,7 +62,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
             catch (Exception ex)
             {
-                LogError.log(ex);
+                Log.Error(ex);
             }
         }
         private void closeParentFrom()
@@ -78,7 +78,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
             catch (Exception ex)
             {
-                LogError.log(ex);
+                Log.Error(ex);
             }
 
         }
@@ -132,7 +132,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
             catch (Exception ex)
             {
-                LogError.log(ex);
+                Log.Error(ex);
             }
         }
 
@@ -152,7 +152,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
             catch (Exception ex)
             {
-                LogError.log(ex);
+                Log.Error(ex);
             }
         }
 
@@ -183,7 +183,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
             catch (Exception ex)
             {
-                LogError.log(ex);
+                Log.Error(ex);
             }
 
         }
@@ -213,7 +213,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
             catch (Exception ex)
             {
-                LogError.log(ex);
+                Log.Error(ex);
             }
 
 
@@ -256,7 +256,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
             catch (Exception ex)
             {
-                LogError.log(ex);
+                Log.Error(ex);
             }
         }
 
@@ -268,7 +268,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
             catch (Exception ex)
             {
-                LogError.log(ex);
+                Log.Error(ex);
             }
 
         }
@@ -281,7 +281,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
             catch (Exception ex)
             {
-                LogError.log(ex);
+                Log.Error(ex);
             }
 
         }

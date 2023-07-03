@@ -1,0 +1,10 @@
+DateTime: 7/3/2023 8:02:17 PMMessage: Object reference not set to an instance of an object.Type: System.NullReferenceExceptionStack Trace:    at SurveyConfiguratorApp.FormMain..ctor() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 48
+
+
+DateTime: 7/3/2023 8:04:23 PM
+Message: Object reference not set to an instance of an object.
+Type: System.NullReferenceException
+Stack Trace:    at SurveyConfiguratorApp.FormMain..ctor() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 48
+
+
+

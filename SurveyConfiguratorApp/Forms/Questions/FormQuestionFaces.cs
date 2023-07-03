@@ -35,7 +35,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
             catch (Exception ex)
             {
-                LogError.log(ex);
+                Log.Error(ex);
             }
         }
         public FormQuestionFaces(int questionId) : this()
@@ -53,7 +53,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
             catch (Exception ex)
             {
-                LogError.log(ex);
+                Log.Error(ex);
             }
 
         }
@@ -120,7 +120,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                LogError.log(ex);
+                Log.Error(ex);
             }
         }
         private void closeParentFrom()
@@ -136,7 +136,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
             catch (Exception ex)
             {
-                LogError.log(ex);
+                Log.Error(ex);
             }
 
         }
@@ -150,7 +150,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
             catch (Exception ex)
             {
-                LogError.log(ex);
+                Log.Error(ex);
             }
         }
 
@@ -174,7 +174,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
             catch (Exception ex)
             {
-                LogError.log(ex);
+                Log.Error(ex);
             }
 
 
@@ -194,7 +194,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
             catch (Exception ex)
             {
-                LogError.log(ex);
+                Log.Error(ex);
             }
         }
 

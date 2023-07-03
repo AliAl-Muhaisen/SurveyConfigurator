@@ -37,7 +37,7 @@ namespace SurveyConfiguratorApp.UserController.Controllers
             }
             catch (Exception ex)
             {
-                //TODO: use log here
+                //TODO: use error here
             }
 
         }
@@ -62,7 +62,7 @@ namespace SurveyConfiguratorApp.UserController.Controllers
             }
             catch (Exception ex)
             {
-                //TODO: use log here
+                //TODO: use error here
             }
 
         }
@@ -87,7 +87,7 @@ namespace SurveyConfiguratorApp.UserController.Controllers
             }
             catch (Exception ex)
             {
-                //TODO: use log here
+                //TODO: use error here
             }
 
         }

@@ -41,7 +41,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
             catch (Exception e)
             {
-                LogError.log(e);
+                Log.Error(e);
             }
         }
 
@@ -57,7 +57,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
             catch (Exception e)
             {
-                LogError.log(e);
+                Log.Error(e);
             }
         }
         private void FormQuestionAdd_Load(object sender, EventArgs e)
@@ -68,7 +68,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
             catch (Exception ex)
             {
-                LogError.log(ex);
+                Log.Error(ex);
             }
 
         }
@@ -81,7 +81,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
             catch (Exception ex)
             {
-                LogError.log(ex);
+                Log.Error(ex);
             }
 
         }
@@ -107,7 +107,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
             catch (Exception ex)
             {
-                LogError.log(ex);
+                Log.Error(ex);
             }
 
         }
@@ -144,7 +144,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
-                LogError.log(e);
+                Log.Error(e);
             }
 
         }
@@ -168,7 +168,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
             catch (Exception ex)
             {
-                LogError.log(ex);
+                Log.Error(ex);
             }
 
         }
@@ -190,7 +190,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
             catch (Exception ex)
             {
-                LogError.log(ex);
+                Log.Error(ex);
             }
 
         }
@@ -212,7 +212,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
             catch (Exception ex)
             {
-                LogError.log(ex);
+                Log.Error(ex);
             }
 
         }

@@ -3,6 +3,7 @@ using SurveyConfiguratorApp.Data.Questions;
 using SurveyConfiguratorApp.Domain.Questions;
 using SurveyConfiguratorApp.Forms;
 using SurveyConfiguratorApp.Forms.Questions;
+using SurveyConfiguratorApp.Helper;
 using SurveyConfiguratorApp.Logic.Questions;
 using SurveyConfiguratorApp.UserController;
 using System;
@@ -12,6 +13,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -33,7 +35,7 @@ namespace SurveyConfiguratorApp
         public IQuestionService questionService { get; set; }
         private string questionTypeName = null;
         private int questionTypeNumber = -1;
-
+        Question q;
         /// <summary>
         /// the FormMain constructor initializes the form's components, creates an instance of the DbQuestion class, 
         /// sets the initial value of the currentButton variable, and opens the FormHome as the initial child form within the main form.
@@ -43,9 +45,12 @@ namespace SurveyConfiguratorApp
             try
             {
                 InitializeComponent();
+               string a= q.Text;
             }
             catch (Exception e)
             {
+                Log.Error(e);
+                MessageBox.Show("catch error");
             }
 
 

@@ -45,21 +45,24 @@
             this.dataGridViewQuestion.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewQuestion.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridViewQuestion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewQuestion.Location = new System.Drawing.Point(25, 24);
+            this.dataGridViewQuestion.Location = new System.Drawing.Point(33, 13);
+            this.dataGridViewQuestion.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dataGridViewQuestion.MultiSelect = false;
             this.dataGridViewQuestion.Name = "dataGridViewQuestion";
             this.dataGridViewQuestion.ReadOnly = true;
+            this.dataGridViewQuestion.RowHeadersWidth = 51;
             this.dataGridViewQuestion.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewQuestion.ShowEditingIcon = false;
-            this.dataGridViewQuestion.Size = new System.Drawing.Size(602, 310);
+            this.dataGridViewQuestion.Size = new System.Drawing.Size(803, 382);
             this.dataGridViewQuestion.TabIndex = 0;
             this.dataGridViewQuestion.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewQuestion_CellClick);
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(25, 356);
+            this.btnAdd.Location = new System.Drawing.Point(33, 438);
+            this.btnAdd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(116, 25);
+            this.btnAdd.Size = new System.Drawing.Size(155, 31);
             this.btnAdd.TabIndex = 1;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
@@ -67,9 +70,10 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(269, 356);
+            this.btnDelete.Location = new System.Drawing.Point(359, 438);
+            this.btnDelete.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(116, 25);
+            this.btnDelete.Size = new System.Drawing.Size(155, 31);
             this.btnDelete.TabIndex = 2;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
@@ -77,9 +81,10 @@
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(147, 356);
+            this.btnUpdate.Location = new System.Drawing.Point(196, 438);
+            this.btnUpdate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(116, 25);
+            this.btnUpdate.Size = new System.Drawing.Size(155, 31);
             this.btnUpdate.TabIndex = 3;
             this.btnUpdate.Text = "Update";
             this.btnUpdate.UseVisualStyleBackColor = true;
@@ -87,18 +92,19 @@
             // 
             // FormMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(652, 411);
+            this.ClientSize = new System.Drawing.Size(867, 496);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.dataGridViewQuestion);
             this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(668, 450);
-            this.MinimumSize = new System.Drawing.Size(668, 450);
+            this.MaximumSize = new System.Drawing.Size(885, 543);
+            this.MinimumSize = new System.Drawing.Size(885, 543);
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Survey";
