@@ -85,11 +85,11 @@
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Questions\FormQuestionAdd.cs">
+    <Compile Include="Forms\Questions\FormQuestion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Questions\FormQuestionAdd.Designer.cs">
-      <DependentUpon>FormQuestionAdd.cs</DependentUpon>
+    <Compile Include="Forms\Questions\FormQuestion.Designer.cs">
+      <DependentUpon>FormQuestion.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Questions\FormQuestionFaces.cs">
       <SubType>Form</SubType>
@@ -168,8 +168,8 @@
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Questions\FormQuestionAdd.resx">
-      <DependentUpon>FormQuestionAdd.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Questions\FormQuestion.resx">
+      <DependentUpon>FormQuestion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Questions\FormQuestionFaces.resx">
       <DependentUpon>FormQuestionFaces.cs</DependentUpon>

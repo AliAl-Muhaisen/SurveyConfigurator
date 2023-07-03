@@ -95,10 +95,10 @@ namespace SurveyConfiguratorApp.Forms.Questions
         }
         private void closeParentFrom()
         {
-            if (Application.OpenForms.OfType<FormQuestionAdd>().Any())
+            if (Application.OpenForms.OfType<FormQuestion>().Any())
             {
                 // Close the form
-                FormQuestionAdd form = (FormQuestionAdd)Application.OpenForms["FormQuestionAdd"];
+                FormQuestion form = (FormQuestion)Application.OpenForms["FormQuestionAdd"];
                 form.Close();
             }
         }

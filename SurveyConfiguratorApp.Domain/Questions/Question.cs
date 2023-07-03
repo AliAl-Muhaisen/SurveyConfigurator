@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 namespace SurveyConfiguratorApp.Domain.Questions
 {
 
-    public class Question 
+    public class Question
     {
 
-       
+
         public enum QuestionTypes
         {
             FACES = 1,
@@ -23,18 +23,19 @@ namespace SurveyConfiguratorApp.Domain.Questions
 
         private int id;
         public string Text { get; set; }
+
         private int typeNumber;
         public string TypeName { get; set; }
         public int Order { get; set; }
 
-       public Question() { }
-        public Question(int id, string text, int type, int order) : this()
+        public Question() { }
+        public Question(int id, string text, int type, int order)
         {
             Text = text;
             setTypeNumber(type);
-
             setId(id);
             Order = order;
+            TypeName = ((QuestionTypes)typeNumber).ToString();
 
         }
 

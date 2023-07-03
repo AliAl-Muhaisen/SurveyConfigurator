@@ -29,8 +29,10 @@ namespace SurveyConfiguratorApp
         // Active form and current button variables
 
         int questionId = -1;
+        int selectedRow = -1;
         public IQuestionService questionService { get; set; }
         private string questionTypeName = null;
+        private int questionTypeNumber = -1;
 
         /// <summary>
         /// the FormMain constructor initializes the form's components, creates an instance of the DbQuestion class, 
@@ -58,8 +60,7 @@ namespace SurveyConfiguratorApp
 
 
         /// <summary>
-        ///  closing the database connection managed by the dbQuestion object when the main form is being closed.
-        ///  This ensures that the database connection is properly closed before the application exits.
+
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -73,11 +74,8 @@ namespace SurveyConfiguratorApp
 
         private void loadDataGridView()
         {
-
             try
             {
-
-
                 DataTable table = new DataTable();
                 List<Question> list;
                 list = questionService.GetQuestions();
@@ -88,14 +86,10 @@ namespace SurveyConfiguratorApp
 
                 dataGridViewQuestion.DataSource = source;
 
-
-
-
             }
             catch (Exception ex)
             {
             }
-
 
         }
 
@@ -106,7 +100,7 @@ namespace SurveyConfiguratorApp
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            Form fromAdd = new FormQuestionAdd();
+            Form fromAdd = new FormQuestion();
             fromAdd.ShowDialog();
             loadDataGridView();
 
@@ -114,6 +108,25 @@ namespace SurveyConfiguratorApp
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+            try
+            {
+
+                if (questionId != -1)
+                {
+                    questionId = handleQuestionId(questionId);
+                    Form fromAdd = new FormQuestion(false, questionId, questionTypeNumber);
+                    fromAdd.ShowDialog();
+                    loadDataGridView();
+
+                }
+                else
+                {
+                    MessageBox.Show("No row selected.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+            }
 
         }
 
@@ -121,8 +134,10 @@ namespace SurveyConfiguratorApp
         {
             try
             {
+
                 if (questionId != -1)
                 {
+                    questionId = handleQuestionId(questionId);
                     DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete this record", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (dialogResult == DialogResult.Yes)
                     {
@@ -148,12 +163,12 @@ namespace SurveyConfiguratorApp
 
             try
             {
-                DataGridViewRow selectedRow=null;
+                DataGridViewRow selectedRowData = null;
                 bool isChecked = false;
                 if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
                 {
 
-                    selectedRow = dataGridViewQuestion.Rows[e.RowIndex];
+                    selectedRowData = dataGridViewQuestion.Rows[e.RowIndex];
                     isChecked = true;
 
                 }
@@ -161,7 +176,7 @@ namespace SurveyConfiguratorApp
                 else if (dataGridViewQuestion.SelectedRows.Count > 0)
                 {
                     //# Get the selected row
-                     selectedRow = dataGridViewQuestion.SelectedRows[0];
+                    selectedRowData = dataGridViewQuestion.SelectedRows[0];
                     isChecked = true;
 
                     //# Get the ID value from the selected row
@@ -172,26 +187,53 @@ namespace SurveyConfiguratorApp
                 {
                     questionId = -1;
                     questionTypeName = null;
+                    questionTypeNumber = -1;
                     isChecked = false;
+
 
 
                 }
 
-                if (isChecked && selectedRow !=null)
+                if (isChecked && selectedRowData != null)
                 {
-                    Question question = selectedRow.DataBoundItem as Question;
-                   
+                    Question question = selectedRowData.DataBoundItem as Question;
+
                     questionTypeName = question.TypeName;
-                    
+                    questionTypeNumber=question.getTypeNumber();
                     questionId = question.getId();
                 }
             }
             catch (Exception ex)
             {
-              
+
             }
 
 
+        }
+        private int handleQuestionId(int id)
+        {
+
+            try
+            {
+                Question question = questionService.Get(id);
+
+                if (question != null)
+                {
+                    return question.getId();
+                }
+                else
+                {
+                    loadDataGridView();
+                    MessageBox.Show("This question does not exists", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+            }
+            catch (Exception e)
+            {
+
+                MessageBox.Show(e.Message);
+            }
+            return -1;
         }
     }
 }

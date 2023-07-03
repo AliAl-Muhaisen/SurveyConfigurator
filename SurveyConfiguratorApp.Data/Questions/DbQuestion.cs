@@ -121,10 +121,7 @@ namespace SurveyConfiguratorApp.Data.Questions
 
 
 
-        public Question read(int id)
-        {
-            throw new NotImplementedException();
-        }
+      
 
 
   
@@ -251,14 +248,21 @@ namespace SurveyConfiguratorApp.Data.Questions
 
                     while (reader.Read())
                     {
-                        Question question = new Question()
-                        {
-                            Order = Convert.ToInt32(reader[$"{ColumNames.Order}"]),
-                            TypeName = ((Question.QuestionTypes)Convert.ToInt32(reader[$"{ColumNames.TypeNumber}"])).ToString(),
-                            Text = (reader[$"{ColumNames.Text}"]).ToString(),
+                        Question question = new Question(
+                               (int)reader[$"{ColumNames.Id}"],
+                               reader["Text"].ToString(),
+                               (int)reader["TypeNumber"],
+                               (int)reader["Order"]
+                               );
+
+                        //Question question = new Question()
+                        //{
+                        //    Order = Convert.ToInt32(reader[$"{ColumNames.Order}"]),
+                        //    TypeName = ((Question.QuestionTypes)Convert.ToInt32(reader[$"{ColumNames.TypeNumber}"])).ToString(),
+                        //    Text = (reader[$"{ColumNames.Text}"]).ToString(),
                             
 
-                        };
+                        //};
                         question.setId(Convert.ToInt32(reader[$"{ColumNames.Id}"]));
                         
                         list.Add(question);
@@ -281,7 +285,42 @@ namespace SurveyConfiguratorApp.Data.Questions
 
         public Question Get(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+               
+                base.OpenConnection();
+
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = base.conn;
+                    cmd.CommandText = $"SELECT * FROM Question as q WHERE q.Id={id};";
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            Question question = new Question(
+                                id,
+                                reader["Text"].ToString(),
+                                (int)reader["TypeNumber"],
+                                (int)reader["Order"]
+                                );
+                            
+                            return question;
+
+                        }
+                    }
+
+                }
+            }
+            catch (SqlException e)
+            {
+            }
+            finally
+            {
+                base.CloseConnection();
+
+            }
+            return null;
         }
 
         public bool deleteByOrder(int order)

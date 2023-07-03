@@ -1,6 +1,6 @@
 ﻿namespace SurveyConfiguratorApp.Forms.Questions
 {
-    partial class FormQuestionAdd
+    partial class FormQuestion
     {
         /// <summary>
         /// Required designer variable.
@@ -30,8 +30,8 @@
         {
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panelContainer = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
+            this.panelContainer = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,16 +52,8 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(10, 10);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(780, 90);
+            this.panel1.Size = new System.Drawing.Size(816, 90);
             this.panel1.TabIndex = 1;
-            // 
-            // panelContainer
-            // 
-            this.panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelContainer.Location = new System.Drawing.Point(10, 100);
-            this.panelContainer.Name = "panelContainer";
-            this.panelContainer.Size = new System.Drawing.Size(780, 340);
-            this.panelContainer.TabIndex = 2;
             // 
             // label1
             // 
@@ -72,11 +64,19 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Question Type";
             // 
+            // panelContainer
+            // 
+            this.panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelContainer.Location = new System.Drawing.Point(10, 100);
+            this.panelContainer.Name = "panelContainer";
+            this.panelContainer.Size = new System.Drawing.Size(816, 423);
+            this.panelContainer.TabIndex = 2;
+            // 
             // FormQuestionAdd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(836, 533);
             this.Controls.Add(this.panelContainer);
             this.Controls.Add(this.panel1);
             this.Name = "FormQuestionAdd";

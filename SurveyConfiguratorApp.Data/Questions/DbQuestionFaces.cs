@@ -64,46 +64,6 @@ namespace SurveyConfiguratorApp.Data.Questions
 
         }
 
-        
-
-        // Read a QuestionFaces entry from the database based on the ID
-        public QuestionFaces read(int id)
-        {
-            try
-            {
-                QuestionFaces questionFaces = new QuestionFaces();
-                base.OpenConnection();
-
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.Connection = base.conn;
-                    cmd.CommandText = $"SELECT [Text],[FacesNumber],[Order] FROM Question as q  INNER JOIN QuestionFaces as f ON q.id=f.QuestionId WHERE q.Id={id};";
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            questionFaces.Order = (int)reader["Order"];
-                            questionFaces.setId(id);
-                            questionFaces.Text = reader["Text"].ToString();
-                            questionFaces.FacesNumber = (int)reader["FacesNumber"];
-                            return questionFaces;
-
-                        }
-                    }
-
-                }
-            }
-            catch (SqlException e)
-            {
-            }
-            finally
-            {
-                base.CloseConnection();
-
-            }
-            return null;
-        }
-
         // Update a QuestionFaces entry in the database
         public bool update(QuestionFaces questionFaces)
         {
@@ -131,23 +91,57 @@ namespace SurveyConfiguratorApp.Data.Questions
                     return true;
 
                 }
-                catch (SqlException ex)
+                catch (Exception ex)
                 {
+                    throw ex;
                 }
                 finally
                 {
                     base.CloseConnection();
                 }
-                return false;
 
 
             }
 
         }
 
-       public QuestionFaces Get(int id)
+        // Read a QuestionFaces entry from the database based on the ID
+        public new QuestionFaces Get(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                QuestionFaces questionFaces = new QuestionFaces();
+                base.OpenConnection();
+
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = base.conn;
+                    cmd.CommandText = $"SELECT [Text],[FacesNumber],[Order] FROM Question as q  INNER JOIN QuestionFaces as f ON q.id=f.QuestionId WHERE q.Id={id};";
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (!reader.HasRows) return null;
+                        if (reader.Read())
+                        {
+                            questionFaces.Order = (int)reader["Order"];
+                            questionFaces.setId(id);
+                            questionFaces.Text = reader["Text"].ToString();
+                            questionFaces.FacesNumber = (int)reader["FacesNumber"];
+                            return questionFaces;
+
+                        }
+                    }
+
+                }
+            }
+            catch (SqlException e)
+            {
+            }
+            finally
+            {
+                base.CloseConnection();
+
+            }
+            return null;
         }
     }
 }
