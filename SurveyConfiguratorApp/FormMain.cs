@@ -35,7 +35,6 @@ namespace SurveyConfiguratorApp
         public IQuestionService questionService { get; set; }
         private string questionTypeName = null;
         private int questionTypeNumber = -1;
-        Question q;
         /// <summary>
         /// the FormMain constructor initializes the form's components, creates an instance of the DbQuestion class, 
         /// sets the initial value of the currentButton variable, and opens the FormHome as the initial child form within the main form.
@@ -45,12 +44,10 @@ namespace SurveyConfiguratorApp
             try
             {
                 InitializeComponent();
-               string a= q.Text;
             }
             catch (Exception e)
             {
                 Log.Error(e);
-                MessageBox.Show("catch error");
             }
 
 
