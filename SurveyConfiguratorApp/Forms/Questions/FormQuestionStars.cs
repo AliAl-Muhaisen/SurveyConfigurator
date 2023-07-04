@@ -52,6 +52,34 @@ namespace SurveyConfiguratorApp.Forms.Questions
             this.questionId = questionId;
         }
 
+        private void FormQuestionStars_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                numericStarsNumber.Minimum = questionValidation.StarsMinValue;
+                numericStarsNumber.Maximum = questionValidation.StarsMaxValue;
+                if (questionStarsService != null && questionId != -1)
+                {
+                    // to check if the question still exists in the db
+                    questionStars = questionStarsService.Get(questionId);
+                    if (questionStars == null)
+                    {
+                        MessageBox.Show("This Question does not exists", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        closeParentFrom();
+                    }
+                    fillInputs(questionStars);
+                    sharedBetweenQuestions.setOldOrder(questionStars.Order);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+            }
+
+        }
+
+
         private void btnSave_Click(object sender, EventArgs e)
         {
             try
@@ -87,6 +115,10 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 Log.Error(ex);
             }
         }
+
+        /// <summary>
+        /// Close The parent form
+        /// </summary>
         private void closeParentFrom()
         {
             try
@@ -100,6 +132,11 @@ namespace SurveyConfiguratorApp.Forms.Questions
 
         }
 
+        /// <summary>
+        /// Close the Form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCancel_Click(object sender, EventArgs e)
         {
             try
@@ -113,34 +150,10 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
         }
 
-        private void FormQuestionStars_Load(object sender, EventArgs e)
-        {
-            try
-            {
-                numericStarsNumber.Minimum = questionValidation.StarsMinValue;
-                numericStarsNumber.Maximum = questionValidation.StarsMaxValue;
-                if (questionStarsService != null && questionId != -1)
-                {
-                    questionStars = questionStarsService.Get(questionId);
-                    if (questionStars == null)
-                    {
-                        MessageBox.Show("This Question does not exists", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        closeParentFrom();
-                    }
-                    fillInputs(questionStars);
-                    sharedBetweenQuestions.setOldOrder(questionStars.Order);
-
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex);
-            }
-
-
-
-        }
-
+        /// <summary>
+        /// fill form inputs in update operation 
+        /// </summary>
+        /// <param name="questionSlider"></param>
         private void fillInputs(QuestionStars questionStars)
         {
             try

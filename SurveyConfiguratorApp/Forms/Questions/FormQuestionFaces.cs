@@ -29,6 +29,10 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 Log.Error(ex);
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="questionId"></param>
         public FormQuestionFaces(int questionId) : this()
         {
 
@@ -48,7 +52,46 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
 
         }
+        /// <summary>
+        /// Used in update operation 
+        /// </summary>
+        /// <param name="questionId"></param>
+        private void FormQuestionFaces_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                numericFaceNumber.Maximum = questionValidation.FacesMaxValue;
+                numericFaceNumber.Minimum = questionValidation.FacesMinValue;
+                if (questionFacesService != null && questionId != -1)
+                {
+                    questionFaces = questionFacesService.Get(questionId);
+                    if (questionFaces == null)
+                    {
+                        MessageBox.Show("This Question does not exists", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        closeParentFrom();
+                    }
+                    fillInputs(questionFaces);
+                    sharedBetweenQuestions.setOldOrder(questionFaces.Order);
 
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+            }
+
+
+
+        }
+
+
+
+        // From Buttons
+        /// <summary>
+        /// used for save and upate question 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSave_Click(object sender, EventArgs e)
         {
 
@@ -89,6 +132,10 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 Log.Error(ex);
             }
         }
+
+        /// <summary>
+        /// Close The parent form that running the child form
+        /// </summary>
         private void closeParentFrom()
         {
             try
@@ -102,6 +149,11 @@ namespace SurveyConfiguratorApp.Forms.Questions
 
         }
 
+        /// <summary>
+        /// Close the Form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCancel_Click(object sender, EventArgs e)
         {
 
@@ -115,34 +167,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
         }
 
-        private void FormQuestionFaces_Load(object sender, EventArgs e)
-        {
-            try
-            {
-                numericFaceNumber.Maximum = questionValidation.FacesMaxValue;
-                numericFaceNumber.Minimum = questionValidation.FacesMinValue;
-                if (questionFacesService != null && questionId != -1)
-                {
-                    questionFaces = questionFacesService.Get(questionId);
-                    if (questionFaces == null)
-                    {
-                        MessageBox.Show("This Question does not exists", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        closeParentFrom();
-                    }
-                    fillInputs(questionFaces);
-                    sharedBetweenQuestions.setOldOrder(questionFaces.Order);
-
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex);
-            }
-
-
-
-        }
-
+      
         private void fillInputs(QuestionFaces questionFaces)
         {
 
@@ -160,9 +185,6 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
         }
 
-        private void save()
-        {
-
-        }
+      
     }
 }

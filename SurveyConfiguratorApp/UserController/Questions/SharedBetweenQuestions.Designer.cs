@@ -116,7 +116,6 @@
             this.Controls.Add(this.textBoxQuestionText);
             this.Name = "SharedBetweenQuestions";
             this.Size = new System.Drawing.Size(647, 155);
-            this.Load += new System.EventHandler(this.SharedBetweenQuestions_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownQuestionOrder)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

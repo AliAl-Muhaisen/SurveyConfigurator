@@ -15,9 +15,10 @@ namespace SurveyConfiguratorApp.Forms.Questions
         private int questionId = -1;
         private QuestionValidation questionValidation;
 
+
+        // To Check inputs validation 
         private bool isValidMaxNum = false;
         private bool isValidMinNum = false;
-
         private bool isValidCaptionStart = false;
         private bool isValidCaptionEnd = false;
         public FormQuestionSlider()
@@ -34,6 +35,11 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 Log.Error(ex);
             }
         }
+
+        /// <summary>
+        /// used in update operation 
+        /// </summary>
+        /// <param name="questionId"></param>
         public FormQuestionSlider(int questionId) : this()
         {
             try
@@ -52,6 +58,50 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 Log.Error(ex);
             }
         }
+
+        private void FormQuestionSlider_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                numericStartValue.Minimum = questionValidation.SliderMinValue;
+                numericEndValue.Maximum = questionValidation.SliderMaxValue;
+                numericEndValue.Minimum = numericStartValue.Minimum + 1;
+                numericStartValue.Maximum = numericEndValue.Maximum - 1;
+                numericEndValue.Value = numericEndValue.Maximum;
+
+                labelErrorStartValue.clearText();
+                labelErrorEndValue.clearText();
+                labelErrorCaptionStart.clearText();
+                labelErrorCaptionEnd.clearText();
+
+                if (questionSliderService != null && questionId != -1)
+                {
+                    questionSlider = questionSliderService.Get(questionId);
+                    // Check if question still exists
+                    if (questionSlider == null)
+                    {
+                        MessageBox.Show("This Question does not exists", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        closeParentFrom();
+                    }
+                    sharedBetweenQuestions.setOldOrder(questionSlider.Order);
+                    fillInputs(questionSlider);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+            }
+
+        }
+
+
+        // From Buttons
+        /// <summary>
+        /// Close the Form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCancel_Click(object sender, EventArgs e)
         {
             try
@@ -63,6 +113,10 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 Log.Error(ex);
             }
         }
+
+        /// <summary>
+        /// Close The parent form that running the child form
+        /// </summary>
         private void closeParentFrom()
         {
             try
@@ -76,6 +130,11 @@ namespace SurveyConfiguratorApp.Forms.Questions
 
         }
 
+        /// <summary>
+        /// used for save and upate question 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSave_Click(object sender, EventArgs e)
         {
             try
@@ -120,6 +179,10 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
         }
 
+        /// <summary>
+        /// fill form inputs in update operation 
+        /// </summary>
+        /// <param name="questionSlider"></param>
         private void fillInputs(QuestionSlider questionSlider)
         {
 
@@ -140,41 +203,10 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
         }
 
-        private void FormQuestionSlider_Load(object sender, EventArgs e)
-        {
-            try
-            {
-                numericStartValue.Minimum = questionValidation.SliderMinValue;
-                numericEndValue.Maximum = questionValidation.SliderMaxValue;
-                numericEndValue.Minimum = numericStartValue.Minimum + 1;
-                numericStartValue.Maximum = numericEndValue.Maximum - 1;
-                numericEndValue.Value = numericEndValue.Maximum;
-
-                labelErrorStartValue.clearText();
-                labelErrorEndValue.clearText();
-                labelErrorCaptionStart.clearText();
-                labelErrorCaptionEnd.clearText();
-
-                if (questionSliderService != null && questionId != -1)
-                {
-                    questionSlider = questionSliderService.Get(questionId);
-                    if (questionSlider == null)
-                    {
-                        MessageBox.Show("This Question does not exists", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        closeParentFrom();
-                    }
-                    sharedBetweenQuestions.setOldOrder(questionSlider.Order);
-                    fillInputs(questionSlider);
-
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex);
-            }
-
-        }
-
+        //# Validation Functions
+        /// <summary>
+        /// Handle min value validation
+        /// </summary>
         private void handleMinValue()
         {
             try
@@ -209,6 +241,9 @@ namespace SurveyConfiguratorApp.Forms.Questions
 
         }
 
+        /// <summary>
+        /// Handle max value validation
+        /// </summary>
         private void handleMaxValue()
         {
             try
@@ -246,6 +281,10 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 Log.Error(ex);
             }
         }
+
+        /// <summary>
+        /// Handle End Caption Validation
+        /// </summary>
         private void handleCaptionEnd()
         {
             try
@@ -299,6 +338,9 @@ namespace SurveyConfiguratorApp.Forms.Questions
             handleCaptionEnd();
         }
 
+        /// <summary>
+        /// Handle Start Caption Validation
+        /// </summary>
         private void handleCaptionStart()
         {
             try
@@ -322,15 +364,37 @@ namespace SurveyConfiguratorApp.Forms.Questions
         }
         private void textBoxStartCaption_TextChanged(object sender, EventArgs e)
         {
-            handleCaptionStart();
+            try
+            {
+                handleCaptionStart();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+            }
+
         }
+      
+        /// <summary>
+        /// To Check form inputs validation
+        /// </summary>
+        /// <returns></returns>
         private bool isValidForm()
         {
-            handleCaptionEnd();
-            handleMaxValue();
-            handleMinValue();
-            handleCaptionStart();
-            return sharedBetweenQuestions.isValidForm() && isValidMaxNum && isValidMinNum && isValidCaptionStart && isValidCaptionEnd;
+            try
+            {
+                handleCaptionEnd();
+                handleMaxValue();
+                handleMinValue();
+                handleCaptionStart();
+                return sharedBetweenQuestions.isValidForm() && isValidMaxNum && isValidMinNum && isValidCaptionStart && isValidCaptionEnd;
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+            }
+            return false;
+
         }
     }
 }
