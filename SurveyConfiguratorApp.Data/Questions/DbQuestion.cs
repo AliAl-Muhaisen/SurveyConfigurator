@@ -29,7 +29,7 @@ namespace SurveyConfiguratorApp.Data.Questions
             TypeNumber
 
         }
-
+        private int questionId;
 
         /// <summary>
         /// The add method inserts a new record into the Question table by constructing a parameterized SQL query.
@@ -46,13 +46,17 @@ namespace SurveyConfiguratorApp.Data.Questions
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     cmd.Connection = base.conn;
-                    cmd.CommandText = "INSERT INTO [Question] ([Order],[Text],[TypeNumber]) VALUES (@Order,@Text,@TypeNumber);";
+                    //SCOPE_IDENTITY() is a function in SQL Server that returns the last identity value inserted into an identity column within the current scope.
+                    //It is commonly used to retrieve the generated ID value after performing an insert operation.
+                    cmd.CommandText = "INSERT INTO [Question] ([Order],[Text],[TypeNumber]) VALUES (@Order,@Text,@TypeNumber);SELECT SCOPE_IDENTITY();";
 
                     cmd.Parameters.AddWithValue("@Order", data.Order);
                     cmd.Parameters.AddWithValue("@Text", data.Text);
                     cmd.Parameters.AddWithValue("@TypeNumber", data.getTypeNumber());
-                    int rowsAffected = cmd.ExecuteNonQuery();
-                    if (rowsAffected > 0)
+                    // Execute the query and retrieve the generated ID
+                     questionId = Convert.ToInt32(cmd.ExecuteScalar());
+                 
+                    if (questionId > 0)
                     {
                         return true;
                     }
@@ -64,7 +68,7 @@ namespace SurveyConfiguratorApp.Data.Questions
                 }
 
             }
-            catch (SqlException e)
+            catch (Exception e)
             {
                 Log.Error(e);
             }
@@ -173,33 +177,21 @@ namespace SurveyConfiguratorApp.Data.Questions
 
 
         /// <summary>
-        /// The getLastId method retrieves the maximum ID from the Question table.
+        /// The getQuestionId method retrieves the maximum ID from the Question table.
         /// It catches any SQL exceptions and returns a default value of 1 in case of an error.
         /// </summary>
         /// <returns></returns>
-        public int getLastId()
+        public int getQuestionId()
         {
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    base.OpenConnection();
-                    cmd.Connection = base.conn;
-                    cmd.CommandText = "SELECT MAX(id) as MaxId FROM [Question]; ";
-                    SqlDataReader dr = cmd.ExecuteReader();
-                    dr.Read();
-                    return Convert.ToInt32(dr["MaxId"]);
-                }
+                return questionId;
             }
             catch (Exception ex)
             {
                 Log.Error(ex);
             }
-            finally
-            {
-                base.CloseConnection();
-
-            }
+           
             return 1;//TODO:!I will review this later :)
         }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SurveyConfiguratorApp.Helper;
+using System;
 
 namespace SurveyConfiguratorApp.Domain.Questions
 {
@@ -14,7 +15,7 @@ namespace SurveyConfiguratorApp.Domain.Questions
             }
             catch (Exception e)
             {
-
+                Log.Error(e);
             }
 
 

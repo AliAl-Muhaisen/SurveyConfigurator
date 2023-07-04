@@ -16,7 +16,6 @@ namespace SurveyConfiguratorApp.Data
     public class DB
     {
         public SqlConnection conn;
-        //protected SqlCommand cmd;
         private string connectionString;
         public DB()
         {
@@ -51,7 +50,6 @@ namespace SurveyConfiguratorApp.Data
                     conn.Close();
                 }
                 conn = new SqlConnection(connectionString);
-                //cmd = conn.CreateCommand();
                 conn.Open();
             }
             catch (Exception ex)

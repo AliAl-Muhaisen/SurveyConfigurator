@@ -23,7 +23,7 @@ namespace SurveyConfiguratorApp.Data.Questions
             try
             {
                 base.add(data);
-                int questionId = base.getLastId();
+                int questionId = base.getQuestionId();
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     base.OpenConnection();

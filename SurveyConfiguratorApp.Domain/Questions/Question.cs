@@ -1,4 +1,6 @@
-﻿namespace SurveyConfiguratorApp.Domain.Questions
+﻿using SurveyConfiguratorApp.Helper;
+using System;
+namespace SurveyConfiguratorApp.Domain.Questions
 {
 
     public class Question
@@ -23,30 +25,73 @@
         public Question() { }
         public Question(int id, string text, int type, int order)
         {
-            Text = text;
-            setTypeNumber(type);
-            setId(id);
-            Order = order;
-            TypeName = ((QuestionTypes)typeNumber).ToString();
+            try
+            {
+                Text = text;
+                setTypeNumber(type);
+                setId(id);
+                Order = order;
+                TypeName = ((QuestionTypes)typeNumber).ToString();
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+            }
+
 
         }
 
         public void setId(int id)
         {
-            this.id = id;
+            try
+            {
+                this.id = id;
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+            }
+
         }
         public int getId()
         {
-            return this.id;
+            try
+            {
+                return this.id;
+
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+            }
+            return 0;
+
         }
 
         protected void setTypeNumber(int type)
         {
-            typeNumber = type;
+            try
+            {
+                typeNumber = type;
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+            }
+
         }
         public int getTypeNumber()
         {
-            return typeNumber;
+            try
+            {
+                return typeNumber;
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+            }
+            return 0;
+
         }
 
     }

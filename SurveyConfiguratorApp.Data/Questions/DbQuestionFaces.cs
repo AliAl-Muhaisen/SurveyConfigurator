@@ -28,7 +28,7 @@ namespace SurveyConfiguratorApp.Data.Questions
                 bool isBaseInfoAdded = base.add(data);
                 if (isBaseInfoAdded)
                 {
-                    int questionId = base.getLastId();
+                    int questionId = base.getQuestionId();
                     using (SqlCommand cmd = new SqlCommand())
                     {
                         base.OpenConnection();

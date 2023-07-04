@@ -9,6 +9,11 @@ namespace SurveyConfiguratorApp.Data.Questions
     public class DbQuestionStars : DbQuestion, IQuestionStarsRepository
     {
         private const string tableName = "QuestionStars";
+        private enum ColumnNames
+        {
+            QuestionId,
+            StarsNumber,
+        }
         public DbQuestionStars() : base() { }
 
         static public string TableName { get { return tableName; } }
@@ -16,8 +21,11 @@ namespace SurveyConfiguratorApp.Data.Questions
         {
             try
             {
-                base.add(data);
-                int questionId = base.getLastId();
+               bool isAdded= base.add(data);
+                if(!isAdded)
+                    return false;
+               
+                int questionId = base.getQuestionId();
                 SqlCommand cmd = new SqlCommand();
 
 
@@ -36,6 +44,8 @@ namespace SurveyConfiguratorApp.Data.Questions
                 {
                     return true;
                 }
+                // If the stars question not added successfully, delete the base question 
+                base.delete(questionId);
 
 
             }
