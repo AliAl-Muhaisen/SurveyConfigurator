@@ -1,16 +1,8 @@
-﻿using SurveyConfiguratorApp.Data.Questions;
-using SurveyConfiguratorApp.Domain.Questions;
+﻿using SurveyConfiguratorApp.Domain.Questions;
 using SurveyConfiguratorApp.Helper;
-using SurveyConfiguratorApp.Logic.Questions.Faces;
 using SurveyConfiguratorApp.Logic.Questions.Slider;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SurveyConfiguratorApp.Forms.Questions
@@ -23,7 +15,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
         private int questionId = -1;
         private QuestionValidation questionValidation;
 
-       private bool isValidMaxNum = false;
+        private bool isValidMaxNum = false;
         private bool isValidMinNum = false;
 
         private bool isValidCaptionStart = false;
@@ -51,7 +43,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
                     isUpdate = true;
                     this.questionId = questionId;
                     btnSave.Text = "Update";
-                   
+
                 }
 
             }
@@ -93,7 +85,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
         {
             try
             {
-               
+
                 if (isValidForm())
                 {
                     questionSlider.Text = sharedBetweenQuestions.getQuestionText();
@@ -208,7 +200,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 else
                 {
                     labelErrorStartValue.clearText();
-                      isValidMinNum = true;
+                    isValidMinNum = true;
                 }
             }
             catch (Exception ex)
@@ -229,7 +221,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 if (numericEndValue.Value <= numericStartValue.Value)
                 {
                     labelErrorEndValue.setText("Max should be greater than min");
-                      isValidMaxNum = false;
+                    isValidMaxNum = false;
 
                 }
 
@@ -243,13 +235,13 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 else if (numericEndValue.Value > numericEndValue.Maximum)
                 {
                     labelErrorEndValue.setText("number must be less than or equal " + numericEndValue.Maximum);
-                      isValidMaxNum = false;
+                    isValidMaxNum = false;
 
                 }
                 else
                 {
                     labelErrorEndValue.clearText();
-                      isValidMaxNum = true;
+                    isValidMaxNum = true;
                 }
 
 
@@ -343,7 +335,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             handleMaxValue();
             handleMinValue();
             handleCaptionStart();
-            return sharedBetweenQuestions.isValidForm() && isValidMaxNum && isValidMinNum && isValidCaptionStart&& isValidCaptionEnd;
+            return sharedBetweenQuestions.isValidForm() && isValidMaxNum && isValidMinNum && isValidCaptionStart && isValidCaptionEnd;
         }
     }
 }

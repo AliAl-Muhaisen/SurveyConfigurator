@@ -52,7 +52,7 @@ namespace SurveyConfiguratorApp
         private void InitializeTimer()
         {
             timer1 = new Timer();
-            timer1.Interval = 1000;
+            timer1.Interval = 7000;
 
             timer1.Tick += Timer_Tick;
 
@@ -61,23 +61,9 @@ namespace SurveyConfiguratorApp
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            // This code will be executed every 8 second
+            // This code will be executed every 7 second
             loadDataGridView();
         }
-
-        private void panelMain_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-
-
-        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
-        {
-
-
-        }
-
 
 
         private void loadDataGridView()
@@ -99,7 +85,7 @@ namespace SurveyConfiguratorApp
                     sortDataGridView(lastSortOrder.ToString(), lastSortColumn);
 
                 }
-
+                dataGridViewQuestion.ClearSelection();
                 handleSelectTheLastOrder();
             }
             catch (Exception ex)
@@ -116,7 +102,6 @@ namespace SurveyConfiguratorApp
             try
             {
                 loadDataGridView();
-                dataGridViewQuestion.ClearSelection();
             }
             catch (Exception ex)
             {
@@ -131,7 +116,6 @@ namespace SurveyConfiguratorApp
                 Form fromAdd = new FormQuestion();
                 fromAdd.ShowDialog();
                 loadDataGridView();
-                dataGridViewQuestion.ClearSelection();
             }
             catch (Exception ex)
             {
@@ -152,7 +136,6 @@ namespace SurveyConfiguratorApp
                     Form fromAdd = new FormQuestion(false, questionId, questionTypeNumber, "Update Question");
                     fromAdd.ShowDialog();
                     loadDataGridView();
-                    dataGridViewQuestion.ClearSelection();
 
                 }
                 else
@@ -181,7 +164,6 @@ namespace SurveyConfiguratorApp
                         questionService.delete(questionId);
                         loadDataGridView();
                         questionId = -1;
-                        dataGridViewQuestion.ClearSelection();
                     }
 
 
@@ -321,12 +303,11 @@ namespace SurveyConfiguratorApp
                 {
                     DataGridViewRow selectedRow = dataGridViewQuestion.Rows
                         .Cast<DataGridViewRow>()
-                        .FirstOrDefault(row =>
+                        .First(row =>
                         {
                             Question question = (Question)row.DataBoundItem;
                             return question.Order == lastSelectedQuestionOrder;
                         });
-
                     if (selectedRow != null)
                     {
                         selectedRow.Selected = true;

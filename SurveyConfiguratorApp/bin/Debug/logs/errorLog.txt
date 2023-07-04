@@ -346,3 +346,48 @@ Stack Trace:    at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSi
 
 
 
+DateTime: 7/4/2023 10:55:17 AM
+Type: System.InvalidOperationException
+Message: Selected property cannot be altered before this object is added to a DataGridView control.
+Stack Trace:    at System.Windows.Forms.DataGridViewBand.set_Selected(Boolean value)
+   at System.Windows.Forms.DataGridViewRow.set_Selected(Boolean value)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 332
+
+
+
+DateTime: 7/4/2023 10:55:18 AM
+Type: System.InvalidOperationException
+Message: Selected property cannot be altered before this object is added to a DataGridView control.
+Stack Trace:    at System.Windows.Forms.DataGridViewBand.set_Selected(Boolean value)
+   at System.Windows.Forms.DataGridViewRow.set_Selected(Boolean value)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 332
+
+
+
+DateTime: 7/4/2023 10:55:19 AM
+Type: System.InvalidOperationException
+Message: Selected property cannot be altered before this object is added to a DataGridView control.
+Stack Trace:    at System.Windows.Forms.DataGridViewBand.set_Selected(Boolean value)
+   at System.Windows.Forms.DataGridViewRow.set_Selected(Boolean value)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 332
+
+
+
+DateTime: 7/4/2023 10:55:19 AM
+Type: System.InvalidOperationException
+Message: Selected property cannot be altered before this object is added to a DataGridView control.
+Stack Trace:    at System.Windows.Forms.DataGridViewBand.set_Selected(Boolean value)
+   at System.Windows.Forms.DataGridViewRow.set_Selected(Boolean value)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 332
+
+
+
+DateTime: 7/4/2023 10:59:41 AM
+Type: System.InvalidOperationException
+Message: Selected property cannot be altered before this object is added to a DataGridView control.
+Stack Trace:    at System.Windows.Forms.DataGridViewBand.set_Selected(Boolean value)
+   at System.Windows.Forms.DataGridViewRow.set_Selected(Boolean value)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 318
+
+
+

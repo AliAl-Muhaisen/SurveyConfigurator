@@ -5,10 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace SurveyConfiguratorApp.Data.Questions
 {
@@ -232,7 +228,7 @@ namespace SurveyConfiguratorApp.Data.Questions
                                (int)reader["Order"]
                                );
 
-                        
+
                         question.setId(Convert.ToInt32(reader[$"{ColumNames.Id}"]));
 
                         list.Add(question);

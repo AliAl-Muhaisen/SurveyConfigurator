@@ -2,11 +2,7 @@
 using SurveyConfiguratorApp.Helper;
 using SurveyConfiguratorApp.Logic.Questions.Stars;
 using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SurveyConfiguratorApp.Data.Questions
 {
@@ -25,7 +21,7 @@ namespace SurveyConfiguratorApp.Data.Questions
                 SqlCommand cmd = new SqlCommand();
 
 
-                    base.OpenConnection();
+                base.OpenConnection();
 
                 cmd.Connection = base.conn;
 
@@ -54,7 +50,7 @@ namespace SurveyConfiguratorApp.Data.Questions
             return false;
         }
 
-    
+
 
         public bool update(QuestionStars questionStars)
         {
@@ -98,7 +94,7 @@ namespace SurveyConfiguratorApp.Data.Questions
             }
         }
 
-       public new QuestionStars Get(int id)
+        public new QuestionStars Get(int id)
         {
             try
             {
@@ -124,7 +120,7 @@ namespace SurveyConfiguratorApp.Data.Questions
 
                 }
             }
-            
+
             catch (Exception e)
             {
                 Log.Error(e);

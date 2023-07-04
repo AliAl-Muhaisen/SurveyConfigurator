@@ -2,11 +2,7 @@
 using SurveyConfiguratorApp.Helper;
 using SurveyConfiguratorApp.Logic.Questions.Slider;
 using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SurveyConfiguratorApp.Data.Questions
 {

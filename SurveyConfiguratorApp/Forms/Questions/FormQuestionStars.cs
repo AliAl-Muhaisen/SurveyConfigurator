@@ -1,17 +1,8 @@
-﻿using SurveyConfiguratorApp.Data.Questions;
-using SurveyConfiguratorApp.Domain.Questions;
+﻿using SurveyConfiguratorApp.Domain.Questions;
 using SurveyConfiguratorApp.Helper;
-using SurveyConfiguratorApp.Logic.Questions.Faces;
 using SurveyConfiguratorApp.Logic.Questions.Stars;
-using SurveyConfiguratorApp.UserController.Questions;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SurveyConfiguratorApp.Forms.Questions

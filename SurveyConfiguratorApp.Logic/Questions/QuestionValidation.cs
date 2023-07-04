@@ -108,6 +108,10 @@ namespace SurveyConfiguratorApp.Domain.Questions
             {
                 return $"Maximum input length exceeded. Please enter a value that is within {questionTextLength} character";
             }
+            else if(text.Length<10)
+            {
+                return "Too Short";
+            }
             return null;
 
 

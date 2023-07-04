@@ -1,18 +1,9 @@
 ﻿using SurveyConfiguratorApp.Domain.Questions;
 using SurveyConfiguratorApp.Helper;
 using SurveyConfiguratorApp.Logic.Questions.Faces;
-using SurveyConfiguratorApp.UserController.Controllers;
-using SurveyConfiguratorApp.UserController.Questions;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static SurveyConfiguratorApp.UserController.Questions.SharedBetweenQuestions;
 
 namespace SurveyConfiguratorApp.Forms.Questions
 {
@@ -65,14 +56,14 @@ namespace SurveyConfiguratorApp.Forms.Questions
             try
             {
                 bool isValidGeneralQuestions = sharedBetweenQuestions.isValidForm();
-                if(isValidGeneralQuestions)
+                if (isValidGeneralQuestions)
                 {
                     questionFaces.Text = sharedBetweenQuestions.getQuestionText();
                     questionFaces.Order = Convert.ToInt32(sharedBetweenQuestions.getQuestionOrder());
                     bool result = false;
 
                     questionFaces.FacesNumber = ((int)numericFaceNumber.Value);
-                    
+
                     if (!isUpdate)
                     {
 

@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SurveyConfiguratorApp.Helper
 {
@@ -24,7 +19,7 @@ namespace SurveyConfiguratorApp.Helper
                 string logFilePath = Path.Combine(logDirectory, "errorLog.txt");
 
                 // to ensure that only one thread at a time can write to the log file
-                lock (lockObject) 
+                lock (lockObject)
                 {
                     using (StreamWriter streamWriter = new StreamWriter(logFilePath, true))
                     {

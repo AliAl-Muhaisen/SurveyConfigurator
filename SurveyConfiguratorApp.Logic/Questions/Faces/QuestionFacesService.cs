@@ -1,10 +1,6 @@
 ﻿using SurveyConfiguratorApp.Domain.Questions;
 using SurveyConfiguratorApp.Helper;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SurveyConfiguratorApp.Logic.Questions.Faces
 {

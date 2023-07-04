@@ -123,18 +123,6 @@
     <Compile Include="UserController\Controllers\CustomMessageBoxControl.Designer.cs">
       <DependentUpon>CustomMessageBoxControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserController\Controllers\DividerPanelControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserController\Controllers\DividerPanelControl.Designer.cs">
-      <DependentUpon>DividerPanelControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserController\Controllers\DividerPanelVerticalControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserController\Controllers\DividerPanelVerticalControl.Designer.cs">
-      <DependentUpon>DividerPanelVerticalControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="UserController\LayoutControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -195,12 +183,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserController\Controllers\CustomMessageBoxControl.resx">
       <DependentUpon>CustomMessageBoxControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserController\Controllers\DividerPanelControl.resx">
-      <DependentUpon>DividerPanelControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserController\Controllers\DividerPanelVerticalControl.resx">
-      <DependentUpon>DividerPanelVerticalControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserController\LayoutControl.resx">
       <DependentUpon>LayoutControl.cs</DependentUpon>

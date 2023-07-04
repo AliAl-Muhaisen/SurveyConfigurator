@@ -68,8 +68,6 @@ C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\S
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.Properties.Resources.resources
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.UserController.Controllers.CustomLabelControl.resources
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.UserController.Controllers.CustomMessageBoxControl.resources
-C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.UserController.Controllers.DividerPanelControl.resources
-C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.UserController.Controllers.DividerPanelVerticalControl.resources
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.UserController.LayoutControl.resources
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.UserController.Questions.LabelErrorControl.resources
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.UserController.Questions.MinMaxNumControl.resources
