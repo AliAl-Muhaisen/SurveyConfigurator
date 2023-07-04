@@ -29,6 +29,9 @@ namespace SurveyConfiguratorApp.Data.Questions
                 if (isBaseInfoAdded)
                 {
                     int questionId = base.getQuestionId();
+                    if (questionId ==-1)
+                        return false;
+                   
                     using (SqlCommand cmd = new SqlCommand())
                     {
                         base.OpenConnection();

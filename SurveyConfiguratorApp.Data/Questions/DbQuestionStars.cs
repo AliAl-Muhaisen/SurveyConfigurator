@@ -21,11 +21,17 @@ namespace SurveyConfiguratorApp.Data.Questions
         {
             try
             {
-               bool isAdded= base.add(data);
-                if(!isAdded)
+                bool isAdded = base.add(data);
+
+
+                if (!isAdded)
                     return false;
-               
+
                 int questionId = base.getQuestionId();
+
+                if (questionId == -1)
+                    return false;
+
                 SqlCommand cmd = new SqlCommand();
 
 

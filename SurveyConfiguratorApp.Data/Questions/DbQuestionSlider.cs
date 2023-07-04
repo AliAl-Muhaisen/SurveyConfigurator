@@ -24,6 +24,10 @@ namespace SurveyConfiguratorApp.Data.Questions
             {
                 base.add(data);
                 int questionId = base.getQuestionId();
+
+                if (questionId == -1)
+                    return false;
+
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     base.OpenConnection();
@@ -110,7 +114,7 @@ namespace SurveyConfiguratorApp.Data.Questions
 
         }
 
-        public QuestionSlider Get(int id)
+        public new QuestionSlider Get(int id)
         {
             try
             {

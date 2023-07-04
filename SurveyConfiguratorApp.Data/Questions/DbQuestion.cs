@@ -29,7 +29,7 @@ namespace SurveyConfiguratorApp.Data.Questions
             TypeNumber
 
         }
-        private int questionId;
+        private int questionId =-1;
 
         /// <summary>
         /// The add method inserts a new record into the Question table by constructing a parameterized SQL query.
