@@ -48,7 +48,22 @@ namespace SurveyConfiguratorApp
 
 
         }
+        // Form Load
 
+        private void FormMain_Load(object sender, EventArgs e)
+        {
+
+            try
+            {
+                loadDataGridView();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+            }
+        }
+
+        //Timer Methods
         private void InitializeTimer()
         {
             timer1 = new Timer();
@@ -61,11 +76,19 @@ namespace SurveyConfiguratorApp
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            // This code will be executed every 7 second
-            loadDataGridView();
+            try
+            {
+                // This code will be executed every 7 second
+                loadDataGridView();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+            }
+
         }
 
-
+        // Data Grid View Methods
         private void loadDataGridView()
         {
             try
@@ -94,91 +117,6 @@ namespace SurveyConfiguratorApp
             }
 
         }
-
-
-        private void FormMain_Load(object sender, EventArgs e)
-        {
-
-            try
-            {
-                loadDataGridView();
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex);
-            }
-        }
-
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                Form fromAdd = new FormQuestion();
-                fromAdd.ShowDialog();
-                loadDataGridView();
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex);
-            }
-
-
-        }
-
-        private void btnUpdate_Click(object sender, EventArgs e)
-        {
-            try
-            {
-
-                if (questionId != -1)
-                {
-                    questionId = handleQuestionId(questionId);
-                    Form fromAdd = new FormQuestion(false, questionId, questionTypeNumber, "Update Question");
-                    fromAdd.ShowDialog();
-                    loadDataGridView();
-
-                }
-                else
-                {
-                    MessageBox.Show("No row selected.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex);
-            }
-
-        }
-
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-            try
-            {
-
-                if (questionId != -1)
-                {
-                    questionId = handleQuestionId(questionId);
-                    DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete this record", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (dialogResult == DialogResult.Yes)
-                    {
-                        questionService.delete(questionId);
-                        loadDataGridView();
-                        questionId = -1;
-                    }
-
-
-                }
-                else
-                {
-                    MessageBox.Show("No row selected.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex);
-            }
-        }
-
         private void dataGridViewQuestion_CellClick(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -230,6 +168,131 @@ namespace SurveyConfiguratorApp
 
 
         }
+
+        private void dataGridViewQuestion_ColumnHeaderMouseClick_1(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            try
+            {
+
+                string columnName = dataGridViewQuestion.Columns[e.ColumnIndex].Name;
+                SortOrder sortOrder = dataGridViewQuestion.Columns[e.ColumnIndex].HeaderCell.SortGlyphDirection == SortOrder.Ascending
+                      ? SortOrder.Descending
+                      : SortOrder.Ascending;
+
+                sortDataGridView(sortOrder.ToString(), columnName);
+                this.lastSortColumn = columnName;
+                lastSortOrder = sortOrder;
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+            }
+
+        }
+
+        /// <summary>
+        /// Sort Data Grid View based on sorting type and selected column
+        /// </summary>
+        /// <param name="sortOrder"></param>
+        /// <param name="columnName"></param>
+        private void sortDataGridView(string sortOrder, string columnName)
+        {
+            try
+            {
+                var comparer = new QuestionComparer(columnName, sortOrder);
+                questionList.Sort(comparer);
+                dataGridViewQuestion.DataSource = null;
+                dataGridViewQuestion.DataSource = questionList;
+                handleSelectTheLastOrder();
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+            }
+        }
+
+
+        // Data Grid View Buttons
+        //Add Button
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Form fromAdd = new FormQuestion();
+                fromAdd.ShowDialog();
+                loadDataGridView();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+            }
+
+
+        }
+
+        // Update Button
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                if (questionId != -1)
+                {
+                    questionId = handleQuestionId(questionId);
+                    Form fromAdd = new FormQuestion(false, questionId, questionTypeNumber, "Update Question");
+                    fromAdd.ShowDialog();
+                    loadDataGridView();
+
+                }
+                else
+                {
+                    MessageBox.Show("No row selected.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+            }
+
+        }
+
+        // Delete Button
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                if (questionId != -1)
+                {
+                    questionId = handleQuestionId(questionId);
+                    DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete this record", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        questionService.delete(questionId);
+                        loadDataGridView();
+                        questionId = -1;
+                    }
+
+
+                }
+                else
+                {
+                    MessageBox.Show("No row selected.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+            }
+        }
+
+        // General Function
+
+        /// <summary>
+        /// This function is a helper to check if the object with a specific ID is still available in the database
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         private int handleQuestionId(int id)
         {
 
@@ -257,43 +320,10 @@ namespace SurveyConfiguratorApp
             return -1;
         }
 
-        private void dataGridViewQuestion_ColumnHeaderMouseClick_1(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            try
-            {
-
-                string columnName = dataGridViewQuestion.Columns[e.ColumnIndex].Name;
-                SortOrder sortOrder = dataGridViewQuestion.Columns[e.ColumnIndex].HeaderCell.SortGlyphDirection == SortOrder.Ascending
-                      ? SortOrder.Descending
-                      : SortOrder.Ascending;
-
-                sortDataGridView(sortOrder.ToString(), columnName);
-                this.lastSortColumn = columnName;
-                lastSortOrder = sortOrder;
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex);
-            }
-
-        }
-
-        private void sortDataGridView(string sortOrder, string columnName)
-        {
-            try
-            {
-                var comparer = new QuestionComparer(columnName, sortOrder);
-                questionList.Sort(comparer);
-                dataGridViewQuestion.DataSource = null;
-                dataGridViewQuestion.DataSource = questionList;
-                handleSelectTheLastOrder();
-            }
-            catch (Exception e)
-            {
-                Log.Error(e);
-            }
-        }
-
+        /// <summary>
+        /// This function is a helper to re-select the last row based on the [Order] value
+        /// It should be called after any changes in the data view
+        /// </summary>
         private void handleSelectTheLastOrder()
         {
             try
@@ -301,6 +331,7 @@ namespace SurveyConfiguratorApp
                 //to re-select the row after re-load
                 if (lastSelectedQuestionOrder != -1)
                 {
+
                     DataGridViewRow selectedRow = dataGridViewQuestion.Rows
                         .Cast<DataGridViewRow>()
                         .FirstOrDefault(row =>

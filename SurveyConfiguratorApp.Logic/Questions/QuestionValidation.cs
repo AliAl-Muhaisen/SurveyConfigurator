@@ -104,11 +104,11 @@ namespace SurveyConfiguratorApp.Domain.Questions
             {
                 return "Required Field";
             }
-            else if (text.Length > questionTextLength)
+            else if (text.Trim().Length > questionTextLength)
             {
                 return $"Maximum input length exceeded. Please enter a value that is within {questionTextLength} character";
             }
-            else if(text.Length<10)
+            else if(text.Trim().Length<10)
             {
                 return "Too Short";
             }
@@ -163,11 +163,11 @@ namespace SurveyConfiguratorApp.Domain.Questions
             {
                 return "Required Field";
             }
-            else if (text.Length > sliderCaptionTextLength)
+            else if (text.Trim().Length > sliderCaptionTextLength)
             {
                 return "Too Long";
             }
-            else if(text.Length<3)
+            else if(text.Trim().Length<3)
             {
                 return "Too Short";
             }
@@ -175,16 +175,7 @@ namespace SurveyConfiguratorApp.Domain.Questions
 
 
         }
-        private bool isMinEqualMax(int min, int max)
-        {
-            return min == max;
-        }
-        //public string handleSliderMin(int numMin)
-        //{
-        //    if (!isMinEqualMax(numMin,numMa))
-        //    return null;
-        //}
-
+       
         //! End Slider Question Validation
 
 
