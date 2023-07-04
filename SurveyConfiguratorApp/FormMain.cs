@@ -33,6 +33,8 @@ namespace SurveyConfiguratorApp
         public IQuestionService questionService { get; set; }
         private string questionTypeName = null;
         private int questionTypeNumber = -1;
+
+        private static List<Question> questionList = new List<Question>();
         /// <summary>
         /// the FormMain constructor initializes the form's components, creates an instance of the DbQuestion class, 
         /// sets the initial value of the currentButton variable, and opens the FormHome as the initial child form within the main form.
@@ -56,7 +58,7 @@ namespace SurveyConfiguratorApp
         private void InitializeTimer()
         {
             timer1 = new Timer();
-            timer1.Interval = 8000; 
+            timer1.Interval = 8000;
 
             timer1.Tick += Timer_Tick;
 
@@ -78,7 +80,7 @@ namespace SurveyConfiguratorApp
         }
 
 
-        
+
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
 
@@ -92,10 +94,9 @@ namespace SurveyConfiguratorApp
             try
             {
                 DataTable table = new DataTable();
-                List<Question> list;
-                list = questionService.GetQuestions();
+                questionList = questionService.GetQuestions();
 
-                var bindingList = new BindingList<Question>(list);
+                var bindingList = new BindingList<Question>(questionList);
 
                 var source = new BindingSource(bindingList, null);
 
@@ -109,18 +110,34 @@ namespace SurveyConfiguratorApp
             }
 
         }
-        
+
 
         private void FormMain_Load(object sender, EventArgs e)
         {
-            loadDataGridView();
+
+            try
+            {
+                loadDataGridView();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+            }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            Form fromAdd = new FormQuestion();
-            fromAdd.ShowDialog();
-            loadDataGridView();
+            try
+            {
+                Form fromAdd = new FormQuestion();
+                fromAdd.ShowDialog();
+                loadDataGridView();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+            }
+
 
         }
 
@@ -132,7 +149,7 @@ namespace SurveyConfiguratorApp
                 if (questionId != -1)
                 {
                     questionId = handleQuestionId(questionId);
-                    Form fromAdd = new FormQuestion(false, questionId, questionTypeNumber,"Update Question");
+                    Form fromAdd = new FormQuestion(false, questionId, questionTypeNumber, "Update Question");
                     fromAdd.ShowDialog();
                     loadDataGridView();
 
@@ -219,7 +236,7 @@ namespace SurveyConfiguratorApp
                     Question question = selectedRowData.DataBoundItem as Question;
 
                     questionTypeName = question.TypeName;
-                    questionTypeNumber=question.getTypeNumber();
+                    questionTypeNumber = question.getTypeNumber();
                     questionId = question.getId();
                 }
             }
@@ -260,19 +277,27 @@ namespace SurveyConfiguratorApp
 
         private void dataGridViewQuestion_ColumnHeaderMouseClick_1(object sender, DataGridViewCellMouseEventArgs e)
         {
-            //string columnName = dataGridViewQuestion.Columns[e.ColumnIndex].Name;
-            //System.Windows.Forms.SortOrder sortOrder = dataGridViewQuestion.Columns[e.ColumnIndex].HeaderCell.SortGlyphDirection == System.Windows.Forms.SortOrder.Ascending
-            //    ? System.Windows.Forms.SortOrder.Descending
-            //    : System.Windows.Forms.SortOrder.Ascending;
+            try
+            {
 
-            //var comparer = new QuestionComparer(columnName, sortOrder);
-            //list.Sort(comparer);
+                string columnName = dataGridViewQuestion.Columns[e.ColumnIndex].Name;
+                SortOrder sortOrder = dataGridViewQuestion.Columns[e.ColumnIndex].HeaderCell.SortGlyphDirection == SortOrder.Ascending
+                      ? SortOrder.Descending
+                      : SortOrder.Ascending;
 
-            //dataGridViewQuestion.DataSource = null;
-            //dataGridViewQuestion.DataSource = list;
+                var comparer = new QuestionComparer(columnName, sortOrder.ToString());
+                questionList.Sort(comparer);
+                dataGridViewQuestion.DataSource = null;
+                dataGridViewQuestion.DataSource = questionList;
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+            }
+
         }
 
-        
+
     }
 }
 

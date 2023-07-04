@@ -1,45 +1,71 @@
 ﻿using SurveyConfiguratorApp.Domain.Questions;
+using SurveyConfiguratorApp.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace SurveyConfiguratorApp.Logic.Questions
 {
     public class QuestionComparer : IComparer<Question>
     {
-        //private readonly string sortColumn;
-        //private readonly SortOrder sortOrder;
+        private readonly string sortColumn;
+        private enum SortOrderType
+        {
+            Descending,
+            Ascending
+        };
 
-        //public QuestionComparer(string sortColumn, SortOrder sortOrder)
-        //{
-        //    this.sortColumn = sortColumn;
-        //    this.sortOrder = sortOrder;
-        //}
+        private readonly string currentSortType;
+        public QuestionComparer(string sortColumn, string sortOrder)
+        {
+            try
+            {
+                this.sortColumn = sortColumn;
+                this.currentSortType = sortOrder;
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+            }
 
-        //public int Compare(Question x, Question y)
-        //{
-        //    // Implement the comparison logic based on the selected column
-        //    switch (sortColumn)
-        //    {
-        //        case "Text":
-        //            return sortOrder == SortOrder.Ascending
-        //                ? string.Compare(x.Text, y.Text)
-        //                : string.Compare(y.Text, x.Text);
-        //        case "TypeName":
-        //            return sortOrder == SortOrder.Ascending
-        //                ? string.Compare(x.TypeName, y.TypeName)
-        //                : string.Compare(y.TypeName, x.TypeName);
-        //        // Add more cases for other columns as needed
-        //        default:
-        //            return 0;
-        //    }
-        //}
+        }
+
         public int Compare(Question x, Question y)
         {
-            throw new NotImplementedException();
+            try
+            {
+                // Implement the comparison logic based on the selected column
+                switch (sortColumn)
+                {
+                    case "Text":
+                        return currentSortType == (SortOrderType.Ascending).ToString()
+                            ? string.Compare(x.Text, y.Text)
+                            : string.Compare(y.Text, x.Text);
+                    case "TypeName":
+                        return currentSortType == (SortOrderType.Ascending).ToString()
+                            ? string.Compare(x.TypeName, y.TypeName)
+                            : string.Compare(y.TypeName, x.TypeName);
+
+                    case "Order":
+                        return currentSortType == (SortOrderType.Ascending).ToString()
+                             ? x.Order.CompareTo(y.Order)
+                            : y.Order.CompareTo(x.Order);
+
+                    default:
+                        return 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+            }
+            return 0;
+
         }
+
     }
 
 }
