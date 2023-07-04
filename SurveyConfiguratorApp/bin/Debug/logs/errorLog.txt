@@ -391,3 +391,380 @@ Stack Trace:    at System.Windows.Forms.DataGridViewBand.set_Selected(Boolean va
 
 
 
+DateTime: 7/4/2023 11:33:30 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:33:30 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:33:36 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:33:37 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:33:43 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:33:44 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:33:50 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:33:51 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:33:57 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:33:58 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:34:04 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:34:05 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:34:08 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:34:11 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:34:12 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:34:18 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:34:19 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:34:25 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:34:26 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:34:32 AM
+Type: System.Data.SqlClient.SqlException
+Message: Violation of UNIQUE KEY constraint 'unique_order'. Cannot insert duplicate key in object 'dbo.Question'. The duplicate key value is (10).
+The statement has been terminated.
+Stack Trace:    at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at SurveyConfiguratorApp.Data.Questions.DbQuestion.add(Question data) in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp.Data\Questions\DbQuestion.cs:line 54
+
+
+
+DateTime: 7/4/2023 11:34:32 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:34:33 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:34:39 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:34:39 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:34:40 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:34:40 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:34:46 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:34:47 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:34:53 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:34:54 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:35:00 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:35:01 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:35:07 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:35:08 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:35:14 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:35:15 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:35:21 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:35:22 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:35:28 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:35:29 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:35:35 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:35:36 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:35:46 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:35:46 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:35:49 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+
+DateTime: 7/4/2023 11:35:50 AM
+Type: System.InvalidOperationException
+Message: Sequence contains no matching element
+Stack Trace:    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
+   at SurveyConfiguratorApp.FormMain.handleSelectTheLastOrder() in C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\FormMain.cs:line 304
+
+
+

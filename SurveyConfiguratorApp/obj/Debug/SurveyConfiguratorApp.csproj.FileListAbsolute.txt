@@ -70,9 +70,7 @@ C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\S
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.UserController.Controllers.CustomMessageBoxControl.resources
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.UserController.LayoutControl.resources
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.UserController.Questions.LabelErrorControl.resources
-C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.UserController.Questions.MinMaxNumControl.resources
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.UserController.Questions.SharedBetweenQuestions.resources
-C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.UserController.Questions.UpDownWithLabelControl.resources
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.csproj.GenerateResource.cache
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.csproj.CoreCompileInputs.cache
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.csproj.CopyComplete

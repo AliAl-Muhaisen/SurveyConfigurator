@@ -303,7 +303,7 @@ namespace SurveyConfiguratorApp
                 {
                     DataGridViewRow selectedRow = dataGridViewQuestion.Rows
                         .Cast<DataGridViewRow>()
-                        .First(row =>
+                        .FirstOrDefault(row =>
                         {
                             Question question = (Question)row.DataBoundItem;
                             return question.Order == lastSelectedQuestionOrder;

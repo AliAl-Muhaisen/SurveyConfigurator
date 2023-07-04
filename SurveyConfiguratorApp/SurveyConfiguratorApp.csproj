@@ -135,23 +135,11 @@
     <Compile Include="UserController\Controllers\LabelErrorControl.Designer.cs">
       <DependentUpon>LabelErrorControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserController\Questions\MinMaxNumControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserController\Questions\MinMaxNumControl.Designer.cs">
-      <DependentUpon>MinMaxNumControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="UserController\Questions\SharedBetweenQuestions.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserController\Questions\SharedBetweenQuestions.Designer.cs">
       <DependentUpon>SharedBetweenQuestions.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserController\Questions\UpDownWithLabelControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserController\Questions\UpDownWithLabelControl.Designer.cs">
-      <DependentUpon>UpDownWithLabelControl.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
@@ -190,14 +178,8 @@
     <EmbeddedResource Include="UserController\Controllers\LabelErrorControl.resx">
       <DependentUpon>LabelErrorControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserController\Questions\MinMaxNumControl.resx">
-      <DependentUpon>MinMaxNumControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UserController\Questions\SharedBetweenQuestions.resx">
       <DependentUpon>SharedBetweenQuestions.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserController\Questions\UpDownWithLabelControl.resx">
-      <DependentUpon>UpDownWithLabelControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
