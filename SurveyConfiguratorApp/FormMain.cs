@@ -29,9 +29,7 @@ namespace SurveyConfiguratorApp
         // Active form and current button variables
 
         int questionId = -1;
-        int selectedRow = -1;
         public IQuestionService questionService { get; set; }
-        private string questionTypeName = null;
         private int questionTypeNumber = -1;
 
         private static List<Question> questionList = new List<Question>();
@@ -118,6 +116,7 @@ namespace SurveyConfiguratorApp
             try
             {
                 loadDataGridView();
+                dataGridViewQuestion.ClearSelection();
             }
             catch (Exception ex)
             {
@@ -132,6 +131,7 @@ namespace SurveyConfiguratorApp
                 Form fromAdd = new FormQuestion();
                 fromAdd.ShowDialog();
                 loadDataGridView();
+                dataGridViewQuestion.ClearSelection();
             }
             catch (Exception ex)
             {
@@ -152,6 +152,7 @@ namespace SurveyConfiguratorApp
                     Form fromAdd = new FormQuestion(false, questionId, questionTypeNumber, "Update Question");
                     fromAdd.ShowDialog();
                     loadDataGridView();
+                    dataGridViewQuestion.ClearSelection();
 
                 }
                 else
@@ -180,6 +181,7 @@ namespace SurveyConfiguratorApp
                         questionService.delete(questionId);
                         loadDataGridView();
                         questionId = -1;
+                        dataGridViewQuestion.ClearSelection();
                     }
 
 
@@ -223,7 +225,6 @@ namespace SurveyConfiguratorApp
                 else
                 {
                     questionId = -1;
-                    questionTypeName = null;
                     questionTypeNumber = -1;
                     isChecked = false;
 
@@ -235,7 +236,6 @@ namespace SurveyConfiguratorApp
                 {
                     Question question = selectedRowData.DataBoundItem as Question;
 
-                    questionTypeName = question.TypeName;
                     questionTypeNumber = question.getTypeNumber();
                     questionId = question.getId();
                 }
