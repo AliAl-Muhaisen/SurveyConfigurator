@@ -71,7 +71,6 @@ namespace SurveyConfiguratorApp
         private void timer1_Tick(object sender, EventArgs e)
         {
             loadDataGridView();
-            MessageBox.Show("Timer");
         }
         private void panelMain_Paint(object sender, PaintEventArgs e)
         {
@@ -79,11 +78,7 @@ namespace SurveyConfiguratorApp
         }
 
 
-        /// <summary>
-
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
 
@@ -149,6 +144,7 @@ namespace SurveyConfiguratorApp
             }
             catch (Exception ex)
             {
+                Log.Error(ex);
             }
 
         }
@@ -178,6 +174,7 @@ namespace SurveyConfiguratorApp
             }
             catch (Exception ex)
             {
+                Log.Error(ex);
             }
         }
 
@@ -228,6 +225,7 @@ namespace SurveyConfiguratorApp
             }
             catch (Exception ex)
             {
+                Log.Error(ex);
 
             }
 
@@ -253,6 +251,7 @@ namespace SurveyConfiguratorApp
             }
             catch (Exception e)
             {
+                Log.Error(e);
 
                 MessageBox.Show(e.Message);
             }
