@@ -1,22 +1,12 @@
-﻿
-using SurveyConfiguratorApp.Data.Questions;
-using SurveyConfiguratorApp.Domain.Questions;
-using SurveyConfiguratorApp.Forms;
+﻿using SurveyConfiguratorApp.Domain.Questions;
 using SurveyConfiguratorApp.Forms.Questions;
 using SurveyConfiguratorApp.Helper;
 using SurveyConfiguratorApp.Logic.Questions;
-using SurveyConfiguratorApp.UserController;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Configuration;
 using System.Data;
-using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SurveyConfiguratorApp
@@ -34,9 +24,11 @@ namespace SurveyConfiguratorApp
 
         private static List<Question> questionList = new List<Question>();
 
-        private int selectedRowIndex = -1;
+        private int lastSelectedQuestionOrder = -1;
+
         private string lastSortColumn = string.Empty;
         private SortOrder lastSortOrder = SortOrder.None;
+
         /// <summary>
         /// the FormMain constructor initializes the form's components, creates an instance of the DbQuestion class, 
         /// sets the initial value of the currentButton variable, and opens the FormHome as the initial child form within the main form.
@@ -60,7 +52,7 @@ namespace SurveyConfiguratorApp
         private void InitializeTimer()
         {
             timer1 = new Timer();
-            timer1.Interval = 8000;
+            timer1.Interval = 1000;
 
             timer1.Tick += Timer_Tick;
 
@@ -72,7 +64,7 @@ namespace SurveyConfiguratorApp
             // This code will be executed every 8 second
             loadDataGridView();
         }
-       
+
         private void panelMain_Paint(object sender, PaintEventArgs e)
         {
 
@@ -100,19 +92,15 @@ namespace SurveyConfiguratorApp
                 var source = new BindingSource(bindingList, null);
 
                 dataGridViewQuestion.DataSource = source;
-               
+
                 // to re-sort the data after re-load
-                if (lastSortColumn != null && lastSortOrder!=SortOrder.None)
+                if (lastSortColumn != null && lastSortOrder != SortOrder.None)
                 {
-                   sortDataGridView(lastSortOrder.ToString(), lastSortColumn);
+                    sortDataGridView(lastSortOrder.ToString(), lastSortColumn);
 
                 }
 
-                //to re-select the row after re-load
-                if (selectedRowIndex >= 0 && selectedRowIndex < dataGridViewQuestion.Rows.Count)
-                {
-                    dataGridViewQuestion.Rows[selectedRowIndex].Selected = true;
-                }
+                handleSelectTheLastOrder();
             }
             catch (Exception ex)
             {
@@ -220,7 +208,6 @@ namespace SurveyConfiguratorApp
                 {
 
                     selectedRowData = dataGridViewQuestion.Rows[e.RowIndex];
-                    selectedRowIndex = e.RowIndex;
                     isChecked = true;
 
                 }
@@ -230,7 +217,6 @@ namespace SurveyConfiguratorApp
                     //# Get the selected row
                     selectedRowData = dataGridViewQuestion.SelectedRows[0];
                     isChecked = true;
-                    selectedRowIndex= dataGridViewQuestion.SelectedRows[0].Index;
                     //# Get the ID value from the selected row
 
                 }
@@ -240,7 +226,7 @@ namespace SurveyConfiguratorApp
                     questionId = -1;
                     questionTypeNumber = -1;
                     isChecked = false;
-
+                    lastSelectedQuestionOrder = -1;
 
 
                 }
@@ -251,6 +237,7 @@ namespace SurveyConfiguratorApp
 
                     questionTypeNumber = question.getTypeNumber();
                     questionId = question.getId();
+                    lastSelectedQuestionOrder = question.Order;
                 }
             }
             catch (Exception ex)
@@ -317,6 +304,7 @@ namespace SurveyConfiguratorApp
                 questionList.Sort(comparer);
                 dataGridViewQuestion.DataSource = null;
                 dataGridViewQuestion.DataSource = questionList;
+                handleSelectTheLastOrder();
             }
             catch (Exception e)
             {
@@ -324,7 +312,33 @@ namespace SurveyConfiguratorApp
             }
         }
 
+        private void handleSelectTheLastOrder()
+        {
+            try
+            {
+                //to re-select the row after re-load
+                if (lastSelectedQuestionOrder != -1)
+                {
+                    DataGridViewRow selectedRow = dataGridViewQuestion.Rows
+                        .Cast<DataGridViewRow>()
+                        .FirstOrDefault(row =>
+                        {
+                            Question question = (Question)row.DataBoundItem;
+                            return question.Order == lastSelectedQuestionOrder;
+                        });
 
+                    if (selectedRow != null)
+                    {
+                        selectedRow.Selected = true;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+            }
+
+        }
     }
 }
 

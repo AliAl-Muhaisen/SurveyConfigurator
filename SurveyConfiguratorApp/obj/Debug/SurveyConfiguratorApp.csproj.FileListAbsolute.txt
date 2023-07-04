@@ -45,11 +45,13 @@ C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\bin\Debug\M
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\bin\Debug\Microsoft.Extensions.DependencyInjection.dll
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\bin\Debug\SurveyConfiguratorApp.Data.dll
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\bin\Debug\SurveyConfiguratorApp.Domain.dll
+C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\bin\Debug\SurveyConfiguratorApp.Helper.dll
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\bin\Debug\SurveyConfiguratorApp.Logic.dll
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\bin\Debug\System.Threading.Tasks.Extensions.dll
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\bin\Debug\SurveyConfiguratorApp.Data.pdb
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\bin\Debug\SurveyConfiguratorApp.Domain.pdb
+C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\bin\Debug\SurveyConfiguratorApp.Helper.pdb
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\bin\Debug\SurveyConfiguratorApp.Logic.pdb
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\bin\Debug\Microsoft.Extensions.DependencyInjection.xml
@@ -59,6 +61,10 @@ C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\bin\Debug\S
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.csproj.AssemblyReference.cache
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.csproj.SuggestedBindingRedirects.cache
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.FormMain.resources
+C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.Forms.Questions.FormQuestion.resources
+C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.Forms.Questions.FormQuestionFaces.resources
+C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.Forms.Questions.FormQuestionSlider.resources
+C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.Forms.Questions.FormQuestionStars.resources
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.Properties.Resources.resources
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.UserController.Controllers.CustomLabelControl.resources
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.UserController.Controllers.CustomMessageBoxControl.resources
@@ -74,9 +80,3 @@ C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\S
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.csproj.CopyComplete
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.exe
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.pdb
-C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.Forms.Questions.FormQuestionSlider.resources
-C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.Forms.Questions.FormQuestionStars.resources
-C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.Forms.Questions.FormQuestionFaces.resources
-C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.Forms.Questions.FormQuestion.resources
-C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\bin\Debug\SurveyConfiguratorApp.Helper.dll
-C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\bin\Debug\SurveyConfiguratorApp.Helper.pdb
