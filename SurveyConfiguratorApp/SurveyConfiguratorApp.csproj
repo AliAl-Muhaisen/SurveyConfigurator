@@ -85,6 +85,12 @@
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\DbConnection\FormDbConnection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DbConnection\FormDbConnection.Designer.cs">
+      <DependentUpon>FormDbConnection.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Questions\FormQuestion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -137,6 +143,9 @@
     </Compile>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DbConnection\FormDbConnection.resx">
+      <DependentUpon>FormDbConnection.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Questions\FormQuestion.resx">
       <DependentUpon>FormQuestion.cs</DependentUpon>
@@ -237,10 +246,6 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\SurveyConfiguratorApp.Data\SurveyConfiguratorApp.Data.csproj">
-      <Project>{473B2188-7100-4A1D-A4D6-76326F3DAEDF}</Project>
-      <Name>SurveyConfiguratorApp.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SurveyConfiguratorApp.Domain\SurveyConfiguratorApp.Domain.csproj">
       <Project>{7f930a94-c067-4348-80db-ac0f53536ff9}</Project>
       <Name>SurveyConfiguratorApp.Domain</Name>

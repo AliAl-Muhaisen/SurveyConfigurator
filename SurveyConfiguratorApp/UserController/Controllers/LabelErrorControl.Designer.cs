@@ -35,25 +35,24 @@
             // 
             this.labelError.AutoSize = true;
             this.labelError.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelError.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.labelError.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelError.ForeColor = System.Drawing.Color.Red;
             this.labelError.Location = new System.Drawing.Point(0, 0);
-            this.labelError.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelError.Name = "labelError";
-            this.labelError.Size = new System.Drawing.Size(29, 13);
+            this.labelError.Size = new System.Drawing.Size(25, 12);
             this.labelError.TabIndex = 0;
             this.labelError.Text = "Error";
             // 
             // LabelErrorControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.Controls.Add(this.labelError);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "LabelErrorControl";
-            this.Size = new System.Drawing.Size(53, 27);
+            this.Size = new System.Drawing.Size(71, 33);
             this.ResumeLayout(false);
             this.PerformLayout();
 

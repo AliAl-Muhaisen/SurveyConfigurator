@@ -1,6 +1,8 @@
 ﻿using SurveyConfiguratorApp.Domain.Questions;
+using SurveyConfiguratorApp.Forms.DbConnection;
 using SurveyConfiguratorApp.Forms.Questions;
 using SurveyConfiguratorApp.Helper;
+using SurveyConfiguratorApp.Logic;
 using SurveyConfiguratorApp.Logic.Questions;
 using System;
 using System.Collections.Generic;
@@ -8,6 +10,8 @@ using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
+
+using ListView = System.Windows.Forms.ListView;
 
 namespace SurveyConfiguratorApp
 {
@@ -19,15 +23,18 @@ namespace SurveyConfiguratorApp
         // Active form and current button variables
 
         int questionId = -1;
-        public IQuestionService questionService { get; set; }
+        private QuestionManager questionManager;
         private int questionTypeNumber = -1;
 
         private static List<Question> questionList = new List<Question>();
 
         private int lastSelectedQuestionOrder = -1;
-
+        private Question currentQuestion = null;
         private string lastSortColumn = string.Empty;
         private SortOrder lastSortOrder = SortOrder.None;
+
+
+
 
         /// <summary>
         /// the FormMain constructor initializes the form's components, creates an instance of the DbQuestion class, 
@@ -38,7 +45,11 @@ namespace SurveyConfiguratorApp
             try
             {
                 InitializeComponent();
-                InitializeTimer();
+                questionManager = new QuestionManager();
+                listViewQuestions.Items.Clear();
+                FillListView();
+               questionManager.DataChangedUI += OnRefreshData;
+                listViewQuestions.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None);
             }
             catch (Exception e)
             {
@@ -64,52 +75,21 @@ namespace SurveyConfiguratorApp
         }
 
         //Timer Methods
-        private void InitializeTimer()
-        {
-            timer1 = new Timer();
-            timer1.Interval = 7000;
+      
 
-            timer1.Tick += Timer_Tick;
-
-            timer1.Enabled = true; // Start the timer
-        }
-
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            try
-            {
-                // This code will be executed every 7 second
-                loadDataGridView();
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex);
-            }
-
-        }
-
+       
         // Data Grid View Methods
         private void loadDataGridView()
         {
             try
             {
                 DataTable table = new DataTable();
-                questionList = questionService.GetQuestions();
+                questionList = QuestionManager.questions;
 
                 var bindingList = new BindingList<Question>(questionList);
 
                 var source = new BindingSource(bindingList, null);
 
-                dataGridViewQuestion.DataSource = source;
-
-                // to re-sort the data after re-load
-                if (lastSortColumn != null && lastSortOrder != SortOrder.None)
-                {
-                    sortDataGridView(lastSortOrder.ToString(), lastSortColumn);
-
-                }
-                dataGridViewQuestion.ClearSelection();
-                handleSelectTheLastOrder();
             }
             catch (Exception ex)
             {
@@ -117,78 +97,35 @@ namespace SurveyConfiguratorApp
             }
 
         }
-        private void dataGridViewQuestion_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-            try
-            {
-                DataGridViewRow selectedRowData = null;
-                bool isChecked = false;
-                if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
-                {
-
-                    selectedRowData = dataGridViewQuestion.Rows[e.RowIndex];
-                    isChecked = true;
-
-                }
-                //? Check if a row is selected
-                else if (dataGridViewQuestion.SelectedRows.Count > 0)
-                {
-                    //# Get the selected row
-                    selectedRowData = dataGridViewQuestion.SelectedRows[0];
-                    isChecked = true;
-                    //# Get the ID value from the selected row
-
-                }
-
-                else
-                {
-                    questionId = -1;
-                    questionTypeNumber = -1;
-                    isChecked = false;
-                    lastSelectedQuestionOrder = -1;
+       
 
 
-                }
-
-                if (isChecked && selectedRowData != null)
-                {
-                    Question question = selectedRowData.DataBoundItem as Question;
-
-                    questionTypeNumber = question.getTypeNumber();
-                    questionId = question.getId();
-                    lastSelectedQuestionOrder = question.Order;
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex);
-
-            }
-
-
-        }
-
-        private void dataGridViewQuestion_ColumnHeaderMouseClick_1(object sender, DataGridViewCellMouseEventArgs e)
+        private void OnRefreshData(object sender, EventArgs e)
         {
             try
             {
-
-                string columnName = dataGridViewQuestion.Columns[e.ColumnIndex].Name;
-                SortOrder sortOrder = dataGridViewQuestion.Columns[e.ColumnIndex].HeaderCell.SortGlyphDirection == SortOrder.Ascending
-                      ? SortOrder.Descending
-                      : SortOrder.Ascending;
-
-                sortDataGridView(sortOrder.ToString(), columnName);
-                this.lastSortColumn = columnName;
-                lastSortOrder = sortOrder;
+                RefreshData();
             }
             catch (Exception ex)
             {
                 Log.Error(ex);
             }
-
         }
+        private void RefreshData()
+        {
+            try
+            {
+FillListView();           
+            handleSelectTheLastOrder();
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+            }
+
+            
+        }
+       
 
         /// <summary>
         /// Sort Data Grid View based on sorting type and selected column
@@ -200,9 +137,9 @@ namespace SurveyConfiguratorApp
             try
             {
                 var comparer = new QuestionComparer(columnName, sortOrder);
-                questionList.Sort(comparer);
-                dataGridViewQuestion.DataSource = null;
-                dataGridViewQuestion.DataSource = questionList;
+               // questionList.Sort(comparer);
+                // dataGridViewQuestion.DataSource = null;
+                // dataGridViewQuestion.DataSource = questionList;
                 handleSelectTheLastOrder();
             }
             catch (Exception e)
@@ -220,7 +157,7 @@ namespace SurveyConfiguratorApp
             {
                 Form fromAdd = new FormQuestion();
                 fromAdd.ShowDialog();
-                loadDataGridView();
+                RefreshData();
             }
             catch (Exception ex)
             {
@@ -238,7 +175,7 @@ namespace SurveyConfiguratorApp
 
                 if (questionId != -1)
                 {
-                    questionId = handleQuestionId(questionId);
+                    // questionId = handleQuestionId(questionId);
                     Form fromAdd = new FormQuestion(false, questionId, questionTypeNumber, "Update Question");
                     fromAdd.ShowDialog();
                     loadDataGridView();
@@ -264,11 +201,11 @@ namespace SurveyConfiguratorApp
 
                 if (questionId != -1)
                 {
-                    questionId = handleQuestionId(questionId);
+                    //  questionId = handleQuestionId(questionId);
                     DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete this record", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (dialogResult == DialogResult.Yes)
                     {
-                        questionService.delete(questionId);
+                        questionManager.Delete(questionId);
                         loadDataGridView();
                         questionId = -1;
                     }
@@ -298,7 +235,7 @@ namespace SurveyConfiguratorApp
 
             try
             {
-                Question question = questionService.Get(id);
+                Question question = questionManager.GetQuestion(id);
 
                 if (question != null)
                 {
@@ -328,20 +265,17 @@ namespace SurveyConfiguratorApp
         {
             try
             {
-                //to re-select the row after re-load
+               // to re-select the row after re-load
                 if (lastSelectedQuestionOrder != -1)
                 {
 
-                    DataGridViewRow selectedRow = dataGridViewQuestion.Rows
-                        .Cast<DataGridViewRow>()
-                        .FirstOrDefault(row =>
-                        {
-                            Question question = (Question)row.DataBoundItem;
-                            return question.Order == lastSelectedQuestionOrder;
-                        });
-                    if (selectedRow != null)
+                    foreach (ListViewItem item in listViewQuestions.Items)
                     {
-                        selectedRow.Selected = true;
+                        if (item.SubItems[0].Text == lastSelectedQuestionOrder.ToString())
+                        {
+                            item.Selected = true;
+                            break;
+                        }
                     }
                 }
             }
@@ -350,6 +284,88 @@ namespace SurveyConfiguratorApp
                 Log.Error(e);
             }
 
+        }
+
+       private void FillListView()
+        {
+            try
+            {
+                List<Question> list = new List<Question>();
+                list = QuestionManager.questions;
+                listViewQuestions.Items.Clear();
+                foreach (Question question in list)
+                {
+                    // Create a new ListViewItem and set its Text property to the Order value
+                    ListViewItem item = new ListViewItem(question.Order.ToString());
+
+                    // Add sub-items to the ListViewItem
+                    item.SubItems.Add(question.TypeName);
+                    item.SubItems.Add(question.Text);
+                    item.Tag = question;
+
+                    listViewQuestions.Items.Add(item);
+
+
+                }
+
+            }
+            catch (Exception e)
+            {
+                Log.Error (e);
+            }
+        }
+
+        private void listView1_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+           
+        }
+
+        private void UpdateSelectedQuestion(Question question)
+        {
+            questionTypeNumber = question.getTypeNumber();
+            questionId = question.getId();
+            lastSelectedQuestionOrder = question.Order;
+        }
+
+        private void ClearSelectedQuestion()
+        {
+            questionId = -1;
+            questionTypeNumber = -1;
+            lastSelectedQuestionOrder = -1;
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            ListView listView = (ListView)sender;
+            if (listView.SelectedItems.Count > 0)
+            {
+                ListViewItem selectedRowData = listView.SelectedItems[0];
+
+                if (selectedRowData.Tag is Question question)
+                {
+                    UpdateSelectedQuestion(question);
+                }
+            }
+            else
+            {
+                ClearSelectedQuestion();
+            }
+
+
+        }
+
+        private void dataBaseConnectionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Form DbConnection = new FormDbConnection();
+                DbConnection.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+            }
         }
     }
 }

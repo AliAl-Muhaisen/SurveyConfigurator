@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SurveyConfiguratorApp.Helper;
+using SurveyConfiguratorApp.Logic;
 using SurveyConfiguratorApp.Logic.Questions;
 using System;
 using System.Collections.Generic;
@@ -108,7 +109,7 @@ namespace SurveyConfiguratorApp.Domain.Questions
             {
                 return $"Maximum input length exceeded. Please enter a value that is within {questionTextLength} character";
             }
-            else if(text.Trim().Length<10)
+            else if (text.Trim().Length < 10)
             {
                 return "Too Short";
             }
@@ -167,7 +168,7 @@ namespace SurveyConfiguratorApp.Domain.Questions
             {
                 return "Too Long";
             }
-            else if(text.Trim().Length<3)
+            else if (text.Trim().Length < 3)
             {
                 return "Too Short";
             }
@@ -175,20 +176,16 @@ namespace SurveyConfiguratorApp.Domain.Questions
 
 
         }
-       
+
         //! End Slider Question Validation
 
 
-        public bool isOrderAlreadyExists(int order,int oldOrder=-1)
+        public bool isOrderAlreadyExists(int order, int oldOrder = -1)
         {
             try
             {
-
-               List<int> orders= QuestionService.Orders();
-                for (int i = 0;orders.Count>i;i++)
-                    if (orders[i] == order && oldOrder != orders[i])
-                        return true;
-                
+                QuestionManager questionManager = new QuestionManager();
+                return questionManager.IsOrderAlreadyExists(order, oldOrder);
             }
             catch (Exception e)
             {

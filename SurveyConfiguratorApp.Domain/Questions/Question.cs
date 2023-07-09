@@ -93,6 +93,29 @@ namespace SurveyConfiguratorApp.Domain.Questions
             return 0;
 
         }
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+                return false;
 
+            Question otherQuestion = (Question)obj;
+
+            // Compare all relevant properties for equality
+            return Text == otherQuestion.Text &&
+                   Order == otherQuestion.Order &&
+                   TypeName == otherQuestion.TypeName;
+        }
+
+        ///  <summary>
+        /// The GetHashCode method should be overridden consistently with the Equals method.
+        /// The GetHashCode method should be overridden consistently with the Equals method. 
+        /// That means if two objects are considered equal based on their property values in the Equals method, 
+        /// they should have the same hash code in the GetHashCode method
+        /// </summary>
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }

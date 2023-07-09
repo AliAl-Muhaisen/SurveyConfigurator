@@ -1,6 +1,6 @@
 ﻿using SurveyConfiguratorApp.Domain.Questions;
 using SurveyConfiguratorApp.Helper;
-using SurveyConfiguratorApp.Logic.Questions.Stars;
+using SurveyConfiguratorApp.Logic;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -9,11 +9,10 @@ namespace SurveyConfiguratorApp.Forms.Questions
 {
     public partial class FormQuestionStars : Form
     {
-        public IQuestionStarsService questionStarsService { get; set; }
         private bool isUpdate = false;
         private int questionId = -1;
+        private QuestionManager questionFacade;
         private QuestionStars questionStars;
-
         private QuestionValidation questionValidation;
         public FormQuestionStars()
         {
@@ -22,6 +21,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             {
                 InitializeComponent();
                 questionStars = new QuestionStars();
+                questionFacade= new QuestionManager();
                 questionValidation = QuestionValidation.Instance();
             }
             catch (Exception ex)
@@ -58,10 +58,10 @@ namespace SurveyConfiguratorApp.Forms.Questions
             {
                 numericStarsNumber.Minimum = questionValidation.StarsMinValue;
                 numericStarsNumber.Maximum = questionValidation.StarsMaxValue;
-                if (questionStarsService != null && questionId != -1)
+                if ( questionId != -1)
                 {
                     // to check if the question still exists in the db
-                    questionStars = questionStarsService.Get(questionId);
+                    questionStars = questionFacade.GetQuestionStars(questionId);
                     if (questionStars == null)
                     {
                         MessageBox.Show("This Question does not exists", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -95,13 +95,15 @@ namespace SurveyConfiguratorApp.Forms.Questions
                     if (!isUpdate)
                     {
 
-                        result = questionStarsService.add(questionStars);
-                        customMessageBoxControl1.sqlInsert(result);
+                        result = questionFacade.AddQuestionStars(questionStars);
+                        if (!result) 
+                             customMessageBoxControl1.sqlInsert(result);
                     }
                     else
                     {
-                        result = questionStarsService.update(questionStars);
-                        customMessageBoxControl1.sqlUpdate(result);
+                        result = questionFacade.UpdateQuestionStars(questionStars);
+                        if (!result)
+                            customMessageBoxControl1.sqlUpdate(result);
                     }
                     if (result)
                         closeParentFrom();

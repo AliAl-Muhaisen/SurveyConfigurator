@@ -1,9 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using SurveyConfiguratorApp.Data.Questions;
 using SurveyConfiguratorApp.Helper;
-using SurveyConfiguratorApp.Logic.Questions.Faces;
-using SurveyConfiguratorApp.Logic.Questions.Slider;
-using SurveyConfiguratorApp.Logic.Questions.Stars;
+
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -170,18 +167,11 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 //This line registers the QuestionFacesService class as the implementation for the IQuestionFacesService interface.
                 //It means that whenever an instance of IQuestionFacesService is requested, the QuestionFacesService implementation will be provided.
                 //
-                services.AddScoped<IQuestionFacesRepository, DbQuestionFaces>();
-                services.AddScoped<IQuestionFacesService, QuestionFacesService>();
-                using (ServiceProvider serviceProvider = services.BuildServiceProvider())
-                {
+              
 
                     var mainForm = new FormQuestionFaces(questionId);
 
-
-                    // Manually inject the dependencies
-                    mainForm.questionFacesService = serviceProvider.GetRequiredService<IQuestionFacesService>();
                     handleOpenChildForm(mainForm);
-                }
             }
             catch (Exception ex)
             {
@@ -197,16 +187,11 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 //This line registers the QuestionStarsService class as the implementation for the IQuestionStarsService interface.
                 //It means that whenever an instance of IQuestionStarsService is requested, the QuestionStarsService implementation will be provided.
                 //
-                services.AddScoped<IQuestionStarsRepository, DbQuestionStars>();
-                services.AddScoped<IQuestionStarsService, QuestionStarsService>();
-                using (ServiceProvider serviceProvider = services.BuildServiceProvider())
-                {
+              
                     var mainForm = new FormQuestionStars(questionId);
 
                     // Manually inject the dependencies
-                    mainForm.questionStarsService = serviceProvider.GetRequiredService<IQuestionStarsService>();
                     handleOpenChildForm(mainForm);
-                }
             }
             catch (Exception ex)
             {
@@ -219,19 +204,10 @@ namespace SurveyConfiguratorApp.Forms.Questions
         {
             try
             {
-                //This line registers the QuestionSliderService class as the implementation for the IQuestionSliderService interface.
-                //It means that whenever an instance of IQuestionSliderService is requested, the QuestionSliderService implementation will be provided.
-                //
-                services.AddScoped<IQuestionSliderRepository, DbQuestionSlider>();
-                services.AddScoped<IQuestionSliderService, QuestionSliderService>();
-                using (ServiceProvider serviceProvider = services.BuildServiceProvider())
-                {
                     var mainForm = new FormQuestionSlider(questionId);
 
                     // Manually inject the dependencies
-                    mainForm.questionSliderService = serviceProvider.GetRequiredService<IQuestionSliderService>();
                     handleOpenChildForm(mainForm);
-                }
             }
             catch (Exception ex)
             {

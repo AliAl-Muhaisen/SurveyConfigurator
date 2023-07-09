@@ -47,5 +47,11 @@
     <Compile Include="Questions\QuestionSlider.cs" />
     <Compile Include="Questions\QuestionStars.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SurveyConfiguratorApp.Helper\SurveyConfiguratorApp.Helper.csproj">
+      <Project>{d95358ee-4f7b-4f34-b97a-7d68cc382976}</Project>
+      <Name>SurveyConfiguratorApp.Helper</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

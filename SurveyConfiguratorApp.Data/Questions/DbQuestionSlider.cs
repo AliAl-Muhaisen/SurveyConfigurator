@@ -1,16 +1,14 @@
 ﻿using SurveyConfiguratorApp.Domain.Questions;
 using SurveyConfiguratorApp.Helper;
-using SurveyConfiguratorApp.Logic.Questions.Slider;
 using System;
 using System.Data.SqlClient;
 
 namespace SurveyConfiguratorApp.Data.Questions
 {
-    public class DbQuestionSlider : DbQuestion, IQuestionSliderRepository
+    public class DbQuestionSlider : DbQuestion
     {
-        private const string tableName = "QuestionSlider";
-        static public string TableName { get { return tableName; } }
-        public enum ColumnNames
+        private new const string tableName = "QuestionSlider";
+        public new enum ColumnNames
         {
             QuestionId,
             StartValue,
@@ -18,12 +16,12 @@ namespace SurveyConfiguratorApp.Data.Questions
             StartCaption,
             EndCaption,
         }
-        public bool add(QuestionSlider data)
+        public bool Add(QuestionSlider data)
         {
             try
             {
-                base.add(data);
-                int questionId = base.getQuestionId();
+                base.Add(data);
+                int questionId = base.GetQuestionId();
 
                 if (questionId == -1)
                     return false;
@@ -36,7 +34,9 @@ namespace SurveyConfiguratorApp.Data.Questions
 
 
 
-                    cmd.CommandText = "INSERT INTO [QuestionSlider] ([QuestionId],[StartValue],[EndValue],[EndCaption],[StartCaption]) VALUES (@QuestionId,@StartValue,@EndValue,@EndCaption,@StartCaption);";
+                    cmd.CommandText = $"INSERT INTO [{tableName}] ([{ColumnNames.QuestionId}],[{ColumnNames.StartValue}]," +
+                        $"[{ColumnNames.EndValue}],[{ColumnNames.EndCaption}],[{ColumnNames.StartCaption}]) " +
+                        $"VALUES (@QuestionId,@StartValue,@EndValue,@EndCaption,@StartCaption);";
 
                     cmd.Parameters.AddWithValue("@QuestionId", questionId);
                     cmd.Parameters.AddWithValue("@StartValue", data.StartValue);
@@ -69,7 +69,7 @@ namespace SurveyConfiguratorApp.Data.Questions
         }
 
 
-        public bool update(QuestionSlider questionSlider)
+        public bool Update(QuestionSlider questionSlider)
         {
             try
             {
@@ -77,8 +77,9 @@ namespace SurveyConfiguratorApp.Data.Questions
                 {
                     base.OpenConnection();
                     command.Connection = base.conn;
-                    command.CommandText = $"UPDATE [{TableName}] SET" +
-                        $" [StartCaption] = @StartCaption,[EndCaption] = @EndCaption,[StartValue] = @StartValue,[EndValue] = @EndValue WHERE [questionId] = @Id";
+                    command.CommandText = $"UPDATE [{tableName}] SET" +
+                        $" [{ColumnNames.StartCaption}] = @StartCaption,[{ColumnNames.EndCaption}] = @EndCaption,[{ColumnNames.StartValue}] = @StartValue," +
+                        $"[{ColumnNames.EndValue}] = @EndValue WHERE [{ColumnNames.QuestionId}] = @Id";
 
                     command.Parameters.AddWithValue("@StartCaption", questionSlider.StartCaption);
                     command.Parameters.AddWithValue("@EndCaption", questionSlider.EndCaption);
@@ -95,7 +96,7 @@ namespace SurveyConfiguratorApp.Data.Questions
                     }
                     base.CloseConnection();
 
-                    return true && base.update(questionSlider);
+                    return true && base.Update(questionSlider);
                 }
             }
 
@@ -124,7 +125,8 @@ namespace SurveyConfiguratorApp.Data.Questions
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     cmd.Connection = base.conn;
-                    cmd.CommandText = $"SELECT [Text],[StartValue],[EndValue],[StartCaption],[EndCaption],[Order] FROM Question as q  INNER JOIN QuestionSlider as f ON q.id=f.QuestionId WHERE q.Id={id};";
+                    cmd.CommandText = $"SELECT [{DbQuestion.ColumnNames.Text}],[{ColumnNames.StartValue}],[{ColumnNames.EndValue}],[{ColumnNames.StartCaption}],[{ColumnNames.EndCaption}]," +
+                        $"[{DbQuestion.ColumnNames.Order}] FROM {DbQuestion.tableName} as q  INNER JOIN {tableName} as f ON q.id=f.{ColumnNames.QuestionId} WHERE q.{DbQuestion.ColumnNames.Id}={id};";
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())

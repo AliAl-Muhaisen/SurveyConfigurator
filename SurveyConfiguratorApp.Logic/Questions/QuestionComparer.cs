@@ -3,7 +3,6 @@ using SurveyConfiguratorApp.Helper;
 using System;
 using System.Collections.Generic;
 
-
 namespace SurveyConfiguratorApp.Logic.Questions
 {
     public class QuestionComparer : IComparer<Question>
@@ -39,7 +38,7 @@ namespace SurveyConfiguratorApp.Logic.Questions
                 {
                     case "Text":
                         return currentSortType == (SortOrderType.Ascending).ToString()
-                            ? string.Compare(x.Text, y.Text)
+                            ? string.Compare(x.Text, y.Text)//It returns a negative value if x.Text is less than y.Text
                             : string.Compare(y.Text, x.Text);
                     case "TypeName":
                         return currentSortType == (SortOrderType.Ascending).ToString()
@@ -48,7 +47,7 @@ namespace SurveyConfiguratorApp.Logic.Questions
 
                     case "Order":
                         return currentSortType == (SortOrderType.Ascending).ToString()
-                             ? x.Order.CompareTo(y.Order)
+                             ? x.Order.CompareTo(y.Order)//The CompareTo method returns a negative value if x.Order is less than y.Order
                             : y.Order.CompareTo(x.Order);
 
                     default:
@@ -63,6 +62,7 @@ namespace SurveyConfiguratorApp.Logic.Questions
 
         }
 
+       
     }
 
 }

@@ -1,6 +1,5 @@
 ﻿using SurveyConfiguratorApp.Domain.Questions;
 using SurveyConfiguratorApp.Helper;
-using SurveyConfiguratorApp.Logic.Questions.Faces;
 using System;
 using System.Data.SqlClient;
 
@@ -9,29 +8,28 @@ namespace SurveyConfiguratorApp.Data.Questions
     /// <summary>
     /// The class handles CRUD operations for the QuestionFaces table in the database
     /// </summary>
-    public class DbQuestionFaces : DbQuestion, IQuestionFacesRepository
+    public class DbQuestionFaces : DbQuestion
     {
-        private const string tableName = "QuestionFaces";
-        public enum ColumnNames
+        private new const string tableName = "QuestionFaces";
+        public new enum ColumnNames
         {
             QuestionId,
             FacesNumber,
         }
         public DbQuestionFaces() : base() { }
-        static public string TableName { get { return tableName; } }
 
         // Create a new QuestionFaces entry in the database
-        public bool add(QuestionFaces data)
+        public bool Add(QuestionFaces data)
         {
             try
             {
-                bool isBaseInfoAdded = base.add(data);
+                bool isBaseInfoAdded = base.Add(data);
                 if (isBaseInfoAdded)
                 {
-                    int questionId = base.getQuestionId();
-                    if (questionId ==-1)
+                    int questionId = base.GetQuestionId();
+                    if (questionId == -1)
                         return false;
-                   
+
                     using (SqlCommand cmd = new SqlCommand())
                     {
                         base.OpenConnection();
@@ -40,7 +38,7 @@ namespace SurveyConfiguratorApp.Data.Questions
 
 
 
-                        cmd.CommandText = "INSERT INTO [QuestionFaces] ([QuestionId],[FacesNumber]) VALUES (@QuestionId,@FacesNumber);";
+                        cmd.CommandText = $"INSERT INTO [{tableName}] ([{ColumnNames.QuestionId}],[{ColumnNames.FacesNumber}]) VALUES (@QuestionId,@FacesNumber);";
 
                         cmd.Parameters.AddWithValue("@QuestionId", questionId);
                         cmd.Parameters.AddWithValue("@FacesNumber", data.FacesNumber);
@@ -69,7 +67,7 @@ namespace SurveyConfiguratorApp.Data.Questions
         }
 
         // Update a QuestionFaces entry in the database
-        public bool update(QuestionFaces questionFaces)
+        public bool Update(QuestionFaces questionFaces)
         {
 
 
@@ -79,7 +77,7 @@ namespace SurveyConfiguratorApp.Data.Questions
                 {
                     base.OpenConnection();
                     command.Connection = base.conn;
-                    command.CommandText = $"UPDATE [{TableName}] SET [FacesNumber] = @FacesNumber WHERE [questionId] = @Id";
+                    command.CommandText = $"UPDATE [{tableName}] SET [{ColumnNames.FacesNumber}] = @FacesNumber WHERE [{ColumnNames.QuestionId}] = @Id";
 
                     command.Parameters.AddWithValue("@FacesNumber", questionFaces.FacesNumber);
                     command.Parameters.AddWithValue("@Id", questionFaces.getId());
@@ -92,7 +90,7 @@ namespace SurveyConfiguratorApp.Data.Questions
                         return false;
                     }
                     base.CloseConnection();
-                    base.update(questionFaces);
+                    base.Update(questionFaces);
                     return true;
                 }
             }
@@ -121,8 +119,12 @@ namespace SurveyConfiguratorApp.Data.Questions
 
                 using (SqlCommand cmd = new SqlCommand())
                 {
+
                     cmd.Connection = base.conn;
-                    cmd.CommandText = $"SELECT [Text],[FacesNumber],[Order] FROM Question as q  INNER JOIN QuestionFaces as f ON q.id=f.QuestionId WHERE q.Id={id};";
+
+                    cmd.CommandText = $"SELECT [{DbQuestion.ColumnNames.Text}],[{ColumnNames.FacesNumber}],[{DbQuestion.ColumnNames.Order}] FROM " +
+                        $"{DbQuestion.tableName} as q  INNER JOIN {tableName} as f ON q.{DbQuestion.ColumnNames.Id}=f.{ColumnNames.QuestionId}" +
+                        $" WHERE q.{DbQuestion.ColumnNames.Id}={id};";
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         if (!reader.HasRows) return null;

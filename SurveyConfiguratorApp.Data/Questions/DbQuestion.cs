@@ -1,6 +1,5 @@
 ﻿using SurveyConfiguratorApp.Domain.Questions;
 using SurveyConfiguratorApp.Helper;
-using SurveyConfiguratorApp.Logic.Questions;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,17 +10,17 @@ namespace SurveyConfiguratorApp.Data.Questions
 
     /// <summary>
     /// The DbQuestion class extends the DB class and implements the ICRUD<Question> interface. 
-    /// It provides methods to perform CRUD operations (add, read, update, delete) on the Question entity.
+    /// It provides methods to perform CRUD operations (Add, read, update, Delete) on the Question entity.
     /// The class includes a ColumnsName enumeration representing the column names in the Question table. 
     /// It also includes additional methods,
     /// retrieve the last inserted ID, and read all questions from the database.
     /// </summary>
-    public class DbQuestion : DB, IQuestionRepository
+    public class DbQuestion : DB
     {
-
+        public static event EventHandler DataChanged;
         public DbQuestion() : base() { }
-
-        enum ColumNames
+        public const string tableName = "Question";
+       public enum ColumnNames
         {
             Id,
             Order,
@@ -32,12 +31,12 @@ namespace SurveyConfiguratorApp.Data.Questions
         private int questionId =-1;
 
         /// <summary>
-        /// The add method inserts a new record into the Question table by constructing a parameterized SQL query.
+        /// The Add method inserts a new record into the Question table by constructing a parameterized SQL query.
         /// It catches any SQL exceptions and returns false in case of an error.
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public bool add(Question data)
+        public bool Add(Question data)
         {
             try
             {
@@ -48,7 +47,7 @@ namespace SurveyConfiguratorApp.Data.Questions
                     cmd.Connection = base.conn;
                     //SCOPE_IDENTITY() is a function in SQL Server that returns the last identity value inserted into an identity column within the current scope.
                     //It is commonly used to retrieve the generated ID value after performing an insert operation.
-                    cmd.CommandText = "INSERT INTO [Question] ([Order],[Text],[TypeNumber]) VALUES (@Order,@Text,@TypeNumber);SELECT SCOPE_IDENTITY();";
+                    cmd.CommandText = $"INSERT INTO [{tableName}] ([{ColumnNames.Order}],[{ColumnNames.Text}],[{ColumnNames.TypeNumber}]) VALUES (@Order,@Text,@TypeNumber);SELECT SCOPE_IDENTITY();";
 
                     cmd.Parameters.AddWithValue("@Order", data.Order);
                     cmd.Parameters.AddWithValue("@Text", data.Text);
@@ -58,6 +57,7 @@ namespace SurveyConfiguratorApp.Data.Questions
                  
                     if (questionId > 0)
                     {
+                        OnDataChanged();
                         return true;
                     }
                     else
@@ -82,7 +82,7 @@ namespace SurveyConfiguratorApp.Data.Questions
 
 
 
-        public bool delete(int id)
+        public bool Delete(int id)
         {
 
             try
@@ -92,7 +92,7 @@ namespace SurveyConfiguratorApp.Data.Questions
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     cmd.Connection = base.conn;
-                    cmd.CommandText = $"DELETE FROM [Question] WHERE [Id]={id};";
+                    cmd.CommandText = $"DELETE FROM [{tableName}] WHERE [{ColumnNames.Id}]={id};";
                     int rowsAffected = cmd.ExecuteNonQuery();
 
 
@@ -130,7 +130,7 @@ namespace SurveyConfiguratorApp.Data.Questions
         /// The update method updates a specific record in the Question table based on the provided Question object.
         /// It catches SQL exceptions and returns false in case of an error.
         /// </summary>
-        public bool update(Question question)
+        public bool Update(Question question)
         {
 
 
@@ -140,7 +140,7 @@ namespace SurveyConfiguratorApp.Data.Questions
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = base.conn;
-                    command.CommandText = $"UPDATE [Question] SET [Text] = @Text,[Order]=@Order WHERE [Id] = @Id";
+                    command.CommandText = $"UPDATE [{tableName}] SET [{ColumnNames.Text}] = @Text,[{ColumnNames.Order}]=@Order WHERE [{ColumnNames.Id}] = @Id";
 
                     command.Parameters.AddWithValue("@Text", question.Text);
                     command.Parameters.AddWithValue("@Order", question.Order);
@@ -177,11 +177,11 @@ namespace SurveyConfiguratorApp.Data.Questions
 
 
         /// <summary>
-        /// The getQuestionId method retrieves the maximum ID from the Question table.
+        /// The GetQuestionId method retrieves the maximum ID from the Question table.
         /// It catches any SQL exceptions and returns a default value of 1 in case of an error.
         /// </summary>
         /// <returns></returns>
-        public int getQuestionId()
+        public int GetQuestionId()
         {
             try
             {
@@ -205,7 +205,7 @@ namespace SurveyConfiguratorApp.Data.Questions
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = base.conn;
-                cmd.CommandText = "SELECT * FROM [Question]";
+                cmd.CommandText = $"SELECT * FROM [{tableName}]";
 
                 SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
                 if (reader.HasRows)
@@ -214,14 +214,14 @@ namespace SurveyConfiguratorApp.Data.Questions
                     while (reader.Read())
                     {
                         Question question = new Question(
-                               (int)reader[$"{ColumNames.Id}"],
+                               (int)reader[$"{ColumnNames.Id}"],
                                reader["Text"].ToString(),
                                (int)reader["TypeNumber"],
                                (int)reader["Order"]
                                );
 
 
-                        question.setId(Convert.ToInt32(reader[$"{ColumNames.Id}"]));
+                        question.setId(Convert.ToInt32(reader[$"{ColumnNames.Id}"]));
 
                         list.Add(question);
                     }
@@ -250,7 +250,7 @@ namespace SurveyConfiguratorApp.Data.Questions
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     cmd.Connection = base.conn;
-                    cmd.CommandText = $"SELECT * FROM Question as q WHERE q.Id={id};";
+                    cmd.CommandText = $"SELECT * FROM {tableName} WHERE {ColumnNames.Id}={id};";
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
@@ -281,43 +281,7 @@ namespace SurveyConfiguratorApp.Data.Questions
             return null;
         }
 
-        public bool deleteByOrder(int order)
-        {
-
-            try
-            {
-                base.OpenConnection();
-
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.Connection = base.conn;
-                    cmd.CommandText = $"DELETE FROM [Question] WHERE [{ColumNames.Order}]={order};";
-                    int rowsAffected = cmd.ExecuteNonQuery();
-
-
-                    if (rowsAffected > 0)
-                    {
-                        // Row deleted successfully
-                        return true;
-
-                    }
-                    else
-                    {
-                        // Row not found or not deleted
-                        return false;
-
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex);
-            }
-            finally { base.CloseConnection(); }
-            return false;
-        }
-
-        public bool isOrderAlreadyExists(int order)
+        public bool IsOrderAlreadyExists(int order,int oldOrder=-1)
         {
             DbQuestion dbQuestion = new DbQuestion();
             try
@@ -326,8 +290,10 @@ namespace SurveyConfiguratorApp.Data.Questions
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     cmd.Connection = dbQuestion.conn;
-                    cmd.CommandText = "SELECT [Order] FROM [Question] WHERE ([Order] = @order);";
+                    cmd.CommandText = $"SELECT [{ColumnNames.Order}] FROM [{tableName}] WHERE ([{ColumnNames.Order}] = @order AND [{ColumnNames.Order}] != @oldOrder);";
                     cmd.Parameters.AddWithValue("@order", order);
+                    cmd.Parameters.AddWithValue("@oldOrder", oldOrder);
+
                     SqlDataReader dataReader = cmd.ExecuteReader();
                     if (dataReader.HasRows)
                         return true;
@@ -342,6 +308,11 @@ namespace SurveyConfiguratorApp.Data.Questions
                 dbQuestion.CloseConnection();
             }
             return false;
+        }
+
+        protected virtual void OnDataChanged()
+        {
+            DataChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

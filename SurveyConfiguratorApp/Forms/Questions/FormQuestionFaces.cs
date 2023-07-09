@@ -1,6 +1,6 @@
 ﻿using SurveyConfiguratorApp.Domain.Questions;
 using SurveyConfiguratorApp.Helper;
-using SurveyConfiguratorApp.Logic.Questions.Faces;
+using SurveyConfiguratorApp.Logic;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -10,7 +10,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
     public partial class FormQuestionFaces : Form
     {
         QuestionValidation questionValidation;
-        public IQuestionFacesService questionFacesService { get; set; }
+        private QuestionManager questoinManager;
         private bool isUpdate = false;
         private int questionId = -1;
 
@@ -23,6 +23,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 InitializeComponent();
                 questionFaces = new QuestionFaces();
                 questionValidation = QuestionValidation.Instance();
+                questoinManager=new QuestionManager();
             }
             catch (Exception ex)
             {
@@ -43,6 +44,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
                     isUpdate = true;
                     this.questionId = questionId;
                     btnSave.Text = "Update";
+                    questionFaces=questoinManager.GetQuestionFaces(this.questionId);
                 }
 
             }
@@ -62,9 +64,10 @@ namespace SurveyConfiguratorApp.Forms.Questions
             {
                 numericFaceNumber.Maximum = questionValidation.FacesMaxValue;
                 numericFaceNumber.Minimum = questionValidation.FacesMinValue;
-                if (questionFacesService != null && questionId != -1)
+               if ( questionId != -1)
                 {
-                    questionFaces = questionFacesService.Get(questionId);
+                   questionFaces = questoinManager.GetQuestionFaces(questionId);
+                    
                     if (questionFaces == null)
                     {
                         MessageBox.Show("This Question does not exists", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -110,14 +113,16 @@ namespace SurveyConfiguratorApp.Forms.Questions
                     if (!isUpdate)
                     {
 
-                        result = questionFacesService.add(questionFaces);
-                        customMessageBoxControl1.sqlInsert(result);
+                        result = questoinManager.AddQuestionFaces(questionFaces);
+                        if(!result)
+                            customMessageBoxControl1.sqlInsert(result);
 
                     }
                     else
                     {
-                        result = questionFacesService.update(questionFaces);
-                        customMessageBoxControl1.sqlUpdate(result);
+                        result = questoinManager.UpdateQuestionFaces(questionFaces);
+                        if (!result)
+                            customMessageBoxControl1.sqlUpdate(result);
                         sharedBetweenQuestions.setOldOrder(questionFaces.Order);
 
                     }
@@ -175,6 +180,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             {
                 sharedBetweenQuestions.setQuestionText(questionFaces.Text);
                 sharedBetweenQuestions.setQuestionOrderValue(questionFaces.Order);
+
                 numericFaceNumber.Value = questionFaces.FacesNumber;
                 sharedBetweenQuestions.setOldOrder(questionFaces.Order);
                 btnSave.Text = "Update";

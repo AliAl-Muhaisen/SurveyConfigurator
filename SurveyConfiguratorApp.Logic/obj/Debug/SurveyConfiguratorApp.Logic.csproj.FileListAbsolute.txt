@@ -28,3 +28,5 @@ C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp.Logic\obj\D
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp.Logic\obj\Debug\SurveyConfiguratorApp.Logic.csproj.CopyComplete
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp.Logic\obj\Debug\SurveyConfiguratorApp.Logic.dll
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp.Logic\obj\Debug\SurveyConfiguratorApp.Logic.pdb
+C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp.Logic\bin\Debug\SurveyConfiguratorApp.Data.dll
+C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp.Logic\bin\Debug\SurveyConfiguratorApp.Data.pdb

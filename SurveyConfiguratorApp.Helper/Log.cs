@@ -9,14 +9,30 @@ namespace SurveyConfiguratorApp.Helper
         private static readonly string appLocation = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
         private static object lockObject = new object();
 
-        static public void Error(Exception ex)
+        private static string CreateFile(string fileName)
         {
             try
             {
                 string logDirectory = Path.Combine(appLocation, "logs");
                 Directory.CreateDirectory(logDirectory);
 
-                string logFilePath = Path.Combine(logDirectory, "errorLog.txt");
+                string logFilePath = Path.Combine(logDirectory, $"{fileName}.txt");
+                return logFilePath;
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+        }
+
+        static public void Error(Exception ex)
+        {
+            try
+            {
+
+
+                string logFilePath = CreateFile("Error.Log");
 
                 // to ensure that only one thread at a time can write to the log file
                 lock (lockObject)

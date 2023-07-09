@@ -1,15 +1,14 @@
 ﻿using SurveyConfiguratorApp.Domain.Questions;
 using SurveyConfiguratorApp.Helper;
-using SurveyConfiguratorApp.Logic.Questions.Stars;
 using System;
 using System.Data.SqlClient;
 
 namespace SurveyConfiguratorApp.Data.Questions
 {
-    public class DbQuestionStars : DbQuestion, IQuestionStarsRepository
+    public class DbQuestionStars : DbQuestion
     {
-        private const string tableName = "QuestionStars";
-        private enum ColumnNames
+        private new const string tableName = "QuestionStars";
+        private new enum ColumnNames
         {
             QuestionId,
             StarsNumber,
@@ -17,17 +16,17 @@ namespace SurveyConfiguratorApp.Data.Questions
         public DbQuestionStars() : base() { }
 
         static public string TableName { get { return tableName; } }
-        public bool add(QuestionStars data)
+        public bool Add(QuestionStars data)
         {
             try
             {
-                bool isAdded = base.add(data);
+                bool isAdded = base.Add(data);
 
 
                 if (!isAdded)
                     return false;
 
-                int questionId = base.getQuestionId();
+                int questionId = base.GetQuestionId();
 
                 if (questionId == -1)
                     return false;
@@ -39,7 +38,7 @@ namespace SurveyConfiguratorApp.Data.Questions
 
                 cmd.Connection = base.conn;
 
-                cmd.CommandText = "INSERT INTO [QuestionStars] ([QuestionId],[StarsNumber]) VALUES (@QuestionId,@StarsNumber);";
+                cmd.CommandText = $"INSERT INTO [{tableName}] ([{ColumnNames.QuestionId}],[{ColumnNames.StarsNumber}]) VALUES (@QuestionId,@StarsNumber);";
                 cmd.Parameters.AddWithValue("@QuestionId", questionId);
                 cmd.Parameters.AddWithValue("@StarsNumber", data.StarsNumber);
 
@@ -50,8 +49,8 @@ namespace SurveyConfiguratorApp.Data.Questions
                 {
                     return true;
                 }
-                // If the stars question not added successfully, delete the base question 
-                base.delete(questionId);
+                // If the stars question not added successfully, Delete the base question 
+                base.Delete(questionId);
 
 
             }
@@ -68,13 +67,13 @@ namespace SurveyConfiguratorApp.Data.Questions
 
 
 
-        public bool update(QuestionStars questionStars)
+        public bool Update(QuestionStars questionStars)
         {
             using (SqlCommand command = new SqlCommand())
             {
                 base.OpenConnection();
                 command.Connection = base.conn;
-                command.CommandText = $"UPDATE [{TableName}] SET [StarsNumber] = @StarsNumber WHERE [questionId] = @Id";
+                command.CommandText = $"UPDATE [{TableName}] SET [{ColumnNames.StarsNumber}] = @StarsNumber WHERE [{ColumnNames.QuestionId}] = @Id";
 
                 command.Parameters.AddWithValue("@StarsNumber", questionStars.StarsNumber);
                 command.Parameters.AddWithValue("@Id", questionStars.getId());
@@ -92,7 +91,7 @@ namespace SurveyConfiguratorApp.Data.Questions
 
                     base.CloseConnection();
 
-                    return true && base.update(questionStars);
+                    return base.Update(questionStars);
 
                 }
                 catch (Exception ex)
@@ -120,7 +119,9 @@ namespace SurveyConfiguratorApp.Data.Questions
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     cmd.Connection = base.conn;
-                    cmd.CommandText = $"SELECT [Text],[StarsNumber],[Order] FROM Question as q  INNER JOIN QuestionStars as s ON q.id=s.QuestionId WHERE q.Id={id};";
+                    cmd.CommandText = $"SELECT [{DbQuestion.ColumnNames.Text}],[{ColumnNames.StarsNumber}],[{DbQuestion.ColumnNames.Order}]" +
+                        $" FROM {DbQuestion.tableName} as q " +
+                        $" INNER JOIN {tableName} as s ON q.{DbQuestion.ColumnNames.Id}=s.{ColumnNames.QuestionId} WHERE q.{DbQuestion.ColumnNames.Id}={id};";
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())

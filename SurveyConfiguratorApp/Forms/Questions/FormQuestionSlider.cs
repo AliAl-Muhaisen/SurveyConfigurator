@@ -1,6 +1,6 @@
 ﻿using SurveyConfiguratorApp.Domain.Questions;
 using SurveyConfiguratorApp.Helper;
-using SurveyConfiguratorApp.Logic.Questions.Slider;
+using SurveyConfiguratorApp.Logic;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -9,12 +9,11 @@ namespace SurveyConfiguratorApp.Forms.Questions
 {
     public partial class FormQuestionSlider : Form
     {
-        public IQuestionSliderService questionSliderService { get; set; }
         private bool isUpdate = false;
         private QuestionSlider questionSlider;
         private int questionId = -1;
         private QuestionValidation questionValidation;
-
+        private QuestionManager questionManager;
 
         // To Check inputs validation 
         private bool isValidMaxNum = false;
@@ -29,6 +28,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 InitializeComponent();
                 questionSlider = new QuestionSlider();
                 questionValidation = QuestionValidation.Instance();
+                questionManager= new QuestionManager();
             }
             catch (Exception ex)
             {
@@ -74,9 +74,9 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 labelErrorCaptionStart.clearText();
                 labelErrorCaptionEnd.clearText();
 
-                if (questionSliderService != null && questionId != -1)
+                if (questionId != -1)
                 {
-                    questionSlider = questionSliderService.Get(questionId);
+                    questionSlider = questionManager.GetQuestionSlider(questionId);
                     // Check if question still exists
                     if (questionSlider == null)
                     {
@@ -153,14 +153,16 @@ namespace SurveyConfiguratorApp.Forms.Questions
                     if (!isUpdate)
                     {
 
-                        result = questionSliderService.add(questionSlider);
-                        customMessageBoxControl1.sqlInsert(result);
+                        result = questionManager.AddQuestionSlider(questionSlider);
+                        if (!result)
+                            customMessageBoxControl1.sqlInsert(result);
                     }
                     else
                     {
-                        result = questionSliderService.update(questionSlider);
+                        result = questionManager.UpdateQuestionSlider(questionSlider);
                         //sharedBetweenQuestions.setOldOrder(questionSlider.Order);
-                        customMessageBoxControl1.sqlUpdate(result);
+                        if (!result)
+                            customMessageBoxControl1.sqlUpdate(result);
 
                     }
                     if (result)
@@ -213,7 +215,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             {
                 if (numericStartValue.Value >= numericEndValue.Value)
                 {
-                    labelErrorStartValue.setText("Min should be less than max");
+                    labelErrorStartValue.setText("Should be less than max");
                     isValidMinNum = false;
 
                 }
@@ -250,7 +252,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             {
                 if (numericEndValue.Value <= numericStartValue.Value)
                 {
-                    labelErrorEndValue.setText("Max should be greater than min");
+                    labelErrorEndValue.setText("Should be greater than min");
                     isValidMaxNum = false;
 
                 }
@@ -396,5 +398,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             return false;
 
         }
+
+        
     }
 }

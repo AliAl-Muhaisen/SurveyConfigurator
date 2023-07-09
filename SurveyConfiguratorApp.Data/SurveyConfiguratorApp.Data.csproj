@@ -61,10 +61,6 @@
       <Project>{d95358ee-4f7b-4f34-b97a-7d68cc382976}</Project>
       <Name>SurveyConfiguratorApp.Helper</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SurveyConfiguratorApp.Logic\SurveyConfiguratorApp.Logic.csproj">
-      <Project>{A2C2D0C3-B661-4DA9-9DE5-08FCB650C939}</Project>
-      <Name>SurveyConfiguratorApp.Logic</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
