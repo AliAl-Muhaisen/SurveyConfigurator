@@ -60,7 +60,7 @@
     <Compile Include="DbManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Questions\QuestionManager.cs" />
-    <Compile Include="Questions\QuestionComparer.cs" />
+    <Compile Include="Questions\QuestionListComparer.cs" />
     <Compile Include="Questions\QuestionValidation.cs" />
   </ItemGroup>
   <ItemGroup>

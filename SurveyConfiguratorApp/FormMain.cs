@@ -8,10 +8,12 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Windows.Forms;
 
 using ListView = System.Windows.Forms.ListView;
+using SortOrder = System.Windows.Forms.SortOrder;
 
 namespace SurveyConfiguratorApp
 {
@@ -30,8 +32,8 @@ namespace SurveyConfiguratorApp
 
         private int lastSelectedQuestionOrder = -1;
         private Question currentQuestion = null;
-        private string lastSortColumn = string.Empty;
-        private SortOrder lastSortOrder = SortOrder.None;
+
+        private int lastSortColumn = -1;
 
 
 
@@ -48,7 +50,7 @@ namespace SurveyConfiguratorApp
                 questionManager = new QuestionManager();
                 listViewQuestions.Items.Clear();
                 FillListView();
-               questionManager.DataChangedUI += OnRefreshData;
+                questionManager.DataChangedUI += OnRefreshData;
                 listViewQuestions.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None);
             }
             catch (Exception e)
@@ -75,9 +77,9 @@ namespace SurveyConfiguratorApp
         }
 
         //Timer Methods
-      
 
-       
+
+
         // Data Grid View Methods
         private void loadDataGridView()
         {
@@ -97,7 +99,7 @@ namespace SurveyConfiguratorApp
             }
 
         }
-       
+
 
 
         private void OnRefreshData(object sender, EventArgs e)
@@ -115,17 +117,17 @@ namespace SurveyConfiguratorApp
         {
             try
             {
-FillListView();           
-            handleSelectTheLastOrder();
+                FillListView();
+                handleSelectTheLastOrder();
             }
             catch (Exception e)
             {
                 Log.Error(e);
             }
 
-            
+
         }
-       
+
 
         /// <summary>
         /// Sort Data Grid View based on sorting type and selected column
@@ -136,8 +138,9 @@ FillListView();
         {
             try
             {
-                var comparer = new QuestionComparer(columnName, sortOrder);
-               // questionList.Sort(comparer);
+                // var comparer = new QuestionListComparer(columnName, sortOrder);
+
+                // questionList.Sort(comparer);
                 // dataGridViewQuestion.DataSource = null;
                 // dataGridViewQuestion.DataSource = questionList;
                 handleSelectTheLastOrder();
@@ -265,7 +268,7 @@ FillListView();
         {
             try
             {
-               // to re-select the row after re-load
+                // to re-select the row after re-load
                 if (lastSelectedQuestionOrder != -1)
                 {
 
@@ -286,7 +289,7 @@ FillListView();
 
         }
 
-       private void FillListView()
+        private void FillListView()
         {
             try
             {
@@ -311,13 +314,37 @@ FillListView();
             }
             catch (Exception e)
             {
-                Log.Error (e);
+                Log.Error(e);
             }
         }
 
         private void listView1_ColumnClick(object sender, ColumnClickEventArgs e)
         {
-           
+            try
+            {
+              //  string lastSortedType;
+                if (e.Column != lastSortColumn)
+                {
+                    lastSortColumn = e.Column;
+                    listViewQuestions.Sorting = SortOrder.Ascending;
+                }
+                else
+                {
+                    listViewQuestions.Sorting = listViewQuestions.Sorting == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
+                }
+               // lastSortedType = listViewQuestions.Sorting.ToString();
+                QuestionListComparer comparer = new QuestionListComparer(e.Column, listViewQuestions.Sorting.ToString());
+
+                // Set the ListViewItemSorter property
+                listViewQuestions.ListViewItemSorter = comparer;
+
+                // Call the Sort method to apply sorting
+                listViewQuestions.Sort();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+            }
         }
 
         private void UpdateSelectedQuestion(Question question)
