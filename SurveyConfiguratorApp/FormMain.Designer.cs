@@ -28,12 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.listViewQuestions = new System.Windows.Forms.ListView();
             this.Order = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -42,16 +40,16 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataBaseConnectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.labelStatus = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(13, 4);
-            this.btnAdd.Margin = new System.Windows.Forms.Padding(4);
+            this.btnAdd.Location = new System.Drawing.Point(282, 3);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(155, 31);
+            this.btnAdd.Size = new System.Drawing.Size(116, 25);
             this.btnAdd.TabIndex = 1;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
@@ -59,10 +57,9 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(339, 4);
-            this.btnDelete.Margin = new System.Windows.Forms.Padding(4);
+            this.btnDelete.Location = new System.Drawing.Point(526, 3);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(155, 31);
+            this.btnDelete.Size = new System.Drawing.Size(116, 25);
             this.btnDelete.TabIndex = 2;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
@@ -70,10 +67,9 @@
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(176, 4);
-            this.btnUpdate.Margin = new System.Windows.Forms.Padding(4);
+            this.btnUpdate.Location = new System.Drawing.Point(404, 3);
             this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(155, 31);
+            this.btnUpdate.Size = new System.Drawing.Size(116, 25);
             this.btnUpdate.TabIndex = 3;
             this.btnUpdate.Text = "Update";
             this.btnUpdate.UseVisualStyleBackColor = true;
@@ -81,13 +77,15 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.labelStatus);
             this.panel1.Controls.Add(this.btnAdd);
             this.panel1.Controls.Add(this.btnDelete);
             this.panel1.Controls.Add(this.btnUpdate);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 441);
+            this.panel1.Location = new System.Drawing.Point(0, 365);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(867, 55);
+            this.panel1.Size = new System.Drawing.Size(652, 45);
             this.panel1.TabIndex = 5;
             // 
             // listViewQuestions
@@ -100,10 +98,11 @@
             this.listViewQuestions.FullRowSelect = true;
             this.listViewQuestions.GridLines = true;
             this.listViewQuestions.HideSelection = false;
-            this.listViewQuestions.Location = new System.Drawing.Point(12, 31);
+            this.listViewQuestions.Location = new System.Drawing.Point(9, 25);
+            this.listViewQuestions.Margin = new System.Windows.Forms.Padding(2);
             this.listViewQuestions.MultiSelect = false;
             this.listViewQuestions.Name = "listViewQuestions";
-            this.listViewQuestions.Size = new System.Drawing.Size(843, 404);
+            this.listViewQuestions.Size = new System.Drawing.Size(633, 329);
             this.listViewQuestions.TabIndex = 6;
             this.listViewQuestions.UseCompatibleStateImageBehavior = false;
             this.listViewQuestions.View = System.Windows.Forms.View.Details;
@@ -133,7 +132,8 @@
             this.menuStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(867, 30);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(652, 24);
             this.menuStrip1.TabIndex = 7;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -142,37 +142,46 @@
             this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.dataBaseConnectionToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(76, 26);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.settingsToolStripMenuItem.Text = "Settings";
             // 
             // dataBaseConnectionToolStripMenuItem
             // 
             this.dataBaseConnectionToolStripMenuItem.Name = "dataBaseConnectionToolStripMenuItem";
-            this.dataBaseConnectionToolStripMenuItem.Size = new System.Drawing.Size(234, 26);
+            this.dataBaseConnectionToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.dataBaseConnectionToolStripMenuItem.Text = "Data BaseConnection";
             this.dataBaseConnectionToolStripMenuItem.Click += new System.EventHandler(this.dataBaseConnectionToolStripMenuItem_Click);
             // 
+            // labelStatus
+            // 
+            this.labelStatus.AutoSize = true;
+            this.labelStatus.Location = new System.Drawing.Point(6, 9);
+            this.labelStatus.Name = "labelStatus";
+            this.labelStatus.Size = new System.Drawing.Size(59, 13);
+            this.labelStatus.TabIndex = 4;
+            this.labelStatus.Text = "labelStatus";
+            // 
             // FormMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(867, 496);
+            this.ClientSize = new System.Drawing.Size(652, 410);
             this.Controls.Add(this.listViewQuestions);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
             this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(885, 543);
-            this.MinimumSize = new System.Drawing.Size(885, 543);
+            this.MaximumSize = new System.Drawing.Size(668, 449);
+            this.MinimumSize = new System.Drawing.Size(668, 449);
             this.Name = "FormMain";
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -184,7 +193,6 @@
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnUpdate;
-        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ListView listViewQuestions;
         private System.Windows.Forms.ColumnHeader Order;
@@ -193,6 +201,7 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dataBaseConnectionToolStripMenuItem;
+        private System.Windows.Forms.Label labelStatus;
     }
 }
 

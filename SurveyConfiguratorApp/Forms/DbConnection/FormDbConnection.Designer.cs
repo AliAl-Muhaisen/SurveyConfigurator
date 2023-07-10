@@ -44,8 +44,8 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(196, 140);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnCancel.Location = new System.Drawing.Point(198, 124);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(56, 19);
             this.btnCancel.TabIndex = 0;
@@ -55,13 +55,14 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(74, 140);
-            this.btnSave.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnSave.Location = new System.Drawing.Point(76, 124);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(2);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(56, 19);
             this.btnSave.TabIndex = 1;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // label1
             // 
@@ -99,36 +100,40 @@
             // textBoxServer
             // 
             this.textBoxServer.Location = new System.Drawing.Point(80, 23);
-            this.textBoxServer.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxServer.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxServer.Name = "textBoxServer";
             this.textBoxServer.Size = new System.Drawing.Size(174, 20);
             this.textBoxServer.TabIndex = 5;
+            this.textBoxServer.TextChanged += new System.EventHandler(this.textBoxServer_TextChanged);
             // 
             // textBoxDataBase
             // 
             this.textBoxDataBase.Location = new System.Drawing.Point(80, 46);
-            this.textBoxDataBase.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxDataBase.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxDataBase.Name = "textBoxDataBase";
             this.textBoxDataBase.Size = new System.Drawing.Size(174, 20);
             this.textBoxDataBase.TabIndex = 6;
+            this.textBoxDataBase.TextChanged += new System.EventHandler(this.textBoxDataBase_TextChanged);
             // 
             // textBoxUsername
             // 
             this.textBoxUsername.Location = new System.Drawing.Point(80, 68);
-            this.textBoxUsername.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxUsername.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxUsername.Name = "textBoxUsername";
             this.textBoxUsername.Size = new System.Drawing.Size(174, 20);
             this.textBoxUsername.TabIndex = 7;
+            this.textBoxUsername.TextChanged += new System.EventHandler(this.textBoxUsername_TextChanged);
             // 
             // textBoxPassword
             // 
             this.textBoxPassword.Location = new System.Drawing.Point(80, 91);
-            this.textBoxPassword.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxPassword.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.PasswordChar = '*';
             this.textBoxPassword.Size = new System.Drawing.Size(174, 20);
             this.textBoxPassword.TabIndex = 9;
             this.textBoxPassword.UseSystemPasswordChar = true;
+            this.textBoxPassword.TextChanged += new System.EventHandler(this.textBoxPassword_TextChanged);
             // 
             // label4
             // 
@@ -143,8 +148,8 @@
             // 
             // btnTest
             // 
-            this.btnTest.Location = new System.Drawing.Point(135, 140);
-            this.btnTest.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnTest.Location = new System.Drawing.Point(137, 124);
+            this.btnTest.Margin = new System.Windows.Forms.Padding(2);
             this.btnTest.Name = "btnTest";
             this.btnTest.Size = new System.Drawing.Size(56, 19);
             this.btnTest.TabIndex = 10;
@@ -156,7 +161,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(268, 177);
+            this.ClientSize = new System.Drawing.Size(268, 156);
             this.Controls.Add(this.btnTest);
             this.Controls.Add(this.textBoxPassword);
             this.Controls.Add(this.label4);
@@ -169,10 +174,10 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnCancel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(284, 216);
-            this.MinimumSize = new System.Drawing.Size(284, 216);
+            this.MaximumSize = new System.Drawing.Size(284, 195);
+            this.MinimumSize = new System.Drawing.Size(284, 195);
             this.Name = "FormDbConnection";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Connection";

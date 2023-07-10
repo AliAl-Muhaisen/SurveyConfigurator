@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -26,9 +27,9 @@ namespace SurveyConfiguratorApp
 
         int questionId = -1;
         private QuestionManager questionManager;
+        private DbManager dbManager;
         private int questionTypeNumber = -1;
 
-        private static List<Question> questionList = new List<Question>();
 
         private int lastSelectedQuestionOrder = -1;
         private Question currentQuestion = null;
@@ -51,24 +52,28 @@ namespace SurveyConfiguratorApp
                 listViewQuestions.Items.Clear();
                 FillListView();
                 questionManager.DataChangedUI += OnRefreshData;
+                questionManager.FollowDbChanges();
                 listViewQuestions.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None);
+
+                dbManager = new DbManager();
+                dbManager.ConnectionRefreshed += OnConnectionRefreshed;
+
             }
             catch (Exception e)
             {
                 Log.Error(e);
             }
-
-
-
         }
-        // Form Load
-
         private void FormMain_Load(object sender, EventArgs e)
         {
 
             try
             {
-                loadDataGridView();
+                ButtonsEnable(false);
+
+                labelStatus.ForeColor = Color.Red;
+                labelStatus.Text = "Try connecting...";
+                TryConnectToServer();
             }
             catch (Exception ex)
             {
@@ -76,29 +81,6 @@ namespace SurveyConfiguratorApp
             }
         }
 
-        //Timer Methods
-
-
-
-        // Data Grid View Methods
-        private void loadDataGridView()
-        {
-            try
-            {
-                DataTable table = new DataTable();
-                questionList = QuestionManager.questions;
-
-                var bindingList = new BindingList<Question>(questionList);
-
-                var source = new BindingSource(bindingList, null);
-
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex);
-            }
-
-        }
 
 
 
@@ -106,7 +88,23 @@ namespace SurveyConfiguratorApp
         {
             try
             {
-                RefreshData();
+                //The InvokeRequired property in Windows Forms is used to check if the current code is executing on the UI thread or a different thread.
+                //If InvokeRequired is true, it means the code is running on a non-UI thread.
+                //    Log.Info("OnRefreshData called");
+                // MessageBox.Show("Refresh");
+                if (listViewQuestions.InvokeRequired)
+                    listViewQuestions.Invoke((MethodInvoker)(() =>
+                    {
+                        RefreshData();
+                    }));
+                //if (listViewQuestions.InvokeRequired)
+                //{
+                //    Invoke(new EventHandler(OnRefreshData), sender, e);
+                //    return;
+                //}
+                else
+                    RefreshData();
+                //DataChanged?.Invoke(this, EventArgs.Empty);
             }
             catch (Exception ex)
             {
@@ -117,7 +115,14 @@ namespace SurveyConfiguratorApp
         {
             try
             {
-                FillListView();
+                if (listViewQuestions.InvokeRequired)
+                    listViewQuestions.Invoke((MethodInvoker)(() =>
+                    {
+                        FillListView();
+                    }));
+                else
+                    FillListView();
+
                 handleSelectTheLastOrder();
             }
             catch (Exception e)
@@ -129,27 +134,7 @@ namespace SurveyConfiguratorApp
         }
 
 
-        /// <summary>
-        /// Sort Data Grid View based on sorting type and selected column
-        /// </summary>
-        /// <param name="sortOrder"></param>
-        /// <param name="columnName"></param>
-        private void sortDataGridView(string sortOrder, string columnName)
-        {
-            try
-            {
-                // var comparer = new QuestionListComparer(columnName, sortOrder);
 
-                // questionList.Sort(comparer);
-                // dataGridViewQuestion.DataSource = null;
-                // dataGridViewQuestion.DataSource = questionList;
-                handleSelectTheLastOrder();
-            }
-            catch (Exception e)
-            {
-                Log.Error(e);
-            }
-        }
 
 
         // Data Grid View Buttons
@@ -161,6 +146,7 @@ namespace SurveyConfiguratorApp
                 Form fromAdd = new FormQuestion();
                 fromAdd.ShowDialog();
                 RefreshData();
+
             }
             catch (Exception ex)
             {
@@ -181,7 +167,7 @@ namespace SurveyConfiguratorApp
                     // questionId = handleQuestionId(questionId);
                     Form fromAdd = new FormQuestion(false, questionId, questionTypeNumber, "Update Question");
                     fromAdd.ShowDialog();
-                    loadDataGridView();
+                    RefreshData();
 
                 }
                 else
@@ -209,7 +195,7 @@ namespace SurveyConfiguratorApp
                     if (dialogResult == DialogResult.Yes)
                     {
                         questionManager.Delete(questionId);
-                        loadDataGridView();
+                        RefreshData();
                         questionId = -1;
                     }
 
@@ -246,7 +232,7 @@ namespace SurveyConfiguratorApp
                 }
                 else
                 {
-                    loadDataGridView();
+                    RefreshData();
                     MessageBox.Show("This question does not exists", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
@@ -268,19 +254,24 @@ namespace SurveyConfiguratorApp
         {
             try
             {
-                // to re-select the row after re-load
-                if (lastSelectedQuestionOrder != -1)
-                {
-
-                    foreach (ListViewItem item in listViewQuestions.Items)
+                if (listViewQuestions.InvokeRequired)
+                    listViewQuestions.Invoke((MethodInvoker)(() =>
                     {
-                        if (item.SubItems[0].Text == lastSelectedQuestionOrder.ToString())
+                        if (lastSelectedQuestionOrder != -1)
                         {
-                            item.Selected = true;
-                            break;
+
+                            foreach (ListViewItem item in listViewQuestions.Items)
+                            {
+                                if (item.SubItems[0].Text == lastSelectedQuestionOrder.ToString())
+                                {
+                                    item.Selected = true;
+                                    break;
+                                }
+                            }
                         }
-                    }
-                }
+                    }));
+                // to re-select the row after re-load
+
             }
             catch (Exception e)
             {
@@ -294,22 +285,27 @@ namespace SurveyConfiguratorApp
             try
             {
                 List<Question> list = new List<Question>();
-                list = QuestionManager.questions;
-                listViewQuestions.Items.Clear();
-                foreach (Question question in list)
+                //  list = QuestionManager.questions;
+                
+                if (listViewQuestions.IsHandleCreated)
+                    listViewQuestions.Invoke((MethodInvoker)(() =>
                 {
-                    // Create a new ListViewItem and set its Text property to the Order value
-                    ListViewItem item = new ListViewItem(question.Order.ToString());
+                    list = questionManager.GetQuestions();
+                listViewQuestions.Items.Clear();
+                    foreach (Question question in list)
+                    {
+                        // Create a new ListViewItem and set its Text property to the Order value
+                        ListViewItem item = new ListViewItem(question.Order.ToString());
 
-                    // Add sub-items to the ListViewItem
-                    item.SubItems.Add(question.TypeName);
-                    item.SubItems.Add(question.Text);
-                    item.Tag = question;
+                        // Add sub-items to the ListViewItem
+                        item.SubItems.Add(question.TypeName);
+                        item.SubItems.Add(question.Text);
+                        item.Tag = question;
 
-                    listViewQuestions.Items.Add(item);
+                        listViewQuestions.Items.Add(item);
+                    }
+                }));
 
-
-                }
 
             }
             catch (Exception e)
@@ -318,11 +314,15 @@ namespace SurveyConfiguratorApp
             }
         }
 
+        /// <summary>
+        /// Sort Data Grid View based on sorting type and selected column
+        /// </summary>
+
         private void listView1_ColumnClick(object sender, ColumnClickEventArgs e)
         {
             try
             {
-              //  string lastSortedType;
+                //  string lastSortedType;
                 if (e.Column != lastSortColumn)
                 {
                     lastSortColumn = e.Column;
@@ -332,7 +332,7 @@ namespace SurveyConfiguratorApp
                 {
                     listViewQuestions.Sorting = listViewQuestions.Sorting == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
                 }
-               // lastSortedType = listViewQuestions.Sorting.ToString();
+                // lastSortedType = listViewQuestions.Sorting.ToString();
                 QuestionListComparer comparer = new QuestionListComparer(e.Column, listViewQuestions.Sorting.ToString());
 
                 // Set the ListViewItemSorter property
@@ -386,12 +386,76 @@ namespace SurveyConfiguratorApp
         {
             try
             {
-                Form DbConnection = new FormDbConnection();
-                DbConnection.ShowDialog();
+                using (var DbConnection = new FormDbConnection())
+                {
+                    DbConnection.ConnectionStringChanged += OnConnectionRefreshed;
+                    DbConnection.ShowDialog();
+                }
+
+
             }
             catch (Exception ex)
             {
                 Log.Error(ex);
+            }
+        }
+
+        private void TryConnectToServer()
+        {
+            try
+            {
+                bool result = DbManager.IsDbConnected();
+                if (result)
+                {
+                    labelStatus.ForeColor = Color.Green;
+                    labelStatus.Text = "Connected Successfully";
+                    ButtonsEnable(true);
+
+                    // this.Refresh();
+                     FillListView();
+                  
+
+                }
+                else
+                {
+                    labelStatus.ForeColor = Color.Red;
+                    labelStatus.Text = "Connected Failed";
+                    ButtonsEnable(false);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+            }
+        }
+        private void OnConnectionRefreshed(object sender, EventArgs e)
+        {
+            try
+            {
+                if (InvokeRequired)
+                {
+                    Invoke(new EventHandler(OnConnectionRefreshed), sender, e);
+                    return;
+                }
+                TryConnectToServer();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+            }
+
+        }
+        private void ButtonsEnable(bool isEnable)
+        {
+            try
+            {
+                btnAdd.Enabled = isEnable;
+                btnDelete.Enabled = isEnable;
+                btnUpdate.Enabled = isEnable;
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
             }
         }
     }

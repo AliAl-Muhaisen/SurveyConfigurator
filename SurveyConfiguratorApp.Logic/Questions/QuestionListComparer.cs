@@ -1,7 +1,6 @@
 ﻿using SurveyConfiguratorApp.Domain.Questions;
 using SurveyConfiguratorApp.Helper;
 using System;
-using System.Collections.Generic;
 using System.Collections;
 using System.Windows.Forms;
 
@@ -31,7 +30,7 @@ namespace SurveyConfiguratorApp.Logic.Questions
 
         }
 
-      
+
         public int Compare(object x, object y)
         {
             int result = 0;

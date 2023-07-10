@@ -54,7 +54,32 @@ namespace SurveyConfiguratorApp.Helper
 
         }
 
+        static public void Info(string info)
+        {
+            try
+            {
 
+
+                string logFilePath = CreateFile("Info.Log");
+
+                // to ensure that only one thread at a time can write to the log file
+                lock (lockObject)
+                {
+                    using (StreamWriter streamWriter = new StreamWriter(logFilePath, true))
+                    {
+                        streamWriter.WriteLine($"DateTime: {DateTime.Now}");
+                        streamWriter.WriteLine($"Message: {info}");
+ 
+                        streamWriter.WriteLine("\n\n");
+                    }
+                }
+            }
+            catch (Exception handleEx)
+            {
+                Console.WriteLine($"Error handling exception: {handleEx.Message}");
+            }
+
+        }
     }
 
 }

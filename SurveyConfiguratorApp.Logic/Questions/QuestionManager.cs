@@ -17,10 +17,12 @@ namespace SurveyConfiguratorApp.Logic
         private DbQuestionSlider dbQuestionSlider;
         private DbQuestionStars dbQuestionStars;
 
-        public static List<Question> questions = new List<Question>();
+        QuestionValidation questionValidation;
 
+        private static List<Question> questions = new List<Question>();
+        private static bool firstCall = true;
         public event EventHandler DataChangedUI;
-
+        private Thread thread;
         public QuestionManager()
         {
             try
@@ -32,9 +34,9 @@ namespace SurveyConfiguratorApp.Logic
                 dbQuestionStars = new DbQuestionStars();
                 questions = dbQuestion.GetQuestions();
                 // DbQuestion.DataChanged += DbQuestion_DataChanged;
+                questionValidation = QuestionValidation.Instance();
 
-                FollowDbChanges();
-
+               
 
             }
             catch (Exception e)
@@ -44,21 +46,34 @@ namespace SurveyConfiguratorApp.Logic
 
         }
 
-        protected virtual void OnDataChanged()
+        protected void OnDataChanged()
         {
-            DataChangedUI?.Invoke(this, EventArgs.Empty);
+            try
+            {
+                DataChangedUI?.Invoke(this, EventArgs.Empty);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+            }
+
+
         }
 
         private void DbQuestion_DataChanged(object sender, EventArgs e)
         {
-            questions = dbQuestion.GetQuestions();
+            try
+            {
+                questions = dbQuestion.GetQuestions();
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+            }
         }
 
-        //private void DbQuestion_DataChanged(object sender, DataChangedEventArgs e)
-        //{
-        //    // Handle the data change event here
-        //    // Update the questions list and perform any necessary actions
-        //}
+       
         public bool IsOrderAlreadyExists(int order, int oldOrder = -1)
         {
             try
@@ -71,77 +86,45 @@ namespace SurveyConfiguratorApp.Logic
             }
             return false;
         }
-    
-    public void FollowDbChanges()
-    {
-        try
-        {
-            Thread thread = new Thread(() =>
-            {
-                while (true)
-                {
-                    List<Question> list = new List<Question>();
-                    list = GetQuestions();
-                    if (!list.SequenceEqual(questions))
-                    {
-                        questions = list;
-                        OnDataChanged();
 
-                    }
-                    Thread.Sleep(4000);
-
-                }
-
-            });
-
-
-            thread.IsBackground = true;
-            thread.Start();
-            // Wait for the background thread to complete
-        }
-        catch (Exception ex)
-        {
-            Log.Error(ex);
-        }
-    }
-    public List<Question> GetQuestions()
-    {
-        try
-        {
-
-            return dbQuestion.GetQuestions();
-        }
-        catch (Exception e)
-        {
-            Log.Error(e);
-        }
-        return null;
-    }
-
-    public Question GetQuestion(int id)
-    {
-        try
-        {
-            return dbQuestion.Get(id);
-        }
-        catch (Exception e)
-        {
-            Log.Error(e);
-        }
-        return null;
-    }
-    public static List<int> Orders
-    {
-        get
+        public void FollowDbChanges()
         {
             try
             {
-                List<int> list = new List<int>();
-                for (int i = 0; i < questions.Count; i++)
-                {
-                    list.Add(questions[i].Order);
-                }
-                return list;
+                thread = new Thread(new ThreadStart(delegate
+               {
+                   while (true)
+                   {
+                       List<Question> list = new List<Question>();
+                       list = GetQuestions();
+                       if (!list.SequenceEqual(questions) || firstCall)
+                       {
+                           questions = list;
+                           OnDataChanged();
+                           firstCall = false;
+
+                       }
+                       Thread.Sleep(4000);
+
+                   }
+
+               }));
+
+
+                thread.IsBackground = true;
+                thread.Start();
+                // Wait for the background thread to complete
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+            }
+        }
+        public List<Question> GetQuestions()
+        {
+            try
+            {
+                return dbQuestion.GetQuestions();
             }
             catch (Exception e)
             {
@@ -149,142 +132,191 @@ namespace SurveyConfiguratorApp.Logic
             }
             return null;
         }
-    }
-    public bool Delete(int id)
-    {
-        try
-        {
-            return dbQuestion.Delete(id);
-        }
-        catch (Exception e)
-        {
-            Log.Error(e);
-        }
-        return false;
-    }
 
-    public bool AddQuestionFaces(QuestionFaces questionFaces)
-    {
-        try
+        public Question GetQuestion(int id)
         {
-            bool isAdded = dbQuestionFaces.Add(questionFaces);
-            if (isAdded)
+            try
             {
-                // After adding the question, retrieve the updated questions
-                questions = dbQuestion.GetQuestions();
+                return dbQuestion.Get(id);
             }
+            catch (Exception e)
+            {
+                Log.Error(e);
+            }
+            return null;
+        }
+        public static List<int> Orders
+        {
+            get
+            {
+                try
+                {
+                    List<int> list = new List<int>();
+                    for (int i = 0; i < questions.Count; i++)
+                    {
+                        list.Add(questions[i].Order);
+                    }
+                    return list;
+                }
+                catch (Exception e)
+                {
+                    Log.Error(e);
+                }
+                return null;
+            }
+        }
+        public bool Delete(int id)
+        {
+            try
+            {
+                bool result;
+                result = dbQuestion.Delete(id);
 
-            return isAdded;
+                return result;
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+            }
+            return false;
         }
-        catch (Exception e)
-        {
-            Log.Error(e);
-        }
-        return false;
-    }
-    public bool UpdateQuestionFaces(QuestionFaces questionFaces)
-    {
-        try
-        {
-            return dbQuestionFaces.Update(questionFaces);
-        }
-        catch (Exception e)
-        {
-            Log.Error(e);
-        }
-        return false;
-    }
 
-    public QuestionFaces GetQuestionFaces(int id)
-    {
-        try
+        public bool AddQuestionFaces(QuestionFaces questionFaces)
         {
-            return dbQuestionFaces.Get(id);
-        }
-        catch (Exception e)
-        {
-            Log.Error(e);
-        }
-        return null;
-    }
+            try
+            {
+                if (!questionValidation.IsValidFacesQuestion(questionFaces))
+                    return false;
+                bool isAdded = dbQuestionFaces.Add(questionFaces);
 
-    //Stars
-    public bool AddQuestionStars(QuestionStars questionStars)
-    {
-        try
-        {
-            return dbQuestionStars.Add(questionStars);
-        }
-        catch (Exception e)
-        {
-            Log.Error(e);
-        }
-        return false;
-    }
-    public bool UpdateQuestionStars(QuestionStars questionStars)
-    {
-        try
-        {
-            return dbQuestionStars.Update(questionStars);
-        }
-        catch (Exception e)
-        {
-            Log.Error(e);
-        }
-        return false;
-    }
 
-    public QuestionStars GetQuestionStars(int id)
-    {
-        try
-        {
-            return dbQuestionStars.Get(id);
+                return isAdded;
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+            }
+            return false;
         }
-        catch (Exception e)
+        public bool UpdateQuestionFaces(QuestionFaces questionFaces)
         {
-            Log.Error(e);
-        }
-        return null;
-    }
+            try
+            {
 
-    //Slider
-    public bool AddQuestionSlider(QuestionSlider questionSlider)
-    {
-        try
-        {
-            return dbQuestionSlider.Add(questionSlider);
-        }
-        catch (Exception e)
-        {
-            Log.Error(e);
-        }
-        return false;
-    }
-    public bool UpdateQuestionSlider(QuestionSlider questionSlider)
-    {
-        try
-        {
-            return dbQuestionSlider.Update(questionSlider);
-        }
-        catch (Exception e)
-        {
-            Log.Error(e);
-        }
-        return false;
-    }
+                if (!questionValidation.IsValidFacesQuestion(questionFaces, true))
+                    return false;
+                bool result;
+                result = dbQuestionFaces.Update(questionFaces);
 
-    public QuestionSlider GetQuestionSlider(int id)
-    {
-        try
-        {
-            return dbQuestionSlider.Get(id);
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+            }
+            return false;
         }
-        catch (Exception e)
+
+        public QuestionFaces GetQuestionFaces(int id)
         {
-            Log.Error(e);
+            try
+            {
+                return dbQuestionFaces.Get(id);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+            }
+            return null;
         }
-        return null;
+
+        //Stars
+        public bool AddQuestionStars(QuestionStars questionStars)
+        {
+            try
+            {
+                if (!questionValidation.IsValidStarsQuestion(questionStars))
+                    return false;
+                return dbQuestionStars.Add(questionStars);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+            }
+            return false;
+        }
+        public bool UpdateQuestionStars(QuestionStars questionStars)
+        {
+            try
+            {
+                if (!questionValidation.IsValidStarsQuestion(questionStars, true))
+                    return false;
+                return dbQuestionStars.Update(questionStars);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+            }
+            return false;
+        }
+
+        public QuestionStars GetQuestionStars(int id)
+        {
+            try
+            {
+                return dbQuestionStars.Get(id);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+            }
+            return null;
+        }
+
+        //Slider
+        public bool AddQuestionSlider(QuestionSlider questionSlider)
+        {
+            try
+            {
+                if (!questionValidation.IsValidSliderQuestion(questionSlider))
+                    return false;
+                return dbQuestionSlider.Add(questionSlider);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+            }
+            return false;
+        }
+        public bool UpdateQuestionSlider(QuestionSlider questionSlider)
+        {
+            try
+            {
+                if (!questionValidation.IsValidSliderQuestion(questionSlider, true))
+                    return false;
+                return dbQuestionSlider.Update(questionSlider);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+            }
+            return false;
+        }
+
+        public QuestionSlider GetQuestionSlider(int id)
+        {
+            try
+            {
+                return dbQuestionSlider.Get(id);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+            }
+            return null;
+        }
+      
     }
-}
 
 }

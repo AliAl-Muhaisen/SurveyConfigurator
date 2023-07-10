@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using SurveyConfiguratorApp.Data.Questions;
 using SurveyConfiguratorApp.Helper;
 using SurveyConfiguratorApp.Logic;
 using SurveyConfiguratorApp.Logic.Questions;
@@ -29,7 +30,8 @@ namespace SurveyConfiguratorApp.Domain.Questions
         public int FacesMinValue { get; private set; }
 
         const int questionTextLength = 1500;
-        const int sliderCaptionTextLength = 500;
+        const int sliderCaptionTextLengthMax = 500;
+        const int sliderCaptionTextLengthMin = 3;
 
 
         private QuestionValidation()
@@ -71,49 +73,88 @@ namespace SurveyConfiguratorApp.Domain.Questions
         }
 
         //General Functions
-        public bool isNotEmpty(string text)
+        public bool IsNotEmpty(string text)
         {
             return (text != null && text.Trim().Length > 0);
         }
-        public bool isEmpty(string text)
+        public bool IsEmpty(string text)
         {
-            return !isNotEmpty(text);
+            return !IsNotEmpty(text);
         }
 
-        private bool isMinNum(int sourceNum, int comparedNum)
+        private bool IsMinNum(int sourceNum, int comparedNum)
         {
             return comparedNum >= sourceNum;
         }
-        private string generalMsgMinNum(int num)
+        private string GeneralMsgMinNum(int num)
         {
             return ("You can't enter number less than " + num);
         }
 
         private bool isMaxNum(int sourceNum, int comparedNum)
         {
-            return comparedNum <= sourceNum;
+            try
+            {
+                return comparedNum <= sourceNum;
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+                return false;
+            }
+
         }
 
-        private string generalMsgMaxNum(int num)
+        private string GeneralMsgMaxNum(int num)
         {
-            return ("You can't enter number greater than " + num);
+            try
+            {
+                return ("You can't enter number greater than " + num);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+                return null;
+            }
+
         }
 
-        public string handelQuestionText(string text)
+        private bool IsValidQuestionText(string text)
         {
-            if (isEmpty(text))
+            try
             {
-                return "Required Field";
+                return text.Trim().Length > 0 && text.Trim().Length <= questionTextLength;
             }
-            else if (text.Trim().Length > questionTextLength)
+            catch (Exception e)
             {
-                return $"Maximum input length exceeded. Please enter a value that is within {questionTextLength} character";
+                Log.Error(e);
+                return false;
             }
-            else if (text.Trim().Length < 10)
+        }
+        public string HandelQuestionText(string text)
+        {
+            try
             {
-                return "Too Short";
+                if (IsEmpty(text))
+                {
+                    return "Required Field";
+                }
+                else if (text.Trim().Length > questionTextLength)
+                {
+                    return $"Maximum input length exceeded. Please enter a value that is within {questionTextLength} character";
+                }
+                else if (text.Trim().Length < 10)
+                {
+                    return "Too Short";
+                }
+                return null;
             }
-            return null;
+            catch (Exception e)
+            {
+                Log.Error(e);
+                return null;
+            }
+
 
 
         }
@@ -125,11 +166,11 @@ namespace SurveyConfiguratorApp.Domain.Questions
         //?Stars Question Validation
         public string starsMinNumMsg(int minNumStars)
         {
-            return !isMinNum(StarsMinValue, minNumStars) ? generalMsgMinNum(StarsMinValue) : null;
+            return !IsMinNum(StarsMinValue, minNumStars) ? GeneralMsgMinNum(StarsMinValue) : null;
         }
         public string starsMaxNumMsg(int minNumStars)
         {
-            return !isMaxNum(StarsMaxValue, minNumStars) ? generalMsgMaxNum(StarsMaxValue) : null;
+            return !isMaxNum(StarsMaxValue, minNumStars) ? GeneralMsgMaxNum(StarsMaxValue) : null;
         }
 
         public string starsHandleMsg(int num)
@@ -143,11 +184,11 @@ namespace SurveyConfiguratorApp.Domain.Questions
 
         public string facesMinNumMsg(int minNumStars)
         {
-            return !isMinNum(FacesMinValue, minNumStars) ? generalMsgMinNum(FacesMinValue) : null;
+            return !IsMinNum(FacesMinValue, minNumStars) ? GeneralMsgMinNum(FacesMinValue) : null;
         }
         public string facesMaxNumMsg(int minNumStars)
         {
-            return !isMaxNum(FacesMaxValue, minNumStars) ? generalMsgMaxNum(FacesMaxValue) : null;
+            return !isMaxNum(FacesMaxValue, minNumStars) ? GeneralMsgMaxNum(FacesMaxValue) : null;
         }
 
         public string facesHandleMsg(int num)
@@ -160,15 +201,15 @@ namespace SurveyConfiguratorApp.Domain.Questions
         //# Slider Question Validation
         public string handelCaptionText(string text)
         {
-            if (isEmpty(text))
+            if (IsEmpty(text))
             {
                 return "Required Field";
             }
-            else if (text.Trim().Length > sliderCaptionTextLength)
+            else if (text.Trim().Length > sliderCaptionTextLengthMax)
             {
                 return "Too Long";
             }
-            else if (text.Trim().Length < 3)
+            else if (text.Trim().Length < sliderCaptionTextLengthMin)
             {
                 return "Too Short";
             }
@@ -180,7 +221,7 @@ namespace SurveyConfiguratorApp.Domain.Questions
         //! End Slider Question Validation
 
 
-        public bool isOrderAlreadyExists(int order, int oldOrder = -1)
+        public bool IsOrderAlreadyExists(int order, int oldOrder = -1)
         {
             try
             {
@@ -195,5 +236,148 @@ namespace SurveyConfiguratorApp.Domain.Questions
 
         }
 
+        private bool IsValidFacesNumber(int facesNumber)
+        {
+            try
+            {
+                return facesNumber >= FacesMinValue && facesNumber <= FacesMaxValue;
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+                return false;
+            }
+        }
+        public bool IsValidFacesQuestion(QuestionFaces questionFaces, bool isUpdate = false)
+        {
+            try
+            {
+                bool isOrderExists;
+                if (questionFaces == null) return false;
+
+                if (isUpdate)
+                    isOrderExists = !IsOrderAlreadyExists(questionFaces.Order, questionFaces.Order);
+                else
+                    isOrderExists = !IsOrderAlreadyExists(questionFaces.Order);
+
+                return IsValidQuestionText(questionFaces.Text) &&
+                   isOrderExists &&
+                    IsValidFacesNumber(questionFaces.FacesNumber);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+                return false;
+            }
+        }
+
+        private bool IsValidStarsNumber(int starsNumber)
+        {
+            try
+            {
+                return starsNumber >= StarsMinValue && starsNumber <= StarsMaxValue;
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+                return false;
+            }
+        }
+
+        public bool IsValidStarsQuestion(QuestionStars questionStars, bool isUpdate = false)
+        {
+            try
+            {
+
+                if (questionStars == null) return false;
+                bool isOrderExists;
+                if (isUpdate)
+                    isOrderExists = !IsOrderAlreadyExists(questionStars.Order, questionStars.Order);
+                else
+                    isOrderExists = !IsOrderAlreadyExists(questionStars.Order);
+
+                return IsValidQuestionText(questionStars.Text) &&
+                         isOrderExists &&
+                    IsValidStarsNumber(questionStars.StarsNumber);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+                return false;
+            }
+        }
+
+        private bool IsValidSliderStartValue(int value)
+        {
+            try
+            {
+                return value >= SliderMinValue && value < SliderMaxValue;
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+                return false;
+            }
+        }
+        private bool IsValidSliderEndtValue(int value)
+        {
+            try
+            {
+                return (value > SliderMinValue && (value <= SliderMaxValue));
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+                return false;
+            }
+        }
+        private bool IsValidSilderValue(int min, int max)
+        {
+            try
+            {
+                return IsValidSliderStartValue(min) && IsValidSliderEndtValue(max) && min < max;
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+                return false;
+            }
+        }
+        private bool IsValidCaption(string caption)
+        {
+            try
+            {
+                return caption.Trim().Length >= sliderCaptionTextLengthMin && caption.Trim().Length <= sliderCaptionTextLengthMax;
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+                return false;
+            }
+        }
+        public bool IsValidSliderQuestion(QuestionSlider questionSlider, bool isUpdate = false)
+        {
+            try
+            {
+                if (questionSlider == null) return false;
+
+                bool isOrderExists;
+                if (isUpdate)
+                    isOrderExists = !IsOrderAlreadyExists(questionSlider.Order, questionSlider.Order);
+                else
+                    isOrderExists = !IsOrderAlreadyExists(questionSlider.Order);
+
+                return IsValidQuestionText(questionSlider.Text) &&
+                    isOrderExists &&
+                    IsValidSilderValue(questionSlider.StartValue, questionSlider.EndValue) &&
+                    IsValidCaption(questionSlider.StartCaption) &&
+                    IsValidCaption(questionSlider.EndCaption);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+                return false;
+            }
+        }
     }
 }

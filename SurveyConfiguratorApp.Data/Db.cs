@@ -16,17 +16,17 @@ namespace SurveyConfiguratorApp.Data
     public class DB
     {
         public SqlConnection conn;
-        private string connectionString;
+        private static string connectionString;
+
         public DB()
         {
 
 
             try
             {
-                connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+                connectionString = GetConfigConnectionString();
                 conn = new SqlConnection(connectionString);
                 OpenConnection();
-
 
             }
             catch (Exception ex)
@@ -40,6 +40,24 @@ namespace SurveyConfiguratorApp.Data
             }
         }
 
+        public static bool IsConnected()
+        {
+            try
+            {
+                string connectionString = GetConfigConnectionString();
+                using (SqlConnection conn =new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+            }
+            return false;
+        }
+
         // Open the database connection
         public void OpenConnection()
         {
@@ -49,6 +67,7 @@ namespace SurveyConfiguratorApp.Data
                 {
                     conn.Close();
                 }
+                string connectionString= GetConfigConnectionString();
                 conn = new SqlConnection(connectionString);
                 conn.Open();
             }
@@ -57,7 +76,20 @@ namespace SurveyConfiguratorApp.Data
                 Log.Error(ex);
             }
         }
-
+        private static string GetConfigConnectionString()
+        {
+            try
+            {
+                ConfigurationManager.RefreshSection("appSettings");
+                ConfigurationManager.RefreshSection("connectionStrings");
+                return ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+            }
+            return "";
+        }
         // Close the database connection
         public void CloseConnection()
         {
@@ -75,6 +107,19 @@ namespace SurveyConfiguratorApp.Data
 
             }
 
+        }
+
+        public void RefreshConnectionString()
+        {
+            try
+            {
+                connectionString = GetConfigConnectionString();
+                Log.Info("new connectionString    " + connectionString);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+            }
         }
 
 

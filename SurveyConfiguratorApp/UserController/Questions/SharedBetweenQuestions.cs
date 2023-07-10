@@ -52,7 +52,7 @@ namespace SurveyConfiguratorApp.UserController.Questions
                 string msg = null;
                 {
                     string inputText = textBoxQuestionText.Text;
-                    msg = questionValidation.handelQuestionText(inputText);
+                    msg = questionValidation.HandelQuestionText(inputText);
                     labelErrorQuestionText.setText(msg);
 
 
@@ -175,7 +175,7 @@ namespace SurveyConfiguratorApp.UserController.Questions
 
                 int newOderValue = (int)numericUpDownQuestionOrder.Value;
 
-                isExists = questionValidation.isOrderAlreadyExists(newOderValue, oldOrder);
+                isExists = questionValidation.IsOrderAlreadyExists(newOderValue, oldOrder);
 
 
                 if (isExists)
