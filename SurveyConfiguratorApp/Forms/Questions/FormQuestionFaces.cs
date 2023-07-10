@@ -23,7 +23,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 InitializeComponent();
                 questionFaces = new QuestionFaces();
                 questionValidation = QuestionValidation.Instance();
-                questoinManager=new QuestionManager();
+                questoinManager = new QuestionManager();
             }
             catch (Exception ex)
             {
@@ -44,7 +44,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
                     isUpdate = true;
                     this.questionId = questionId;
                     btnSave.Text = "Update";
-                    questionFaces=questoinManager.GetQuestionFaces(this.questionId);
+                    // questionFaces=questoinManager.GetQuestionFaces(this.questionId);
                 }
 
             }
@@ -64,15 +64,9 @@ namespace SurveyConfiguratorApp.Forms.Questions
             {
                 numericFaceNumber.Maximum = questionValidation.FacesMaxValue;
                 numericFaceNumber.Minimum = questionValidation.FacesMinValue;
-               if ( questionId != -1)
+                if (questionId != -1)
                 {
-                   questionFaces = questoinManager.GetQuestionFaces(questionId);
-                    
-                    if (questionFaces == null)
-                    {
-                        MessageBox.Show("This Question does not exists", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        closeParentFrom();
-                    }
+                    questionFaces = HandleQuestionAvailablity();
                     fillInputs(questionFaces);
                     sharedBetweenQuestions.setOldOrder(questionFaces.Order);
 
@@ -87,7 +81,29 @@ namespace SurveyConfiguratorApp.Forms.Questions
 
         }
 
+        private QuestionFaces HandleQuestionAvailablity()
+        {
+            try
+            {
+                if (questionId != -1)
+                {
+                    QuestionFaces questionFaces = questoinManager.GetQuestionFaces(questionId);
 
+                    if (questionFaces == null)
+                    {
+                        MessageBox.Show("This Question does not exists", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        closeParentFrom();
+                    }
+                    return questionFaces;
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+            }
+            return null;
+
+        }
 
         // From Buttons
         /// <summary>
@@ -114,15 +130,16 @@ namespace SurveyConfiguratorApp.Forms.Questions
                     {
 
                         result = questoinManager.AddQuestionFaces(questionFaces);
-                        if(!result)
-                            customMessageBoxControl1.sqlInsert(result);
+                        if (!result)
+                            customMessageBoxControl1.Add(result);
 
                     }
                     else
                     {
+                        HandleQuestionAvailablity();
                         result = questoinManager.UpdateQuestionFaces(questionFaces);
                         if (!result)
-                            customMessageBoxControl1.sqlUpdate(result);
+                            customMessageBoxControl1.Update(result);
                         sharedBetweenQuestions.setOldOrder(questionFaces.Order);
 
                     }
@@ -172,7 +189,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
         }
 
-      
+
         private void fillInputs(QuestionFaces questionFaces)
         {
 
@@ -191,6 +208,6 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
         }
 
-      
+
     }
 }

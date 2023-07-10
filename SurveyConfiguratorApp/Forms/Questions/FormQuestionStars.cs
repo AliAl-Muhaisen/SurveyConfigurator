@@ -97,13 +97,13 @@ namespace SurveyConfiguratorApp.Forms.Questions
 
                         result = questionFacade.AddQuestionStars(questionStars);
                         if (!result) 
-                             customMessageBoxControl1.sqlInsert(result);
+                             customMessageBoxControl1.Add(result);
                     }
                     else
                     {
                         result = questionFacade.UpdateQuestionStars(questionStars);
                         if (!result)
-                            customMessageBoxControl1.sqlUpdate(result);
+                            customMessageBoxControl1.Update(result);
                     }
                     if (result)
                         closeParentFrom();

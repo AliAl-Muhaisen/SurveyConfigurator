@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-
 namespace SurveyConfiguratorApp.Helper
 {
     public class Log
@@ -30,8 +29,7 @@ namespace SurveyConfiguratorApp.Helper
         {
             try
             {
-
-
+               
                 string logFilePath = CreateFile("Error.Log");
 
                 // to ensure that only one thread at a time can write to the log file

@@ -408,7 +408,7 @@ namespace SurveyConfiguratorApp
                 if (result)
                 {
                     labelStatus.ForeColor = Color.Green;
-                    labelStatus.Text = "Connected Successfully";
+                    labelStatus.Text = null;
                     ButtonsEnable(true);
 
                     // this.Refresh();

@@ -33,6 +33,7 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.labelStatus = new System.Windows.Forms.Label();
             this.listViewQuestions = new System.Windows.Forms.ListView();
             this.Order = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.TypeName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -40,16 +41,15 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataBaseConnectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.labelStatus = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(282, 3);
+            this.btnAdd.Location = new System.Drawing.Point(339, 1);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(116, 25);
+            this.btnAdd.Size = new System.Drawing.Size(97, 23);
             this.btnAdd.TabIndex = 1;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
@@ -57,9 +57,9 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(526, 3);
+            this.btnDelete.Location = new System.Drawing.Point(545, 1);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(116, 25);
+            this.btnDelete.Size = new System.Drawing.Size(97, 23);
             this.btnDelete.TabIndex = 2;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
@@ -67,9 +67,9 @@
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(404, 3);
+            this.btnUpdate.Location = new System.Drawing.Point(442, 1);
             this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(116, 25);
+            this.btnUpdate.Size = new System.Drawing.Size(97, 23);
             this.btnUpdate.TabIndex = 3;
             this.btnUpdate.Text = "Update";
             this.btnUpdate.UseVisualStyleBackColor = true;
@@ -82,11 +82,20 @@
             this.panel1.Controls.Add(this.btnDelete);
             this.panel1.Controls.Add(this.btnUpdate);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 365);
+            this.panel1.Location = new System.Drawing.Point(0, 377);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(652, 45);
+            this.panel1.Size = new System.Drawing.Size(652, 33);
             this.panel1.TabIndex = 5;
+            // 
+            // labelStatus
+            // 
+            this.labelStatus.AutoSize = true;
+            this.labelStatus.Location = new System.Drawing.Point(6, 9);
+            this.labelStatus.Name = "labelStatus";
+            this.labelStatus.Size = new System.Drawing.Size(59, 13);
+            this.labelStatus.TabIndex = 4;
+            this.labelStatus.Text = "labelStatus";
             // 
             // listViewQuestions
             // 
@@ -98,11 +107,11 @@
             this.listViewQuestions.FullRowSelect = true;
             this.listViewQuestions.GridLines = true;
             this.listViewQuestions.HideSelection = false;
-            this.listViewQuestions.Location = new System.Drawing.Point(9, 25);
+            this.listViewQuestions.Location = new System.Drawing.Point(9, 26);
             this.listViewQuestions.Margin = new System.Windows.Forms.Padding(2);
             this.listViewQuestions.MultiSelect = false;
             this.listViewQuestions.Name = "listViewQuestions";
-            this.listViewQuestions.Size = new System.Drawing.Size(633, 329);
+            this.listViewQuestions.Size = new System.Drawing.Size(633, 347);
             this.listViewQuestions.TabIndex = 6;
             this.listViewQuestions.UseCompatibleStateImageBehavior = false;
             this.listViewQuestions.View = System.Windows.Forms.View.Details;
@@ -126,6 +135,7 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.BackColor = System.Drawing.Color.Gainsboro;
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.settingsToolStripMenuItem});
@@ -151,15 +161,6 @@
             this.dataBaseConnectionToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.dataBaseConnectionToolStripMenuItem.Text = "Data BaseConnection";
             this.dataBaseConnectionToolStripMenuItem.Click += new System.EventHandler(this.dataBaseConnectionToolStripMenuItem_Click);
-            // 
-            // labelStatus
-            // 
-            this.labelStatus.AutoSize = true;
-            this.labelStatus.Location = new System.Drawing.Point(6, 9);
-            this.labelStatus.Name = "labelStatus";
-            this.labelStatus.Size = new System.Drawing.Size(59, 13);
-            this.labelStatus.TabIndex = 4;
-            this.labelStatus.Text = "labelStatus";
             // 
             // FormMain
             // 

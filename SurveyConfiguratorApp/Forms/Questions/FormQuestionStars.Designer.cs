@@ -50,9 +50,9 @@
             // 
             // numericStarsNumber
             // 
-            this.numericStarsNumber.Location = new System.Drawing.Point(143, 24);
+            this.numericStarsNumber.Location = new System.Drawing.Point(110, 22);
             this.numericStarsNumber.Name = "numericStarsNumber";
-            this.numericStarsNumber.Size = new System.Drawing.Size(417, 20);
+            this.numericStarsNumber.Size = new System.Drawing.Size(422, 20);
             this.numericStarsNumber.TabIndex = 5;
             // 
             // label2
@@ -68,16 +68,16 @@
             // 
             this.sharedBetweenQuestions.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.sharedBetweenQuestions.Location = new System.Drawing.Point(9, 12);
-            this.sharedBetweenQuestions.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.sharedBetweenQuestions.Margin = new System.Windows.Forms.Padding(4);
             this.sharedBetweenQuestions.Name = "sharedBetweenQuestions";
-            this.sharedBetweenQuestions.Size = new System.Drawing.Size(576, 153);
+            this.sharedBetweenQuestions.Size = new System.Drawing.Size(540, 152);
             this.sharedBetweenQuestions.TabIndex = 3;
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(323, 232);
+            this.btnSave.Location = new System.Drawing.Point(319, 293);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(112, 23);
+            this.btnSave.Size = new System.Drawing.Size(97, 23);
             this.btnSave.TabIndex = 6;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -85,9 +85,9 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(473, 232);
+            this.btnCancel.Location = new System.Drawing.Point(437, 293);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(112, 23);
+            this.btnCancel.Size = new System.Drawing.Size(97, 23);
             this.btnCancel.TabIndex = 7;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -107,10 +107,10 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.numericStarsNumber);
             this.groupBox1.Location = new System.Drawing.Point(9, 171);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.groupBox1.Size = new System.Drawing.Size(576, 56);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox1.Size = new System.Drawing.Size(540, 56);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Stars";
@@ -119,7 +119,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(647, 360);
+            this.ClientSize = new System.Drawing.Size(582, 328);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.customMessageBoxControl1);
             this.Controls.Add(this.btnCancel);
@@ -127,7 +127,7 @@
             this.Controls.Add(this.sharedBetweenQuestions);
             this.Controls.Add(this.label1);
             this.Name = "FormQuestionStars";
-            this.Text = "FormQuestionStars";
+            this.Text = "Stars Question";
             this.Load += new System.EventHandler(this.FormQuestionStars_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericStarsNumber)).EndInit();
             this.groupBox1.ResumeLayout(false);

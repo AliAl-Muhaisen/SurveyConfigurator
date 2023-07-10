@@ -101,7 +101,6 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 if (activeForm != null)
                 {
                     activeForm.Close();
-
                 }
                 activeForm = childForm;
                 childForm.TopLevel = false;
@@ -110,6 +109,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 panelContainer.Controls.Add(childForm);
 
                 panelContainer.Tag = childForm;
+                //z-order
                 childForm.BringToFront();
                 childForm.Show();
             }
@@ -205,8 +205,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             try
             {
                     var mainForm = new FormQuestionSlider(questionId);
-
-                    // Manually inject the dependencies
+                
                     handleOpenChildForm(mainForm);
             }
             catch (Exception ex)

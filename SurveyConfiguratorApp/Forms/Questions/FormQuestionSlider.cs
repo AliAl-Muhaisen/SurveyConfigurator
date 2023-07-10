@@ -85,6 +85,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
                     }
                     sharedBetweenQuestions.setOldOrder(questionSlider.Order);
                     fillInputs(questionSlider);
+                  
 
                 }
             }
@@ -155,14 +156,14 @@ namespace SurveyConfiguratorApp.Forms.Questions
 
                         result = questionManager.AddQuestionSlider(questionSlider);
                         if (!result)
-                            customMessageBoxControl1.sqlInsert(result);
+                            customMessageBoxControl1.Add(result);
                     }
                     else
                     {
                         result = questionManager.UpdateQuestionSlider(questionSlider);
                         //sharedBetweenQuestions.setOldOrder(questionSlider.Order);
                         if (!result)
-                            customMessageBoxControl1.sqlUpdate(result);
+                            customMessageBoxControl1.Update(result);
 
                     }
                     if (result)

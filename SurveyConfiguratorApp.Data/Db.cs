@@ -114,7 +114,7 @@ namespace SurveyConfiguratorApp.Data
             try
             {
                 connectionString = GetConfigConnectionString();
-                Log.Info("new connectionString    " + connectionString);
+                Log.Info("Updated ConnectionString");
             }
             catch (Exception e)
             {

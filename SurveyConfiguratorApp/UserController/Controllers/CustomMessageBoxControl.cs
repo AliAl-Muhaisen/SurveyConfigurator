@@ -17,7 +17,7 @@ namespace SurveyConfiguratorApp.UserController.Controllers
         {
             InitializeComponent();
         }
-        public void sqlInsert(bool result)
+        public void Add(bool result)
         {
             try
             {
@@ -42,7 +42,7 @@ namespace SurveyConfiguratorApp.UserController.Controllers
 
         }
 
-        public void sqlUpdate(bool result)
+        public void Update(bool result)
         {
             try
             {
@@ -67,7 +67,7 @@ namespace SurveyConfiguratorApp.UserController.Controllers
 
         }
 
-        public void sqlDelete(bool result)
+        public void Delete(bool result)
         {
             try
             {

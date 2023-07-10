@@ -50,16 +50,16 @@
             // 
             // numericFaceNumber
             // 
-            this.numericFaceNumber.Location = new System.Drawing.Point(141, 23);
+            this.numericFaceNumber.Location = new System.Drawing.Point(108, 22);
             this.numericFaceNumber.Name = "numericFaceNumber";
             this.numericFaceNumber.Size = new System.Drawing.Size(422, 20);
             this.numericFaceNumber.TabIndex = 2;
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(316, 232);
+            this.btnSave.Location = new System.Drawing.Point(350, 293);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(112, 23);
+            this.btnSave.Size = new System.Drawing.Size(97, 23);
             this.btnSave.TabIndex = 3;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -67,9 +67,9 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(472, 232);
+            this.btnCancel.Location = new System.Drawing.Point(453, 293);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(112, 23);
+            this.btnCancel.Size = new System.Drawing.Size(97, 23);
             this.btnCancel.TabIndex = 4;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -80,10 +80,10 @@
             this.groupBoxFaces.Controls.Add(this.numericFaceNumber);
             this.groupBoxFaces.Controls.Add(this.label1);
             this.groupBoxFaces.Location = new System.Drawing.Point(10, 170);
-            this.groupBoxFaces.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBoxFaces.Margin = new System.Windows.Forms.Padding(2);
             this.groupBoxFaces.Name = "groupBoxFaces";
-            this.groupBoxFaces.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.groupBoxFaces.Size = new System.Drawing.Size(574, 57);
+            this.groupBoxFaces.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBoxFaces.Size = new System.Drawing.Size(540, 57);
             this.groupBoxFaces.TabIndex = 6;
             this.groupBoxFaces.TabStop = false;
             this.groupBoxFaces.Text = "Faces";
@@ -100,24 +100,26 @@
             // sharedBetweenQuestions
             // 
             this.sharedBetweenQuestions.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.sharedBetweenQuestions.Location = new System.Drawing.Point(10, 11);
-            this.sharedBetweenQuestions.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.sharedBetweenQuestions.Location = new System.Drawing.Point(10, 12);
+            this.sharedBetweenQuestions.Margin = new System.Windows.Forms.Padding(4);
             this.sharedBetweenQuestions.Name = "sharedBetweenQuestions";
-            this.sharedBetweenQuestions.Size = new System.Drawing.Size(574, 152);
+            this.sharedBetweenQuestions.Size = new System.Drawing.Size(540, 152);
             this.sharedBetweenQuestions.TabIndex = 0;
             // 
             // FormQuestionFaces
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(648, 452);
+            this.ClientSize = new System.Drawing.Size(582, 328);
             this.Controls.Add(this.groupBoxFaces);
             this.Controls.Add(this.customMessageBoxControl1);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.sharedBetweenQuestions);
-            this.MaximumSize = new System.Drawing.Size(664, 491);
-            this.MinimumSize = new System.Drawing.Size(664, 491);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(598, 367);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(598, 367);
             this.Name = "FormQuestionFaces";
             this.Text = "Faces Question";
             this.Load += new System.EventHandler(this.FormQuestionFaces_Load);
