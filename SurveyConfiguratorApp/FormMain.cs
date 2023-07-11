@@ -89,21 +89,16 @@ namespace SurveyConfiguratorApp
             {
                 //The InvokeRequired property in Windows Forms is used to check if the current code is executing on the UI thread or a different thread.
                 //If InvokeRequired is true, it means the code is running on a non-UI thread.
-                //    Log.Info("OnRefreshData called");
-                // MessageBox.Show("Refresh");
+
                 if (listViewQuestions.InvokeRequired)
+                    //the MethodInvoker delegate enables you to execute code on the UI thread from a different thread, ensuring thread-safety when interacting with UI controls.
                     listViewQuestions.Invoke((MethodInvoker)(() =>
                     {
                         RefreshData();
                     }));
-                //if (listViewQuestions.InvokeRequired)
-                //{
-                //    Invoke(new EventHandler(OnRefreshData), sender, e);
-                //    return;
-                //}
+
                 else
                     RefreshData();
-                //DataChanged?.Invoke(this, EventArgs.Empty);
             }
             catch (Exception ex)
             {
@@ -115,6 +110,7 @@ namespace SurveyConfiguratorApp
             try
             {
                 if (listViewQuestions.InvokeRequired)
+
                     listViewQuestions.Invoke((MethodInvoker)(() =>
                     {
                         FillListView();
@@ -285,12 +281,12 @@ namespace SurveyConfiguratorApp
             {
                 List<Question> list = new List<Question>();
                 //  list = QuestionManager.questions;
-                
+
                 if (listViewQuestions.IsHandleCreated)
                     listViewQuestions.Invoke((MethodInvoker)(() =>
                 {
                     list = questionManager.GetQuestions();
-                listViewQuestions.Items.Clear();
+                    listViewQuestions.Items.Clear();
                     foreach (Question question in list)
                     {
                         // Create a new ListViewItem and set its Text property to the Order value
@@ -314,7 +310,7 @@ namespace SurveyConfiguratorApp
         }
 
         /// <summary>
-        /// Sort Data Grid View based on sorting type and selected column
+        /// Sort the List View based on sorting type and selected column
         /// </summary>
 
         private void listView1_ColumnClick(object sender, ColumnClickEventArgs e)
@@ -409,10 +405,8 @@ namespace SurveyConfiguratorApp
                     labelStatus.ForeColor = Color.Green;
                     labelStatus.Text = null;
                     ButtonsEnable(true);
+                    FillListView();
 
-                    // this.Refresh();
-                     FillListView();
-                  
 
                 }
                 else

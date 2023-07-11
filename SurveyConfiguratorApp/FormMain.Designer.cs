@@ -100,10 +100,12 @@
             // listViewQuestions
             // 
             this.listViewQuestions.Activation = System.Windows.Forms.ItemActivation.OneClick;
+            this.listViewQuestions.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(222)))), ((int)(((byte)(222)))));
             this.listViewQuestions.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Order,
             this.TypeName,
             this.Text});
+            this.listViewQuestions.ForeColor = System.Drawing.SystemColors.WindowText;
             this.listViewQuestions.FullRowSelect = true;
             this.listViewQuestions.GridLines = true;
             this.listViewQuestions.HideSelection = false;
