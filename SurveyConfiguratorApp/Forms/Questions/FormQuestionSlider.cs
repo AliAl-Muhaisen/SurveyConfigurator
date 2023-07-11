@@ -127,7 +127,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
 
         }
 
-        private void HandleIsQuestionNotExists()
+        private bool HandleIsQuestionNotExists()
         {
             try
             {
@@ -139,6 +139,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
                     {
                         customMessageBoxControl1.NotExists();
                         CloseParentFrom();
+                        return true;
                     }
                 }
             }
@@ -146,6 +147,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             {
                 Log.Error(e);
             }
+            return false;
         }
 
         /// <summary>
@@ -174,7 +176,8 @@ namespace SurveyConfiguratorApp.Forms.Questions
                     }
                     else
                     {
-                        HandleIsQuestionNotExists();
+                        bool isNotExits = HandleIsQuestionNotExists();
+                        if (isNotExits) { return; }
                         result = questionManager.UpdateQuestionSlider(questionSlider);
                        
 

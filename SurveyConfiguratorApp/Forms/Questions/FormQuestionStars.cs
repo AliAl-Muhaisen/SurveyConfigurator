@@ -21,7 +21,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             {
                 InitializeComponent();
                 questionStars = new QuestionStars();
-                questionFacade= new QuestionManager();
+                questionFacade = new QuestionManager();
                 questionValidation = QuestionValidation.Instance();
             }
             catch (Exception ex)
@@ -58,7 +58,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             {
                 numericStarsNumber.Minimum = questionValidation.StarsMinValue;
                 numericStarsNumber.Maximum = questionValidation.StarsMaxValue;
-                if ( questionId != -1)
+                if (questionId != -1)
                 {
                     // to check if the question still exists in the db
                     questionStars = questionFacade.GetQuestionStars(questionId);
@@ -75,21 +75,23 @@ namespace SurveyConfiguratorApp.Forms.Questions
 
         }
 
-        private void HandleIsQuestionNotExists()
+        private bool HandleIsQuestionNotExists()
         {
             try
             {
-                QuestionStars questionStars= questionFacade.GetQuestionStars(questionId);
+                QuestionStars questionStars = questionFacade.GetQuestionStars(questionId);
                 if (questionStars == null)
                 {
                     customMessageBoxControl1.NotExists();
                     CloseParentFrom();
+                    return true;
                 }
             }
             catch (Exception e)
             {
                 Log.Error(e);
             }
+            return false;
         }
         private void btnSave_Click(object sender, EventArgs e)
         {
@@ -105,13 +107,14 @@ namespace SurveyConfiguratorApp.Forms.Questions
                     questionStars.StarsNumber = ((int)numericStarsNumber.Value);
                     if (!isUpdate)
                     {
-                        result = questionFacade.AddQuestionStars(questionStars);                        
+                        result = questionFacade.AddQuestionStars(questionStars);
                     }
                     else
                     {
-                        HandleIsQuestionNotExists();
+                        bool isNotExits = HandleIsQuestionNotExists();
+                        if (isNotExits) { return; }
                         result = questionFacade.UpdateQuestionStars(questionStars);
-                       
+
                     }
                     if (result == StatusCode.Success)
                         CloseParentFrom();
