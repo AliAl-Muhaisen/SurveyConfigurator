@@ -34,7 +34,7 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.groupBoxFaces = new System.Windows.Forms.GroupBox();
             this.customMessageBoxControl1 = new SurveyConfiguratorApp.UserController.Controllers.CustomMessageBoxControl();
-            this.sharedBetweenQuestions = new SurveyConfiguratorApp.UserController.Questions.SharedBetweenQuestions();
+            this.sharedBetweenQuestions = new SurveyConfiguratorApp.UserController.Questions.CommonQuestionForm();
             ((System.ComponentModel.ISupportInitialize)(this.numericFaceNumber)).BeginInit();
             this.groupBoxFaces.SuspendLayout();
             this.SuspendLayout();
@@ -138,7 +138,7 @@
 
         #endregion
 
-        private UserController.Questions.SharedBetweenQuestions sharedBetweenQuestions;
+        private UserController.Questions.CommonQuestionForm sharedBetweenQuestions;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown numericFaceNumber;
         private System.Windows.Forms.Button btnSave;

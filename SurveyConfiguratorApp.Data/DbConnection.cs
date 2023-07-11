@@ -13,7 +13,7 @@ namespace SurveyConfiguratorApp.Data
     /// The DB class provides functionality for managing database connections 
     /// using ADO.NET. It includes methods to open and close the database connection.
     /// </summary>
-    public class DB
+    public class DbConnection
     {
         public SqlConnection conn;
         private static string connectionString;
@@ -21,7 +21,7 @@ namespace SurveyConfiguratorApp.Data
         public const string AppConfigConnectionValueName = "connectionStrings";      
         public const string AppConfigSettingsName = "appSettings";
         public const string AppConfigConnectionProviderName = "System.Data.SqlClient";
-        public DB()
+        public DbConnection()
         {
 
 

@@ -38,12 +38,13 @@
             // 
             // comboBox1
             // 
-            this.comboBox1.DropDownHeight = 28;
+            this.comboBox1.DropDownHeight = 70;
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.IntegralHeight = false;
+            this.comboBox1.ItemHeight = 13;
             this.comboBox1.Location = new System.Drawing.Point(120, 14);
-            this.comboBox1.MaxDropDownItems = 2;
+            this.comboBox1.MaxDropDownItems = 5;
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(422, 21);
             this.comboBox1.TabIndex = 0;

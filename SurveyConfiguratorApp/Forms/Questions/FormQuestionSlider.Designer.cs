@@ -43,7 +43,7 @@
             this.customMessageBoxControl1 = new SurveyConfiguratorApp.UserController.Controllers.CustomMessageBoxControl();
             this.labelErrorStartValue = new SurveyConfiguratorApp.UserController.Questions.LabelErrorControl();
             this.labelErrorEndValue = new SurveyConfiguratorApp.UserController.Questions.LabelErrorControl();
-            this.sharedBetweenQuestions = new SurveyConfiguratorApp.UserController.Questions.SharedBetweenQuestions();
+            this.sharedBetweenQuestions = new SurveyConfiguratorApp.UserController.Questions.CommonQuestionForm();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericStartValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericEndValue)).BeginInit();
@@ -254,7 +254,7 @@
         #endregion
 
         private System.Windows.Forms.Button btnCancel;
-        private UserController.Questions.SharedBetweenQuestions sharedBetweenQuestions;
+        private UserController.Questions.CommonQuestionForm sharedBetweenQuestions;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown numericStartValue;
         private System.Windows.Forms.NumericUpDown numericEndValue;

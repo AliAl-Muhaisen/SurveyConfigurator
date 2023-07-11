@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using SurveyConfiguratorApp.Helper;
-
+﻿using SurveyConfiguratorApp.Helper;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -8,15 +6,10 @@ using static SurveyConfiguratorApp.Domain.Questions.Question;
 
 namespace SurveyConfiguratorApp.Forms.Questions
 {
-    public partial class FormQuestion : Form
+    public partial class FormQuestion : CustomForm
     {
 
         private Form activeForm;
-
-        /// <summary>
-        /// This variable, 'services', is a helper variable used to create a collection of services and add scopes for dependency injection.
-        /// </summary>
-        private readonly ServiceCollection services = new ServiceCollection();
 
         /// <summary>
         /// This variable, 'questionId', is used to get the object info from the db in the updated operation
@@ -35,8 +28,6 @@ namespace SurveyConfiguratorApp.Forms.Questions
             try
             {
                 InitializeComponent();
-                services = new ServiceCollection();
-
                 // add question types to drop down list
                 foreach (QuestionTypes type in Enum.GetValues(typeof(QuestionTypes)))
                     comboBox1.Items.Add(type);

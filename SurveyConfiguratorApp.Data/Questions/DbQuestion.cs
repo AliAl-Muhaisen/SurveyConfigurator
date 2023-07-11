@@ -15,7 +15,7 @@ namespace SurveyConfiguratorApp.Data.Questions
     /// It also includes additional methods,
     /// retrieve the last inserted ID, and read all questions from the database.
     /// </summary>
-    public class DbQuestion : DB
+    public class DbQuestion : DbConnection
     {
         public static event EventHandler DataChanged;
         public DbQuestion() : base() { }

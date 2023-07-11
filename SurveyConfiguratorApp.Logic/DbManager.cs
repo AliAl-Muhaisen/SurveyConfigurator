@@ -15,7 +15,7 @@ namespace SurveyConfiguratorApp.Logic
     {
         private readonly string connectionString;
         SqlConnection conn;
-        private DB db;
+        private DbConnection db;
 
         public event EventHandler ConnectionRefreshed;
 
@@ -25,7 +25,7 @@ namespace SurveyConfiguratorApp.Logic
             {
                 connectionString = BuildConnectionString(server, database, username, password);
                 conn = new SqlConnection(connectionString);
-                db = new DB();
+                db = new DbConnection();
             }
             catch (Exception ex)
             {
@@ -96,11 +96,11 @@ namespace SurveyConfiguratorApp.Logic
                 Configuration config;
                 config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 
-                config.ConnectionStrings.ConnectionStrings[DB.AppConfigConnectionName].ConnectionString = connectionString;
-                config.ConnectionStrings.ConnectionStrings[DB.AppConfigConnectionName].ProviderName = DB.AppConfigConnectionProviderName;
+                config.ConnectionStrings.ConnectionStrings[DbConnection.AppConfigConnectionName].ConnectionString = connectionString;
+                config.ConnectionStrings.ConnectionStrings[DbConnection.AppConfigConnectionName].ProviderName = DbConnection.AppConfigConnectionProviderName;
                 config.AppSettings.SectionInformation.ForceSave = true;
                 config.Save(ConfigurationSaveMode.Modified);
-                ConfigurationManager.RefreshSection(DB.AppConfigSettingsName);
+                ConfigurationManager.RefreshSection(DbConnection.AppConfigSettingsName);
                 db.RefreshConnectionString();
                 OnConnectionRefreshed();
 
@@ -117,7 +117,7 @@ namespace SurveyConfiguratorApp.Logic
         {
             try
             {
-                return DB.IsConnected();
+                return DbConnection.IsConnected();
             }
             catch (Exception e)
             {

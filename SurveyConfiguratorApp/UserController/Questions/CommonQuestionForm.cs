@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace SurveyConfiguratorApp.UserController.Questions
 {
-    public partial class SharedBetweenQuestions : UserControl
+    public partial class CommonQuestionForm : UserControl
     {
 
         QuestionValidation questionValidation;
@@ -13,7 +13,7 @@ namespace SurveyConfiguratorApp.UserController.Questions
         private bool isValidQuestionText = false;
         private bool isValidOrderValue = false;
         private int oldOrder = -1;
-        public SharedBetweenQuestions()
+        public CommonQuestionForm()
         {
 
             try

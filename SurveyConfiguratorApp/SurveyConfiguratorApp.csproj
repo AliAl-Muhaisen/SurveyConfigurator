@@ -79,6 +79,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CustomForm.Designer.cs">
+      <DependentUpon>CustomForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -135,11 +141,11 @@
     <Compile Include="UserController\Controllers\LabelErrorControl.Designer.cs">
       <DependentUpon>LabelErrorControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserController\Questions\SharedBetweenQuestions.cs">
+    <Compile Include="UserController\Questions\CommonQuestionForm.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserController\Questions\SharedBetweenQuestions.Designer.cs">
-      <DependentUpon>SharedBetweenQuestions.cs</DependentUpon>
+    <Compile Include="UserController\Questions\CommonQuestionForm.Designer.cs">
+      <DependentUpon>CommonQuestionForm.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
@@ -178,8 +184,8 @@
     <EmbeddedResource Include="UserController\Controllers\LabelErrorControl.resx">
       <DependentUpon>LabelErrorControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserController\Questions\SharedBetweenQuestions.resx">
-      <DependentUpon>SharedBetweenQuestions.cs</DependentUpon>
+    <EmbeddedResource Include="UserController\Questions\CommonQuestionForm.resx">
+      <DependentUpon>CommonQuestionForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

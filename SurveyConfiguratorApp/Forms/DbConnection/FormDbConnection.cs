@@ -13,7 +13,7 @@ using System.Windows.Forms;
 
 namespace SurveyConfiguratorApp.Forms.DbConnection
 {
-    public partial class FormDbConnection : Form
+    public partial class FormDbConnection : CustomForm
     {
         DbManager dbManager;
         private string Server { get; set; }

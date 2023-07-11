@@ -160,8 +160,8 @@
             // dataBaseConnectionToolStripMenuItem
             // 
             this.dataBaseConnectionToolStripMenuItem.Name = "dataBaseConnectionToolStripMenuItem";
-            this.dataBaseConnectionToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
-            this.dataBaseConnectionToolStripMenuItem.Text = "Data BaseConnection";
+            this.dataBaseConnectionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.dataBaseConnectionToolStripMenuItem.Text = "Connection";
             this.dataBaseConnectionToolStripMenuItem.Click += new System.EventHandler(this.dataBaseConnectionToolStripMenuItem_Click);
             // 
             // FormMain

@@ -31,7 +31,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.numericStarsNumber = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
-            this.sharedBetweenQuestions = new SurveyConfiguratorApp.UserController.Questions.SharedBetweenQuestions();
+            this.sharedBetweenQuestions = new SurveyConfiguratorApp.UserController.Questions.CommonQuestionForm();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.customMessageBoxControl1 = new SurveyConfiguratorApp.UserController.Controllers.CustomMessageBoxControl();
@@ -149,7 +149,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown numericStarsNumber;
         private System.Windows.Forms.Label label2;
-        private UserController.Questions.SharedBetweenQuestions sharedBetweenQuestions;
+        private UserController.Questions.CommonQuestionForm sharedBetweenQuestions;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnCancel;
         private UserController.Controllers.CustomMessageBoxControl customMessageBoxControl1;

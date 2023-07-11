@@ -18,7 +18,7 @@ using SortOrder = System.Windows.Forms.SortOrder;
 
 namespace SurveyConfiguratorApp
 {
-    public partial class FormMain : Form
+    public partial class FormMain : CustomForm
     {
 
 
@@ -34,7 +34,6 @@ namespace SurveyConfiguratorApp
         private int lastSelectedQuestionOrder = -1;
 
         private int lastSortColumn = -1;
-
 
 
 
@@ -56,6 +55,7 @@ namespace SurveyConfiguratorApp
 
                 dbManager = new DbManager();
                 dbManager.ConnectionRefreshed += OnConnectionRefreshed;
+
             }
             catch (Exception e)
             {
@@ -72,6 +72,7 @@ namespace SurveyConfiguratorApp
                 labelStatus.ForeColor = Color.Red;
                 labelStatus.Text = "Try connecting...";
                 TryConnectToServer();
+                ButtonsUpdateAndDeleteEnable(false);
             }
             catch (Exception ex)
             {
@@ -163,10 +164,9 @@ namespace SurveyConfiguratorApp
                     RefreshData();
 
                 }
-                else
-                {
-                    MessageBox.Show("No row selected.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+
+                ClearSelectedQuestion();
+
             }
             catch (Exception ex)
             {
@@ -188,15 +188,13 @@ namespace SurveyConfiguratorApp
                     {
                         questionManager.Delete(questionId);
                         RefreshData();
-                        questionId = -1;
                     }
 
 
                 }
-                else
-                {
-                    MessageBox.Show("No row selected.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+
+                ClearSelectedQuestion();
+
             }
             catch (Exception ex)
             {
@@ -206,7 +204,7 @@ namespace SurveyConfiguratorApp
 
         // General Function
 
-      
+
         /// <summary>
         /// This function is a helper to re-select the last row based on the [Order] value
         /// It should be called after any changes in the data view
@@ -310,35 +308,61 @@ namespace SurveyConfiguratorApp
 
         private void UpdateSelectedQuestion(Question question)
         {
-            questionTypeNumber = question.getTypeNumber();
-            questionId = question.getId();
-            lastSelectedQuestionOrder = question.Order;
+            try
+            {
+                questionTypeNumber = question.getTypeNumber();
+                questionId = question.getId();
+                lastSelectedQuestionOrder = question.Order;
+                ButtonsUpdateAndDeleteEnable(true);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+            }
+
         }
 
         private void ClearSelectedQuestion()
         {
-            questionId = -1;
-            questionTypeNumber = -1;
-            lastSelectedQuestionOrder = -1;
+            try
+            {
+                questionId = -1;
+                questionTypeNumber = -1;
+                lastSelectedQuestionOrder = -1;
+                ButtonsUpdateAndDeleteEnable(false);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+            }
+
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-            ListView listView = (ListView)sender;
-            if (listView.SelectedItems.Count > 0)
+            try
             {
-                ListViewItem selectedRowData = listView.SelectedItems[0];
-
-                if (selectedRowData.Tag is Question question)
+                ListView listView = (ListView)sender;
+                if (listView.SelectedItems.Count > 0)
                 {
-                    UpdateSelectedQuestion(question);
+                    ListViewItem selectedRowData = listView.SelectedItems[0];
+
+                    if (selectedRowData.Tag is Question question)
+                    {
+                        UpdateSelectedQuestion(question);
+                    }
+
+                }
+                else
+                {
+                    ClearSelectedQuestion();
                 }
             }
-            else
+            catch (Exception ex)
             {
-                ClearSelectedQuestion();
+                Log.Error(ex);
             }
+
 
 
         }
@@ -372,7 +396,7 @@ namespace SurveyConfiguratorApp
                     labelStatus.Text = null;
                     ButtonsEnable(true);
                     FillListView();
-
+                    HandleListViewEnable(true);
 
                 }
                 else
@@ -380,7 +404,10 @@ namespace SurveyConfiguratorApp
                     labelStatus.ForeColor = Color.Red;
                     labelStatus.Text = "Connected Failed";
                     ButtonsEnable(false);
+                    HandleListViewEnable(false);
+
                 }
+
             }
             catch (Exception ex)
             {
@@ -397,6 +424,7 @@ namespace SurveyConfiguratorApp
                     return;
                 }
                 TryConnectToServer();
+                ClearSelectedQuestion();
             }
             catch (Exception ex)
             {
@@ -409,6 +437,28 @@ namespace SurveyConfiguratorApp
             try
             {
                 btnAdd.Enabled = isEnable;
+                ButtonsUpdateAndDeleteEnable(isEnable);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+            }
+        }
+        private void HandleListViewEnable(bool isEnable)
+        {
+            try
+            {
+                listViewQuestions.Enabled = isEnable;
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+            }
+        }
+        private void ButtonsUpdateAndDeleteEnable(bool isEnable)
+        {
+            try
+            {
                 btnDelete.Enabled = isEnable;
                 btnUpdate.Enabled = isEnable;
             }
