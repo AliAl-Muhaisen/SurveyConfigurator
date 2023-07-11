@@ -73,7 +73,8 @@ namespace SurveyConfiguratorApp.Logic
         {
             try
             {
-                return $"Server={server};Database={database};User Id={username};Password={password};";
+                string connString = String.Format("Server={0};Database={1};User Id={2};Password={3};", server, database, username, password);
+                return connString;
             }
 
             catch (Exception ex)
