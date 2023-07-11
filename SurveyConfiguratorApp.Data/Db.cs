@@ -17,7 +17,10 @@ namespace SurveyConfiguratorApp.Data
     {
         public SqlConnection conn;
         private static string connectionString;
-      //  string AppConfigConnectionName { get{ return "ConnectionString"; } }
+        public const string AppConfigConnectionName = "ConnectionString";      
+        public const string AppConfigConnectionValueName = "connectionStrings";      
+        public const string AppConfigSettingsName = "appSettings";
+        public const string AppConfigConnectionProviderName = "System.Data.SqlClient";
         public DB()
         {
 
@@ -80,9 +83,9 @@ namespace SurveyConfiguratorApp.Data
         {
             try
             {
-                ConfigurationManager.RefreshSection("appSettings");
-                ConfigurationManager.RefreshSection("connectionStrings");
-                return ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+                ConfigurationManager.RefreshSection(AppConfigSettingsName);
+                ConfigurationManager.RefreshSection(AppConfigConnectionValueName);
+                return ConfigurationManager.ConnectionStrings[AppConfigConnectionName].ConnectionString;
             }
             catch (Exception e)
             {

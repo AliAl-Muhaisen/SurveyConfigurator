@@ -95,13 +95,12 @@ namespace SurveyConfiguratorApp.Logic
                 Configuration config;
                 config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
                 
-                config.ConnectionStrings.ConnectionStrings["ConnectionString"].ConnectionString = connectionString;
-                config.ConnectionStrings.ConnectionStrings["ConnectionString"].ProviderName = "System.Data.SqlClient";
+                config.ConnectionStrings.ConnectionStrings[DB.AppConfigConnectionName].ConnectionString = connectionString;
+                config.ConnectionStrings.ConnectionStrings[DB.AppConfigConnectionName].ProviderName = DB.AppConfigConnectionProviderName;
                 config.AppSettings.SectionInformation.ForceSave = true;
                 config.Save(ConfigurationSaveMode.Modified);
-                ConfigurationManager.RefreshSection("appSettings");
+                ConfigurationManager.RefreshSection(DB.AppConfigSettingsName);
                 db.RefreshConnectionString();
-
                 OnConnectionRefreshed();
 
                 return true;
