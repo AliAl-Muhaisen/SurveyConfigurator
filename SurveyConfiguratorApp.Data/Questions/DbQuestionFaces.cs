@@ -33,15 +33,14 @@ namespace SurveyConfiguratorApp.Data.Questions
                     using (SqlCommand cmd = new SqlCommand())
                     {
                         base.OpenConnection();
-
                         cmd.Connection = base.conn;
+                        string insertQuery = string.Format("INSERT INTO [{0}] ([{1}],[{2}]) VALUES (@{1},@{2})",
+                                   tableName, ColumnNames.QuestionId, ColumnNames.FacesNumber);
 
+                        cmd.CommandText = insertQuery;
 
-
-                        cmd.CommandText = $"INSERT INTO [{tableName}] ([{ColumnNames.QuestionId}],[{ColumnNames.FacesNumber}]) VALUES (@QuestionId,@FacesNumber);";
-
-                        cmd.Parameters.AddWithValue("@QuestionId", questionId);
-                        cmd.Parameters.AddWithValue("@FacesNumber", data.FacesNumber);
+                        cmd.Parameters.AddWithValue($"@{ColumnNames.QuestionId}", questionId);
+                        cmd.Parameters.AddWithValue($"@{ColumnNames.FacesNumber}", data.FacesNumber);
 
                         int rowAffectrowsAffected = cmd.ExecuteNonQuery();
                         if (rowAffectrowsAffected > 0)
@@ -76,10 +75,14 @@ namespace SurveyConfiguratorApp.Data.Questions
                 {
                     base.OpenConnection();
                     command.Connection = base.conn;
-                    command.CommandText = $"UPDATE [{tableName}] SET [{ColumnNames.FacesNumber}] = @FacesNumber WHERE [{ColumnNames.QuestionId}] = @Id";
 
-                    command.Parameters.AddWithValue("@FacesNumber", questionFaces.FacesNumber);
-                    command.Parameters.AddWithValue("@Id", questionFaces.getId());
+                    string updateQuery = string.Format("UPDATE [{0}] SET [{1}] = @{1} WHERE [{2}] = @{2}",
+                                   tableName, ColumnNames.FacesNumber, ColumnNames.QuestionId);
+
+                    command.CommandText = updateQuery;
+
+                    command.Parameters.AddWithValue($"@{ColumnNames.FacesNumber}", questionFaces.FacesNumber);
+                    command.Parameters.AddWithValue($"@{ColumnNames.QuestionId}", questionFaces.getId());
 
                     int rowsAffected = command.ExecuteNonQuery();
 
@@ -121,15 +124,16 @@ namespace SurveyConfiguratorApp.Data.Questions
                     cmd.CommandText = $"SELECT [{DbQuestion.ColumnNames.Text}],[{ColumnNames.FacesNumber}],[{DbQuestion.ColumnNames.Order}] FROM " +
                         $"{DbQuestion.tableName} as q  INNER JOIN {tableName} as f ON q.{DbQuestion.ColumnNames.Id}=f.{ColumnNames.QuestionId}" +
                         $" WHERE q.{DbQuestion.ColumnNames.Id}={id};";
+
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         if (!reader.HasRows) return null;
                         if (reader.Read())
                         {
-                            questionFaces.Order = (int)reader["Order"];
+                            questionFaces.Order = (int)reader[$"{DbQuestion.ColumnNames.Order}"];
                             questionFaces.setId(id);
-                            questionFaces.Text = reader["Text"].ToString();
-                            questionFaces.FacesNumber = (int)reader["FacesNumber"];
+                            questionFaces.Text = reader[$"{DbQuestion.ColumnNames.Text}"].ToString();
+                            questionFaces.FacesNumber = (int)reader[$"{ColumnNames.FacesNumber}"];
                             return questionFaces;
 
                         }
@@ -144,7 +148,6 @@ namespace SurveyConfiguratorApp.Data.Questions
             finally
             {
                 base.CloseConnection();
-
             }
             return null;
         }

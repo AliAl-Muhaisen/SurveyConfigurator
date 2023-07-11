@@ -34,17 +34,19 @@ namespace SurveyConfiguratorApp.Data.Questions
 
                     cmd.Connection = base.conn;
 
+                    string insertQuery = string.Format("INSERT INTO [{0}] ([{1}],[{2}],[{3}],[{4}],[{5}]) " +
+                                   "VALUES (@{1},@{2},@{3},@{4},@{5})",
+                                   tableName, ColumnNames.QuestionId, ColumnNames.StartValue,
+                                   ColumnNames.EndValue, ColumnNames.EndCaption, ColumnNames.StartCaption);
 
 
-                    cmd.CommandText = $"INSERT INTO [{tableName}] ([{ColumnNames.QuestionId}],[{ColumnNames.StartValue}]," +
-                        $"[{ColumnNames.EndValue}],[{ColumnNames.EndCaption}],[{ColumnNames.StartCaption}]) " +
-                        $"VALUES (@QuestionId,@StartValue,@EndValue,@EndCaption,@StartCaption);";
+                    cmd.CommandText = insertQuery;
 
-                    cmd.Parameters.AddWithValue("@QuestionId", questionId);
-                    cmd.Parameters.AddWithValue("@StartValue", data.StartValue);
-                    cmd.Parameters.AddWithValue("@EndValue", data.EndValue);
-                    cmd.Parameters.AddWithValue("@EndCaption", data.EndCaption);
-                    cmd.Parameters.AddWithValue("@StartCaption", data.StartCaption);
+                    cmd.Parameters.AddWithValue($"@{ColumnNames.QuestionId}", questionId);
+                    cmd.Parameters.AddWithValue($"@{ColumnNames.StartValue}", data.StartValue);
+                    cmd.Parameters.AddWithValue($"@{ColumnNames.EndValue}", data.EndValue);
+                    cmd.Parameters.AddWithValue($"@{ColumnNames.EndCaption}", data.EndCaption);
+                    cmd.Parameters.AddWithValue($"@{ColumnNames.StartCaption}", data.StartCaption);
 
 
 
@@ -80,15 +82,20 @@ namespace SurveyConfiguratorApp.Data.Questions
                 {
                     base.OpenConnection();
                     command.Connection = base.conn;
-                    command.CommandText = $"UPDATE [{tableName}] SET" +
-                        $" [{ColumnNames.StartCaption}] = @StartCaption,[{ColumnNames.EndCaption}] = @EndCaption,[{ColumnNames.StartValue}] = @StartValue," +
-                        $"[{ColumnNames.EndValue}] = @EndValue WHERE [{ColumnNames.QuestionId}] = @Id";
 
-                    command.Parameters.AddWithValue("@StartCaption", questionSlider.StartCaption);
-                    command.Parameters.AddWithValue("@EndCaption", questionSlider.EndCaption);
-                    command.Parameters.AddWithValue("@StartValue", questionSlider.StartValue);
-                    command.Parameters.AddWithValue("@EndValue", questionSlider.EndValue);
-                    command.Parameters.AddWithValue("@Id", questionSlider.getId());
+                    string updateQuery = string.Format("UPDATE [{0}] SET [{1}] = @{1}, [{2}] = @{2}, [{3}] = @{3}, [{4}] = @{4} " +
+                                   "WHERE [{5}] = @{5}",
+                                   tableName, ColumnNames.StartCaption, ColumnNames.EndCaption,
+                                   ColumnNames.StartValue, ColumnNames.EndValue, ColumnNames.QuestionId);
+
+
+                    command.CommandText = updateQuery;
+
+                    command.Parameters.AddWithValue($"@{ColumnNames.StartCaption}", questionSlider.StartCaption);
+                    command.Parameters.AddWithValue($"@{ColumnNames.EndCaption}", questionSlider.EndCaption);
+                    command.Parameters.AddWithValue($"@{ColumnNames.StartValue}", questionSlider.StartValue);
+                    command.Parameters.AddWithValue($"@{ColumnNames.EndValue}", questionSlider.EndValue);
+                    command.Parameters.AddWithValue($"@{ColumnNames.QuestionId}", questionSlider.getId());
 
                     int rowsAffected = command.ExecuteNonQuery();
 

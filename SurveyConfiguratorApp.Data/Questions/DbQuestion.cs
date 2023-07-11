@@ -47,11 +47,17 @@ namespace SurveyConfiguratorApp.Data.Questions
                     cmd.Connection = base.conn;
                     //SCOPE_IDENTITY() is a function in SQL Server that returns the last identity value inserted into an identity column within the current scope.
                     //It is commonly used to retrieve the generated ID value after performing an insert operation.
-                    cmd.CommandText = $"INSERT INTO [{tableName}] ([{ColumnNames.Order}],[{ColumnNames.Text}],[{ColumnNames.TypeNumber}]) VALUES (@Order,@Text,@TypeNumber);SELECT SCOPE_IDENTITY();";
+                    string query= string.Format("INSERT INTO [{0}] ([{1}],[{2}],[{3}]) VALUES " +
+                        "(@{1},@{2},@{3});SELECT SCOPE_IDENTITY();",
+                        tableName, ColumnNames.Order, ColumnNames.Text, ColumnNames.TypeNumber);
 
-                    cmd.Parameters.AddWithValue("@Order", data.Order);
-                    cmd.Parameters.AddWithValue("@Text", data.Text);
-                    cmd.Parameters.AddWithValue("@TypeNumber", data.getTypeNumber());
+                    cmd.CommandText = query;
+
+                
+                   
+                    cmd.Parameters.AddWithValue($"@{ColumnNames.Order}", data.Order);
+                    cmd.Parameters.AddWithValue($"@{ColumnNames.Text}", data.Text);
+                    cmd.Parameters.AddWithValue($"@{ColumnNames.TypeNumber}", data.getTypeNumber());
                     // Execute the query and retrieve the generated ID
                      questionId = Convert.ToInt32(cmd.ExecuteScalar());
                  
@@ -135,11 +141,16 @@ namespace SurveyConfiguratorApp.Data.Questions
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = base.conn;
-                    command.CommandText = $"UPDATE [{tableName}] SET [{ColumnNames.Text}] = @Text,[{ColumnNames.Order}]=@Order WHERE [{ColumnNames.Id}] = @Id";
 
-                    command.Parameters.AddWithValue("@Text", question.Text);
-                    command.Parameters.AddWithValue("@Order", question.Order);
-                    command.Parameters.AddWithValue("@Id", question.getId());
+                    string updateQuery = string.Format("UPDATE [{0}] SET [{1}] = @{1}, [{2}] = @{2} WHERE [{3}] = @{3}",
+                                   tableName, ColumnNames.Text, ColumnNames.Order, ColumnNames.Id);
+
+
+                    command.CommandText = updateQuery;
+
+                    command.Parameters.AddWithValue($"@{ColumnNames.Text}", question.Text);
+                    command.Parameters.AddWithValue($"@{ColumnNames.Order}", question.Order);
+                    command.Parameters.AddWithValue($"@{ColumnNames.Id}", question.getId());
 
                     int rowsAffected = command.ExecuteNonQuery();
 
@@ -209,9 +220,9 @@ namespace SurveyConfiguratorApp.Data.Questions
                     {
                         Question question = new Question(
                                (int)reader[$"{ColumnNames.Id}"],
-                               reader["Text"].ToString(),
-                               (int)reader["TypeNumber"],
-                               (int)reader["Order"]
+                               reader[$"{ColumnNames.Text}"].ToString(),
+                               (int)reader[$"{ColumnNames.TypeNumber}"],
+                               (int)reader[$"{ColumnNames.Order}"]
                                );
 
 
@@ -251,9 +262,9 @@ namespace SurveyConfiguratorApp.Data.Questions
                         {
                             Question question = new Question(
                                 id,
-                                reader["Text"].ToString(),
-                                (int)reader["TypeNumber"],
-                                (int)reader["Order"]
+                                reader[$"{ColumnNames.Text}"].ToString(),
+                                (int)reader[$"{ColumnNames.TypeNumber}"],
+                                (int)reader[$"{ColumnNames.Order}"]
                                 );
 
                             return question;
@@ -284,9 +295,10 @@ namespace SurveyConfiguratorApp.Data.Questions
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     cmd.Connection = dbQuestion.conn;
-                    cmd.CommandText = $"SELECT [{ColumnNames.Order}] FROM [{tableName}] WHERE ([{ColumnNames.Order}] = @order AND [{ColumnNames.Order}] != @oldOrder);";
-                    cmd.Parameters.AddWithValue("@order", order);
-                    cmd.Parameters.AddWithValue("@oldOrder", oldOrder);
+                    cmd.CommandText = $"SELECT [{ColumnNames.Order}] FROM [{tableName}] WHERE ([{ColumnNames.Order}] = @{ColumnNames.Order}" +
+                        $" AND [{ColumnNames.Order}] != @oldOrder);";
+                    cmd.Parameters.AddWithValue($"@{ColumnNames.Order}", order);
+                    cmd.Parameters.AddWithValue($"@oldOrder", oldOrder);
 
                     SqlDataReader dataReader = cmd.ExecuteReader();
                     if (dataReader.HasRows)

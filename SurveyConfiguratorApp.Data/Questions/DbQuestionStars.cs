@@ -38,9 +38,14 @@ namespace SurveyConfiguratorApp.Data.Questions
 
                 cmd.Connection = base.conn;
 
-                cmd.CommandText = $"INSERT INTO [{tableName}] ([{ColumnNames.QuestionId}],[{ColumnNames.StarsNumber}]) VALUES (@QuestionId,@StarsNumber);";
-                cmd.Parameters.AddWithValue("@QuestionId", questionId);
-                cmd.Parameters.AddWithValue("@StarsNumber", data.StarsNumber);
+                string insertQuery = string.Format("INSERT INTO [{0}] ([{1}],[{2}]) VALUES (@{1},@{2})",
+                                   tableName, ColumnNames.QuestionId, ColumnNames.StarsNumber);
+
+
+                cmd.CommandText = insertQuery;
+
+                cmd.Parameters.AddWithValue($"@{ColumnNames.QuestionId}", questionId);
+                cmd.Parameters.AddWithValue($"@{ColumnNames.StarsNumber}", data.StarsNumber);
 
 
 
@@ -74,10 +79,14 @@ namespace SurveyConfiguratorApp.Data.Questions
             {
                 base.OpenConnection();
                 command.Connection = base.conn;
-                command.CommandText = $"UPDATE [{TableName}] SET [{ColumnNames.StarsNumber}] = @StarsNumber WHERE [{ColumnNames.QuestionId}] = @Id";
 
-                command.Parameters.AddWithValue("@StarsNumber", questionStars.StarsNumber);
-                command.Parameters.AddWithValue("@Id", questionStars.getId());
+                string updateQuery = string.Format("UPDATE [{0}] SET [{1}] = @{1} WHERE [{2}] = @{2}",
+                                   TableName, ColumnNames.StarsNumber, ColumnNames.QuestionId);
+
+                command.CommandText = updateQuery;
+
+                command.Parameters.AddWithValue($"@{ColumnNames.StarsNumber}", questionStars.StarsNumber);
+                command.Parameters.AddWithValue($"@{ColumnNames.QuestionId}", questionStars.getId());
 
                 try
                 {
@@ -97,7 +106,6 @@ namespace SurveyConfiguratorApp.Data.Questions
                 }
                 catch (Exception ex)
                 {
-                    // Handle any SQL errors
                     Log.Error(ex);
                     return StatusCode.Error;
                 }
