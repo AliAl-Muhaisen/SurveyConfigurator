@@ -37,7 +37,7 @@
             this.listViewQuestions = new System.Windows.Forms.ListView();
             this.Order = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.TypeName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Text = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.QuestionText = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataBaseConnectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -104,7 +104,7 @@
             this.listViewQuestions.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Order,
             this.TypeName,
-            this.Text});
+            this.QuestionText});
             this.listViewQuestions.ForeColor = System.Drawing.SystemColors.WindowText;
             this.listViewQuestions.FullRowSelect = true;
             this.listViewQuestions.GridLines = true;
@@ -130,10 +130,10 @@
             this.TypeName.Text = "Type Name";
             this.TypeName.Width = 100;
             // 
-            // Text
+            // QuestionText
             // 
-            this.Text.Text = "Text";
-            this.Text.Width = 595;
+            this.QuestionText.Text = "Text";
+            this.QuestionText.Width = 595;
             // 
             // menuStrip1
             // 
@@ -182,6 +182,7 @@
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Survey";
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -200,7 +201,7 @@
         private System.Windows.Forms.ListView listViewQuestions;
         private System.Windows.Forms.ColumnHeader Order;
         private System.Windows.Forms.ColumnHeader TypeName;
-        private System.Windows.Forms.ColumnHeader Text;
+        private System.Windows.Forms.ColumnHeader QuestionText;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dataBaseConnectionToolStripMenuItem;

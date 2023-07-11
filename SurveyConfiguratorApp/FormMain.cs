@@ -56,7 +56,6 @@ namespace SurveyConfiguratorApp
 
                 dbManager = new DbManager();
                 dbManager.ConnectionRefreshed += OnConnectionRefreshed;
-
             }
             catch (Exception e)
             {
@@ -159,7 +158,6 @@ namespace SurveyConfiguratorApp
 
                 if (questionId != -1)
                 {
-                    // questionId = handleQuestionId(questionId);
                     Form fromAdd = new FormQuestion(false, questionId, questionTypeNumber, "Update Question");
                     fromAdd.ShowDialog();
                     RefreshData();
@@ -185,7 +183,6 @@ namespace SurveyConfiguratorApp
 
                 if (questionId != -1)
                 {
-                    //  questionId = handleQuestionId(questionId);
                     DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete this record", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (dialogResult == DialogResult.Yes)
                     {
@@ -209,38 +206,7 @@ namespace SurveyConfiguratorApp
 
         // General Function
 
-        /// <summary>
-        /// This function is a helper to check if the object with a specific ID is still available in the database
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        private int handleQuestionId(int id)
-        {
-
-            try
-            {
-                Question question = questionManager.GetQuestion(id);
-
-                if (question != null)
-                {
-                    return question.getId();
-                }
-                else
-                {
-                    RefreshData();
-                    MessageBox.Show("This question does not exists", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-
-            }
-            catch (Exception e)
-            {
-                Log.Error(e);
-
-                MessageBox.Show(e.Message);
-            }
-            return -1;
-        }
-
+      
         /// <summary>
         /// This function is a helper to re-select the last row based on the [Order] value
         /// It should be called after any changes in the data view
