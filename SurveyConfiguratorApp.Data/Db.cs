@@ -17,7 +17,7 @@ namespace SurveyConfiguratorApp.Data
     {
         public SqlConnection conn;
         private static string connectionString;
-
+      //  string AppConfigConnectionName { get{ return "ConnectionString"; } }
         public DB()
         {
 
@@ -67,7 +67,7 @@ namespace SurveyConfiguratorApp.Data
                 {
                     conn.Close();
                 }
-                string connectionString= GetConfigConnectionString();
+                //string connectionString= GetConfigConnectionString();
                 conn = new SqlConnection(connectionString);
                 conn.Open();
             }
@@ -114,7 +114,7 @@ namespace SurveyConfiguratorApp.Data
             try
             {
                 connectionString = GetConfigConnectionString();
-                Log.Info("Updated ConnectionString");
+                Log.Info("Updated Connection String");
             }
             catch (Exception e)
             {

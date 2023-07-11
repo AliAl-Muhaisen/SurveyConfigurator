@@ -16,20 +16,20 @@ namespace SurveyConfiguratorApp.Data.Questions
         public DbQuestionStars() : base() { }
 
         static public string TableName { get { return tableName; } }
-        public bool Add(QuestionStars data)
+        public StatusCode Add(QuestionStars data)
         {
             try
             {
-                bool isAdded = base.Add(data);
+                StatusCode isAdded = base.Add(data);
 
 
-                if (!isAdded)
-                    return false;
+                if (isAdded != StatusCode.Success)
+                    return isAdded;
 
                 int questionId = base.GetQuestionId();
 
                 if (questionId == -1)
-                    return false;
+                    return StatusCode.Error;
 
                 SqlCommand cmd = new SqlCommand();
 
@@ -47,7 +47,7 @@ namespace SurveyConfiguratorApp.Data.Questions
                 int rowAffected = cmd.ExecuteNonQuery();
                 if (rowAffected > 0)
                 {
-                    return true;
+                    return StatusCode.Success;
                 }
                 // If the stars question not added successfully, Delete the base question 
                 base.Delete(questionId);
@@ -57,17 +57,18 @@ namespace SurveyConfiguratorApp.Data.Questions
             catch (Exception ex)
             {
                 Log.Error(ex);
+                return StatusCode.Error;
             }
             finally
             {
                 base.CloseConnection();
             }
-            return false;
+            return StatusCode.ValidationError;
         }
 
 
 
-        public bool Update(QuestionStars questionStars)
+        public StatusCode Update(QuestionStars questionStars)
         {
             using (SqlCommand command = new SqlCommand())
             {
@@ -86,7 +87,7 @@ namespace SurveyConfiguratorApp.Data.Questions
                     if (rowsAffected <= 0)
                     {
                         // Row not found or not updated
-                        return false;
+                        return StatusCode.ValidationError;
                     }
 
                     base.CloseConnection();
@@ -98,14 +99,12 @@ namespace SurveyConfiguratorApp.Data.Questions
                 {
                     // Handle any SQL errors
                     Log.Error(ex);
+                    return StatusCode.Error;
                 }
                 finally
                 {
                     base.CloseConnection();
                 }
-                return false;
-
-
             }
         }
 

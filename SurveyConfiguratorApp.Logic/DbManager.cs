@@ -25,7 +25,7 @@ namespace SurveyConfiguratorApp.Logic
             {
                 connectionString = BuildConnectionString(server, database, username, password);
                 conn = new SqlConnection(connectionString);
-                db = new DB();
+               db = new DB();
             }
             catch (Exception ex)
             {
@@ -94,7 +94,7 @@ namespace SurveyConfiguratorApp.Logic
 
                 Configuration config;
                 config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-
+                
                 config.ConnectionStrings.ConnectionStrings["ConnectionString"].ConnectionString = connectionString;
                 config.ConnectionStrings.ConnectionStrings["ConnectionString"].ProviderName = "System.Data.SqlClient";
                 config.AppSettings.SectionInformation.ForceSave = true;

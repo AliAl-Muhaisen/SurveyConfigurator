@@ -73,19 +73,15 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 labelErrorEndValue.clearText();
                 labelErrorCaptionStart.clearText();
                 labelErrorCaptionEnd.clearText();
-
                 if (questionId != -1)
                 {
                     questionSlider = questionManager.GetQuestionSlider(questionId);
                     // Check if question still exists
-                    if (questionSlider == null)
-                    {
-                        MessageBox.Show("This Question does not exists", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        closeParentFrom();
-                    }
+                    HandleIsQuestionNotExists();
+
                     sharedBetweenQuestions.setOldOrder(questionSlider.Order);
                     fillInputs(questionSlider);
-                  
+
 
                 }
             }
@@ -107,7 +103,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
         {
             try
             {
-                closeParentFrom();
+                CloseParentFrom();
             }
             catch (Exception ex)
             {
@@ -118,7 +114,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
         /// <summary>
         /// Close The parent form that running the child form
         /// </summary>
-        private void closeParentFrom()
+        private void CloseParentFrom()
         {
             try
             {
@@ -131,6 +127,27 @@ namespace SurveyConfiguratorApp.Forms.Questions
 
         }
 
+        private void HandleIsQuestionNotExists()
+        {
+            try
+            {
+                if (questionId != -1)
+                {
+                   QuestionSlider questionSlider = questionManager.GetQuestionSlider(questionId);
+                    // Check if question still exists
+                    if (questionSlider == null)
+                    {
+                        customMessageBoxControl1.NotExists();
+                        CloseParentFrom();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+            }
+        }
+
         /// <summary>
         /// used for save and upate question 
         /// </summary>
@@ -141,11 +158,11 @@ namespace SurveyConfiguratorApp.Forms.Questions
             try
             {
 
-                if (isValidForm())
+                if (IsValidForm())
                 {
                     questionSlider.Text = sharedBetweenQuestions.getQuestionText();
                     questionSlider.Order = Convert.ToInt32(sharedBetweenQuestions.getQuestionOrder());
-                    bool result = false;
+                    StatusCode result;
 
                     questionSlider.StartValue = ((int)numericStartValue.Value);
                     questionSlider.EndValue = ((int)numericEndValue.Value);
@@ -153,24 +170,21 @@ namespace SurveyConfiguratorApp.Forms.Questions
                     questionSlider.EndCaption = textBoxEndCaption.Text;
                     if (!isUpdate)
                     {
-
-                        result = questionManager.AddQuestionSlider(questionSlider);
-                        if (!result)
-                            customMessageBoxControl1.Add(result);
+                        result = questionManager.AddQuestionSlider(questionSlider);                       
                     }
                     else
                     {
+                        HandleIsQuestionNotExists();
                         result = questionManager.UpdateQuestionSlider(questionSlider);
-                        //sharedBetweenQuestions.setOldOrder(questionSlider.Order);
-                        if (!result)
-                            customMessageBoxControl1.Update(result);
+                       
 
                     }
-                    if (result)
+                    if (result == StatusCode.Success)
                     {
-                        closeParentFrom();
+                        CloseParentFrom();
                     }
-
+                    else
+                        customMessageBoxControl1.StatusCodeMessage(result);
 
 
                 }
@@ -382,7 +396,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
         /// To Check form inputs validation
         /// </summary>
         /// <returns></returns>
-        private bool isValidForm()
+        private bool IsValidForm()
         {
             try
             {

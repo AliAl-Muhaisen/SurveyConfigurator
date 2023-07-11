@@ -66,7 +66,8 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 numericFaceNumber.Minimum = questionValidation.FacesMinValue;
                 if (questionId != -1)
                 {
-                    questionFaces = HandleQuestionAvailablity();
+                    questionFaces = questoinManager.GetQuestionFaces(questionId);
+                    HandleIsQuestionNotExists();
                     fillInputs(questionFaces);
                     sharedBetweenQuestions.setOldOrder(questionFaces.Order);
 
@@ -81,7 +82,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
 
         }
 
-        private QuestionFaces HandleQuestionAvailablity()
+        private void HandleIsQuestionNotExists()
         {
             try
             {
@@ -91,18 +92,15 @@ namespace SurveyConfiguratorApp.Forms.Questions
 
                     if (questionFaces == null)
                     {
-                        MessageBox.Show("This Question does not exists", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        closeParentFrom();
+                        customMessageBoxControl1.NotExists();
+                        CloseParentFrom();
                     }
-                    return questionFaces;
                 }
             }
             catch (Exception e)
             {
                 Log.Error(e);
             }
-            return null;
-
         }
 
         // From Buttons
@@ -122,29 +120,27 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 {
                     questionFaces.Text = sharedBetweenQuestions.getQuestionText();
                     questionFaces.Order = Convert.ToInt32(sharedBetweenQuestions.getQuestionOrder());
-                    bool result = false;
+                    StatusCode result=StatusCode.Success;
 
                     questionFaces.FacesNumber = ((int)numericFaceNumber.Value);
 
                     if (!isUpdate)
                     {
-
-                        result = questoinManager.AddQuestionFaces(questionFaces);
-                        if (!result)
-                            customMessageBoxControl1.Add(result);
-
+                        result = questoinManager.AddQuestionFaces(questionFaces);                       
                     }
                     else
                     {
-                        HandleQuestionAvailablity();
-                        result = questoinManager.UpdateQuestionFaces(questionFaces);
-                        if (!result)
-                            customMessageBoxControl1.Update(result);
+                        HandleIsQuestionNotExists();
+                        result =
+                            questoinManager.UpdateQuestionFaces(questionFaces);
                         sharedBetweenQuestions.setOldOrder(questionFaces.Order);
 
                     }
-                    if (result)
-                        closeParentFrom();
+                    if (result == StatusCode.Success)
+                        CloseParentFrom();
+                    else
+                        customMessageBoxControl1.StatusCodeMessage(result);
+
                 }
 
             }
@@ -158,7 +154,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
         /// <summary>
         /// Close The parent form that running the child form
         /// </summary>
-        private void closeParentFrom()
+        private void CloseParentFrom()
         {
             try
             {
@@ -181,7 +177,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
 
             try
             {
-                closeParentFrom();
+                CloseParentFrom();
             }
             catch (Exception ex)
             {

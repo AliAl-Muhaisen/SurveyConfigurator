@@ -16,15 +16,17 @@ namespace SurveyConfiguratorApp.Data.Questions
             StartCaption,
             EndCaption,
         }
-        public bool Add(QuestionSlider data)
+        public StatusCode Add(QuestionSlider data)
         {
             try
             {
-                base.Add(data);
+                StatusCode isAdded= base.Add(data);
+                if (isAdded != StatusCode.Success)
+                    return isAdded;
                 int questionId = base.GetQuestionId();
 
                 if (questionId == -1)
-                    return false;
+                    return StatusCode.Error;
 
                 using (SqlCommand cmd = new SqlCommand())
                 {
@@ -49,7 +51,7 @@ namespace SurveyConfiguratorApp.Data.Questions
                     int rowAffected = cmd.ExecuteNonQuery();
                     if (rowAffected > 0)
                     {
-                        return true;
+                        return StatusCode.Success;
                     }
 
 
@@ -59,17 +61,18 @@ namespace SurveyConfiguratorApp.Data.Questions
             catch (Exception e)
             {
                 Log.Error(e);
+                return StatusCode.Error;
             }
             finally
             {
                 base.CloseConnection();
             }
-            return false;
+            return StatusCode.ValidationError;
 
         }
 
 
-        public bool Update(QuestionSlider questionSlider)
+        public StatusCode Update(QuestionSlider questionSlider)
         {
             try
             {
@@ -92,25 +95,23 @@ namespace SurveyConfiguratorApp.Data.Questions
                     if (rowsAffected <= 0)
                     {
                         // Row not found or not updated
-                        return false;
+                        return StatusCode.ValidationError;
                     }
                     base.CloseConnection();
 
-                    return true && base.Update(questionSlider);
+                    return  base.Update(questionSlider);
                 }
             }
 
             catch (Exception e)
             {
                 Log.Error(e);
+                return StatusCode.Error;
             }
             finally
             {
                 base.CloseConnection();
             }
-            return false;
-
-
 
 
         }

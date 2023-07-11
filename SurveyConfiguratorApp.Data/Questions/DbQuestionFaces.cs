@@ -19,16 +19,16 @@ namespace SurveyConfiguratorApp.Data.Questions
         public DbQuestionFaces() : base() { }
 
         // Create a new QuestionFaces entry in the database
-        public bool Add(QuestionFaces data)
+        public StatusCode Add(QuestionFaces data)
         {
             try
             {
-                bool isBaseInfoAdded = base.Add(data);
-                if (isBaseInfoAdded)
+                StatusCode isBaseInfoAdded = base.Add(data);
+                if (isBaseInfoAdded== StatusCode.Success)
                 {
                     int questionId = base.GetQuestionId();
                     if (questionId == -1)
-                        return false;
+                        return StatusCode.Error;
 
                     using (SqlCommand cmd = new SqlCommand())
                     {
@@ -43,11 +43,9 @@ namespace SurveyConfiguratorApp.Data.Questions
                         cmd.Parameters.AddWithValue("@QuestionId", questionId);
                         cmd.Parameters.AddWithValue("@FacesNumber", data.FacesNumber);
 
-
-
                         int rowAffectrowsAffected = cmd.ExecuteNonQuery();
                         if (rowAffectrowsAffected > 0)
-                            return true;
+                            return StatusCode.Success;
 
                     }
                 }
@@ -57,17 +55,18 @@ namespace SurveyConfiguratorApp.Data.Questions
             catch (Exception e)
             {
                 Log.Error(e);
+                return StatusCode.Error;
             }
             finally
             {
                 base.CloseConnection();
             }
-            return false;
+            return StatusCode.ValidationError;
 
         }
 
         // Update a QuestionFaces entry in the database
-        public bool Update(QuestionFaces questionFaces)
+        public StatusCode Update(QuestionFaces questionFaces)
         {
 
 
@@ -87,25 +86,22 @@ namespace SurveyConfiguratorApp.Data.Questions
                     if (rowsAffected <= 0)
                     {
                         // Row not found or not updated
-                        return false;
+                        return StatusCode.ValidationError;
                     }
                     base.CloseConnection();
-                    base.Update(questionFaces);
-                    return true;
+                    ;
+                    return base.Update(questionFaces);
                 }
             }
             catch (Exception e)
             {
                 Log.Error(e);
+                return StatusCode.Error;
             }
             finally
             {
                 base.CloseConnection();
-
             }
-            return false;
-
-
 
         }
 

@@ -43,41 +43,45 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(397, 105);
+            this.label1.Location = new System.Drawing.Point(529, 129);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(0, 13);
+            this.label1.Size = new System.Drawing.Size(0, 16);
             this.label1.TabIndex = 0;
             // 
             // numericStarsNumber
             // 
-            this.numericStarsNumber.Location = new System.Drawing.Point(110, 22);
+            this.numericStarsNumber.Location = new System.Drawing.Point(147, 27);
+            this.numericStarsNumber.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.numericStarsNumber.Name = "numericStarsNumber";
-            this.numericStarsNumber.Size = new System.Drawing.Size(422, 20);
+            this.numericStarsNumber.Size = new System.Drawing.Size(563, 22);
             this.numericStarsNumber.TabIndex = 5;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(5, 24);
+            this.label2.Location = new System.Drawing.Point(7, 30);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(71, 13);
+            this.label2.Size = new System.Drawing.Size(89, 16);
             this.label2.TabIndex = 4;
             this.label2.Text = "Stars Number";
             // 
             // sharedBetweenQuestions
             // 
             this.sharedBetweenQuestions.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.sharedBetweenQuestions.Location = new System.Drawing.Point(9, 12);
-            this.sharedBetweenQuestions.Margin = new System.Windows.Forms.Padding(4);
+            this.sharedBetweenQuestions.Location = new System.Drawing.Point(12, 15);
+            this.sharedBetweenQuestions.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.sharedBetweenQuestions.Name = "sharedBetweenQuestions";
-            this.sharedBetweenQuestions.Size = new System.Drawing.Size(540, 152);
+            this.sharedBetweenQuestions.Size = new System.Drawing.Size(720, 187);
             this.sharedBetweenQuestions.TabIndex = 3;
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(319, 293);
+            this.btnSave.Location = new System.Drawing.Point(425, 361);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(97, 23);
+            this.btnSave.Size = new System.Drawing.Size(129, 28);
             this.btnSave.TabIndex = 6;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -85,9 +89,10 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(437, 293);
+            this.btnCancel.Location = new System.Drawing.Point(583, 361);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(97, 23);
+            this.btnCancel.Size = new System.Drawing.Size(129, 28);
             this.btnCancel.TabIndex = 7;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -96,36 +101,38 @@
             // customMessageBoxControl1
             // 
             this.customMessageBoxControl1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.customMessageBoxControl1.Location = new System.Drawing.Point(778, 163);
-            this.customMessageBoxControl1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.customMessageBoxControl1.Location = new System.Drawing.Point(1037, 201);
+            this.customMessageBoxControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.customMessageBoxControl1.Name = "customMessageBoxControl1";
-            this.customMessageBoxControl1.Size = new System.Drawing.Size(8, 19);
+            this.customMessageBoxControl1.Size = new System.Drawing.Size(11, 23);
             this.customMessageBoxControl1.TabIndex = 8;
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.numericStarsNumber);
-            this.groupBox1.Location = new System.Drawing.Point(9, 171);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox1.Location = new System.Drawing.Point(12, 210);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(540, 56);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox1.Size = new System.Drawing.Size(720, 69);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Stars";
             // 
             // FormQuestionStars
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(582, 328);
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(776, 404);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.customMessageBoxControl1);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.sharedBetweenQuestions);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FormQuestionStars";
             this.Text = "Stars Question";
             this.Load += new System.EventHandler(this.FormQuestionStars_Load);

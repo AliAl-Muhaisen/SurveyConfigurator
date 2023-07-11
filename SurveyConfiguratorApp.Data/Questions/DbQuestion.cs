@@ -36,7 +36,7 @@ namespace SurveyConfiguratorApp.Data.Questions
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public bool Add(Question data)
+        public StatusCode Add(Question data)
         {
             try
             {
@@ -58,11 +58,11 @@ namespace SurveyConfiguratorApp.Data.Questions
                     if (questionId > 0)
                     {
                         OnDataChanged();
-                        return true;
+                        return StatusCode.Success;
                     }
                     else
                     {
-                        return false;
+                        return StatusCode.ValidationError;
                     }
 
                 }
@@ -71,18 +71,18 @@ namespace SurveyConfiguratorApp.Data.Questions
             catch (Exception e)
             {
                 Log.Error(e);
+               return StatusCode.Error;
             }
             finally
             {
                 base.CloseConnection();
             }
-            return false;
 
         }
 
 
 
-        public bool Delete(int id)
+        public StatusCode Delete(int id)
         {
 
             try
@@ -99,15 +99,10 @@ namespace SurveyConfiguratorApp.Data.Questions
                     if (rowsAffected > 0)
                     {
                         // Row deleted successfully
-                        return true;
+                        return StatusCode.Success;
 
                     }
-                    else
-                    {
-                        // Row not found or not deleted
-                        return false;
-
-                    }
+                   
                 }
             }
             catch (Exception e)
@@ -115,7 +110,7 @@ namespace SurveyConfiguratorApp.Data.Questions
                 Log.Error(e);
             }
             finally { base.CloseConnection(); }
-            return false;
+            return StatusCode.Error;
 
         }
 
@@ -130,7 +125,7 @@ namespace SurveyConfiguratorApp.Data.Questions
         /// The update method updates a specific record in the Question table based on the provided Question object.
         /// It catches SQL exceptions and returns false in case of an error.
         /// </summary>
-        public bool Update(Question question)
+        public StatusCode Update(Question question)
         {
 
 
@@ -151,12 +146,12 @@ namespace SurveyConfiguratorApp.Data.Questions
                     if (rowsAffected > 0)
                     {
                         // Row updated successfully
-                        return true;
+                        return StatusCode.Success;
                     }
                     else
                     {
                         // Row not found or not updated
-                        return false;
+                        return StatusCode.ValidationError;
                     }
 
                 }
@@ -164,13 +159,12 @@ namespace SurveyConfiguratorApp.Data.Questions
             catch (Exception ex)
             {
                 Log.Error(ex);
+                return StatusCode.Error;
             }
             finally
             {
                 base.CloseConnection();
             }
-            return false;
-
 
         }
 
@@ -192,7 +186,7 @@ namespace SurveyConfiguratorApp.Data.Questions
                 Log.Error(ex);
             }
            
-            return 1;//TODO:!I will review this later :)
+            return -1;//TODO:!I will review this later :)
         }
 
         public List<Question> GetQuestions()

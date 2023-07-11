@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SurveyConfiguratorApp.Helper;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,6 +17,30 @@ namespace SurveyConfiguratorApp.UserController.Controllers
         public CustomMessageBoxControl()
         {
             InitializeComponent();
+        }
+        public void StatusCodeMessage(StatusCode statusCode)
+        {
+            try
+            {
+                switch (statusCode)
+                {
+                    case StatusCode.ValidationError:
+                        MessageBox.Show("Validation errors, Please check the inputs", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case StatusCode.Success:
+                        MessageBox.Show("Completed Successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        break;
+                    case StatusCode.Error:
+
+                    default:
+                        MessageBox.Show("Something went wrong", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                }
+
+            }
+            catch (Exception ex) { Log.Error(ex); }
         }
         public void Add(bool result)
         {
@@ -37,7 +62,7 @@ namespace SurveyConfiguratorApp.UserController.Controllers
             }
             catch (Exception ex)
             {
-                //TODO: use error here
+                Log.Error(ex);
             }
 
         }
@@ -62,7 +87,7 @@ namespace SurveyConfiguratorApp.UserController.Controllers
             }
             catch (Exception ex)
             {
-                //TODO: use error here
+                Log.Error(ex);
             }
 
         }
@@ -87,9 +112,20 @@ namespace SurveyConfiguratorApp.UserController.Controllers
             }
             catch (Exception ex)
             {
-                //TODO: use error here
+                Log.Error(ex);
             }
 
+        }
+        public void NotExists()
+        {
+            try
+            {
+                MessageBox.Show("This Question does not exists", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+            }
         }
     }
 }

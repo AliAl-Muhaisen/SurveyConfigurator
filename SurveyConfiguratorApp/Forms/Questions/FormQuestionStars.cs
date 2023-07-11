@@ -62,11 +62,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 {
                     // to check if the question still exists in the db
                     questionStars = questionFacade.GetQuestionStars(questionId);
-                    if (questionStars == null)
-                    {
-                        MessageBox.Show("This Question does not exists", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        closeParentFrom();
-                    }
+                    HandleIsQuestionNotExists();
                     fillInputs(questionStars);
                     sharedBetweenQuestions.setOldOrder(questionStars.Order);
 
@@ -79,7 +75,22 @@ namespace SurveyConfiguratorApp.Forms.Questions
 
         }
 
-
+        private void HandleIsQuestionNotExists()
+        {
+            try
+            {
+                QuestionStars questionStars= questionFacade.GetQuestionStars(questionId);
+                if (questionStars == null)
+                {
+                    customMessageBoxControl1.NotExists();
+                    CloseParentFrom();
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+            }
+        }
         private void btnSave_Click(object sender, EventArgs e)
         {
             try
@@ -89,25 +100,23 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 {
                     questionStars.Text = sharedBetweenQuestions.getQuestionText();
                     questionStars.Order = Convert.ToInt32(sharedBetweenQuestions.getQuestionOrder());
-                    bool result = false;
+                    StatusCode result;
 
                     questionStars.StarsNumber = ((int)numericStarsNumber.Value);
                     if (!isUpdate)
                     {
-
-                        result = questionFacade.AddQuestionStars(questionStars);
-                        if (!result) 
-                             customMessageBoxControl1.Add(result);
+                        result = questionFacade.AddQuestionStars(questionStars);                        
                     }
                     else
                     {
+                        HandleIsQuestionNotExists();
                         result = questionFacade.UpdateQuestionStars(questionStars);
-                        if (!result)
-                            customMessageBoxControl1.Update(result);
+                       
                     }
-                    if (result)
-                        closeParentFrom();
-
+                    if (result == StatusCode.Success)
+                        CloseParentFrom();
+                    else
+                        customMessageBoxControl1.StatusCodeMessage(result);
 
                 }
 
@@ -121,7 +130,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
         /// <summary>
         /// Close The parent form
         /// </summary>
-        private void closeParentFrom()
+        private void CloseParentFrom()
         {
             try
             {
@@ -143,7 +152,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
         {
             try
             {
-                closeParentFrom();
+                CloseParentFrom();
 
             }
             catch (Exception ex)

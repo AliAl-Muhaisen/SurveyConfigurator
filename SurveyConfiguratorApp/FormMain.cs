@@ -32,7 +32,6 @@ namespace SurveyConfiguratorApp
 
 
         private int lastSelectedQuestionOrder = -1;
-        private Question currentQuestion = null;
 
         private int lastSortColumn = -1;
 

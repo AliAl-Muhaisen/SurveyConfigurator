@@ -36,7 +36,7 @@ namespace SurveyConfiguratorApp.Logic
                 // DbQuestion.DataChanged += DbQuestion_DataChanged;
                 questionValidation = QuestionValidation.Instance();
 
-               
+
 
             }
             catch (Exception e)
@@ -73,7 +73,7 @@ namespace SurveyConfiguratorApp.Logic
             }
         }
 
-       
+
         public bool IsOrderAlreadyExists(int order, int oldOrder = -1)
         {
             try
@@ -91,6 +91,7 @@ namespace SurveyConfiguratorApp.Logic
         {
             try
             {
+                //I used ThreadStart because the method does not take any parameters
                 thread = new Thread(new ThreadStart(delegate
                {
                    while (true)
@@ -165,29 +166,27 @@ namespace SurveyConfiguratorApp.Logic
                 return null;
             }
         }
-        public bool Delete(int id)
+        public StatusCode Delete(int id)
         {
             try
             {
-                bool result;
-                result = dbQuestion.Delete(id);
+                return dbQuestion.Delete(id);
 
-                return result;
             }
             catch (Exception e)
             {
                 Log.Error(e);
+                return StatusCode.Error;
             }
-            return false;
         }
 
-        public bool AddQuestionFaces(QuestionFaces questionFaces)
+        public StatusCode AddQuestionFaces(QuestionFaces questionFaces)
         {
             try
             {
                 if (!questionValidation.IsValidFacesQuestion(questionFaces))
-                    return false;
-                bool isAdded = dbQuestionFaces.Add(questionFaces);
+                    return StatusCode.ValidationError;
+                StatusCode isAdded = dbQuestionFaces.Add(questionFaces);
 
 
                 return isAdded;
@@ -195,27 +194,24 @@ namespace SurveyConfiguratorApp.Logic
             catch (Exception e)
             {
                 Log.Error(e);
+                return StatusCode.Error;
             }
-            return false;
         }
-        public bool UpdateQuestionFaces(QuestionFaces questionFaces)
+        public StatusCode UpdateQuestionFaces(QuestionFaces questionFaces)
         {
             try
             {
 
                 if (!questionValidation.IsValidFacesQuestion(questionFaces, true))
-                    return false;
-                bool result;
-                result = dbQuestionFaces.Update(questionFaces);
-
-
-                return result;
+                    return StatusCode.ValidationError;
+               
+                return dbQuestionFaces.Update(questionFaces);
             }
             catch (Exception e)
             {
                 Log.Error(e);
+                return StatusCode.Error;
             }
-            return false;
         }
 
         public QuestionFaces GetQuestionFaces(int id)
@@ -232,33 +228,33 @@ namespace SurveyConfiguratorApp.Logic
         }
 
         //Stars
-        public bool AddQuestionStars(QuestionStars questionStars)
+        public StatusCode AddQuestionStars(QuestionStars questionStars)
         {
             try
             {
                 if (!questionValidation.IsValidStarsQuestion(questionStars))
-                    return false;
+                    return StatusCode.ValidationError;
                 return dbQuestionStars.Add(questionStars);
             }
             catch (Exception e)
             {
                 Log.Error(e);
+                return StatusCode.Error;
             }
-            return false;
         }
-        public bool UpdateQuestionStars(QuestionStars questionStars)
+        public StatusCode UpdateQuestionStars(QuestionStars questionStars)
         {
             try
             {
                 if (!questionValidation.IsValidStarsQuestion(questionStars, true))
-                    return false;
+                    return StatusCode.ValidationError;
                 return dbQuestionStars.Update(questionStars);
             }
             catch (Exception e)
             {
                 Log.Error(e);
+                return StatusCode.Error;
             }
-            return false;
         }
 
         public QuestionStars GetQuestionStars(int id)
@@ -275,33 +271,35 @@ namespace SurveyConfiguratorApp.Logic
         }
 
         //Slider
-        public bool AddQuestionSlider(QuestionSlider questionSlider)
+        public StatusCode AddQuestionSlider(QuestionSlider questionSlider)
         {
             try
             {
                 if (!questionValidation.IsValidSliderQuestion(questionSlider))
-                    return false;
+                    return StatusCode.ValidationError;
                 return dbQuestionSlider.Add(questionSlider);
             }
             catch (Exception e)
             {
                 Log.Error(e);
+                return StatusCode.Error;
             }
-            return false;
+
         }
-        public bool UpdateQuestionSlider(QuestionSlider questionSlider)
+        public StatusCode UpdateQuestionSlider(QuestionSlider questionSlider)
         {
             try
             {
                 if (!questionValidation.IsValidSliderQuestion(questionSlider, true))
-                    return false;
+                    return StatusCode.ValidationError;
                 return dbQuestionSlider.Update(questionSlider);
             }
             catch (Exception e)
             {
                 Log.Error(e);
+                return StatusCode.Error;
             }
-            return false;
+
         }
 
         public QuestionSlider GetQuestionSlider(int id)
@@ -316,7 +314,7 @@ namespace SurveyConfiguratorApp.Logic
             }
             return null;
         }
-      
+
     }
 
 }
