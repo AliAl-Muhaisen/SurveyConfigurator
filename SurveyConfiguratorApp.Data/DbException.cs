@@ -11,34 +11,33 @@ namespace SurveyConfiguratorApp.Data
 {
     public class DbException
     {
-        public static StatusCode HandleSqlException(SqlException sqlException)
+        public static int HandleSqlException(SqlException sqlException)
         {
             try
             {
-                Log.Info("DbException called");
                 Log.Error(sqlException);
                 if (sqlException.Number == 2)
                 {
-                    return StatusCode.DbFailedNetWorkConnection;
+                    return StatusCode.DB_FAILED_NERORK_CONNECTION;
                 }
                 else if (sqlException.Number == 2627)
                 {
-                    return StatusCode.ValidationErrorQuestionOrder;
+                    return StatusCode.VALIDATION_ERROR_ORDER_EXIST;
                 }
                 else if (sqlException.Number == 515)
                 {
                     // Handle the NOT NULL constraint violation
-                     return StatusCode.ValidationErrorRequiredValue;
+                     return StatusCode.VALIDATION_ERROR_REQUIRED_VALUE;
                 }
                 else
                 {
-                    return StatusCode.DbFailedConnection;
+                    return StatusCode.DB_FAILED_CONNECTION;
                 }
             }
             catch(Exception ex)
             {
                 Log.Error(ex);
-                return StatusCode.Error;
+                return StatusCode.ERROR;
             }
         }
        

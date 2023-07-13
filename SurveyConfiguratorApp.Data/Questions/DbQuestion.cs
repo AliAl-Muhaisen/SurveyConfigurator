@@ -37,12 +37,12 @@ namespace SurveyConfiguratorApp.Data.Questions
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public StatusCode Add(Question data)
+        public int Add(Question data)
         {
             try
             {
-               StatusCode tStatusCode= base.OpenConnection();
-                if (tStatusCode != StatusCode.Success)
+                int tStatusCode = base.OpenConnection();
+                if (tStatusCode != StatusCode.SUCCESS)
                 {
                     return tStatusCode;
                 }
@@ -67,7 +67,7 @@ namespace SurveyConfiguratorApp.Data.Questions
                     if (questionId > 0)
                     {
                         OnDataChanged();
-                        return StatusCode.Success;
+                        return StatusCode.SUCCESS;
                     }
 
                 }
@@ -81,35 +81,35 @@ namespace SurveyConfiguratorApp.Data.Questions
             catch (Exception e)
             {
                 Log.Error(e);
-                return StatusCode.Error;
+                return StatusCode.ERROR;
             }
             finally
             {
                 base.CloseConnection();
             }
-            return StatusCode.ValidationError;
+            return StatusCode.VALIDATION_ERROR;
 
         }
 
-        public StatusCode IsQuestionExists(int  questionId)
+        public int IsQuestionExists(int questionId)
         {
             try
             {
-                Question question=this.Get(questionId);
+                Question question = this.Get(questionId);
                 if
                     (question == null)
-                    return StatusCode.DbRecordNotExists;
+                    return StatusCode.DB_RECORD_NOT_EXISTS;
 
-                return StatusCode.Success;
+                return StatusCode.SUCCESS;
             }
             catch (Exception ex)
             {
-                Log.Error (ex);
-                return StatusCode.Error;
+                Log.Error(ex);
+                return StatusCode.ERROR;
             }
         }
 
-        public StatusCode Delete(int id)
+        public int Delete(int id)
         {
 
             try
@@ -126,7 +126,7 @@ namespace SurveyConfiguratorApp.Data.Questions
                     if (rowsAffected > 0)
                     {
                         // Row deleted successfully
-                        return StatusCode.Success;
+                        return StatusCode.SUCCESS;
 
                     }
 
@@ -135,10 +135,11 @@ namespace SurveyConfiguratorApp.Data.Questions
             catch (Exception e)
             {
                 Log.Error(e);
+                return StatusCode.ERROR;
             }
             finally { base.CloseConnection(); }
-            return StatusCode.Error;
 
+            return StatusCode.DB_FAILED_DELETE_ERROR;
         }
 
 
@@ -152,7 +153,7 @@ namespace SurveyConfiguratorApp.Data.Questions
         /// The update method updates a specific record in the Question table based on the provided Question object.
         /// It catches SQL exceptions and returns false in case of an error.
         /// </summary>
-        public StatusCode Update(Question question)
+        public int Update(Question question)
         {
 
 
@@ -178,12 +179,12 @@ namespace SurveyConfiguratorApp.Data.Questions
                     if (rowsAffected > 0)
                     {
                         // Row updated successfully
-                        return StatusCode.Success;
+                        return StatusCode.SUCCESS;
                     }
                     else
                     {
                         // Row not found or not updated
-                        return StatusCode.ValidationError;
+                        return StatusCode.VALIDATION_ERROR;
                     }
 
                 }
@@ -194,17 +195,17 @@ namespace SurveyConfiguratorApp.Data.Questions
                 // Handle the network exception
                 if (ex.Number == 2)
                 {
-                    return StatusCode.DbFailedNetWorkConnection;
+                    return StatusCode.DB_FAILED_NERORK_CONNECTION;
                 }
                 else
                 {
-                    return StatusCode.DbFailedConnection;
+                    return StatusCode.DB_FAILED_CONNECTION;
                 }
             }
             catch (Exception ex)
             {
                 Log.Error(ex);
-                return StatusCode.Error;
+                return StatusCode.ERROR;
             }
             finally
             {
@@ -234,7 +235,7 @@ namespace SurveyConfiguratorApp.Data.Questions
             return -1;//TODO:!I will review this later :)
         }
 
-        public StatusCode GetQuestions(ref List<Question> list)
+        public int GetQuestions(ref List<Question> list)
         {
             try
             {
@@ -263,16 +264,16 @@ namespace SurveyConfiguratorApp.Data.Questions
                     }
 
                 }
-                return StatusCode.Success;
+                return StatusCode.SUCCESS;
             }
-            catch(SqlException ex)
+            catch (SqlException ex)
             {
                 return DbException.HandleSqlException(ex);
             }
             catch (Exception ex)
             {
                 Log.Error(ex);
-                return StatusCode.Error;
+                return StatusCode.ERROR;
             }
 
         }

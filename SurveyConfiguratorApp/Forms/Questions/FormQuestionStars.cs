@@ -67,7 +67,6 @@ namespace SurveyConfiguratorApp.Forms.Questions
                      questionManager.GetQuestionStars(ref questionStars);
                     HandleIsQuestionNotExists();
                     fillInputs(questionStars);
-                    sharedBetweenQuestions.setOldOrder(questionStars.Order);
 
                 }
             }
@@ -82,8 +81,8 @@ namespace SurveyConfiguratorApp.Forms.Questions
         {
             try
             {
-                StatusCode tStatusCode= questionManager.IsQuestionExists(questionId);
-                if (tStatusCode.Code != StatusCode.Success.Code)
+                int tStatusCode= questionManager.IsQuestionExists(questionId);
+                if (tStatusCode != StatusCode.SUCCESS)
                 {
                     customMessageBoxControl1.StatusCodeMessage(tStatusCode);
                     CloseParentFrom();
@@ -102,7 +101,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             {
                     questionStars.Text = sharedBetweenQuestions.getQuestionText();
                     questionStars.Order = Convert.ToInt32(sharedBetweenQuestions.getQuestionOrder());
-                    StatusCode result;
+                    int result;
 
                     questionStars.StarsNumber = ((int)numericStarsNumber.Value);
                     if (!isUpdate)
@@ -116,7 +115,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
                         result = questionManager.UpdateQuestionStars(questionStars);
 
                     }
-                    if (result.Code != StatusCode.Success.Code)
+                    if (result != StatusCode.SUCCESS)
                     {
                         customMessageBoxControl1.StatusCodeMessageList(ref questionManager.ValidationErrorList);
                     }
@@ -174,7 +173,6 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 sharedBetweenQuestions.setQuestionText(questionStars.Text);
                 sharedBetweenQuestions.setQuestionOrderValue(questionStars.Order);
                 numericStarsNumber.Value = questionStars.StarsNumber;
-                sharedBetweenQuestions.setOldOrder(questionStars.Order);
                 btnSave.Text = "Update";
             }
             catch (Exception ex)

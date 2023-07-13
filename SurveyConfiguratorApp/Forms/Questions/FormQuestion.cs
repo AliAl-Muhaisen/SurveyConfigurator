@@ -219,11 +219,11 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
         }
 
-        public static void CloseBasedOnStatus(ref StatusCode pStatusCode)
+        public static void CloseBasedOnStatus(ref int pStatusCode)
         {
             try
             {
-                if (pStatusCode.Code == StatusCode.Success.Code || pStatusCode.Code == StatusCode.DbFailedNetWorkConnection.Code || pStatusCode.Code == StatusCode.DbFailedConnection.Code)
+                if (pStatusCode == StatusCode.SUCCESS || pStatusCode == StatusCode.DB_FAILED_CONNECTION || pStatusCode == StatusCode.DB_FAILED_NERORK_CONNECTION)
                 {
                     CloseForm();
                 }

@@ -12,7 +12,6 @@ namespace SurveyConfiguratorApp.UserController.Questions
 
         private bool isValidQuestionText = false;
         private bool isValidOrderValue = false;
-        private int oldOrder = -1;
         public CommonQuestionForm()
         {
 
@@ -21,7 +20,6 @@ namespace SurveyConfiguratorApp.UserController.Questions
                 InitializeComponent();
                 questionValidation =new QuestionValidation();
 
-                clearErrorLabelsText();
             }
             catch (Exception ex)
             {
@@ -34,7 +32,6 @@ namespace SurveyConfiguratorApp.UserController.Questions
 
             try
             {
-                handelQuestionText();
             }
             catch (Exception ex)
             {
@@ -43,50 +40,7 @@ namespace SurveyConfiguratorApp.UserController.Questions
 
         }
 
-        public void handelQuestionText()
-        {
-
-
-            try
-            {
-                //string msg = null;
-                //{
-                //    string inputText = textBoxQuestionText.Text;
-                //    msg = questionValidation.HandelQuestionText(inputText);
-                //    labelErrorQuestionText.setText(msg);
-
-
-                //    if (msg == null)
-                //    {
-                //        isValidQuestionText = true;
-                //    }
-                //    else
-                //        isValidQuestionText = false;
-
-                //}
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex);
-            }
-        }
-
-        public bool isValidForm()
-        {
-            try
-            {
-                handelQuestionText();
-                handleOrderValue();
-
-                return isValidOrderValue && isValidQuestionText;
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex);
-            }
-            return false;
-
-        }
+      
         public string getQuestionText()
         {
 
@@ -148,22 +102,6 @@ namespace SurveyConfiguratorApp.UserController.Questions
         //!End Question Text Error Label
 
 
-
-        public void clearErrorLabelsText()
-        {
-            try
-            {
-                labelErrorQuestionOrder.clearText();
-                labelErrorQuestionText.clearText();
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex);
-            }
-
-        }
-
-
         /// <summary>
         /// Check if the order is taken 
         /// </summary>
@@ -171,24 +109,7 @@ namespace SurveyConfiguratorApp.UserController.Questions
         {
             try
             {
-                bool isExists = false;
-
                 int newOderValue = (int)numericUpDownQuestionOrder.Value;
-
-                //isExists = questionValidation.IsOrderAlreadyExists(newOderValue, oldOrder);
-
-
-                //if (isExists)
-                //{
-                //    labelErrorQuestionOrder.setText("This Order Alread Exists");
-                //    isValidOrderValue = false;
-                //}
-                //else
-                //{
-                    isValidOrderValue = true;
-                    labelErrorQuestionOrder.clearText();
-               //}
-
             }
             catch (Exception ex)
             {
@@ -209,52 +130,7 @@ namespace SurveyConfiguratorApp.UserController.Questions
             }
         }
 
-        /// <summary>
-        /// set order in update operation 
-        /// </summary>
-        /// <param name="value"></param>
-        public void setOldOrder(int value)
-        {
-
-            try
-            {
-                oldOrder = value;
-                handleOrderValue();
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex);
-            }
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void labelErrorQuestionText_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void labelErrorQuestionOrder_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
-        {
-
-        }
+     
+       
     }
 }

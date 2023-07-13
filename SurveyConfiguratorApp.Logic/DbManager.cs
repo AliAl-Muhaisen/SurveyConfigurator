@@ -126,7 +126,7 @@ namespace SurveyConfiguratorApp.Logic
             return false;
         }
 
-        public static StatusCode IsDbConnected()
+        public static int IsDbConnected()
         {
             try
             {
@@ -135,7 +135,7 @@ namespace SurveyConfiguratorApp.Logic
             catch (Exception e)
             {
                 Log.Error(e);
-                return StatusCode.Error;
+                return StatusCode.ERROR;
             }
         }
 

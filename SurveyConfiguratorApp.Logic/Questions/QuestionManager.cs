@@ -26,7 +26,7 @@ namespace SurveyConfiguratorApp.Logic
 
         private Thread thread;
 
-       public List<StatusCode> ValidationErrorList;
+        public List<int> ValidationErrorList;
 
         public QuestionManager()
         {
@@ -39,8 +39,8 @@ namespace SurveyConfiguratorApp.Logic
                 dbQuestionStars = new DbQuestionStars();
                 dbQuestion.GetQuestions(ref questions);
                 // DbQuestion.DataChanged += DbQuestion_DataChanged;
-                questionValidation =new QuestionValidation();
-                ValidationErrorList = new List<StatusCode>();
+                questionValidation = new QuestionValidation();
+                ValidationErrorList = new List<int>();
 
 
             }
@@ -79,24 +79,27 @@ namespace SurveyConfiguratorApp.Logic
         }
 
 
-        public static StatusCode IsOrderAlreadyExists(int order, int questionId = -1)
+        public static int IsOrderAlreadyExists(int order, int questionId = -1)
         {
             try
             {
                 for (int i = 0; i < questions.Count; i++)
                 {
-                    if (questions[i].Order == order && questions[i].getId() != questionId) { return StatusCode.ValidationErrorQuestionOrder; }
-                }
+                    if (questions[i].Order == order && questions[i].getId() != questionId)
+                    {
 
+                        return StatusCode.VALIDATION_ERROR_ORDER_EXIST;
+                    }
+                }
             }
             catch (Exception e)
             {
                 Log.Error(e);
-                return StatusCode.Error;
+                return StatusCode.ERROR;
             }
-            return StatusCode.Success;
+            return StatusCode.SUCCESS;
         }
-        public StatusCode IsQuestionExists(int questionId)
+        public int IsQuestionExists(int questionId)
         {
             try
             {
@@ -105,7 +108,7 @@ namespace SurveyConfiguratorApp.Logic
             catch (Exception ex)
             {
                 Log.Error(ex);
-                return StatusCode.Error;
+                return StatusCode.ERROR;
 
             }
         }
@@ -120,14 +123,16 @@ namespace SurveyConfiguratorApp.Logic
                    while (true)
                    {
 
-                       StatusCode tStatusCode = GetQuestions(ref list);
+                       int tStatusCode = GetQuestions(ref list);
                        if (!list.SequenceEqual(questions) || firstCall)
                        {
+                           questions.Clear();
                            questions = list;
                            OnDataChanged();
                            firstCall = false;
 
                        }
+                       list.Clear();
                        Thread.Sleep(4000);
                    }
 
@@ -143,7 +148,7 @@ namespace SurveyConfiguratorApp.Logic
                 Log.Error(ex);
             }
         }
-        public StatusCode GetQuestions(ref List<Question> list)
+        public int GetQuestions(ref List<Question> list)
         {
             try
             {
@@ -152,7 +157,7 @@ namespace SurveyConfiguratorApp.Logic
             catch (Exception e)
             {
                 Log.Error(e);
-                return StatusCode.Error;
+                return StatusCode.ERROR;
             }
         }
 
@@ -188,7 +193,7 @@ namespace SurveyConfiguratorApp.Logic
                 return null;
             }
         }
-        public StatusCode Delete(int id)
+        public int Delete(int id)
         {
             try
             {
@@ -198,54 +203,54 @@ namespace SurveyConfiguratorApp.Logic
             catch (Exception e)
             {
                 Log.Error(e);
-                return StatusCode.Error;
+                return StatusCode.ERROR;
             }
         }
         #region QuestionFaces
-        public StatusCode AddQuestionFaces(QuestionFaces questionFaces)
+        public int AddQuestionFaces(QuestionFaces questionFaces)
         {
             ValidationErrorList.Clear();
             try
             {
 
-                StatusCode tStatusCode = questionValidation.IsValidFacesQuestion(questionFaces);
-                if (tStatusCode.Code != StatusCode.Success.Code)
+                int tStatusCode = questionValidation.IsValidFacesQuestion(questionFaces);
+                if (tStatusCode != StatusCode.SUCCESS)
                 {
                     ValidationErrorList = questionValidation.ErorrValidationList;
-                    return StatusCode.ValidationError;
+                    return StatusCode.VALIDATION_ERROR;
                 }
 
-            return dbQuestionFaces.Add(questionFaces);
-                 
+                return dbQuestionFaces.Add(questionFaces);
+
             }
             catch (Exception e)
             {
                 Log.Error(e);
-                return StatusCode.Error;
+                return StatusCode.ERROR;
             }
         }
-        public StatusCode UpdateQuestionFaces(QuestionFaces questionFaces)
+        public int UpdateQuestionFaces(QuestionFaces questionFaces)
         {
             ValidationErrorList.Clear();
 
             try
             {
-                StatusCode tStatusCode = questionValidation.IsValidFacesQuestion(questionFaces);
-                if (tStatusCode.Code != StatusCode.Success.Code)
+                int tStatusCode = questionValidation.IsValidFacesQuestion(questionFaces);
+                if (tStatusCode != StatusCode.SUCCESS)
                 {
                     ValidationErrorList = questionValidation.ErorrValidationList;
-                    return StatusCode.ValidationError;
+                    return StatusCode.VALIDATION_ERROR;
                 }
-             return dbQuestionFaces.Update(questionFaces);
+                return dbQuestionFaces.Update(questionFaces);
             }
             catch (Exception e)
             {
                 Log.Error(e);
-                return StatusCode.Error;
+                return StatusCode.ERROR;
             }
         }
 
-        public StatusCode GetQuestionFaces(ref QuestionFaces questionFaces)
+        public int GetQuestionFaces(ref QuestionFaces questionFaces)
         {
             try
             {
@@ -254,7 +259,7 @@ namespace SurveyConfiguratorApp.Logic
             catch (Exception e)
             {
                 Log.Error(e);
-                return StatusCode.Error;
+                return StatusCode.ERROR;
             }
 
         }
@@ -263,17 +268,17 @@ namespace SurveyConfiguratorApp.Logic
         #region QuestionStars
 
         //Stars
-        public StatusCode AddQuestionStars(QuestionStars questionStars)
+        public int AddQuestionStars(QuestionStars questionStars)
         {
             try
             {
                 ValidationErrorList.Clear();
-                StatusCode tStatusCode = questionValidation.IsValidStarsQuestion(questionStars);
+                int tStatusCode = questionValidation.IsValidStarsQuestion(questionStars);
 
-                if (tStatusCode.Code != StatusCode.Success.Code)
+                if (tStatusCode != StatusCode.SUCCESS)
                 {
                     ValidationErrorList = questionValidation.ErorrValidationList;
-                    return StatusCode.ValidationError;
+                    return StatusCode.VALIDATION_ERROR;
                 }
 
                 return dbQuestionStars.Add(questionStars);
@@ -281,20 +286,20 @@ namespace SurveyConfiguratorApp.Logic
             catch (Exception e)
             {
                 Log.Error(e);
-                return StatusCode.Error;
+                return StatusCode.ERROR;
             }
         }
-        public StatusCode UpdateQuestionStars(QuestionStars questionStars)
+        public int UpdateQuestionStars(QuestionStars questionStars)
         {
             try
             {
                 ValidationErrorList.Clear();
 
-                StatusCode tStatusCode = questionValidation.IsValidStarsQuestion(questionStars);
-                if (tStatusCode.Code != StatusCode.Success.Code)
+                int tStatusCode = questionValidation.IsValidStarsQuestion(questionStars);
+                if (tStatusCode != StatusCode.SUCCESS)
                 {
                     ValidationErrorList = questionValidation.ErorrValidationList;
-                    return StatusCode.ValidationError;
+                    return StatusCode.VALIDATION_ERROR;
                 }
 
 
@@ -303,11 +308,11 @@ namespace SurveyConfiguratorApp.Logic
             catch (Exception e)
             {
                 Log.Error(e);
-                return StatusCode.Error;
+                return StatusCode.ERROR;
             }
         }
 
-        public StatusCode GetQuestionStars(ref QuestionStars questionStars)
+        public int GetQuestionStars(ref QuestionStars questionStars)
         {
             try
             {
@@ -316,24 +321,24 @@ namespace SurveyConfiguratorApp.Logic
             catch (Exception e)
             {
                 Log.Error(e);
-                return StatusCode.Error;
+                return StatusCode.ERROR;
             }
         }
         #endregion
 
         #region QuestionSlider
         //Slider
-        public StatusCode AddQuestionSlider(QuestionSlider questionSlider)
+        public int AddQuestionSlider(QuestionSlider questionSlider)
         {
             try
             {
                 ValidationErrorList.Clear();
 
-                StatusCode tStatusCode = questionValidation.IsValidSliderQuestion(questionSlider);
-                if (tStatusCode.Code != StatusCode.Success.Code)
+                int tStatusCode = questionValidation.IsValidSliderQuestion(questionSlider);
+                if (tStatusCode != StatusCode.SUCCESS)
                 {
                     ValidationErrorList = questionValidation.ErorrValidationList;
-                    return StatusCode.ValidationError;
+                    return StatusCode.VALIDATION_ERROR;
                 }
 
                 return dbQuestionSlider.Add(questionSlider);
@@ -341,21 +346,21 @@ namespace SurveyConfiguratorApp.Logic
             catch (Exception e)
             {
                 Log.Error(e);
-                return StatusCode.Error;
+                return StatusCode.ERROR;
             }
 
         }
-        public StatusCode UpdateQuestionSlider(QuestionSlider questionSlider)
+        public int UpdateQuestionSlider(QuestionSlider questionSlider)
         {
             try
             {
                 ValidationErrorList.Clear();
 
-                StatusCode tStatusCode = questionValidation.IsValidSliderQuestion(questionSlider);
-                if (tStatusCode.Code != StatusCode.Success.Code)
+                int tStatusCode = questionValidation.IsValidSliderQuestion(questionSlider);
+                if (tStatusCode != StatusCode.SUCCESS)
                 {
                     ValidationErrorList = questionValidation.ErorrValidationList;
-                    return StatusCode.ValidationError;
+                    return StatusCode.VALIDATION_ERROR;
                 }
 
                 return dbQuestionSlider.Update(questionSlider);
@@ -363,12 +368,12 @@ namespace SurveyConfiguratorApp.Logic
             catch (Exception e)
             {
                 Log.Error(e);
-                return StatusCode.Error;
+                return StatusCode.ERROR;
             }
 
         }
 
-        public StatusCode GetQuestionSlider(ref QuestionSlider questionSlider)
+        public int GetQuestionSlider(ref QuestionSlider questionSlider)
         {
             try
             {
@@ -377,7 +382,7 @@ namespace SurveyConfiguratorApp.Logic
             catch (Exception e)
             {
                 Log.Error(e);
-                return StatusCode.Error;
+                return StatusCode.ERROR;
             }
         }
         #endregion

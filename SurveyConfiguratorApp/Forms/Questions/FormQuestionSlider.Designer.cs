@@ -38,11 +38,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.textBoxEndCaption = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
-            this.labelErrorCaptionEnd = new SurveyConfiguratorApp.UserController.Questions.LabelErrorControl();
-            this.labelErrorCaptionStart = new SurveyConfiguratorApp.UserController.Questions.LabelErrorControl();
             this.customMessageBoxControl1 = new SurveyConfiguratorApp.UserController.Controllers.CustomMessageBoxControl();
-            this.labelErrorStartValue = new SurveyConfiguratorApp.UserController.Questions.LabelErrorControl();
-            this.labelErrorEndValue = new SurveyConfiguratorApp.UserController.Questions.LabelErrorControl();
             this.sharedBetweenQuestions = new SurveyConfiguratorApp.UserController.Questions.CommonQuestionForm();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericStartValue)).BeginInit();
@@ -86,7 +82,6 @@
             this.numericEndValue.Name = "numericEndValue";
             this.numericEndValue.Size = new System.Drawing.Size(112, 20);
             this.numericEndValue.TabIndex = 11;
-            this.numericEndValue.ValueChanged += new System.EventHandler(this.numericEndValue_ValueChanged);
             // 
             // label2
             // 
@@ -100,17 +95,16 @@
             // 
             // textBoxStartCaption
             // 
-            this.textBoxStartCaption.Location = new System.Drawing.Point(112, 75);
+            this.textBoxStartCaption.Location = new System.Drawing.Point(112, 54);
             this.textBoxStartCaption.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxStartCaption.Name = "textBoxStartCaption";
             this.textBoxStartCaption.Size = new System.Drawing.Size(114, 20);
             this.textBoxStartCaption.TabIndex = 12;
-            this.textBoxStartCaption.TextChanged += new System.EventHandler(this.textBoxStartCaption_TextChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(7, 80);
+            this.label3.Location = new System.Drawing.Point(4, 57);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(68, 13);
@@ -120,7 +114,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(298, 80);
+            this.label4.Location = new System.Drawing.Point(298, 57);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(65, 13);
@@ -129,12 +123,11 @@
             // 
             // textBoxEndCaption
             // 
-            this.textBoxEndCaption.Location = new System.Drawing.Point(421, 77);
+            this.textBoxEndCaption.Location = new System.Drawing.Point(420, 54);
             this.textBoxEndCaption.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxEndCaption.Name = "textBoxEndCaption";
             this.textBoxEndCaption.Size = new System.Drawing.Size(114, 20);
             this.textBoxEndCaption.TabIndex = 14;
-            this.textBoxEndCaption.TextChanged += new System.EventHandler(this.textBoxEndCaption_TextChanged);
             // 
             // btnSave
             // 
@@ -146,26 +139,6 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // labelErrorCaptionEnd
-            // 
-            this.labelErrorCaptionEnd.AutoSize = true;
-            this.labelErrorCaptionEnd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.labelErrorCaptionEnd.Location = new System.Drawing.Point(425, 98);
-            this.labelErrorCaptionEnd.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.labelErrorCaptionEnd.Name = "labelErrorCaptionEnd";
-            this.labelErrorCaptionEnd.Size = new System.Drawing.Size(30, 14);
-            this.labelErrorCaptionEnd.TabIndex = 21;
-            // 
-            // labelErrorCaptionStart
-            // 
-            this.labelErrorCaptionStart.AutoSize = true;
-            this.labelErrorCaptionStart.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.labelErrorCaptionStart.Location = new System.Drawing.Point(112, 96);
-            this.labelErrorCaptionStart.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.labelErrorCaptionStart.Name = "labelErrorCaptionStart";
-            this.labelErrorCaptionStart.Size = new System.Drawing.Size(30, 14);
-            this.labelErrorCaptionStart.TabIndex = 20;
-            // 
             // customMessageBoxControl1
             // 
             this.customMessageBoxControl1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
@@ -175,54 +148,30 @@
             this.customMessageBoxControl1.Size = new System.Drawing.Size(8, 19);
             this.customMessageBoxControl1.TabIndex = 19;
             // 
-            // labelErrorStartValue
-            // 
-            this.labelErrorStartValue.AutoSize = true;
-            this.labelErrorStartValue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.labelErrorStartValue.Location = new System.Drawing.Point(112, 50);
-            this.labelErrorStartValue.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.labelErrorStartValue.Name = "labelErrorStartValue";
-            this.labelErrorStartValue.Size = new System.Drawing.Size(30, 14);
-            this.labelErrorStartValue.TabIndex = 18;
-            // 
-            // labelErrorEndValue
-            // 
-            this.labelErrorEndValue.AutoSize = true;
-            this.labelErrorEndValue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.labelErrorEndValue.Location = new System.Drawing.Point(422, 45);
-            this.labelErrorEndValue.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.labelErrorEndValue.Name = "labelErrorEndValue";
-            this.labelErrorEndValue.Size = new System.Drawing.Size(30, 14);
-            this.labelErrorEndValue.TabIndex = 17;
-            // 
             // sharedBetweenQuestions
             // 
             this.sharedBetweenQuestions.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.sharedBetweenQuestions.Location = new System.Drawing.Point(10, 11);
             this.sharedBetweenQuestions.Margin = new System.Windows.Forms.Padding(4);
             this.sharedBetweenQuestions.Name = "sharedBetweenQuestions";
-            this.sharedBetweenQuestions.Size = new System.Drawing.Size(540, 152);
+            this.sharedBetweenQuestions.Size = new System.Drawing.Size(540, 120);
             this.sharedBetweenQuestions.TabIndex = 4;
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.numericStartValue);
-            this.groupBox1.Controls.Add(this.labelErrorCaptionEnd);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.labelErrorCaptionStart);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.numericEndValue);
-            this.groupBox1.Controls.Add(this.labelErrorStartValue);
             this.groupBox1.Controls.Add(this.textBoxStartCaption);
-            this.groupBox1.Controls.Add(this.labelErrorEndValue);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.textBoxEndCaption);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Location = new System.Drawing.Point(9, 171);
+            this.groupBox1.Location = new System.Drawing.Point(10, 137);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(541, 119);
+            this.groupBox1.Size = new System.Drawing.Size(540, 90);
             this.groupBox1.TabIndex = 22;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Slider Values";
@@ -264,11 +213,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBoxEndCaption;
         private System.Windows.Forms.Button btnSave;
-        private UserController.Questions.LabelErrorControl labelErrorEndValue;
-        private UserController.Questions.LabelErrorControl labelErrorStartValue;
         private UserController.Controllers.CustomMessageBoxControl customMessageBoxControl1;
-        private UserController.Questions.LabelErrorControl labelErrorCaptionStart;
-        private UserController.Questions.LabelErrorControl labelErrorCaptionEnd;
         private System.Windows.Forms.GroupBox groupBox1;
     }
 }

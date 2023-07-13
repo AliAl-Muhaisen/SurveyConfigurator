@@ -393,9 +393,9 @@ namespace SurveyConfiguratorApp
         {
             try
             {
-                StatusCode result = DbManager.IsDbConnected();
+                int result = DbManager.IsDbConnected();
                 bool tIsError = false;
-                if (result.Code == StatusCode.Success.Code)
+                if (result == StatusCode.SUCCESS)
                 {
                     labelStatus.ForeColor = Color.Green;
                     labelStatus.Text = null;
@@ -404,7 +404,7 @@ namespace SurveyConfiguratorApp
                     HandleListViewEnable(true);
 
                 }
-                else if (result.Code == StatusCode.DbFailedNetWorkConnection.Code)
+                else if (result == StatusCode.DB_FAILED_NERORK_CONNECTION)
                 {
                     tIsError = true;
                     labelStatus.Text = "Network Failed";

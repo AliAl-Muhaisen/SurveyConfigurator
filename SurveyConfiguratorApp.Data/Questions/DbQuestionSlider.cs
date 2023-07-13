@@ -17,17 +17,17 @@ namespace SurveyConfiguratorApp.Data.Questions
             StartCaption,
             EndCaption,
         }
-        public StatusCode Add(QuestionSlider data)
+        public int Add(QuestionSlider data)
         {
             try
             {
-                StatusCode isAdded= base.Add(data);
-                if (isAdded != StatusCode.Success)
+                int isAdded= base.Add(data);
+                if (isAdded != StatusCode.SUCCESS)
                     return isAdded;
                 int questionId = base.GetQuestionId();
 
                 if (questionId == -1)
-                    return StatusCode.Error;
+                    return StatusCode.ERROR;
 
                 using (SqlCommand cmd = new SqlCommand())
                 {
@@ -54,7 +54,7 @@ namespace SurveyConfiguratorApp.Data.Questions
                     int rowAffected = cmd.ExecuteNonQuery();
                     if (rowAffected > 0)
                     {
-                        return StatusCode.Success;
+                        return StatusCode.SUCCESS;
                     }
 
 
@@ -64,18 +64,18 @@ namespace SurveyConfiguratorApp.Data.Questions
             catch (Exception e)
             {
                 Log.Error(e);
-                return StatusCode.Error;
+                return StatusCode.ERROR;
             }
             finally
             {
                 base.CloseConnection();
             }
-            return StatusCode.ValidationError;
+            return StatusCode.VALIDATION_ERROR;
 
         }
 
 
-        public StatusCode Update(QuestionSlider questionSlider)
+        public int Update(QuestionSlider questionSlider)
         {
             try
             {
@@ -103,7 +103,7 @@ namespace SurveyConfiguratorApp.Data.Questions
                     if (rowsAffected <= 0)
                     {
                         // Row not found or not updated
-                        return StatusCode.ValidationError;
+                        return StatusCode.VALIDATION_ERROR;
                     }
                     base.CloseConnection();
 
@@ -114,7 +114,7 @@ namespace SurveyConfiguratorApp.Data.Questions
             catch (Exception e)
             {
                 Log.Error(e);
-                return StatusCode.Error;
+                return StatusCode.ERROR;
             }
             finally
             {
@@ -124,12 +124,12 @@ namespace SurveyConfiguratorApp.Data.Questions
 
         }
 
-        public  StatusCode Get(ref QuestionSlider questionSlider)
+        public  int Get(ref QuestionSlider questionSlider)
         {
             try
             {
-               StatusCode tStatusCode= base.OpenConnection();
-                if (tStatusCode != StatusCode.Success)
+               int tStatusCode= base.OpenConnection();
+                if (tStatusCode != StatusCode.SUCCESS)
                 {
                     return tStatusCode;
                 }
@@ -148,7 +148,7 @@ namespace SurveyConfiguratorApp.Data.Questions
                             questionSlider.StartCaption = reader["StartCaption"].ToString();
                             questionSlider.StartValue = (int)reader["StartValue"];
                             questionSlider.EndValue = (int)reader["EndValue"];
-                          return  StatusCode.Success;
+                          return  StatusCode.SUCCESS;
                         }
                     }
 
@@ -157,13 +157,13 @@ namespace SurveyConfiguratorApp.Data.Questions
             catch (SqlException e)
             {
                 Log.Error(e);
-                return StatusCode.Error;
+                return StatusCode.ERROR;
             }
             finally
             {
                 base.CloseConnection();
             }
-            return StatusCode.DbRecordNotExists;
+            return StatusCode.DB_RECORD_NOT_EXISTS;
         }
     }
 }

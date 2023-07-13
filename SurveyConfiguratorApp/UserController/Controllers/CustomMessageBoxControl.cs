@@ -22,58 +22,49 @@ namespace SurveyConfiguratorApp.UserController.Controllers
         {
             InitializeComponent();
         }
-        private string TextMessage(StatusCode pStatusCode)
+        private string TextMessage(int pStatusCode)
         {
             try
             {
-                int tCode = pStatusCode.Code;
-              //  Log.Info(tCode.ToString());
-                if (tCode == StatusCode.ValidationError.Code)
+                int tCode = pStatusCode;
+                string tMessage = null;
+                switch (tCode)
                 {
-                    return "Validation errors, Please check the inputs";
-                }
-                //else if (tCode == StatusCode.Success.Code)
-                //{
-                //    MessageBox.Show("Completed Successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //}
-                else if (tCode == StatusCode.Error.Code)
-                {
-                    return "Something went wrong";
-                }
-                else if (tCode == StatusCode.DbRecordNotExists.Code)
-                {
-                    return "This Question does not exists";
-                }
-                else if (tCode == StatusCode.DbFailedNetWorkConnection.Code)
-                {
-                    return "You are not connected to the server, Please check your network connection or ask the Admin for help";
-                }
-                else if (tCode == StatusCode.DbFailedConnection.Code)
-                {
-                    return "Failed Connecting to the data base, Please check your network connection or ask the Admin for help";
-                }
-                else if(tCode ==StatusCode.ValidationErrorQuestionText.Code )
-                {
-                    return "Question text Required";
-                }
-                else if(tCode ==StatusCode.ValidationErrorQuestionOrder.Code)
-                {
-                    return "Order Should be unique";
-                }
-                //Slider
-                else if (tCode==StatusCode.ValidationErrorSliderCaption.Code)
-                {
-                    return "Caption Text Required";
-                }
-                else if (tCode == StatusCode.ValidationErrorSliderEndValue.Code)
-                {
-                    return "";
-                }
-                else if (tCode == StatusCode.ValidationErrorSliderValue.Code)
-                {
-                    return "Min Value Should be less than Max Value";
+                    case StatusCode.VALIDATION_ERROR:
+                        tMessage = "Validation errors, Please check the inputs";
+                        break;
+
+                    case StatusCode.DB_RECORD_NOT_EXISTS:
+                        tMessage = "This Question does not exists";
+                        break;
+
+                    case StatusCode.ERROR:
+
+                    case StatusCode.DB_FAILED_CONNECTION:
+
+                    case StatusCode.DB_FAILED_NERORK_CONNECTION:
+                        tMessage = "Something went wrong, Ask the Admin for help";
+                        break;
+
+                    case StatusCode.VALIDATION_ERROR_QUESTION_TEXT:
+                        tMessage = "Question text Required";
+                        break;
+                    case StatusCode.VALIDATION_ERROR_ORDER_EXIST:
+                        tMessage = "Order Should be unique";
+                        break;
+                    case StatusCode.VALIDATION_ERROR_SLIDER_VALUE:
+                        tMessage ="Min Value Should be less than Max Value";
+                        break;
+                    case StatusCode.VALIDATION_ERROR_SLIDER_CAPTION:
+                        tMessage ="Caption Text Required";
+                        break;
+
+                    default:
+                        break;
                 }
 
+                return tMessage;
+              
             }
             catch (Exception e)
             {
@@ -81,7 +72,7 @@ namespace SurveyConfiguratorApp.UserController.Controllers
             }
             return null;
         }
-        public void StatusCodeMessage(StatusCode statusCode)
+        public void StatusCodeMessage(int statusCode)
         {
             try
             {
@@ -94,26 +85,26 @@ namespace SurveyConfiguratorApp.UserController.Controllers
                 Log.Error(ex);
             }
         }
-        public void StatusCodeMessageList(ref List<StatusCode> statusCodes)
+        public void StatusCodeMessageList(ref List<int> statusCodes)
         {
             try
             {
                 string tMessages = null;
                 for (int i = 0; i < statusCodes.Count; i++)
                 {
-                    if (statusCodes[i].Code!=StatusCode.Success.Code)
-                        tMessages+= TextMessage(statusCodes[i])+"\n";
+                    if (statusCodes[i] != StatusCode.SUCCESS)
+                        tMessages += TextMessage(statusCodes[i]) + "\n";
                 }
                 if (tMessages != null)
-                    DisplayMessage(StatusCode.Error, tMessages);
+                    DisplayMessage(StatusCode.ERROR, tMessages);
             }
             catch (Exception ex)
             {
                 Log.Error(ex);
             }
         }
-        
-        private void DisplayMessage(StatusCode pMessageType, string pMessageText = null)
+
+        private void DisplayMessage(int pMessageType, string pMessageText = null)
         {
 
             try
@@ -130,7 +121,7 @@ namespace SurveyConfiguratorApp.UserController.Controllers
 
 
 
-                if (pMessageType.Code == StatusCode.Success.Code)
+                if (pMessageType == StatusCode.SUCCESS)
                 {
                     MessageBox.Show(tMessage, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }

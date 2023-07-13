@@ -20,57 +20,58 @@ namespace SurveyConfiguratorApp.Data.Questions
         public DbQuestionFaces() : base() { }
 
         // Create a new QuestionFaces entry in the database
-        public StatusCode Add(QuestionFaces data)
+        public int Add(QuestionFaces data)
         {
             try
             {
-                StatusCode isBaseInfoAdded = base.Add(data);
-                if (isBaseInfoAdded != StatusCode.Success)
+                int isBaseInfoAdded = base.Add(data);
+                if (isBaseInfoAdded != StatusCode.SUCCESS)
                     return isBaseInfoAdded;
-                    int questionId = base.GetQuestionId();
-                    if (questionId == -1)
-                        return StatusCode.Error;
 
-                    using (SqlCommand cmd = new SqlCommand())
-                    {
-                        base.OpenConnection();
-                        cmd.Connection = base.conn;
-                        string insertQuery = string.Format("INSERT INTO [{0}] ([{1}],[{2}]) VALUES (@{1},@{2})",
-                                   tableName, ColumnNames.QuestionId, ColumnNames.FacesNumber);
+                int questionId = base.GetQuestionId();
+                if (questionId == -1)
+                    return StatusCode.ERROR;
 
-                        cmd.CommandText = insertQuery;
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    base.OpenConnection();
+                    cmd.Connection = base.conn;
+                    string insertQuery = string.Format("INSERT INTO [{0}] ([{1}],[{2}]) VALUES (@{1},@{2})",
+                               tableName, ColumnNames.QuestionId, ColumnNames.FacesNumber);
 
-                        cmd.Parameters.AddWithValue($"@{ColumnNames.QuestionId}", questionId);
-                        cmd.Parameters.AddWithValue($"@{ColumnNames.FacesNumber}", data.FacesNumber);
+                    cmd.CommandText = insertQuery;
 
-                        int rowAffectrowsAffected = cmd.ExecuteNonQuery();
-                        if (rowAffectrowsAffected > 0)
-                            return StatusCode.Success;
+                    cmd.Parameters.AddWithValue($"@{ColumnNames.QuestionId}", questionId);
+                    cmd.Parameters.AddWithValue($"@{ColumnNames.FacesNumber}", data.FacesNumber);
 
-                    }
-                
+                    int rowAffectrowsAffected = cmd.ExecuteNonQuery();
+                    if (rowAffectrowsAffected > 0)
+                        return StatusCode.SUCCESS;
+
+                }
+
 
 
             }
             catch (SqlException ex)
             {
-               DbException.HandleSqlException(ex);
+              return  DbException.HandleSqlException(ex);
             }
             catch (Exception e)
             {
                 Log.Error(e);
-                return StatusCode.Error;
+                return StatusCode.ERROR;
             }
             finally
             {
                 base.CloseConnection();
             }
-            return StatusCode.ValidationError;
+            return StatusCode.VALIDATION_ERROR;
 
         }
 
         // Update a QuestionFaces entry in the database
-        public StatusCode Update(QuestionFaces questionFaces)
+        public int Update(QuestionFaces questionFaces)
         {
 
 
@@ -94,7 +95,7 @@ namespace SurveyConfiguratorApp.Data.Questions
                     if (rowsAffected <= 0)
                     {
                         // Row not found or not updated
-                        return StatusCode.ValidationError;
+                        return StatusCode.VALIDATION_ERROR;
                     }
                     base.CloseConnection();
                     ;
@@ -107,17 +108,17 @@ namespace SurveyConfiguratorApp.Data.Questions
                 // Handle the network exception
                 if (ex.Number == 2)
                 {
-                    return StatusCode.DbFailedNetWorkConnection;
+                    return StatusCode.DB_FAILED_NERORK_CONNECTION;
                 }
                 else
                 {
-                    return StatusCode.DbFailedConnection;
+                    return StatusCode.DB_FAILED_CONNECTION;
                 }
             }
             catch (Exception e)
             {
                 Log.Error(e);
-                return StatusCode.Error;
+                return StatusCode.ERROR;
             }
             finally
             {
@@ -127,11 +128,11 @@ namespace SurveyConfiguratorApp.Data.Questions
         }
 
         // Read a QuestionFaces entry from the database based on the ID
-        public new StatusCode Get(ref QuestionFaces questionFaces)
+        public new int Get(ref QuestionFaces questionFaces)
         {
             try
             {
-               
+
                 base.OpenConnection();
 
                 using (SqlCommand cmd = new SqlCommand())
@@ -145,15 +146,16 @@ namespace SurveyConfiguratorApp.Data.Questions
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        if (!reader.HasRows) return null;
+                        if (!reader.HasRows) return StatusCode.DB_RECORD_NOT_EXISTS;
                         if (reader.Read())
                         {
                             questionFaces.Order = (int)reader[$"{DbQuestion.ColumnNames.Order}"];
-                           // questionFaces.setId(id);
+                            // questionFaces.setId(id);
                             questionFaces.Text = reader[$"{DbQuestion.ColumnNames.Text}"].ToString();
                             questionFaces.FacesNumber = (int)reader[$"{ColumnNames.FacesNumber}"];
-                            return StatusCode.Success;
+                           
                         }
+                        return StatusCode.SUCCESS;
                     }
 
                 }
@@ -161,12 +163,12 @@ namespace SurveyConfiguratorApp.Data.Questions
             catch (Exception e)
             {
                 Log.Error(e);
+                return StatusCode.ERROR;
             }
             finally
             {
                 base.CloseConnection();
             }
-            return null;
         }
     }
 }

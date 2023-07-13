@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SurveyConfiguratorApp.Domain
 {
-    public  class StatusCode
+    public class ErrorCode
     {
         #region Common
         public const int SUCCESS = 0;
@@ -53,3 +53,4 @@ namespace SurveyConfiguratorApp.Domain
 
     }
 }
+

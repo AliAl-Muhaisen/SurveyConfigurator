@@ -58,7 +58,7 @@ namespace SurveyConfiguratorApp.Data
                 Log.Error(e);
             }
         }
-        public static StatusCode IsConnected()
+        public static int IsConnected()
         {
             try
             {
@@ -66,7 +66,7 @@ namespace SurveyConfiguratorApp.Data
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    return StatusCode.Success;
+                    return StatusCode.SUCCESS;
                 }
             }
             catch (SqlException ex)
@@ -76,12 +76,12 @@ namespace SurveyConfiguratorApp.Data
             catch (Exception e)
             {
                 Log.Error(e);
-                return StatusCode.Error;
+                return StatusCode.ERROR;
             }
         }
 
         // Open the database connection
-        public StatusCode OpenConnection()
+        public int OpenConnection()
         {
             try
             {
@@ -92,7 +92,7 @@ namespace SurveyConfiguratorApp.Data
                 conn = new SqlConnection(connectionString);
                 conn.Open();
 
-                return StatusCode.Success;
+                return StatusCode.SUCCESS;
             }
             catch (SqlException ex)
             {
@@ -102,7 +102,7 @@ namespace SurveyConfiguratorApp.Data
             catch (Exception ex)
             {
                 Log.Error(ex);
-                return StatusCode.Error;
+                return StatusCode.ERROR;
             }
         }
         private static string GetConfigConnectionString()

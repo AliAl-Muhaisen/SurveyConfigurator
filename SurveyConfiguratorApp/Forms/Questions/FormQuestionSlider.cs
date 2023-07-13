@@ -14,9 +14,8 @@ namespace SurveyConfiguratorApp.Forms.Questions
         private bool isUpdate = false;
         private QuestionSlider questionSlider;
         private int questionId = -1;
-        private QuestionValidation questionValidation;
         private QuestionManager questionManager;
-
+        private QuestionValidation questionValidation;
         // To Check inputs validation 
         private bool isValidMaxNum = false;
         private bool isValidMinNum = false;
@@ -29,8 +28,8 @@ namespace SurveyConfiguratorApp.Forms.Questions
             {
                 InitializeComponent();
                 questionSlider = new QuestionSlider();
-                questionValidation =new QuestionValidation();
                 questionManager= new QuestionManager();
+                questionValidation= new QuestionValidation();
             }
             catch (Exception ex)
             {
@@ -71,10 +70,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 numericStartValue.Maximum = numericEndValue.Maximum - 1;
                 numericEndValue.Value = numericEndValue.Maximum;
 
-                labelErrorStartValue.clearText();
-                labelErrorEndValue.clearText();
-                labelErrorCaptionStart.clearText();
-                labelErrorCaptionEnd.clearText();
+              
                 if (questionId != -1)
                 {
                     questionSlider.setId(questionId);
@@ -82,7 +78,6 @@ namespace SurveyConfiguratorApp.Forms.Questions
                     // Check if question still exists
                     HandleIsQuestionNotExists();
 
-                    sharedBetweenQuestions.setOldOrder(questionSlider.Order);
                     fillInputs(questionSlider);
 
 
@@ -136,9 +131,9 @@ namespace SurveyConfiguratorApp.Forms.Questions
             {
                 if (questionId != -1)
                 {
-                   StatusCode tStatusCode = questionManager.IsQuestionExists(questionId);
+                   int tStatusCode = questionManager.IsQuestionExists(questionId);
                     // Check if question still exists
-                    if (tStatusCode.Code != StatusCode.Success.Code)
+                    if (tStatusCode != StatusCode.SUCCESS)
                     {
                         customMessageBoxControl1.StatusCodeMessage(tStatusCode);
                         CloseParentFrom();
@@ -167,7 +162,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 {
                     questionSlider.Text = sharedBetweenQuestions.getQuestionText();
                     questionSlider.Order = Convert.ToInt32(sharedBetweenQuestions.getQuestionOrder());
-                    StatusCode result;
+                    int result;
 
                     questionSlider.StartValue = ((int)numericStartValue.Value);
                     questionSlider.EndValue = ((int)numericEndValue.Value);
@@ -185,7 +180,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
                        
 
                     }
-                    if (result.Code != StatusCode.Success.Code)
+                    if (result != StatusCode.SUCCESS)
                     {
                         customMessageBoxControl1.StatusCodeMessageList(ref questionManager.ValidationErrorList);
                     }
@@ -217,7 +212,6 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 numericEndValue.Value = questionSlider.EndValue;
                 textBoxStartCaption.Text = questionSlider.StartCaption;
                 textBoxEndCaption.Text = questionSlider.EndCaption;
-                sharedBetweenQuestions.setOldOrder(questionSlider.Order);
                 btnSave.Text = "Update";
             }
             catch (Exception ex)
@@ -230,111 +224,11 @@ namespace SurveyConfiguratorApp.Forms.Questions
         /// <summary>
         /// Handle min value validation
         /// </summary>
-        private void handleMinValue()
-        {
-            try
-            {
-                if (numericStartValue.Value >= numericEndValue.Value)
-                {
-                    labelErrorStartValue.setText("Should be less than max");
-                    isValidMinNum = false;
-
-                }
-
-                else if (numericStartValue.Value < numericStartValue.Minimum)
-                {
-                    labelErrorStartValue.setText("number must be greater than or equal " + numericStartValue.Minimum);
-
-                }
-
-                else
-                {
-                    labelErrorStartValue.clearText();
-                    isValidMinNum = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex);
-            }
-
-
-
-
-
-        }
-
-        /// <summary>
-        /// Handle max value validation
-        /// </summary>
-        private void handleMaxValue()
-        {
-            try
-            {
-                if (numericEndValue.Value <= numericStartValue.Value)
-                {
-                    labelErrorEndValue.setText("Should be greater than min");
-                    isValidMaxNum = false;
-
-                }
-
-                else if (numericEndValue.Value <= numericEndValue.Minimum)
-                {
-                    labelErrorEndValue.setText("number must be greater than or equal " + numericEndValue.Minimum);
-
-
-                }
-
-                else if (numericEndValue.Value > numericEndValue.Maximum)
-                {
-                    labelErrorEndValue.setText("number must be less than or equal " + numericEndValue.Maximum);
-                    isValidMaxNum = false;
-
-                }
-                else
-                {
-                    labelErrorEndValue.clearText();
-                    isValidMaxNum = true;
-                }
-
-
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex);
-            }
-        }
-
-        /// <summary>
-        /// Handle End Caption Validation
-        /// </summary>
-        private void handleCaptionEnd()
-        {
-            try
-            {
-                string msg =
-                           questionValidation.handelCaptionText(textBoxEndCaption.Text);
-                if (msg == null)
-                {
-                    isValidCaptionEnd = true;
-                }
-                else
-                    isValidCaptionEnd = false;
-                labelErrorCaptionEnd.setText(msg);
-
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex);
-            }
-
-        }
-
+       
         private void numericStartValue_ValueChanged(object sender, EventArgs e)
         {
             try
             {
-                handleMinValue();
             }
             catch (Exception ex)
             {
@@ -343,83 +237,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
 
         }
 
-        private void numericEndValue_ValueChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                handleMaxValue();
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex);
-            }
-
-        }
-
-        private void textBoxEndCaption_TextChanged(object sender, EventArgs e)
-        {
-            handleCaptionEnd();
-        }
-
-        /// <summary>
-        /// Handle Start Caption Validation
-        /// </summary>
-        private void handleCaptionStart()
-        {
-            try
-            {
-                string msg =
-                           questionValidation.handelCaptionText(textBoxStartCaption.Text);
-                if (msg == null)
-                {
-                    isValidCaptionStart = true;
-                }
-                else
-                    isValidCaptionStart = false;
-                labelErrorCaptionStart.setText(msg);
-
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex);
-            }
-
-        }
-        private void textBoxStartCaption_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                handleCaptionStart();
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex);
-            }
-
-        }
-      
-        /// <summary>
-        /// To Check form inputs validation
-        /// </summary>
-        /// <returns></returns>
-        private bool IsValidForm()
-        {
-            try
-            {
-                handleCaptionEnd();
-                handleMaxValue();
-                handleMinValue();
-                handleCaptionStart();
-                return sharedBetweenQuestions.isValidForm() && isValidMaxNum && isValidMinNum && isValidCaptionStart && isValidCaptionEnd;
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex);
-            }
-            return false;
-
-        }
-
+       
         
     }
 }

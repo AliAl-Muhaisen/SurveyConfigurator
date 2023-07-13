@@ -72,7 +72,6 @@ namespace SurveyConfiguratorApp.Forms.Questions
                     questoinManager.GetQuestionFaces(ref questionFaces);
                     HandleIsQuestionNotExists();
                     fillInputs(questionFaces);
-                    sharedBetweenQuestions.setOldOrder(questionFaces.Order);
 
                 }
             }
@@ -93,9 +92,9 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 {
                     QuestionFaces questionFaces = new QuestionFaces();
                     questionFaces.setId(questionId);
-                    StatusCode statusCode = questoinManager.IsQuestionExists(questionId);
+                    int statusCode = questoinManager.IsQuestionExists(questionId);
 
-                    if (statusCode.Code != StatusCode.Success.Code)
+                    if (statusCode != StatusCode.SUCCESS)
                     {
                         customMessageBoxControl1.StatusCodeMessage(statusCode);
                         CloseParentFrom();
@@ -127,7 +126,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 {
                     questionFaces.Text = sharedBetweenQuestions.getQuestionText();
                     questionFaces.Order = Convert.ToInt32(sharedBetweenQuestions.getQuestionOrder());
-                    StatusCode result ;
+                    int result ;
 
                     questionFaces.FacesNumber = ((int)numericFaceNumber.Value);
 
@@ -143,7 +142,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
                             questoinManager.UpdateQuestionFaces(questionFaces);
 
                     }
-                    if (result.Code !=StatusCode.Success.Code)
+                    if (result !=StatusCode.SUCCESS)
                     {
                          customMessageBoxControl1.StatusCodeMessageList(ref questoinManager.ValidationErrorList);
                     }
@@ -203,7 +202,6 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 sharedBetweenQuestions.setQuestionOrderValue(questionFaces.Order);
 
                 numericFaceNumber.Value = questionFaces.FacesNumber;
-                sharedBetweenQuestions.setOldOrder(questionFaces.Order);
                 btnSave.Text = "Update";
             }
             catch (Exception ex)

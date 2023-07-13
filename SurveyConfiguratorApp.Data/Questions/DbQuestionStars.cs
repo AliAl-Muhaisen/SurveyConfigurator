@@ -17,20 +17,20 @@ namespace SurveyConfiguratorApp.Data.Questions
         public DbQuestionStars() : base() { }
 
         static public string TableName { get { return tableName; } }
-        public StatusCode Add(QuestionStars data)
+        public int Add(QuestionStars data)
         {
             try
             {
-                StatusCode isAdded = base.Add(data);
+                int isAdded = base.Add(data);
 
 
-                if (isAdded != StatusCode.Success)
+                if (isAdded != StatusCode.SUCCESS)
                     return isAdded;
 
                 int questionId = base.GetQuestionId();
 
                 if (questionId == -1)
-                    return StatusCode.Error;
+                    return StatusCode.ERROR;
 
                 SqlCommand cmd = new SqlCommand();
 
@@ -53,7 +53,7 @@ namespace SurveyConfiguratorApp.Data.Questions
                 int rowAffected = cmd.ExecuteNonQuery();
                 if (rowAffected > 0)
                 {
-                    return StatusCode.Success;
+                    return StatusCode.SUCCESS;
                 }
                 // If the stars question not added successfully, Delete the base question 
                 base.Delete(questionId);
@@ -63,18 +63,18 @@ namespace SurveyConfiguratorApp.Data.Questions
             catch (Exception ex)
             {
                 Log.Error(ex);
-                return StatusCode.Error;
+                return StatusCode.ERROR;
             }
             finally
             {
                 base.CloseConnection();
             }
-            return StatusCode.ValidationError;
+            return StatusCode.VALIDATION_ERROR;
         }
 
 
 
-        public StatusCode Update(QuestionStars questionStars)
+        public int Update(QuestionStars questionStars)
         {
             using (SqlCommand command = new SqlCommand())
             {
@@ -97,7 +97,7 @@ namespace SurveyConfiguratorApp.Data.Questions
                     if (rowsAffected <= 0)
                     {
                         // Row not found or not updated
-                        return StatusCode.ValidationError;
+                        return StatusCode.VALIDATION_ERROR;
                     }
 
                     base.CloseConnection();
@@ -108,7 +108,7 @@ namespace SurveyConfiguratorApp.Data.Questions
                 catch (Exception ex)
                 {
                     Log.Error(ex);
-                    return StatusCode.Error;
+                    return StatusCode.ERROR;
                 }
                 finally
                 {
@@ -117,13 +117,13 @@ namespace SurveyConfiguratorApp.Data.Questions
             }
         }
 
-        public StatusCode Get(ref QuestionStars questionStars)
+        public int Get(ref QuestionStars questionStars)
         {
             try
             {
                  
-               StatusCode tStatusCode= base.OpenConnection();
-                if (tStatusCode != StatusCode.Success)
+               int tStatusCode= base.OpenConnection();
+                if (tStatusCode != StatusCode.SUCCESS)
                 {
                     return tStatusCode;
                 }
@@ -141,7 +141,7 @@ namespace SurveyConfiguratorApp.Data.Questions
                             questionStars.Order = (int)reader["Order"];
                             questionStars.Text = reader["Text"].ToString();
                             questionStars.StarsNumber = (int)reader["StarsNumber"];
-                            return StatusCode.Success;
+                            return StatusCode.SUCCESS;
 
                         }
                     }
@@ -152,14 +152,14 @@ namespace SurveyConfiguratorApp.Data.Questions
             catch (Exception e)
             {
                 Log.Error(e);
-                return StatusCode.Error;
+                return StatusCode.ERROR;
             }
             finally
             {
                 base.CloseConnection();
 
             }
-            return StatusCode.DbRecordNotExists;
+            return StatusCode.DB_RECORD_NOT_EXISTS;
         }
     }
 }
