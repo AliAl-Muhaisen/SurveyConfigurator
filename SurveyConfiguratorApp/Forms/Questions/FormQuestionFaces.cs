@@ -1,7 +1,9 @@
-﻿using SurveyConfiguratorApp.Domain.Questions;
+﻿using SurveyConfiguratorApp.Domain;
+using SurveyConfiguratorApp.Domain.Questions;
 using SurveyConfiguratorApp.Helper;
 using SurveyConfiguratorApp.Logic;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -22,7 +24,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             {
                 InitializeComponent();
                 questionFaces = new QuestionFaces();
-                questionValidation = QuestionValidation.Instance();
+                questionValidation =new QuestionValidation();
                 questoinManager = new QuestionManager();
             }
             catch (Exception ex)
@@ -44,7 +46,6 @@ namespace SurveyConfiguratorApp.Forms.Questions
                     isUpdate = true;
                     this.questionId = questionId;
                     btnSave.Text = "Update";
-                    // questionFaces=questoinManager.GetQuestionFaces(this.questionId);
                 }
 
             }
@@ -64,9 +65,11 @@ namespace SurveyConfiguratorApp.Forms.Questions
             {
                 numericFaceNumber.Maximum = questionValidation.FacesMaxValue;
                 numericFaceNumber.Minimum = questionValidation.FacesMinValue;
+
                 if (questionId != -1)
                 {
-                    questionFaces = questoinManager.GetQuestionFaces(questionId);
+                    questionFaces.setId(questionId);
+                    questoinManager.GetQuestionFaces(ref questionFaces);
                     HandleIsQuestionNotExists();
                     fillInputs(questionFaces);
                     sharedBetweenQuestions.setOldOrder(questionFaces.Order);
@@ -88,11 +91,13 @@ namespace SurveyConfiguratorApp.Forms.Questions
             {
                 if (questionId != -1)
                 {
-                    QuestionFaces questionFaces = questoinManager.GetQuestionFaces(questionId);
+                    QuestionFaces questionFaces = new QuestionFaces();
+                    questionFaces.setId(questionId);
+                    StatusCode statusCode = questoinManager.IsQuestionExists(questionId);
 
-                    if (questionFaces == null)
+                    if (statusCode.Code != StatusCode.Success.Code)
                     {
-                        customMessageBoxControl1.NotExists();
+                        customMessageBoxControl1.StatusCodeMessage(statusCode);
                         CloseParentFrom();
                         return true;
                     }
@@ -117,39 +122,39 @@ namespace SurveyConfiguratorApp.Forms.Questions
 
             try
             {
-                bool isValidGeneralQuestions = sharedBetweenQuestions.isValidForm();
-                if (isValidGeneralQuestions)
+               // bool isValidGeneralQuestions = sharedBetweenQuestions.isValidForm();
+              //  if (isValidGeneralQuestions)
                 {
                     questionFaces.Text = sharedBetweenQuestions.getQuestionText();
                     questionFaces.Order = Convert.ToInt32(sharedBetweenQuestions.getQuestionOrder());
-                    StatusCode result=StatusCode.Success;
+                    StatusCode result ;
 
                     questionFaces.FacesNumber = ((int)numericFaceNumber.Value);
 
                     if (!isUpdate)
                     {
-                        result = questoinManager.AddQuestionFaces(questionFaces);                       
+                        result = questoinManager.AddQuestionFaces(questionFaces);
                     }
                     else
                     {
-                       bool isNotExits= HandleIsQuestionNotExists();
+                        bool isNotExits = HandleIsQuestionNotExists();
                         if (isNotExits) { return; }
                         result =
                             questoinManager.UpdateQuestionFaces(questionFaces);
-                        sharedBetweenQuestions.setOldOrder(questionFaces.Order);
 
                     }
-                    if (result == StatusCode.Success)
-                        CloseParentFrom();
-                    else
-                        customMessageBoxControl1.StatusCodeMessage(result);
+                    if (result.Code !=StatusCode.Success.Code)
+                    {
+                         customMessageBoxControl1.StatusCodeMessageList(ref questoinManager.ValidationErrorList);
+                    }
+                   
+                    FormQuestion.CloseBasedOnStatus(ref result);
 
                 }
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
                 Log.Error(ex);
             }
         }

@@ -19,7 +19,7 @@ namespace SurveyConfiguratorApp.UserController.Questions
             try
             {
                 InitializeComponent();
-                questionValidation = QuestionValidation.Instance();
+                questionValidation =new QuestionValidation();
 
                 clearErrorLabelsText();
             }
@@ -49,21 +49,21 @@ namespace SurveyConfiguratorApp.UserController.Questions
 
             try
             {
-                string msg = null;
-                {
-                    string inputText = textBoxQuestionText.Text;
-                    msg = questionValidation.HandelQuestionText(inputText);
-                    labelErrorQuestionText.setText(msg);
+                //string msg = null;
+                //{
+                //    string inputText = textBoxQuestionText.Text;
+                //    msg = questionValidation.HandelQuestionText(inputText);
+                //    labelErrorQuestionText.setText(msg);
 
 
-                    if (msg == null)
-                    {
-                        isValidQuestionText = true;
-                    }
-                    else
-                        isValidQuestionText = false;
+                //    if (msg == null)
+                //    {
+                //        isValidQuestionText = true;
+                //    }
+                //    else
+                //        isValidQuestionText = false;
 
-                }
+                //}
             }
             catch (Exception ex)
             {
@@ -175,19 +175,19 @@ namespace SurveyConfiguratorApp.UserController.Questions
 
                 int newOderValue = (int)numericUpDownQuestionOrder.Value;
 
-                isExists = questionValidation.IsOrderAlreadyExists(newOderValue, oldOrder);
+                //isExists = questionValidation.IsOrderAlreadyExists(newOderValue, oldOrder);
 
 
-                if (isExists)
-                {
-                    labelErrorQuestionOrder.setText("This Order Alread Exists");
-                    isValidOrderValue = false;
-                }
-                else
-                {
+                //if (isExists)
+                //{
+                //    labelErrorQuestionOrder.setText("This Order Alread Exists");
+                //    isValidOrderValue = false;
+                //}
+                //else
+                //{
                     isValidOrderValue = true;
                     labelErrorQuestionOrder.clearText();
-                }
+               //}
 
             }
             catch (Exception ex)

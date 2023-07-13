@@ -1,4 +1,5 @@
-﻿using SurveyConfiguratorApp.Helper;
+﻿using SurveyConfiguratorApp.Domain;
+using SurveyConfiguratorApp.Helper;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,6 +9,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Resources.ResXFileRef;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace SurveyConfiguratorApp.UserController.Controllers
 {
@@ -18,45 +22,70 @@ namespace SurveyConfiguratorApp.UserController.Controllers
         {
             InitializeComponent();
         }
+        private string TextMessage(StatusCode pStatusCode)
+        {
+            try
+            {
+                int tCode = pStatusCode.Code;
+              //  Log.Info(tCode.ToString());
+                if (tCode == StatusCode.ValidationError.Code)
+                {
+                    return "Validation errors, Please check the inputs";
+                }
+                //else if (tCode == StatusCode.Success.Code)
+                //{
+                //    MessageBox.Show("Completed Successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //}
+                else if (tCode == StatusCode.Error.Code)
+                {
+                    return "Something went wrong";
+                }
+                else if (tCode == StatusCode.DbRecordNotExists.Code)
+                {
+                    return "This Question does not exists";
+                }
+                else if (tCode == StatusCode.DbFailedNetWorkConnection.Code)
+                {
+                    return "You are not connected to the server, Please check your network connection or ask the Admin for help";
+                }
+                else if (tCode == StatusCode.DbFailedConnection.Code)
+                {
+                    return "Failed Connecting to the data base, Please check your network connection or ask the Admin for help";
+                }
+                else if(tCode ==StatusCode.ValidationErrorQuestionText.Code )
+                {
+                    return "Question text Required";
+                }
+                else if(tCode ==StatusCode.ValidationErrorQuestionOrder.Code)
+                {
+                    return "Order Should be unique";
+                }
+                //Slider
+                else if (tCode==StatusCode.ValidationErrorSliderCaption.Code)
+                {
+                    return "Caption Text Required";
+                }
+                else if (tCode == StatusCode.ValidationErrorSliderEndValue.Code)
+                {
+                    return "";
+                }
+                else if (tCode == StatusCode.ValidationErrorSliderValue.Code)
+                {
+                    return "Min Value Should be less than Max Value";
+                }
+
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+            }
+            return null;
+        }
         public void StatusCodeMessage(StatusCode statusCode)
         {
             try
             {
-                switch (statusCode)
-                {
-                    case StatusCode.ValidationError:
-                        MessageBox.Show("Validation errors, Please check the inputs", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        break;
-
-                    case StatusCode.Success:
-                        MessageBox.Show("Completed Successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        break;
-                    case StatusCode.Error:
-
-                    default:
-                        MessageBox.Show("Something went wrong", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        break;
-
-                }
-
-            }
-            catch (Exception ex) { Log.Error(ex); }
-        }
-        public void Add(bool result)
-        {
-            try
-            {
-                if (result)
-                {
-                    // Display success message to the user
-                    MessageBox.Show("Record inserted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-
-                else
-                {
-                    // Display error message to the user
-                    MessageBox.Show("An error occurred while inserting the record ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                DisplayMessage(statusCode);
 
 
             }
@@ -64,68 +93,58 @@ namespace SurveyConfiguratorApp.UserController.Controllers
             {
                 Log.Error(ex);
             }
-
         }
-
-        public void Update(bool result)
+        public void StatusCodeMessageList(ref List<StatusCode> statusCodes)
         {
             try
             {
-                if (result)
+                string tMessages = null;
+                for (int i = 0; i < statusCodes.Count; i++)
                 {
-                    // Display success message to the user
-                    MessageBox.Show("Record updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (statusCodes[i].Code!=StatusCode.Success.Code)
+                        tMessages+= TextMessage(statusCodes[i])+"\n";
                 }
-
-                else
-                {
-                    // Display error message to the user
-                    MessageBox.Show("No rows updated for Question ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-
-
+                if (tMessages != null)
+                    DisplayMessage(StatusCode.Error, tMessages);
             }
             catch (Exception ex)
             {
                 Log.Error(ex);
             }
-
         }
-
-        public void Delete(bool result)
+        
+        private void DisplayMessage(StatusCode pMessageType, string pMessageText = null)
         {
+
             try
             {
-                if (result)
+                string tMessage;
+                if (pMessageText == null)
                 {
-                    // Display success message to the user
-                    MessageBox.Show("Record Deleted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    tMessage = TextMessage(pMessageType);
                 }
-
                 else
                 {
-                    // Display error message to the user
-                    MessageBox.Show("No rows deleted.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    tMessage = pMessageText;
                 }
 
 
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex);
-            }
 
-        }
-        public void NotExists()
-        {
-            try
-            {
-                MessageBox.Show("This Question does not exists", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (pMessageType.Code == StatusCode.Success.Code)
+                {
+                    MessageBox.Show(tMessage, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show(tMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             catch (Exception e)
             {
                 Log.Error(e);
             }
         }
+
+
     }
 }

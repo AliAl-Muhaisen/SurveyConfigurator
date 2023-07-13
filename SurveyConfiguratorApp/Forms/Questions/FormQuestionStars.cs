@@ -1,4 +1,5 @@
-﻿using SurveyConfiguratorApp.Domain.Questions;
+﻿using SurveyConfiguratorApp.Domain;
+using SurveyConfiguratorApp.Domain.Questions;
 using SurveyConfiguratorApp.Helper;
 using SurveyConfiguratorApp.Logic;
 using System;
@@ -11,7 +12,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
     {
         private bool isUpdate = false;
         private int questionId = -1;
-        private QuestionManager questionFacade;
+        private QuestionManager questionManager;
         private QuestionStars questionStars;
         private QuestionValidation questionValidation;
         public FormQuestionStars()
@@ -21,8 +22,8 @@ namespace SurveyConfiguratorApp.Forms.Questions
             {
                 InitializeComponent();
                 questionStars = new QuestionStars();
-                questionFacade = new QuestionManager();
-                questionValidation = QuestionValidation.Instance();
+                questionManager = new QuestionManager();
+                questionValidation =new QuestionValidation();
             }
             catch (Exception ex)
             {
@@ -58,10 +59,12 @@ namespace SurveyConfiguratorApp.Forms.Questions
             {
                 numericStarsNumber.Minimum = questionValidation.StarsMinValue;
                 numericStarsNumber.Maximum = questionValidation.StarsMaxValue;
+
                 if (questionId != -1)
                 {
+                    questionStars.setId(questionId);
                     // to check if the question still exists in the db
-                    questionStars = questionFacade.GetQuestionStars(questionId);
+                     questionManager.GetQuestionStars(ref questionStars);
                     HandleIsQuestionNotExists();
                     fillInputs(questionStars);
                     sharedBetweenQuestions.setOldOrder(questionStars.Order);
@@ -79,10 +82,10 @@ namespace SurveyConfiguratorApp.Forms.Questions
         {
             try
             {
-                QuestionStars questionStars = questionFacade.GetQuestionStars(questionId);
-                if (questionStars == null)
+                StatusCode tStatusCode= questionManager.IsQuestionExists(questionId);
+                if (tStatusCode.Code != StatusCode.Success.Code)
                 {
-                    customMessageBoxControl1.NotExists();
+                    customMessageBoxControl1.StatusCodeMessage(tStatusCode);
                     CloseParentFrom();
                     return true;
                 }
@@ -97,9 +100,6 @@ namespace SurveyConfiguratorApp.Forms.Questions
         {
             try
             {
-                bool isValidGeneralQuestions = sharedBetweenQuestions.isValidForm();
-                if (isValidGeneralQuestions)
-                {
                     questionStars.Text = sharedBetweenQuestions.getQuestionText();
                     questionStars.Order = Convert.ToInt32(sharedBetweenQuestions.getQuestionOrder());
                     StatusCode result;
@@ -107,22 +107,21 @@ namespace SurveyConfiguratorApp.Forms.Questions
                     questionStars.StarsNumber = ((int)numericStarsNumber.Value);
                     if (!isUpdate)
                     {
-                        result = questionFacade.AddQuestionStars(questionStars);
+                        result = questionManager.AddQuestionStars(questionStars);
                     }
                     else
                     {
                         bool isNotExits = HandleIsQuestionNotExists();
                         if (isNotExits) { return; }
-                        result = questionFacade.UpdateQuestionStars(questionStars);
+                        result = questionManager.UpdateQuestionStars(questionStars);
 
                     }
-                    if (result == StatusCode.Success)
-                        CloseParentFrom();
-                    else
-                        customMessageBoxControl1.StatusCodeMessage(result);
+                    if (result.Code != StatusCode.Success.Code)
+                    {
+                        customMessageBoxControl1.StatusCodeMessageList(ref questionManager.ValidationErrorList);
+                    }
 
-                }
-
+                    FormQuestion.CloseBasedOnStatus(ref result);
             }
             catch (Exception ex)
             {

@@ -1,4 +1,5 @@
-﻿using SurveyConfiguratorApp.Domain.Questions;
+﻿using SurveyConfiguratorApp.Domain;
+using SurveyConfiguratorApp.Domain.Questions;
 using SurveyConfiguratorApp.Helper;
 using System;
 using System.Data.SqlClient;
@@ -123,31 +124,31 @@ namespace SurveyConfiguratorApp.Data.Questions
 
         }
 
-        public new QuestionSlider Get(int id)
+        public  StatusCode Get(ref QuestionSlider questionSlider)
         {
             try
             {
-                QuestionSlider questionSlider = new QuestionSlider();
-                base.OpenConnection();
-
+               StatusCode tStatusCode= base.OpenConnection();
+                if (tStatusCode != StatusCode.Success)
+                {
+                    return tStatusCode;
+                }
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     cmd.Connection = base.conn;
                     cmd.CommandText = $"SELECT [{DbQuestion.ColumnNames.Text}],[{ColumnNames.StartValue}],[{ColumnNames.EndValue}],[{ColumnNames.StartCaption}],[{ColumnNames.EndCaption}]," +
-                        $"[{DbQuestion.ColumnNames.Order}] FROM {DbQuestion.tableName} as q  INNER JOIN {tableName} as f ON q.id=f.{ColumnNames.QuestionId} WHERE q.{DbQuestion.ColumnNames.Id}={id};";
+                        $"[{DbQuestion.ColumnNames.Order}] FROM {DbQuestion.tableName} as q  INNER JOIN {tableName} as f ON q.id=f.{ColumnNames.QuestionId} WHERE q.{DbQuestion.ColumnNames.Id}={questionSlider.getId()};";
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
                         {
                             questionSlider.Order = (int)reader["Order"];
-                            questionSlider.setId(id);
                             questionSlider.Text = reader["Text"].ToString();
                             questionSlider.EndCaption = reader["EndCaption"].ToString();
                             questionSlider.StartCaption = reader["StartCaption"].ToString();
                             questionSlider.StartValue = (int)reader["StartValue"];
                             questionSlider.EndValue = (int)reader["EndValue"];
-                            return questionSlider;
-
+                          return  StatusCode.Success;
                         }
                     }
 
@@ -156,12 +157,13 @@ namespace SurveyConfiguratorApp.Data.Questions
             catch (SqlException e)
             {
                 Log.Error(e);
+                return StatusCode.Error;
             }
             finally
             {
                 base.CloseConnection();
             }
-            return null;
+            return StatusCode.DbRecordNotExists;
         }
     }
 }

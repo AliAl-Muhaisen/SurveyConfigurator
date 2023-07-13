@@ -1,4 +1,5 @@
 ﻿using SurveyConfiguratorApp.Data;
+using SurveyConfiguratorApp.Domain;
 using SurveyConfiguratorApp.Helper;
 using System;
 using System.Collections.Generic;
@@ -19,13 +20,13 @@ namespace SurveyConfiguratorApp.Logic
 
         public event EventHandler ConnectionRefreshed;
 
-        public DbManager(string server, string database, string username, string password)
+        public DbManager(string server, string database, string username, string password) : this()
         {
             try
             {
                 connectionString = BuildConnectionString(server, database, username, password);
                 conn = new SqlConnection(connectionString);
-                db = new DbConnection();
+
             }
             catch (Exception ex)
             {
@@ -33,7 +34,22 @@ namespace SurveyConfiguratorApp.Logic
             }
 
         }
-        public DbManager() { }
+        public DbManager()
+        {
+            db = new DbConnection();
+            DbConnection.ConnectionFailed += ConnectionFailed;
+        }
+        public void ConnectionFailed(object sender, EventArgs e)
+        {
+            try
+            {
+                OnConnectionRefreshed();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+            }
+        }
         protected void OnConnectionRefreshed()
         {
             try
@@ -57,10 +73,7 @@ namespace SurveyConfiguratorApp.Logic
                 return true;
 
             }
-            catch (SqlException)
-            {
 
-            }
             catch (Exception e)
             {
                 Log.Error(e);
@@ -113,7 +126,7 @@ namespace SurveyConfiguratorApp.Logic
             return false;
         }
 
-        public static bool IsDbConnected()
+        public static StatusCode IsDbConnected()
         {
             try
             {
@@ -122,9 +135,11 @@ namespace SurveyConfiguratorApp.Logic
             catch (Exception e)
             {
                 Log.Error(e);
+                return StatusCode.Error;
             }
-            return false;
         }
+
+
 
     }
 

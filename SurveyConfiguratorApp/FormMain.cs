@@ -1,4 +1,5 @@
-﻿using SurveyConfiguratorApp.Domain.Questions;
+﻿using SurveyConfiguratorApp.Domain;
+using SurveyConfiguratorApp.Domain.Questions;
 using SurveyConfiguratorApp.Forms.DbConnection;
 using SurveyConfiguratorApp.Forms.Questions;
 using SurveyConfiguratorApp.Helper;
@@ -47,14 +48,17 @@ namespace SurveyConfiguratorApp
             {
                 InitializeComponent();
                 questionManager = new QuestionManager();
+                dbManager = new DbManager();
+                dbManager.ConnectionRefreshed += OnConnectionRefreshed;
                 listViewQuestions.Items.Clear();
                 FillListView();
                 questionManager.DataChangedUI += OnRefreshData;
+
                 questionManager.FollowDbChanges();
                 listViewQuestions.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None);
 
-                dbManager = new DbManager();
-                dbManager.ConnectionRefreshed += OnConnectionRefreshed;
+
+
 
             }
             catch (Exception e)
@@ -118,7 +122,9 @@ namespace SurveyConfiguratorApp
                 else
                     FillListView();
 
+                //  CheckConnection();
                 handleSelectTheLastOrder();
+
             }
             catch (Exception e)
             {
@@ -128,9 +134,7 @@ namespace SurveyConfiguratorApp
 
         }
 
-
-
-
+       
 
         // Data Grid View Buttons
         //Add Button
@@ -249,7 +253,7 @@ namespace SurveyConfiguratorApp
                 if (listViewQuestions.IsHandleCreated)
                     listViewQuestions.Invoke((MethodInvoker)(() =>
                 {
-                    list = questionManager.GetQuestions();
+                     questionManager.GetQuestions(ref list);
                     listViewQuestions.Items.Clear();
                     foreach (Question question in list)
                     {
@@ -389,8 +393,9 @@ namespace SurveyConfiguratorApp
         {
             try
             {
-                bool result = DbManager.IsDbConnected();
-                if (result)
+                StatusCode result = DbManager.IsDbConnected();
+                bool tIsError = false;
+                if (result.Code == StatusCode.Success.Code)
                 {
                     labelStatus.ForeColor = Color.Green;
                     labelStatus.Text = null;
@@ -399,13 +404,22 @@ namespace SurveyConfiguratorApp
                     HandleListViewEnable(true);
 
                 }
+                else if (result.Code == StatusCode.DbFailedNetWorkConnection.Code)
+                {
+                    tIsError = true;
+                    labelStatus.Text = "Network Failed";
+                }
                 else
                 {
-                    labelStatus.ForeColor = Color.Red;
+                    tIsError = true;
                     labelStatus.Text = "Connected Failed";
+                }
+
+                if (tIsError)
+                {
+                    labelStatus.ForeColor = Color.Red;
                     ButtonsEnable(false);
                     HandleListViewEnable(false);
-
                 }
 
             }

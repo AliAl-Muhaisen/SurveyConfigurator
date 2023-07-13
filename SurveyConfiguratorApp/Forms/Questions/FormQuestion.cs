@@ -1,5 +1,7 @@
-﻿using SurveyConfiguratorApp.Helper;
+﻿using SurveyConfiguratorApp.Domain;
+using SurveyConfiguratorApp.Helper;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using static SurveyConfiguratorApp.Domain.Questions.Question;
@@ -155,14 +157,8 @@ namespace SurveyConfiguratorApp.Forms.Questions
         {
             try
             {
-                //This line registers the QuestionFacesService class as the implementation for the IQuestionFacesService interface.
-                //It means that whenever an instance of IQuestionFacesService is requested, the QuestionFacesService implementation will be provided.
-                //
-              
-
-                    var mainForm = new FormQuestionFaces(questionId);
-
-                    handleOpenChildForm(mainForm);
+                var mainForm = new FormQuestionFaces(questionId);
+                handleOpenChildForm(mainForm);
             }
             catch (Exception ex)
             {
@@ -178,11 +174,8 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 //This line registers the QuestionStarsService class as the implementation for the IQuestionStarsService interface.
                 //It means that whenever an instance of IQuestionStarsService is requested, the QuestionStarsService implementation will be provided.
                 //
-              
-                    var mainForm = new FormQuestionStars(questionId);
-
-                    // Manually inject the dependencies
-                    handleOpenChildForm(mainForm);
+                var mainForm = new FormQuestionStars(questionId);
+                handleOpenChildForm(mainForm);
             }
             catch (Exception ex)
             {
@@ -195,9 +188,9 @@ namespace SurveyConfiguratorApp.Forms.Questions
         {
             try
             {
-                    var mainForm = new FormQuestionSlider(questionId);
-                
-                    handleOpenChildForm(mainForm);
+                var mainForm = new FormQuestionSlider(questionId);
+
+                handleOpenChildForm(mainForm);
             }
             catch (Exception ex)
             {
@@ -223,6 +216,22 @@ namespace SurveyConfiguratorApp.Forms.Questions
             catch (Exception ex)
             {
                 Log.Error(ex);
+            }
+        }
+
+        public static void CloseBasedOnStatus(ref StatusCode pStatusCode)
+        {
+            try
+            {
+                if (pStatusCode.Code == StatusCode.Success.Code || pStatusCode.Code == StatusCode.DbFailedNetWorkConnection.Code || pStatusCode.Code == StatusCode.DbFailedConnection.Code)
+                {
+                    CloseForm();
+                }
+
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
             }
         }
 

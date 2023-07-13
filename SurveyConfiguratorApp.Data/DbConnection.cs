@@ -1,4 +1,5 @@
-﻿using SurveyConfiguratorApp.Helper;
+﻿using SurveyConfiguratorApp.Domain;
+using SurveyConfiguratorApp.Helper;
 using System;
 using System.Configuration;
 using System.Data;
@@ -17,10 +18,14 @@ namespace SurveyConfiguratorApp.Data
     {
         public SqlConnection conn;
         private static string connectionString;
-        public const string AppConfigConnectionName = "ConnectionString";      
-        public const string AppConfigConnectionValueName = "connectionStrings";      
+        public const string AppConfigConnectionName = "ConnectionString";
+        public const string AppConfigConnectionValueName = "connectionStrings";
         public const string AppConfigSettingsName = "appSettings";
         public const string AppConfigConnectionProviderName = "System.Data.SqlClient";
+
+        public static event EventHandler ConnectionFailed;
+
+        
         public DbConnection()
         {
 
@@ -30,8 +35,8 @@ namespace SurveyConfiguratorApp.Data
                 connectionString = GetConfigConnectionString();
                 conn = new SqlConnection(connectionString);
                 OpenConnection();
-
             }
+
             catch (Exception ex)
             {
                 Log.Error(ex);
@@ -42,27 +47,41 @@ namespace SurveyConfiguratorApp.Data
                 CloseConnection();
             }
         }
-
-        public static bool IsConnected()
+        public void OnConnectionFailed()
         {
             try
             {
-                string connectionString = GetConfigConnectionString();
-                using (SqlConnection conn =new SqlConnection(connectionString))
-                {
-                    conn.Open();
-                    return true;
-                }
+                ConnectionFailed?.Invoke(this, EventArgs.Empty);
             }
             catch (Exception e)
             {
                 Log.Error(e);
             }
-            return false;
+        }
+        public static StatusCode IsConnected()
+        {
+            try
+            {
+                string connectionString = GetConfigConnectionString();
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    return StatusCode.Success;
+                }
+            }
+            catch (SqlException ex)
+            {
+                return DbException.HandleSqlException(ex);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+                return StatusCode.Error;
+            }
         }
 
         // Open the database connection
-        public void OpenConnection()
+        public StatusCode OpenConnection()
         {
             try
             {
@@ -70,13 +89,20 @@ namespace SurveyConfiguratorApp.Data
                 {
                     conn.Close();
                 }
-                //string connectionString= GetConfigConnectionString();
                 conn = new SqlConnection(connectionString);
                 conn.Open();
+
+                return StatusCode.Success;
+            }
+            catch (SqlException ex)
+            {
+                OnConnectionFailed();
+                return DbException.HandleSqlException(ex);
             }
             catch (Exception ex)
             {
                 Log.Error(ex);
+                return StatusCode.Error;
             }
         }
         private static string GetConfigConnectionString()

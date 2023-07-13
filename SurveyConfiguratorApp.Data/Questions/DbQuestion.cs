@@ -1,4 +1,5 @@
-﻿using SurveyConfiguratorApp.Domain.Questions;
+﻿using SurveyConfiguratorApp.Domain;
+using SurveyConfiguratorApp.Domain.Questions;
 using SurveyConfiguratorApp.Helper;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace SurveyConfiguratorApp.Data.Questions
         public static event EventHandler DataChanged;
         public DbQuestion() : base() { }
         public const string tableName = "Question";
-       public enum ColumnNames
+        public enum ColumnNames
         {
             Id,
             Order,
@@ -28,7 +29,7 @@ namespace SurveyConfiguratorApp.Data.Questions
             TypeNumber
 
         }
-        private int questionId =-1;
+        private int questionId = -1;
 
         /// <summary>
         /// The Add method inserts a new record into the Question table by constructing a parameterized SQL query.
@@ -40,53 +41,73 @@ namespace SurveyConfiguratorApp.Data.Questions
         {
             try
             {
-                base.OpenConnection();
-
+               StatusCode tStatusCode= base.OpenConnection();
+                if (tStatusCode != StatusCode.Success)
+                {
+                    return tStatusCode;
+                }
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     cmd.Connection = base.conn;
                     //SCOPE_IDENTITY() is a function in SQL Server that returns the last identity value inserted into an identity column within the current scope.
                     //It is commonly used to retrieve the generated ID value after performing an insert operation.
-                    string query= string.Format("INSERT INTO [{0}] ([{1}],[{2}],[{3}]) VALUES " +
+                    string query = string.Format("INSERT INTO [{0}] ([{1}],[{2}],[{3}]) VALUES " +
                         "(@{1},@{2},@{3});SELECT SCOPE_IDENTITY();",
                         tableName, ColumnNames.Order, ColumnNames.Text, ColumnNames.TypeNumber);
 
                     cmd.CommandText = query;
 
-                
-                   
+
                     cmd.Parameters.AddWithValue($"@{ColumnNames.Order}", data.Order);
                     cmd.Parameters.AddWithValue($"@{ColumnNames.Text}", data.Text);
                     cmd.Parameters.AddWithValue($"@{ColumnNames.TypeNumber}", data.getTypeNumber());
                     // Execute the query and retrieve the generated ID
-                     questionId = Convert.ToInt32(cmd.ExecuteScalar());
-                 
+                    questionId = Convert.ToInt32(cmd.ExecuteScalar());
+
                     if (questionId > 0)
                     {
                         OnDataChanged();
                         return StatusCode.Success;
                     }
-                    else
-                    {
-                        return StatusCode.ValidationError;
-                    }
 
                 }
 
             }
+            catch (SqlException ex)
+            {
+
+                return DbException.HandleSqlException(ex);
+            }
             catch (Exception e)
             {
                 Log.Error(e);
-               return StatusCode.Error;
+                return StatusCode.Error;
             }
             finally
             {
                 base.CloseConnection();
             }
+            return StatusCode.ValidationError;
 
         }
 
+        public StatusCode IsQuestionExists(int  questionId)
+        {
+            try
+            {
+                Question question=this.Get(questionId);
+                if
+                    (question == null)
+                    return StatusCode.DbRecordNotExists;
 
+                return StatusCode.Success;
+            }
+            catch (Exception ex)
+            {
+                Log.Error (ex);
+                return StatusCode.Error;
+            }
+        }
 
         public StatusCode Delete(int id)
         {
@@ -108,7 +129,7 @@ namespace SurveyConfiguratorApp.Data.Questions
                         return StatusCode.Success;
 
                     }
-                   
+
                 }
             }
             catch (Exception e)
@@ -167,6 +188,19 @@ namespace SurveyConfiguratorApp.Data.Questions
 
                 }
             }
+            catch (SqlException ex)
+            {
+                Log.Error(ex);
+                // Handle the network exception
+                if (ex.Number == 2)
+                {
+                    return StatusCode.DbFailedNetWorkConnection;
+                }
+                else
+                {
+                    return StatusCode.DbFailedConnection;
+                }
+            }
             catch (Exception ex)
             {
                 Log.Error(ex);
@@ -196,14 +230,12 @@ namespace SurveyConfiguratorApp.Data.Questions
             {
                 Log.Error(ex);
             }
-           
+
             return -1;//TODO:!I will review this later :)
         }
 
-        public List<Question> GetQuestions()
+        public StatusCode GetQuestions(ref List<Question> list)
         {
-            // return new List<Question> { new Question() {Order = 1, Text = "asdfsdf", TypeName="Stars" } };
-            List<Question> list = new List<Question>();
             try
             {
                 base.OpenConnection();
@@ -225,22 +257,24 @@ namespace SurveyConfiguratorApp.Data.Questions
                                (int)reader[$"{ColumnNames.Order}"]
                                );
 
-
                         question.setId(Convert.ToInt32(reader[$"{ColumnNames.Id}"]));
 
                         list.Add(question);
                     }
 
                 }
-                return list;
+                return StatusCode.Success;
             }
-
+            catch(SqlException ex)
+            {
+                return DbException.HandleSqlException(ex);
+            }
             catch (Exception ex)
             {
                 Log.Error(ex);
+                return StatusCode.Error;
             }
 
-            return list;
         }
 
 
@@ -286,7 +320,7 @@ namespace SurveyConfiguratorApp.Data.Questions
             return null;
         }
 
-        public bool IsOrderAlreadyExists(int order,int oldOrder=-1)
+        public bool IsOrderAlreadyExists(int order, int oldOrder = -1)
         {
             DbQuestion dbQuestion = new DbQuestion();
             try

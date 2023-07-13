@@ -1,4 +1,5 @@
-﻿using SurveyConfiguratorApp.Domain.Questions;
+﻿using SurveyConfiguratorApp.Domain;
+using SurveyConfiguratorApp.Domain.Questions;
 using SurveyConfiguratorApp.Helper;
 using System;
 using System.Data.SqlClient;
@@ -116,28 +117,31 @@ namespace SurveyConfiguratorApp.Data.Questions
             }
         }
 
-        public new QuestionStars Get(int id)
+        public StatusCode Get(ref QuestionStars questionStars)
         {
             try
             {
-                QuestionStars questionStars = new QuestionStars();
-                base.OpenConnection();
+                 
+               StatusCode tStatusCode= base.OpenConnection();
+                if (tStatusCode != StatusCode.Success)
+                {
+                    return tStatusCode;
+                }
 
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     cmd.Connection = base.conn;
                     cmd.CommandText = $"SELECT [{DbQuestion.ColumnNames.Text}],[{ColumnNames.StarsNumber}],[{DbQuestion.ColumnNames.Order}]" +
                         $" FROM {DbQuestion.tableName} as q " +
-                        $" INNER JOIN {tableName} as s ON q.{DbQuestion.ColumnNames.Id}=s.{ColumnNames.QuestionId} WHERE q.{DbQuestion.ColumnNames.Id}={id};";
+                        $" INNER JOIN {tableName} as s ON q.{DbQuestion.ColumnNames.Id}=s.{ColumnNames.QuestionId} WHERE q.{DbQuestion.ColumnNames.Id}={questionStars.getId()};";
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
                         {
                             questionStars.Order = (int)reader["Order"];
-                            questionStars.setId(id);
                             questionStars.Text = reader["Text"].ToString();
                             questionStars.StarsNumber = (int)reader["StarsNumber"];
-                            return questionStars;
+                            return StatusCode.Success;
 
                         }
                     }
@@ -148,13 +152,14 @@ namespace SurveyConfiguratorApp.Data.Questions
             catch (Exception e)
             {
                 Log.Error(e);
+                return StatusCode.Error;
             }
             finally
             {
                 base.CloseConnection();
 
             }
-            return null;
+            return StatusCode.DbRecordNotExists;
         }
     }
 }

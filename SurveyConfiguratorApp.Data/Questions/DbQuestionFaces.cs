@@ -1,4 +1,5 @@
-﻿using SurveyConfiguratorApp.Domain.Questions;
+﻿using SurveyConfiguratorApp.Domain;
+using SurveyConfiguratorApp.Domain.Questions;
 using SurveyConfiguratorApp.Helper;
 using System;
 using System.Data.SqlClient;
@@ -24,8 +25,8 @@ namespace SurveyConfiguratorApp.Data.Questions
             try
             {
                 StatusCode isBaseInfoAdded = base.Add(data);
-                if (isBaseInfoAdded== StatusCode.Success)
-                {
+                if (isBaseInfoAdded != StatusCode.Success)
+                    return isBaseInfoAdded;
                     int questionId = base.GetQuestionId();
                     if (questionId == -1)
                         return StatusCode.Error;
@@ -47,9 +48,13 @@ namespace SurveyConfiguratorApp.Data.Questions
                             return StatusCode.Success;
 
                     }
-                }
+                
 
 
+            }
+            catch (SqlException ex)
+            {
+               DbException.HandleSqlException(ex);
             }
             catch (Exception e)
             {
@@ -96,6 +101,19 @@ namespace SurveyConfiguratorApp.Data.Questions
                     return base.Update(questionFaces);
                 }
             }
+            catch (SqlException ex)
+            {
+                Log.Error(ex);
+                // Handle the network exception
+                if (ex.Number == 2)
+                {
+                    return StatusCode.DbFailedNetWorkConnection;
+                }
+                else
+                {
+                    return StatusCode.DbFailedConnection;
+                }
+            }
             catch (Exception e)
             {
                 Log.Error(e);
@@ -109,11 +127,11 @@ namespace SurveyConfiguratorApp.Data.Questions
         }
 
         // Read a QuestionFaces entry from the database based on the ID
-        public new QuestionFaces Get(int id)
+        public new StatusCode Get(ref QuestionFaces questionFaces)
         {
             try
             {
-                QuestionFaces questionFaces = new QuestionFaces();
+               
                 base.OpenConnection();
 
                 using (SqlCommand cmd = new SqlCommand())
@@ -123,7 +141,7 @@ namespace SurveyConfiguratorApp.Data.Questions
 
                     cmd.CommandText = $"SELECT [{DbQuestion.ColumnNames.Text}],[{ColumnNames.FacesNumber}],[{DbQuestion.ColumnNames.Order}] FROM " +
                         $"{DbQuestion.tableName} as q  INNER JOIN {tableName} as f ON q.{DbQuestion.ColumnNames.Id}=f.{ColumnNames.QuestionId}" +
-                        $" WHERE q.{DbQuestion.ColumnNames.Id}={id};";
+                        $" WHERE q.{DbQuestion.ColumnNames.Id}={questionFaces.getId()};";
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -131,11 +149,10 @@ namespace SurveyConfiguratorApp.Data.Questions
                         if (reader.Read())
                         {
                             questionFaces.Order = (int)reader[$"{DbQuestion.ColumnNames.Order}"];
-                            questionFaces.setId(id);
+                           // questionFaces.setId(id);
                             questionFaces.Text = reader[$"{DbQuestion.ColumnNames.Text}"].ToString();
                             questionFaces.FacesNumber = (int)reader[$"{ColumnNames.FacesNumber}"];
-                            return questionFaces;
-
+                            return StatusCode.Success;
                         }
                     }
 

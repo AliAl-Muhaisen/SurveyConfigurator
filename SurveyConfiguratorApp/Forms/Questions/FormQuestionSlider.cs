@@ -1,8 +1,10 @@
-﻿using SurveyConfiguratorApp.Domain.Questions;
+﻿using SurveyConfiguratorApp.Domain;
+using SurveyConfiguratorApp.Domain.Questions;
 using SurveyConfiguratorApp.Helper;
 using SurveyConfiguratorApp.Logic;
 using System;
 using System.Linq;
+using System.Net;
 using System.Windows.Forms;
 
 namespace SurveyConfiguratorApp.Forms.Questions
@@ -27,7 +29,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             {
                 InitializeComponent();
                 questionSlider = new QuestionSlider();
-                questionValidation = QuestionValidation.Instance();
+                questionValidation =new QuestionValidation();
                 questionManager= new QuestionManager();
             }
             catch (Exception ex)
@@ -75,7 +77,8 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 labelErrorCaptionEnd.clearText();
                 if (questionId != -1)
                 {
-                    questionSlider = questionManager.GetQuestionSlider(questionId);
+                    questionSlider.setId(questionId);
+                     questionManager.GetQuestionSlider(ref questionSlider);
                     // Check if question still exists
                     HandleIsQuestionNotExists();
 
@@ -133,11 +136,11 @@ namespace SurveyConfiguratorApp.Forms.Questions
             {
                 if (questionId != -1)
                 {
-                   QuestionSlider questionSlider = questionManager.GetQuestionSlider(questionId);
+                   StatusCode tStatusCode = questionManager.IsQuestionExists(questionId);
                     // Check if question still exists
-                    if (questionSlider == null)
+                    if (tStatusCode.Code != StatusCode.Success.Code)
                     {
-                        customMessageBoxControl1.NotExists();
+                        customMessageBoxControl1.StatusCodeMessage(tStatusCode);
                         CloseParentFrom();
                         return true;
                     }
@@ -160,7 +163,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             try
             {
 
-                if (IsValidForm())
+               // if (IsValidForm())
                 {
                     questionSlider.Text = sharedBetweenQuestions.getQuestionText();
                     questionSlider.Order = Convert.ToInt32(sharedBetweenQuestions.getQuestionOrder());
@@ -182,12 +185,12 @@ namespace SurveyConfiguratorApp.Forms.Questions
                        
 
                     }
-                    if (result == StatusCode.Success)
+                    if (result.Code != StatusCode.Success.Code)
                     {
-                        CloseParentFrom();
+                        customMessageBoxControl1.StatusCodeMessageList(ref questionManager.ValidationErrorList);
                     }
-                    else
-                        customMessageBoxControl1.StatusCodeMessage(result);
+
+                    FormQuestion.CloseBasedOnStatus(ref result);
 
 
                 }

@@ -22,7 +22,10 @@ namespace SurveyConfiguratorApp.Domain.Questions
         public string TypeName { get; set; }
         public int Order { get; set; }
 
-        public Question() { }
+        public Question() {
+            setId(-1);
+
+        }
         public Question(int id, string text, int type, int order)
         {
             try

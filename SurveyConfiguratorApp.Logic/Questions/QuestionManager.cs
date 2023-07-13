@@ -1,4 +1,5 @@
 ﻿using SurveyConfiguratorApp.Data.Questions;
+using SurveyConfiguratorApp.Domain;
 using SurveyConfiguratorApp.Domain.Questions;
 using SurveyConfiguratorApp.Helper;
 using System;
@@ -22,7 +23,11 @@ namespace SurveyConfiguratorApp.Logic
         private static List<Question> questions = new List<Question>();
         private static bool firstCall = true;
         public event EventHandler DataChangedUI;
+
         private Thread thread;
+
+       public List<StatusCode> ValidationErrorList;
+
         public QuestionManager()
         {
             try
@@ -32,10 +37,10 @@ namespace SurveyConfiguratorApp.Logic
                 dbQuestionFaces = new DbQuestionFaces();
                 dbQuestionSlider = new DbQuestionSlider();
                 dbQuestionStars = new DbQuestionStars();
-                questions = dbQuestion.GetQuestions();
+                dbQuestion.GetQuestions(ref questions);
                 // DbQuestion.DataChanged += DbQuestion_DataChanged;
-                questionValidation = QuestionValidation.Instance();
-
+                questionValidation =new QuestionValidation();
+                ValidationErrorList = new List<StatusCode>();
 
 
             }
@@ -64,7 +69,7 @@ namespace SurveyConfiguratorApp.Logic
         {
             try
             {
-                questions = dbQuestion.GetQuestions();
+                dbQuestion.GetQuestions(ref questions);
 
             }
             catch (Exception ex)
@@ -74,30 +79,48 @@ namespace SurveyConfiguratorApp.Logic
         }
 
 
-        public bool IsOrderAlreadyExists(int order, int oldOrder = -1)
+        public static StatusCode IsOrderAlreadyExists(int order, int questionId = -1)
         {
             try
             {
-                return dbQuestion.IsOrderAlreadyExists(order, oldOrder);
+                for (int i = 0; i < questions.Count; i++)
+                {
+                    if (questions[i].Order == order && questions[i].getId() != questionId) { return StatusCode.ValidationErrorQuestionOrder; }
+                }
+
             }
             catch (Exception e)
             {
                 Log.Error(e);
+                return StatusCode.Error;
             }
-            return false;
+            return StatusCode.Success;
         }
+        public StatusCode IsQuestionExists(int questionId)
+        {
+            try
+            {
+                return dbQuestion.IsQuestionExists(questionId);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+                return StatusCode.Error;
 
+            }
+        }
         public void FollowDbChanges()
         {
             try
             {
                 //I used ThreadStart because the method does not take any parameters
+                List<Question> list = new List<Question>();
                 thread = new Thread(new ThreadStart(delegate
                {
                    while (true)
                    {
-                       List<Question> list = new List<Question>();
-                       list = GetQuestions();
+
+                       StatusCode tStatusCode = GetQuestions(ref list);
                        if (!list.SequenceEqual(questions) || firstCall)
                        {
                            questions = list;
@@ -106,7 +129,6 @@ namespace SurveyConfiguratorApp.Logic
 
                        }
                        Thread.Sleep(4000);
-
                    }
 
                }));
@@ -121,17 +143,17 @@ namespace SurveyConfiguratorApp.Logic
                 Log.Error(ex);
             }
         }
-        public List<Question> GetQuestions()
+        public StatusCode GetQuestions(ref List<Question> list)
         {
             try
             {
-                return dbQuestion.GetQuestions();
+                return dbQuestion.GetQuestions(ref list);
             }
             catch (Exception e)
             {
                 Log.Error(e);
+                return StatusCode.Error;
             }
-            return null;
         }
 
         public Question GetQuestion(int id)
@@ -179,17 +201,22 @@ namespace SurveyConfiguratorApp.Logic
                 return StatusCode.Error;
             }
         }
-
+        #region QuestionFaces
         public StatusCode AddQuestionFaces(QuestionFaces questionFaces)
         {
+            ValidationErrorList.Clear();
             try
             {
-                if (!questionValidation.IsValidFacesQuestion(questionFaces))
+
+                StatusCode tStatusCode = questionValidation.IsValidFacesQuestion(questionFaces);
+                if (tStatusCode.Code != StatusCode.Success.Code)
+                {
+                    ValidationErrorList = questionValidation.ErorrValidationList;
                     return StatusCode.ValidationError;
-                StatusCode isAdded = dbQuestionFaces.Add(questionFaces);
+                }
 
-
-                return isAdded;
+            return dbQuestionFaces.Add(questionFaces);
+                 
             }
             catch (Exception e)
             {
@@ -199,13 +226,17 @@ namespace SurveyConfiguratorApp.Logic
         }
         public StatusCode UpdateQuestionFaces(QuestionFaces questionFaces)
         {
+            ValidationErrorList.Clear();
+
             try
             {
-
-                if (!questionValidation.IsValidFacesQuestion(questionFaces, true))
+                StatusCode tStatusCode = questionValidation.IsValidFacesQuestion(questionFaces);
+                if (tStatusCode.Code != StatusCode.Success.Code)
+                {
+                    ValidationErrorList = questionValidation.ErorrValidationList;
                     return StatusCode.ValidationError;
-               
-                return dbQuestionFaces.Update(questionFaces);
+                }
+             return dbQuestionFaces.Update(questionFaces);
             }
             catch (Exception e)
             {
@@ -214,26 +245,37 @@ namespace SurveyConfiguratorApp.Logic
             }
         }
 
-        public QuestionFaces GetQuestionFaces(int id)
+        public StatusCode GetQuestionFaces(ref QuestionFaces questionFaces)
         {
             try
             {
-                return dbQuestionFaces.Get(id);
+                return dbQuestionFaces.Get(ref questionFaces); ;
             }
             catch (Exception e)
             {
                 Log.Error(e);
+                return StatusCode.Error;
             }
-            return null;
+
         }
+        #endregion
+
+        #region QuestionStars
 
         //Stars
         public StatusCode AddQuestionStars(QuestionStars questionStars)
         {
             try
             {
-                if (!questionValidation.IsValidStarsQuestion(questionStars))
+                ValidationErrorList.Clear();
+                StatusCode tStatusCode = questionValidation.IsValidStarsQuestion(questionStars);
+
+                if (tStatusCode.Code != StatusCode.Success.Code)
+                {
+                    ValidationErrorList = questionValidation.ErorrValidationList;
                     return StatusCode.ValidationError;
+                }
+
                 return dbQuestionStars.Add(questionStars);
             }
             catch (Exception e)
@@ -246,8 +288,16 @@ namespace SurveyConfiguratorApp.Logic
         {
             try
             {
-                if (!questionValidation.IsValidStarsQuestion(questionStars, true))
+                ValidationErrorList.Clear();
+
+                StatusCode tStatusCode = questionValidation.IsValidStarsQuestion(questionStars);
+                if (tStatusCode.Code != StatusCode.Success.Code)
+                {
+                    ValidationErrorList = questionValidation.ErorrValidationList;
                     return StatusCode.ValidationError;
+                }
+
+
                 return dbQuestionStars.Update(questionStars);
             }
             catch (Exception e)
@@ -257,26 +307,35 @@ namespace SurveyConfiguratorApp.Logic
             }
         }
 
-        public QuestionStars GetQuestionStars(int id)
+        public StatusCode GetQuestionStars(ref QuestionStars questionStars)
         {
             try
             {
-                return dbQuestionStars.Get(id);
+                return dbQuestionStars.Get(ref questionStars);
             }
             catch (Exception e)
             {
                 Log.Error(e);
+                return StatusCode.Error;
             }
-            return null;
         }
+        #endregion
 
+        #region QuestionSlider
         //Slider
         public StatusCode AddQuestionSlider(QuestionSlider questionSlider)
         {
             try
             {
-                if (!questionValidation.IsValidSliderQuestion(questionSlider))
+                ValidationErrorList.Clear();
+
+                StatusCode tStatusCode = questionValidation.IsValidSliderQuestion(questionSlider);
+                if (tStatusCode.Code != StatusCode.Success.Code)
+                {
+                    ValidationErrorList = questionValidation.ErorrValidationList;
                     return StatusCode.ValidationError;
+                }
+
                 return dbQuestionSlider.Add(questionSlider);
             }
             catch (Exception e)
@@ -290,8 +349,15 @@ namespace SurveyConfiguratorApp.Logic
         {
             try
             {
-                if (!questionValidation.IsValidSliderQuestion(questionSlider, true))
+                ValidationErrorList.Clear();
+
+                StatusCode tStatusCode = questionValidation.IsValidSliderQuestion(questionSlider);
+                if (tStatusCode.Code != StatusCode.Success.Code)
+                {
+                    ValidationErrorList = questionValidation.ErorrValidationList;
                     return StatusCode.ValidationError;
+                }
+
                 return dbQuestionSlider.Update(questionSlider);
             }
             catch (Exception e)
@@ -302,18 +368,19 @@ namespace SurveyConfiguratorApp.Logic
 
         }
 
-        public QuestionSlider GetQuestionSlider(int id)
+        public StatusCode GetQuestionSlider(ref QuestionSlider questionSlider)
         {
             try
             {
-                return dbQuestionSlider.Get(id);
+                return dbQuestionSlider.Get(ref questionSlider);
             }
             catch (Exception e)
             {
                 Log.Error(e);
+                return StatusCode.Error;
             }
-            return null;
         }
+        #endregion
 
     }
 
