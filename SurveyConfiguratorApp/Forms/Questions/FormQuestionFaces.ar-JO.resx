@@ -128,7 +128,7 @@
     <value>عدد الاجوه</value>
   </data>
   <data name="numericFaceNumber.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 27</value>
+    <value>7, 29</value>
   </data>
   <data name="numericFaceNumber.Size" type="System.Drawing.Size, System.Drawing">
     <value>563, 22</value>
@@ -146,7 +146,7 @@
     <value>الغاء</value>
   </data>
   <data name="groupBoxFaces.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 171</value>
+    <value>12, 177</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="groupBoxFaces.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
@@ -168,7 +168,7 @@
     <value>18, 18</value>
   </data>
   <data name="sharedBetweenQuestions.Size" type="System.Drawing.Size, System.Drawing">
-    <value>825, 185</value>
+    <value>655, 152</value>
   </data>
   <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>

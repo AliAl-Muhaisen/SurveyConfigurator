@@ -40,13 +40,14 @@
             // 
             resources.ApplyResources(this.panelContainer, "panelContainer");
             this.panelContainer.BackColor = System.Drawing.Color.White;
+            this.panelContainer.Cursor = System.Windows.Forms.Cursors.Default;
             this.panelContainer.Name = "panelContainer";
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.comboBox1);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // label1
@@ -56,10 +57,10 @@
             // 
             // comboBox1
             // 
-            resources.ApplyResources(this.comboBox1, "comboBox1");
             this.comboBox1.DropDownHeight = 70;
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
+            resources.ApplyResources(this.comboBox1, "comboBox1");
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
