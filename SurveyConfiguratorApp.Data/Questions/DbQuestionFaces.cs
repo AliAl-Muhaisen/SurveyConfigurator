@@ -12,6 +12,15 @@ namespace SurveyConfiguratorApp.Data.Questions
     public class DbQuestionFaces : DbQuestion
     {
         private new const string tableName = "QuestionFaces";
+
+        private string INSERT_QUERY = string.Format("INSERT INTO [{0}] ([{1}],[{2}]) VALUES (@{1},@{2})",
+                               tableName, ColumnNames.QuestionId, ColumnNames.FacesNumber);
+
+
+
+        private string UPDATE_QUERY = string.Format("UPDATE [{0}] SET [{1}] = @{1} WHERE [{2}] = @{2}",
+                                   tableName, ColumnNames.FacesNumber, ColumnNames.QuestionId);
+
         public new enum ColumnNames
         {
             QuestionId,
@@ -19,45 +28,48 @@ namespace SurveyConfiguratorApp.Data.Questions
         }
         public DbQuestionFaces() : base() { }
 
+
+
         // Create a new QuestionFaces entry in the database
         public int Add(QuestionFaces data)
         {
             try
             {
-              //  using (SqlTransaction transaction = base.conn.BeginTransaction())
-              //  {
-                    int isBaseInfoAdded = base.Add(data);
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    int tConnectionStatus = base.OpenConnection();
+                    if (tConnectionStatus != StatusCode.SUCCESS)
+                    {
+                        return tConnectionStatus;
+                    }
+
+                    cmd.Connection = base.conn;
+
+                    SqlTransaction transaction = conn.BeginTransaction();
+                    cmd.Transaction = transaction;
+                    int isBaseInfoAdded = base.Add(data, cmd);
                     if (isBaseInfoAdded != StatusCode.SUCCESS)
                         return isBaseInfoAdded;
 
                     int questionId = base.GetQuestionId();
-                    if (questionId == -1)
+                    if (questionId < 0)
                         return StatusCode.ERROR;
 
-                    using (SqlCommand cmd = new SqlCommand())
+                    cmd.CommandText = INSERT_QUERY;
+
+                    cmd.Parameters.AddWithValue($"@{ColumnNames.QuestionId}", questionId);
+                    cmd.Parameters.AddWithValue($"@{ColumnNames.FacesNumber}", data.FacesNumber);
+
+                    int rowAffectrowsAffected = cmd.ExecuteNonQuery();
+                    if (rowAffectrowsAffected > 0)
                     {
-                        base.OpenConnection();
-                        cmd.Connection = base.conn;
-                    //    cmd.Transaction = transaction;
-                        string insertQuery = string.Format("INSERT INTO [{0}] ([{1}],[{2}]) VALUES (@{1},@{2})",
-                                   tableName, ColumnNames.QuestionId, ColumnNames.FacesNumber);
-
-                        cmd.CommandText = insertQuery;
-
-                        cmd.Parameters.AddWithValue($"@{ColumnNames.QuestionId}", questionId);
-                        cmd.Parameters.AddWithValue($"@{ColumnNames.FacesNumber}", data.FacesNumber);
-
-                        int rowAffectrowsAffected = cmd.ExecuteNonQuery();
-                        if (rowAffectrowsAffected > 0)
-                        {
-                           // transaction.Commit();
-                            return StatusCode.SUCCESS;
-                        }
-
-                       // transaction.Rollback();
+                        transaction.Commit();
+                        return StatusCode.SUCCESS;
                     }
+                    transaction.Rollback();
 
-               // }
+                }
+
 
             }
             catch (SqlException ex)
@@ -86,13 +98,18 @@ namespace SurveyConfiguratorApp.Data.Questions
             {
                 using (SqlCommand command = new SqlCommand())
                 {
-                    base.OpenConnection();
+                    int tConnectionStatus = base.OpenConnection();
+                    if (tConnectionStatus != StatusCode.SUCCESS)
+                    {
+                        return tConnectionStatus;
+                    }
+
                     command.Connection = base.conn;
 
-                    string updateQuery = string.Format("UPDATE [{0}] SET [{1}] = @{1} WHERE [{2}] = @{2}",
-                                   tableName, ColumnNames.FacesNumber, ColumnNames.QuestionId);
+                    SqlTransaction transaction = conn.BeginTransaction();
+                    command.Transaction = transaction;
 
-                    command.CommandText = updateQuery;
+                    command.CommandText = UPDATE_QUERY;
 
                     command.Parameters.AddWithValue($"@{ColumnNames.FacesNumber}", questionFaces.FacesNumber);
                     command.Parameters.AddWithValue($"@{ColumnNames.QuestionId}", questionFaces.getId());
@@ -104,38 +121,33 @@ namespace SurveyConfiguratorApp.Data.Questions
                         // Row not found or not updated
                         return StatusCode.VALIDATION_ERROR;
                     }
+
+                    int tUpdateBaseStatus = base.Update(questionFaces, command);
+                    if (tUpdateBaseStatus != StatusCode.SUCCESS)
+                    {
+                        transaction.Rollback();
+                        return tUpdateBaseStatus;
+                    }
+                    transaction.Commit();
                     base.CloseConnection();
-                    ;
-                    return base.Update(questionFaces);
+                    return StatusCode.SUCCESS;
                 }
             }
             catch (SqlException ex)
             {
-                Log.Error(ex);
-                // Handle the network exception
-                if (ex.Number == 2)
-                {
-                    return StatusCode.DB_FAILED_NERORK_CONNECTION;
-                }
-                else
-                {
-                    return StatusCode.DB_FAILED_CONNECTION;
-                }
+                return DbException.HandleSqlException(ex);
             }
             catch (Exception e)
             {
                 Log.Error(e);
                 return StatusCode.ERROR;
             }
-            finally
-            {
-                base.CloseConnection();
-            }
+
 
         }
 
         // Read a QuestionFaces entry from the database based on the ID
-        public new int Get(ref QuestionFaces questionFaces)
+        public int Get(ref QuestionFaces questionFaces)
         {
             try
             {

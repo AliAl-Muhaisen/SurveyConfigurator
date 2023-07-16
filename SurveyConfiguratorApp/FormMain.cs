@@ -75,9 +75,6 @@ namespace SurveyConfiguratorApp
             try
             {
                 ButtonsEnable(false);
-
-                labelStatus.ForeColor = Color.Red;
-                labelStatus.Text = "Try connecting...";
                 TryConnectToServer();
                 ButtonsUpdateAndDeleteEnable(false);
             }
@@ -96,6 +93,7 @@ namespace SurveyConfiguratorApp
             {
                 //The InvokeRequired property in Windows Forms is used to check if the current code is executing on the UI thread or a different thread.
                 //If InvokeRequired is true, it means the code is running on a non-UI thread.
+                Log.Info("---OnRefreshData called");
 
                 if (listViewQuestions.InvokeRequired)
                     //the MethodInvoker delegate enables you to execute code on the UI thread from a different thread, ensuring thread-safety when interacting with UI controls.
@@ -116,6 +114,7 @@ namespace SurveyConfiguratorApp
         {
             try
             {
+                Log.Info("RefreshData called");
                 if (listViewQuestions.InvokeRequired)
 
                     listViewQuestions.Invoke((MethodInvoker)(() =>
@@ -248,13 +247,17 @@ namespace SurveyConfiguratorApp
         {
             try
             {
+                Log.Info("FillListView Called");
+
                 List<Question> list = new List<Question>();
                 //  list = QuestionManager.questions;
 
                 if (listViewQuestions.IsHandleCreated)
                     listViewQuestions.Invoke((MethodInvoker)(() =>
                 {
-                     questionManager.GetQuestions(ref list);
+                    Log.Info("FillListView Rebuild");
+
+                    questionManager.GetQuestions(ref list);
                     listViewQuestions.Items.Clear();
                     foreach (Question question in list)
                     {

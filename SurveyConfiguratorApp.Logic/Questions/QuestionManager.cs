@@ -22,12 +22,14 @@ namespace SurveyConfiguratorApp.Logic
 
         private static List<Question> questions = new List<Question>();
         private static bool firstCall = true;
+
         public event EventHandler DataChangedUI;
 
         private Thread thread;
 
         public List<int> ValidationErrorList;
 
+        const int RefreshDuration = 4000;
         public QuestionManager()
         {
             try
@@ -122,14 +124,18 @@ namespace SurveyConfiguratorApp.Logic
                {
                    while (true)
                    {
-
                        int tStatusCode = GetQuestions(ref list);
+                       Log.Info("Check !list.SequenceEqual(questions)= " + !list.SequenceEqual(questions));
+                       Log.Info("list.Count " + list.Count);
+                       Log.Info("questions.Count " + questions.Count);
                        if (!list.SequenceEqual(questions) || firstCall)
                        {
                            questions.Clear();
                            questions = list;
-                           OnDataChanged();
                            firstCall = false;
+                           OnDataChanged();
+                           
+                           Log.Info("*********FollowDbChanges Changed**************");
 
                        }
                        list.Clear();

@@ -17,31 +17,42 @@ namespace SurveyConfiguratorApp.Data.Questions
             StartCaption,
             EndCaption,
         }
-        public int Add(QuestionSlider data)
-        {
-            try
-            {
-                int isAdded= base.Add(data);
-                if (isAdded != StatusCode.SUCCESS)
-                    return isAdded;
-                int questionId = base.GetQuestionId();
-
-                if (questionId == -1)
-                    return StatusCode.ERROR;
-
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    base.OpenConnection();
-
-                    cmd.Connection = base.conn;
-
-                    string insertQuery = string.Format("INSERT INTO [{0}] ([{1}],[{2}],[{3}],[{4}],[{5}]) " +
+        private string INSERT_QUERY = string.Format("INSERT INTO [{0}] ([{1}],[{2}],[{3}],[{4}],[{5}]) " +
                                    "VALUES (@{1},@{2},@{3},@{4},@{5})",
                                    tableName, ColumnNames.QuestionId, ColumnNames.StartValue,
                                    ColumnNames.EndValue, ColumnNames.EndCaption, ColumnNames.StartCaption);
 
+        private string UPDATE_QUERY = string.Format("UPDATE [{0}] SET [{1}] = @{1}, [{2}] = @{2}, [{3}] = @{3}, [{4}] = @{4} " +
+                                   "WHERE [{5}] = @{5}",
+                                   tableName, ColumnNames.StartCaption, ColumnNames.EndCaption,
+                                   ColumnNames.StartValue, ColumnNames.EndValue, ColumnNames.QuestionId);
 
-                    cmd.CommandText = insertQuery;
+        public int Add(QuestionSlider data)
+        {
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    int tConnectionStatus = base.OpenConnection();
+                    if (tConnectionStatus != StatusCode.SUCCESS)
+                    {
+                        return tConnectionStatus;
+                    }
+
+                    cmd.Connection = base.conn;
+
+                    SqlTransaction transaction = conn.BeginTransaction();
+                    cmd.Transaction = transaction;
+
+                    int isAddedStatus = base.Add(data, cmd);
+                    if (isAddedStatus != StatusCode.SUCCESS)
+                        return isAddedStatus;
+                    int questionId = base.GetQuestionId();
+
+                    if (questionId == -1)
+                        return StatusCode.ERROR;
+
+                    cmd.CommandText = INSERT_QUERY;
 
                     cmd.Parameters.AddWithValue($"@{ColumnNames.QuestionId}", questionId);
                     cmd.Parameters.AddWithValue($"@{ColumnNames.StartValue}", data.StartValue);
@@ -54,10 +65,10 @@ namespace SurveyConfiguratorApp.Data.Questions
                     int rowAffected = cmd.ExecuteNonQuery();
                     if (rowAffected > 0)
                     {
+                        transaction.Commit();
                         return StatusCode.SUCCESS;
                     }
-
-
+                    transaction.Rollback();
                 }
 
             }
@@ -81,16 +92,18 @@ namespace SurveyConfiguratorApp.Data.Questions
             {
                 using (SqlCommand command = new SqlCommand())
                 {
-                    base.OpenConnection();
+                    int tConnectionStatus = base.OpenConnection();
+                    if (tConnectionStatus != StatusCode.SUCCESS)
+                    {
+                        return tConnectionStatus;
+                    }
+
                     command.Connection = base.conn;
 
-                    string updateQuery = string.Format("UPDATE [{0}] SET [{1}] = @{1}, [{2}] = @{2}, [{3}] = @{3}, [{4}] = @{4} " +
-                                   "WHERE [{5}] = @{5}",
-                                   tableName, ColumnNames.StartCaption, ColumnNames.EndCaption,
-                                   ColumnNames.StartValue, ColumnNames.EndValue, ColumnNames.QuestionId);
+                    SqlTransaction transaction = conn.BeginTransaction();
+                    command.Transaction = transaction;
 
-
-                    command.CommandText = updateQuery;
+                    command.CommandText = UPDATE_QUERY;
 
                     command.Parameters.AddWithValue($"@{ColumnNames.StartCaption}", questionSlider.StartCaption);
                     command.Parameters.AddWithValue($"@{ColumnNames.EndCaption}", questionSlider.EndCaption);
@@ -103,32 +116,41 @@ namespace SurveyConfiguratorApp.Data.Questions
                     if (rowsAffected <= 0)
                     {
                         // Row not found or not updated
+                        transaction.Rollback();
                         return StatusCode.VALIDATION_ERROR;
                     }
-                    base.CloseConnection();
 
-                    return  base.Update(questionSlider);
+
+                    int tUpdatedBaseStatus = base.Update(questionSlider, command);
+                    if (tUpdatedBaseStatus != StatusCode.SUCCESS)
+                    {
+                        transaction.Rollback();
+                        return tUpdatedBaseStatus;
+                    }
+                    transaction.Commit();
+                    base.CloseConnection();
+                    return StatusCode.SUCCESS;
                 }
             }
-
+            catch (SqlException ex)
+            {
+                return DbException.HandleSqlException(ex);
+            }
             catch (Exception e)
             {
                 Log.Error(e);
                 return StatusCode.ERROR;
             }
-            finally
-            {
-                base.CloseConnection();
-            }
+
 
 
         }
 
-        public  int Get(ref QuestionSlider questionSlider)
+        public int Get(ref QuestionSlider questionSlider)
         {
             try
             {
-               int tStatusCode= base.OpenConnection();
+                int tStatusCode = base.OpenConnection();
                 if (tStatusCode != StatusCode.SUCCESS)
                 {
                     return tStatusCode;
@@ -148,7 +170,7 @@ namespace SurveyConfiguratorApp.Data.Questions
                             questionSlider.StartCaption = reader["StartCaption"].ToString();
                             questionSlider.StartValue = (int)reader["StartValue"];
                             questionSlider.EndValue = (int)reader["EndValue"];
-                          return  StatusCode.SUCCESS;
+                            return StatusCode.SUCCESS;
                         }
                     }
 

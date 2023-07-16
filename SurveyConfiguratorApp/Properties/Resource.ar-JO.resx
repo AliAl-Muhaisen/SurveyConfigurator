@@ -147,11 +147,17 @@
   <data name="VALIDATION_ERROR" xml:space="preserve">
     <value>أخطاء التحقق من الصحة ، يرجى التحقق من المدخلات</value>
   </data>
+  <data name="VALIDATION_ERROR_LONG_TEXT" xml:space="preserve">
+    <value>نص سؤال طويل جدًا</value>
+  </data>
   <data name="VALIDATION_ERROR_ORDER_EXIST" xml:space="preserve">
     <value>هذا الترتيب مستخدم من قبل</value>
   </data>
   <data name="VALIDATION_ERROR_QUESTION_TEXT" xml:space="preserve">
     <value>نص السؤال مطلوب</value>
+  </data>
+  <data name="VALIDATION_ERROR_SHORT_TEXT" xml:space="preserve">
+    <value>نص سؤال قصير جدًا</value>
   </data>
   <data name="VALIDATION_ERROR_SLIDER_CAPTION" xml:space="preserve">
     <value>مطلوب نص التسمية التوضيحية</value>

@@ -32,11 +32,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.numericStarsNumber = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
-            this.sharedBetweenQuestions = new SurveyConfiguratorApp.UserController.Questions.CommonQuestionForm();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.customMessageBoxControl1 = new SurveyConfiguratorApp.UserController.Controllers.CustomMessageBoxControl();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.customMessageBoxControl1 = new SurveyConfiguratorApp.UserController.Controllers.CustomMessageBoxControl();
+            this.sharedBetweenQuestions = new SurveyConfiguratorApp.UserController.Questions.CommonQuestionForm();
             ((System.ComponentModel.ISupportInitialize)(this.numericStarsNumber)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -56,12 +56,6 @@
             resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
             // 
-            // sharedBetweenQuestions
-            // 
-            resources.ApplyResources(this.sharedBetweenQuestions, "sharedBetweenQuestions");
-            this.sharedBetweenQuestions.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.sharedBetweenQuestions.Name = "sharedBetweenQuestions";
-            // 
             // btnSave
             // 
             resources.ApplyResources(this.btnSave, "btnSave");
@@ -76,12 +70,6 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // customMessageBoxControl1
-            // 
-            resources.ApplyResources(this.customMessageBoxControl1, "customMessageBoxControl1");
-            this.customMessageBoxControl1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.customMessageBoxControl1.Name = "customMessageBoxControl1";
-            // 
             // groupBox1
             // 
             resources.ApplyResources(this.groupBox1, "groupBox1");
@@ -90,6 +78,18 @@
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // customMessageBoxControl1
+            // 
+            resources.ApplyResources(this.customMessageBoxControl1, "customMessageBoxControl1");
+            this.customMessageBoxControl1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.customMessageBoxControl1.Name = "customMessageBoxControl1";
+            // 
+            // sharedBetweenQuestions
+            // 
+            resources.ApplyResources(this.sharedBetweenQuestions, "sharedBetweenQuestions");
+            this.sharedBetweenQuestions.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.sharedBetweenQuestions.Name = "sharedBetweenQuestions";
             // 
             // FormQuestionStars
             // 

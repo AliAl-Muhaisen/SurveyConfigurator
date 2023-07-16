@@ -147,11 +147,17 @@
   <data name="VALIDATION_ERROR" xml:space="preserve">
     <value>Validation errors, Please check the inputs</value>
   </data>
+  <data name="VALIDATION_ERROR_LONG_TEXT" xml:space="preserve">
+    <value>Very long question text</value>
+  </data>
   <data name="VALIDATION_ERROR_ORDER_EXIST" xml:space="preserve">
     <value>Order Should be unique</value>
   </data>
   <data name="VALIDATION_ERROR_QUESTION_TEXT" xml:space="preserve">
     <value>Question text Required</value>
+  </data>
+  <data name="VALIDATION_ERROR_SHORT_TEXT" xml:space="preserve">
+    <value>Very short question text</value>
   </data>
   <data name="VALIDATION_ERROR_SLIDER_CAPTION" xml:space="preserve">
     <value>Caption Text Required</value>

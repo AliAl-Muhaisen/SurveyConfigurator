@@ -76,7 +76,20 @@ namespace SurveyConfiguratorApp.Domain.Questions
         {
             try
             {
-                return (text.Trim().Length > 0 && text.Trim().Length <= questionTextLength) ? StatusCode.SUCCESS : StatusCode.VALIDATION_ERROR_QUESTION_TEXT;
+                int tTextLength=text.Trim().Length;
+                if (tTextLength<=0)
+                {
+                    return StatusCode.VALIDATION_ERROR_QUESTION_TEXT;
+                }
+               else if (tTextLength<=10)
+                {
+                    return StatusCode.VALIDATION_ERROR_SHORT_TEXT;
+                }
+                else if(tTextLength>questionTextLength)
+                {
+                    return StatusCode.VALIDATION_ERROR_LONG_TEXT;
+                }
+                return StatusCode.SUCCESS;
             }
             catch (Exception e)
             {

@@ -58,7 +58,12 @@ namespace SurveyConfiguratorApp.UserController.Controllers
                     case StatusCode.VALIDATION_ERROR_SLIDER_CAPTION:
                         tMessage =Resource.VALIDATION_ERROR_SLIDER_CAPTION;
                         break;
-
+                    case StatusCode.VALIDATION_ERROR_LONG_TEXT:
+                        tMessage= Resource.VALIDATION_ERROR_LONG_TEXT;
+                        break;
+                    case StatusCode.VALIDATION_ERROR_SHORT_TEXT:
+                        tMessage=Resource.VALIDATION_ERROR_SHORT_TEXT;
+                        break;
                     default:
                         break;
                 }

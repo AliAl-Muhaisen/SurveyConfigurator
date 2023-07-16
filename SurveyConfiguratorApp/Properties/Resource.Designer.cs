@@ -151,6 +151,15 @@ namespace SurveyConfiguratorApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Very long question text.
+        /// </summary>
+        internal static string VALIDATION_ERROR_LONG_TEXT {
+            get {
+                return ResourceManager.GetString("VALIDATION_ERROR_LONG_TEXT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Order Should be unique.
         /// </summary>
         internal static string VALIDATION_ERROR_ORDER_EXIST {
@@ -165,6 +174,15 @@ namespace SurveyConfiguratorApp.Properties {
         internal static string VALIDATION_ERROR_QUESTION_TEXT {
             get {
                 return ResourceManager.GetString("VALIDATION_ERROR_QUESTION_TEXT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Very short question text.
+        /// </summary>
+        internal static string VALIDATION_ERROR_SHORT_TEXT {
+            get {
+                return ResourceManager.GetString("VALIDATION_ERROR_SHORT_TEXT", resourceCulture);
             }
         }
         

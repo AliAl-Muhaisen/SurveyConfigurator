@@ -19,7 +19,7 @@ namespace SurveyConfiguratorApp.Data.Questions
     public class DbQuestion : DbConnection
     {
         public static event EventHandler DataChanged;
-        public DbQuestion() : base() {}
+        public DbQuestion() : base() { }
         public const string tableName = "Question";
         public enum ColumnNames
         {
@@ -31,48 +31,50 @@ namespace SurveyConfiguratorApp.Data.Questions
         }
         private int questionId = -1;
 
+        private string INSERT_QUERY= string.Format("INSERT INTO [{0}] ([{1}],[{2}],[{3}]) VALUES " +
+                        "(@{1},@{2},@{3});SELECT SCOPE_IDENTITY();",
+                        tableName, ColumnNames.Order, ColumnNames.Text, ColumnNames.TypeNumber);
+       
+
+
+        private string UPDATE_QUERY = string.Format("UPDATE [{0}] SET [{1}] = @{1}, [{2}] = @{2} WHERE [{3}] = @{3}",
+                                   tableName, ColumnNames.Text, ColumnNames.Order, ColumnNames.Id);
+
+        private string DELETE_QUERY = string.Format("DELETE FROM [{0}] WHERE [{1}]=@{1};", tableName, ColumnNames.Id);
+
         /// <summary>
         /// The Add method inserts a new record into the Question table by constructing a parameterized SQL query.
         /// It catches any SQL exceptions and returns false in case of an error.
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public int Add(Question data)
+        public int Add(Question data,SqlCommand pSqlCommand)
         {
             try
             {
-                int tStatusCode = base.OpenConnection();
-                if (tStatusCode != StatusCode.SUCCESS)
+                if (pSqlCommand == null)
                 {
-                    return tStatusCode;
+                    return StatusCode.DB_FAILED_CONNECTION;
                 }
-               
-                    using (SqlCommand cmd = new SqlCommand())
+
+                    //SCOPE_IDENTITY() is a function in SQL Server that returns the last identity value inserted into an identity column within the current scope.
+                    //It is commonly used to retrieve the generated ID value after performing an insert operation.
+
+                    pSqlCommand.CommandText = INSERT_QUERY;
+
+                    pSqlCommand.Parameters.AddWithValue($"@{ColumnNames.Order}", data.Order);
+                    pSqlCommand.Parameters.AddWithValue($"@{ColumnNames.Text}", data.Text);
+                    pSqlCommand.Parameters.AddWithValue($"@{ColumnNames.TypeNumber}", data.getTypeNumber());
+                    // Execute the query and retrieve the generated ID
+                    questionId = Convert.ToInt32(pSqlCommand.ExecuteScalar());
+
+                    if (questionId > 0)
                     {
-                        cmd.Connection = base.conn;
-                        //SCOPE_IDENTITY() is a function in SQL Server that returns the last identity value inserted into an identity column within the current scope.
-                        //It is commonly used to retrieve the generated ID value after performing an insert operation.
-                        string query = string.Format("INSERT INTO [{0}] ([{1}],[{2}],[{3}]) VALUES " +
-                            "(@{1},@{2},@{3});SELECT SCOPE_IDENTITY();",
-                            tableName, ColumnNames.Order, ColumnNames.Text, ColumnNames.TypeNumber);
-
-                        cmd.CommandText = query;
-
-
-                        cmd.Parameters.AddWithValue($"@{ColumnNames.Order}", data.Order);
-                        cmd.Parameters.AddWithValue($"@{ColumnNames.Text}", data.Text);
-                        cmd.Parameters.AddWithValue($"@{ColumnNames.TypeNumber}", data.getTypeNumber());
-                        // Execute the query and retrieve the generated ID
-                        questionId = Convert.ToInt32(cmd.ExecuteScalar());
-
-                        if (questionId > 0)
-                        {
-                            OnDataChanged();
-                            return StatusCode.SUCCESS;
-                        }
-
+                        OnDataChanged();
+                        return StatusCode.SUCCESS;
                     }
-                
+
+
             }
             catch (SqlException ex)
             {
@@ -84,10 +86,7 @@ namespace SurveyConfiguratorApp.Data.Questions
                 Log.Error(e);
                 return StatusCode.ERROR;
             }
-            finally
-            {
-                base.CloseConnection();
-            }
+           
             return StatusCode.VALIDATION_ERROR;
 
         }
@@ -120,7 +119,9 @@ namespace SurveyConfiguratorApp.Data.Questions
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     cmd.Connection = base.conn;
-                    cmd.CommandText = $"DELETE FROM [{tableName}] WHERE [{ColumnNames.Id}]={id};";
+                    cmd.CommandText = DELETE_QUERY;
+                    cmd.Parameters.AddWithValue($"@{ColumnNames.Id}",id);
+
                     int rowsAffected = cmd.ExecuteNonQuery();
 
 
@@ -146,72 +147,47 @@ namespace SurveyConfiguratorApp.Data.Questions
 
 
 
-
-
-
-
         /// <summary>
         /// The update method updates a specific record in the Question table based on the provided Question object.
         /// It catches SQL exceptions and returns false in case of an error.
         /// </summary>
-        public int Update(Question question)
+        public int Update(Question question, SqlCommand pSqlCommand)
         {
-
 
             try
             {
-                base.OpenConnection();
-                using (SqlCommand command = new SqlCommand())
+                if (pSqlCommand == null)
                 {
-                    command.Connection = base.conn;
+                    return StatusCode.DB_FAILED_CONNECTION;
+                }
+               
+                pSqlCommand.CommandText = UPDATE_QUERY;
 
-                    string updateQuery = string.Format("UPDATE [{0}] SET [{1}] = @{1}, [{2}] = @{2} WHERE [{3}] = @{3}",
-                                   tableName, ColumnNames.Text, ColumnNames.Order, ColumnNames.Id);
+                pSqlCommand.Parameters.AddWithValue($"@{ColumnNames.Text}", question.Text);
+                pSqlCommand.Parameters.AddWithValue($"@{ColumnNames.Order}", question.Order);
+                pSqlCommand.Parameters.AddWithValue($"@{ColumnNames.Id}", question.getId());
 
-
-                    command.CommandText = updateQuery;
-
-                    command.Parameters.AddWithValue($"@{ColumnNames.Text}", question.Text);
-                    command.Parameters.AddWithValue($"@{ColumnNames.Order}", question.Order);
-                    command.Parameters.AddWithValue($"@{ColumnNames.Id}", question.getId());
-
-                    int rowsAffected = command.ExecuteNonQuery();
+                    int rowsAffected = pSqlCommand.ExecuteNonQuery();
 
                     if (rowsAffected > 0)
                     {
                         // Row updated successfully
                         return StatusCode.SUCCESS;
                     }
-                    else
-                    {
                         // Row not found or not updated
                         return StatusCode.VALIDATION_ERROR;
-                    }
 
-                }
             }
             catch (SqlException ex)
             {
-                Log.Error(ex);
-                // Handle the network exception
-                if (ex.Number == 2)
-                {
-                    return StatusCode.DB_FAILED_NERORK_CONNECTION;
-                }
-                else
-                {
-                    return StatusCode.DB_FAILED_CONNECTION;
-                }
+             return DbException.HandleSqlException(ex);
             }
             catch (Exception ex)
             {
                 Log.Error(ex);
                 return StatusCode.ERROR;
             }
-            finally
-            {
-                base.CloseConnection();
-            }
+            
 
         }
 
