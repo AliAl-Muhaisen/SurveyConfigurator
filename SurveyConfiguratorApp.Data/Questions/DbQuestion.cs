@@ -225,7 +225,6 @@ namespace SurveyConfiguratorApp.Data.Questions
                 SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
                 if (reader.HasRows)
                 {
-
                     while (reader.Read())
                     {
                         Question question = new Question(

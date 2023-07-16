@@ -135,11 +135,23 @@
   <data name="LABEL_STATUS" xml:space="preserve">
     <value>Connected Failed</value>
   </data>
+  <data name="SAVE_FAILED" xml:space="preserve">
+    <value>Save Failed</value>
+  </data>
+  <data name="SAVE_SUCCESSFULLY" xml:space="preserve">
+    <value>Save Successful</value>
+  </data>
   <data name="SLIDER" xml:space="preserve">
     <value>Slider</value>
   </data>
   <data name="STARS" xml:space="preserve">
     <value>Stars</value>
+  </data>
+  <data name="TEST_CONNECTION" xml:space="preserve">
+    <value>Connected Successfully</value>
+  </data>
+  <data name="TEST_CONNECTION_FAILED" xml:space="preserve">
+    <value>Connection Failed</value>
   </data>
   <data name="UPDATE" xml:space="preserve">
     <value>Update</value>

@@ -85,8 +85,11 @@ namespace SurveyConfiguratorApp.Logic
         {
             try
             {
+
+
                 for (int i = 0; i < questions.Count; i++)
                 {
+
                     if (questions[i].Order == order && questions[i].getId() != questionId)
                     {
 
@@ -119,27 +122,26 @@ namespace SurveyConfiguratorApp.Logic
             try
             {
                 //I used ThreadStart because the method does not take any parameters
-                List<Question> list = new List<Question>();
+                
+
                 thread = new Thread(new ThreadStart(delegate
                {
                    while (true)
                    {
+                       List<Question> list = new List<Question>();
                        int tStatusCode = GetQuestions(ref list);
-                       Log.Info("Check !list.SequenceEqual(questions)= " + !list.SequenceEqual(questions));
-                       Log.Info("list.Count " + list.Count);
-                       Log.Info("questions.Count " + questions.Count);
-                       if (!list.SequenceEqual(questions) || firstCall)
+
+                       bool isChanged = !list.SequenceEqual<Question>(questions);
+                       if (isChanged || firstCall||list.Count!=questions.Count)
                        {
                            questions.Clear();
                            questions = list;
                            firstCall = false;
                            OnDataChanged();
-                           
-                           Log.Info("*********FollowDbChanges Changed**************");
 
                        }
                        list.Clear();
-                       Thread.Sleep(4000);
+                       Thread.Sleep(RefreshDuration);
                    }
 
                }));
@@ -154,6 +156,7 @@ namespace SurveyConfiguratorApp.Logic
                 Log.Error(ex);
             }
         }
+
         public int GetQuestions(ref List<Question> list)
         {
             try

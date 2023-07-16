@@ -22,7 +22,8 @@ namespace SurveyConfiguratorApp.Domain.Questions
         public string TypeName { get; set; }
         public int Order { get; set; }
 
-        public Question() {
+        public Question()
+        {
             setId(-1);
 
         }
@@ -98,15 +99,25 @@ namespace SurveyConfiguratorApp.Domain.Questions
         }
         public override bool Equals(object obj)
         {
-            if (obj == null || GetType() != obj.GetType())
+            try
+            {
+                if (obj == null || GetType() != obj.GetType())
+                    return false;
+
+                Question otherQuestion = (Question)obj;
+
+                // Compare all relevant properties for equality
+                return (this.getId() == otherQuestion.getId() &&
+                    Text == otherQuestion.Text &&
+                       Order == otherQuestion.Order &&
+                       TypeName == otherQuestion.TypeName);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
                 return false;
+            }
 
-            Question otherQuestion = (Question)obj;
-
-            // Compare all relevant properties for equality
-            return Text == otherQuestion.Text &&
-                   Order == otherQuestion.Order &&
-                   TypeName == otherQuestion.TypeName;
         }
 
         ///  <summary>
@@ -118,7 +129,7 @@ namespace SurveyConfiguratorApp.Domain.Questions
 
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return getId()*Order*typeNumber;
         }
     }
 }

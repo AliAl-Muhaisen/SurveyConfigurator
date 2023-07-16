@@ -115,6 +115,24 @@ namespace SurveyConfiguratorApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save Failed.
+        /// </summary>
+        internal static string SAVE_FAILED {
+            get {
+                return ResourceManager.GetString("SAVE_FAILED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Successful.
+        /// </summary>
+        internal static string SAVE_SUCCESSFULLY {
+            get {
+                return ResourceManager.GetString("SAVE_SUCCESSFULLY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Slider.
         /// </summary>
         internal static string SLIDER {
@@ -129,6 +147,24 @@ namespace SurveyConfiguratorApp.Properties {
         internal static string STARS {
             get {
                 return ResourceManager.GetString("STARS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connected Successfully.
+        /// </summary>
+        internal static string TEST_CONNECTION {
+            get {
+                return ResourceManager.GetString("TEST_CONNECTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connection Failed.
+        /// </summary>
+        internal static string TEST_CONNECTION_FAILED {
+            get {
+                return ResourceManager.GetString("TEST_CONNECTION_FAILED", resourceCulture);
             }
         }
         

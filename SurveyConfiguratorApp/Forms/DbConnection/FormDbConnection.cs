@@ -1,5 +1,6 @@
 ﻿using SurveyConfiguratorApp.Helper;
 using SurveyConfiguratorApp.Logic;
+using SurveyConfiguratorApp.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -61,13 +62,13 @@ namespace SurveyConfiguratorApp.Forms.DbConnection
                 if (isConnected)
                 {
                     HandleSaveButtonEnable(true);
-                    MessageBox.Show("Connected Successfullty");
+                    MessageBox.Show(Resource.TEST_CONNECTION);
                 }
 
                 else
                 {
                     HandleSaveButtonEnable();
-                    MessageBox.Show("Connection Failed");
+                    MessageBox.Show(Resource.TEST_CONNECTION_FAILED);
                 }
 
 
@@ -183,7 +184,7 @@ namespace SurveyConfiguratorApp.Forms.DbConnection
               
                 if (isSaved)
                 {
-                    MessageBox.Show("Saved Successfully");
+                    MessageBox.Show(Resource.SAVE_SUCCESSFULLY);
 
                     ConnectionStringChanged?.Invoke(this, EventArgs.Empty);
 
@@ -191,7 +192,7 @@ namespace SurveyConfiguratorApp.Forms.DbConnection
                 }
                 else
                 {
-                    MessageBox.Show("Saved Failed");
+                    MessageBox.Show(Resource.SAVE_FAILED);
                 }
             }
             catch (Exception ex)
