@@ -141,17 +141,11 @@
     <value>3, 2, 3, 2</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>700, 374</value>
-  </data>
   <data name="groupBoxFaces.Size" type="System.Drawing.Size, System.Drawing">
     <value>661, 70</value>
   </data>
   <data name="&gt;&gt;sharedBetweenQuestions.Parent" xml:space="preserve">
     <value>$this</value>
-  </data>
-  <data name="groupBoxFaces.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 174</value>
   </data>
   <data name="&gt;&gt;btnSave.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -168,11 +162,17 @@
   <data name="btnCancel.Text" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="sharedBetweenQuestions.Size" type="System.Drawing.Size, System.Drawing">
+    <value>660, 151</value>
+  </data>
   <data name="sharedBetweenQuestions.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
   <data name="customMessageBoxControl1.Location" type="System.Drawing.Point, System.Drawing">
     <value>993, 246</value>
+  </data>
+  <data name="&gt;&gt;numericFaceNumber.Name" xml:space="preserve">
+    <value>numericFaceNumber</value>
   </data>
   <data name="btnCancel.Size" type="System.Drawing.Size, System.Drawing">
     <value>129, 28</value>
@@ -261,6 +261,9 @@
   <data name="&gt;&gt;btnCancel.Name" xml:space="preserve">
     <value>btnCancel</value>
   </data>
+  <data name="btnCancel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
+  </data>
   <data name="groupBoxFaces.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 2, 3, 2</value>
   </data>
@@ -318,9 +321,6 @@
   <data name="&gt;&gt;groupBoxFaces.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="btnSave.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <data name="btnSave.Location" type="System.Drawing.Point, System.Drawing">
     <value>400, 286</value>
   </data>
@@ -333,14 +333,14 @@
   <data name="groupBoxFaces.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 2, 3, 2</value>
   </data>
-  <data name="btnCancel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>700, 374</value>
   </data>
-  <data name="&gt;&gt;numericFaceNumber.Name" xml:space="preserve">
-    <value>numericFaceNumber</value>
+  <data name="groupBoxFaces.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 174</value>
   </data>
-  <data name="sharedBetweenQuestions.Size" type="System.Drawing.Size, System.Drawing">
-    <value>660, 151</value>
+  <data name="btnSave.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

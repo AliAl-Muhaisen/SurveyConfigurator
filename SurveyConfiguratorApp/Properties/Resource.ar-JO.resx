@@ -141,6 +141,9 @@
   <data name="STARS" xml:space="preserve">
     <value>نجوم</value>
   </data>
+  <data name="UPDATE" xml:space="preserve">
+    <value>تعديل</value>
+  </data>
   <data name="VALIDATION_ERROR" xml:space="preserve">
     <value>أخطاء التحقق من الصحة ، يرجى التحقق من المدخلات</value>
   </data>

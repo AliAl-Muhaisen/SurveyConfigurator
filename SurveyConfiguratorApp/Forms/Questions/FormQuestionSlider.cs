@@ -2,6 +2,7 @@
 using SurveyConfiguratorApp.Domain.Questions;
 using SurveyConfiguratorApp.Helper;
 using SurveyConfiguratorApp.Logic;
+using SurveyConfiguratorApp.Properties;
 using System;
 using System.Linq;
 using System.Net;
@@ -16,11 +17,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
         private int questionId = -1;
         private QuestionManager questionManager;
         private QuestionValidation questionValidation;
-        // To Check inputs validation 
-        private bool isValidMaxNum = false;
-        private bool isValidMinNum = false;
-        private bool isValidCaptionStart = false;
-        private bool isValidCaptionEnd = false;
+
         public FormQuestionSlider()
         {
 
@@ -49,7 +46,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 {
                     isUpdate = true;
                     this.questionId = questionId;
-                    btnSave.Text = "Update";
+                    btnSave.Text = Resource.UPDATE;
 
                 }
 
@@ -212,7 +209,6 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 numericEndValue.Value = questionSlider.EndValue;
                 textBoxStartCaption.Text = questionSlider.StartCaption;
                 textBoxEndCaption.Text = questionSlider.EndCaption;
-                btnSave.Text = "Update";
             }
             catch (Exception ex)
             {

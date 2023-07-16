@@ -19,7 +19,7 @@ namespace SurveyConfiguratorApp.Data.Questions
     public class DbQuestion : DbConnection
     {
         public static event EventHandler DataChanged;
-        public DbQuestion() : base() { }
+        public DbQuestion() : base() {}
         public const string tableName = "Question";
         public enum ColumnNames
         {
@@ -46,32 +46,33 @@ namespace SurveyConfiguratorApp.Data.Questions
                 {
                     return tStatusCode;
                 }
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.Connection = base.conn;
-                    //SCOPE_IDENTITY() is a function in SQL Server that returns the last identity value inserted into an identity column within the current scope.
-                    //It is commonly used to retrieve the generated ID value after performing an insert operation.
-                    string query = string.Format("INSERT INTO [{0}] ([{1}],[{2}],[{3}]) VALUES " +
-                        "(@{1},@{2},@{3});SELECT SCOPE_IDENTITY();",
-                        tableName, ColumnNames.Order, ColumnNames.Text, ColumnNames.TypeNumber);
-
-                    cmd.CommandText = query;
-
-
-                    cmd.Parameters.AddWithValue($"@{ColumnNames.Order}", data.Order);
-                    cmd.Parameters.AddWithValue($"@{ColumnNames.Text}", data.Text);
-                    cmd.Parameters.AddWithValue($"@{ColumnNames.TypeNumber}", data.getTypeNumber());
-                    // Execute the query and retrieve the generated ID
-                    questionId = Convert.ToInt32(cmd.ExecuteScalar());
-
-                    if (questionId > 0)
+               
+                    using (SqlCommand cmd = new SqlCommand())
                     {
-                        OnDataChanged();
-                        return StatusCode.SUCCESS;
+                        cmd.Connection = base.conn;
+                        //SCOPE_IDENTITY() is a function in SQL Server that returns the last identity value inserted into an identity column within the current scope.
+                        //It is commonly used to retrieve the generated ID value after performing an insert operation.
+                        string query = string.Format("INSERT INTO [{0}] ([{1}],[{2}],[{3}]) VALUES " +
+                            "(@{1},@{2},@{3});SELECT SCOPE_IDENTITY();",
+                            tableName, ColumnNames.Order, ColumnNames.Text, ColumnNames.TypeNumber);
+
+                        cmd.CommandText = query;
+
+
+                        cmd.Parameters.AddWithValue($"@{ColumnNames.Order}", data.Order);
+                        cmd.Parameters.AddWithValue($"@{ColumnNames.Text}", data.Text);
+                        cmd.Parameters.AddWithValue($"@{ColumnNames.TypeNumber}", data.getTypeNumber());
+                        // Execute the query and retrieve the generated ID
+                        questionId = Convert.ToInt32(cmd.ExecuteScalar());
+
+                        if (questionId > 0)
+                        {
+                            OnDataChanged();
+                            return StatusCode.SUCCESS;
+                        }
+
                     }
-
-                }
-
+                
             }
             catch (SqlException ex)
             {

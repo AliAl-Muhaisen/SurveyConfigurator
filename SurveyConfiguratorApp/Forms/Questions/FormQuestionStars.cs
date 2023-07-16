@@ -2,6 +2,7 @@
 using SurveyConfiguratorApp.Domain.Questions;
 using SurveyConfiguratorApp.Helper;
 using SurveyConfiguratorApp.Logic;
+using SurveyConfiguratorApp.Properties;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -41,7 +42,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
                     this.questionId = questionId;
                     isUpdate = true;
 
-                    btnSave.Text = "Update";
+                    btnSave.Text = Resource.UPDATE;
                 }
 
             }
@@ -173,7 +174,6 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 sharedBetweenQuestions.setQuestionText(questionStars.Text);
                 sharedBetweenQuestions.setQuestionOrderValue(questionStars.Order);
                 numericStarsNumber.Value = questionStars.StarsNumber;
-                btnSave.Text = "Update";
             }
             catch (Exception ex)
             {

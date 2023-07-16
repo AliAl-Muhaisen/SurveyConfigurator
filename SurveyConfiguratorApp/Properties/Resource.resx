@@ -141,6 +141,9 @@
   <data name="STARS" xml:space="preserve">
     <value>Stars</value>
   </data>
+  <data name="UPDATE" xml:space="preserve">
+    <value>Update</value>
+  </data>
   <data name="VALIDATION_ERROR" xml:space="preserve">
     <value>Validation errors, Please check the inputs</value>
   </data>

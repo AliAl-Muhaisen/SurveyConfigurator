@@ -2,6 +2,7 @@
 using SurveyConfiguratorApp.Domain.Questions;
 using SurveyConfiguratorApp.Helper;
 using SurveyConfiguratorApp.Logic;
+using SurveyConfiguratorApp.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,7 +46,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 {
                     isUpdate = true;
                     this.questionId = questionId;
-                    btnSave.Text = "Update";
+                    btnSave.Text = Resource.UPDATE;
                 }
 
             }
@@ -202,7 +203,6 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 sharedBetweenQuestions.setQuestionOrderValue(questionFaces.Order);
 
                 numericFaceNumber.Value = questionFaces.FacesNumber;
-                btnSave.Text = "Update";
             }
             catch (Exception ex)
             {

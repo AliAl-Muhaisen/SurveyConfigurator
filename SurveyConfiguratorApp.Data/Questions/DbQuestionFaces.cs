@@ -24,38 +24,45 @@ namespace SurveyConfiguratorApp.Data.Questions
         {
             try
             {
-                int isBaseInfoAdded = base.Add(data);
-                if (isBaseInfoAdded != StatusCode.SUCCESS)
-                    return isBaseInfoAdded;
+              //  using (SqlTransaction transaction = base.conn.BeginTransaction())
+              //  {
+                    int isBaseInfoAdded = base.Add(data);
+                    if (isBaseInfoAdded != StatusCode.SUCCESS)
+                        return isBaseInfoAdded;
 
-                int questionId = base.GetQuestionId();
-                if (questionId == -1)
-                    return StatusCode.ERROR;
+                    int questionId = base.GetQuestionId();
+                    if (questionId == -1)
+                        return StatusCode.ERROR;
 
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    base.OpenConnection();
-                    cmd.Connection = base.conn;
-                    string insertQuery = string.Format("INSERT INTO [{0}] ([{1}],[{2}]) VALUES (@{1},@{2})",
-                               tableName, ColumnNames.QuestionId, ColumnNames.FacesNumber);
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        base.OpenConnection();
+                        cmd.Connection = base.conn;
+                    //    cmd.Transaction = transaction;
+                        string insertQuery = string.Format("INSERT INTO [{0}] ([{1}],[{2}]) VALUES (@{1},@{2})",
+                                   tableName, ColumnNames.QuestionId, ColumnNames.FacesNumber);
 
-                    cmd.CommandText = insertQuery;
+                        cmd.CommandText = insertQuery;
 
-                    cmd.Parameters.AddWithValue($"@{ColumnNames.QuestionId}", questionId);
-                    cmd.Parameters.AddWithValue($"@{ColumnNames.FacesNumber}", data.FacesNumber);
+                        cmd.Parameters.AddWithValue($"@{ColumnNames.QuestionId}", questionId);
+                        cmd.Parameters.AddWithValue($"@{ColumnNames.FacesNumber}", data.FacesNumber);
 
-                    int rowAffectrowsAffected = cmd.ExecuteNonQuery();
-                    if (rowAffectrowsAffected > 0)
-                        return StatusCode.SUCCESS;
+                        int rowAffectrowsAffected = cmd.ExecuteNonQuery();
+                        if (rowAffectrowsAffected > 0)
+                        {
+                           // transaction.Commit();
+                            return StatusCode.SUCCESS;
+                        }
 
-                }
+                       // transaction.Rollback();
+                    }
 
-
+               // }
 
             }
             catch (SqlException ex)
             {
-              return  DbException.HandleSqlException(ex);
+                return DbException.HandleSqlException(ex);
             }
             catch (Exception e)
             {
@@ -153,7 +160,7 @@ namespace SurveyConfiguratorApp.Data.Questions
                             // questionFaces.setId(id);
                             questionFaces.Text = reader[$"{DbQuestion.ColumnNames.Text}"].ToString();
                             questionFaces.FacesNumber = (int)reader[$"{ColumnNames.FacesNumber}"];
-                           
+
                         }
                         return StatusCode.SUCCESS;
                     }

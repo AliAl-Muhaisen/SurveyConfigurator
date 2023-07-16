@@ -166,7 +166,7 @@ namespace SurveyConfiguratorApp
 
                 if (questionId != -1)
                 {
-                    Form fromAdd = new FormQuestion(false, questionId, questionTypeNumber, "Update Question");
+                    Form fromAdd = new FormQuestion(false, questionId, questionTypeNumber, Resource.UPDATE);
                     fromAdd.ShowDialog();
                     RefreshData();
 
