@@ -44,124 +44,74 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(196, 167);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
+            resources.ApplyResources(this.btnCancel, "btnCancel");
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(97, 23);
-            this.btnCancel.TabIndex = 0;
-            this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(95, 167);
-            this.btnSave.Margin = new System.Windows.Forms.Padding(2);
+            resources.ApplyResources(this.btnSave, "btnSave");
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(97, 23);
-            this.btnSave.TabIndex = 1;
-            this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 19);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Server";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 45);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(54, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "DataBase";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(9, 71);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            resources.ApplyResources(this.label3, "label3");
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(60, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "User Name";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // textBoxServer
             // 
-            this.textBoxServer.Location = new System.Drawing.Point(80, 23);
-            this.textBoxServer.Margin = new System.Windows.Forms.Padding(2);
+            resources.ApplyResources(this.textBoxServer, "textBoxServer");
             this.textBoxServer.Name = "textBoxServer";
-            this.textBoxServer.Size = new System.Drawing.Size(213, 20);
-            this.textBoxServer.TabIndex = 5;
             this.textBoxServer.TextChanged += new System.EventHandler(this.textBoxServer_TextChanged);
             // 
             // textBoxDataBase
             // 
-            this.textBoxDataBase.Location = new System.Drawing.Point(80, 46);
-            this.textBoxDataBase.Margin = new System.Windows.Forms.Padding(2);
+            resources.ApplyResources(this.textBoxDataBase, "textBoxDataBase");
             this.textBoxDataBase.Name = "textBoxDataBase";
-            this.textBoxDataBase.Size = new System.Drawing.Size(213, 20);
-            this.textBoxDataBase.TabIndex = 6;
             this.textBoxDataBase.TextChanged += new System.EventHandler(this.textBoxDataBase_TextChanged);
             // 
             // textBoxUsername
             // 
-            this.textBoxUsername.Location = new System.Drawing.Point(80, 68);
-            this.textBoxUsername.Margin = new System.Windows.Forms.Padding(2);
+            resources.ApplyResources(this.textBoxUsername, "textBoxUsername");
             this.textBoxUsername.Name = "textBoxUsername";
-            this.textBoxUsername.Size = new System.Drawing.Size(213, 20);
-            this.textBoxUsername.TabIndex = 7;
             this.textBoxUsername.TextChanged += new System.EventHandler(this.textBoxUsername_TextChanged);
             // 
             // textBoxPassword
             // 
-            this.textBoxPassword.Location = new System.Drawing.Point(80, 91);
-            this.textBoxPassword.Margin = new System.Windows.Forms.Padding(2);
+            resources.ApplyResources(this.textBoxPassword, "textBoxPassword");
             this.textBoxPassword.Name = "textBoxPassword";
-            this.textBoxPassword.PasswordChar = '*';
-            this.textBoxPassword.Size = new System.Drawing.Size(213, 20);
-            this.textBoxPassword.TabIndex = 9;
             this.textBoxPassword.UseSystemPasswordChar = true;
             this.textBoxPassword.TextChanged += new System.EventHandler(this.textBoxPassword_TextChanged);
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(9, 93);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            resources.ApplyResources(this.label4, "label4");
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(53, 13);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "Password";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnTest
             // 
-            this.btnTest.Location = new System.Drawing.Point(12, 129);
-            this.btnTest.Margin = new System.Windows.Forms.Padding(2);
+            resources.ApplyResources(this.btnTest, "btnTest");
             this.btnTest.Name = "btnTest";
-            this.btnTest.Size = new System.Drawing.Size(97, 23);
-            this.btnTest.TabIndex = 10;
-            this.btnTest.Text = "Test";
             this.btnTest.UseVisualStyleBackColor = true;
             this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
             // 
             // FormDbConnection
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(304, 201);
             this.Controls.Add(this.btnTest);
             this.Controls.Add(this.textBoxPassword);
             this.Controls.Add(this.label4);
@@ -173,14 +123,9 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnCancel);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(320, 240);
-            this.MinimumSize = new System.Drawing.Size(320, 240);
+            this.MinimizeBox = false;
             this.Name = "FormDbConnection";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Connection";
             this.Load += new System.EventHandler(this.FormDbConnection_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

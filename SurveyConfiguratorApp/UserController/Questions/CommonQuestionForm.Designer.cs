@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CommonQuestionForm));
             this.textBoxQuestionText = new System.Windows.Forms.TextBox();
             this.numericUpDownQuestionOrder = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
@@ -39,25 +40,19 @@
             // 
             // textBoxQuestionText
             // 
-            this.textBoxQuestionText.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.textBoxQuestionText.Location = new System.Drawing.Point(110, 18);
-            this.textBoxQuestionText.Multiline = true;
+            resources.ApplyResources(this.textBoxQuestionText, "textBoxQuestionText");
             this.textBoxQuestionText.Name = "textBoxQuestionText";
-            this.textBoxQuestionText.Size = new System.Drawing.Size(423, 68);
-            this.textBoxQuestionText.TabIndex = 0;
             this.textBoxQuestionText.TextChanged += new System.EventHandler(this.textBoxQuestionText_TextChanged);
             // 
             // numericUpDownQuestionOrder
             // 
-            this.numericUpDownQuestionOrder.Location = new System.Drawing.Point(110, 92);
+            resources.ApplyResources(this.numericUpDownQuestionOrder, "numericUpDownQuestionOrder");
             this.numericUpDownQuestionOrder.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.numericUpDownQuestionOrder.Name = "numericUpDownQuestionOrder";
-            this.numericUpDownQuestionOrder.Size = new System.Drawing.Size(422, 20);
-            this.numericUpDownQuestionOrder.TabIndex = 6;
             this.numericUpDownQuestionOrder.Value = new decimal(new int[] {
             1,
             0,
@@ -67,50 +62,37 @@
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 21);
+            resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(73, 13);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "Question Text";
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 94);
+            resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(78, 13);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "Question Order";
             // 
             // groupBox1
             // 
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.textBoxQuestionText);
             this.groupBox1.Controls.Add(this.numericUpDownQuestionOrder);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(0, 0);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(609, 165);
-            this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "General";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // CommonQuestionForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.Controls.Add(this.groupBox1);
             this.Name = "CommonQuestionForm";
-            this.Size = new System.Drawing.Size(609, 165);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownQuestionOrder)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

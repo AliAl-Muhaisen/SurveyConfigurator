@@ -1,8 +1,10 @@
 ﻿using SurveyConfiguratorApp.Domain;
 using SurveyConfiguratorApp.Helper;
+using SurveyConfiguratorApp.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using static SurveyConfiguratorApp.Domain.Questions.Question;
 
@@ -32,7 +34,21 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 InitializeComponent();
                 // add question types to drop down list
                 foreach (QuestionTypes type in Enum.GetValues(typeof(QuestionTypes)))
-                    comboBox1.Items.Add(type);
+                {
+                    //comboBox1.Items.Add(type);
+                    switch (type)
+                    {
+                        case QuestionTypes.FACES:
+                            comboBox1.Items.Add(Resource.FACES);
+                            break;
+                        case QuestionTypes.SLIDER:
+                            comboBox1.Items.Add(Resource.SLIDER);
+                            break;
+                        case QuestionTypes.STARS:
+                            comboBox1.Items.Add(Resource.STARS);
+                            break;
+                    }
+                }
             }
             catch (Exception e)
             {
@@ -120,10 +136,10 @@ namespace SurveyConfiguratorApp.Forms.Questions
         {
             try
             {
-                int typeNumber = (int)(QuestionTypes)Enum.Parse(typeof(QuestionTypes), comboBox1.SelectedItem.ToString(), true);
+                int typeNumber = HandelSelectedTypeLanguage();
+
                 if (typeNumber != lastQuestionType)
                 {
-
                     if (typeNumber == (int)QuestionTypes.STARS)
                     {
                         handleQuestionStars(questionId);
@@ -234,7 +250,33 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 Log.Error(e);
             }
         }
+        private int HandelSelectedTypeLanguage()
+        {
+            int typeNumber = 0;
+            try
+            {
+                string tSelectedItem = comboBox1.SelectedItem.ToString();
 
+                if (tSelectedItem == Resource.FACES)
+                {
+                    typeNumber = (int)QuestionTypes.FACES;
+                }
+                else if (tSelectedItem == Resource.SLIDER)
+                {
+                    typeNumber = (int)QuestionTypes.SLIDER;
+                }
+                else if (tSelectedItem == Resource.STARS)
+                {
+                    typeNumber = (int)QuestionTypes.STARS;
+                }
+
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+            }
+            return typeNumber;
+        }
 
     }
 }

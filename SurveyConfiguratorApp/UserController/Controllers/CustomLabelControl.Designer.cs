@@ -39,21 +39,22 @@
             this.labelText.Font = new System.Drawing.Font("Lucida Bright", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelText.ForeColor = System.Drawing.SystemColors.Control;
             this.labelText.Location = new System.Drawing.Point(0, 0);
+            this.labelText.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelText.Name = "labelText";
-            this.labelText.Size = new System.Drawing.Size(48, 20);
+            this.labelText.Size = new System.Drawing.Size(59, 23);
             this.labelText.TabIndex = 0;
             this.labelText.Text = "Text ";
             // 
             // CustomLabelControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.Controls.Add(this.labelText);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "CustomLabelControl";
-            this.Size = new System.Drawing.Size(48, 20);
+            this.Size = new System.Drawing.Size(79, 28);
             this.ResumeLayout(false);
             this.PerformLayout();
 

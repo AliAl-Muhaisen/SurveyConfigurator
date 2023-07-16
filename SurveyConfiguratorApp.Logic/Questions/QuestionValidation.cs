@@ -71,39 +71,7 @@ namespace SurveyConfiguratorApp.Domain.Questions
         {
             return comparedNum >= sourceNum;
         }
-        private string GeneralMsgMinNum(int num)
-        {
-            return ("You can't enter number less than " + num);
-        }
-
-        private bool isMaxNum(int sourceNum, int comparedNum)
-        {
-            try
-            {
-                return comparedNum <= sourceNum;
-            }
-            catch (Exception e)
-            {
-                Log.Error(e);
-                return false;
-            }
-
-        }
-
-        private string GeneralMsgMaxNum(int num)
-        {
-            try
-            {
-                return ("You can't enter number greater than " + num);
-            }
-            catch (Exception e)
-            {
-                Log.Error(e);
-                return null;
-            }
-
-        }
-
+     
         private int IsValidQuestionText(string text)
         {
             try
@@ -116,94 +84,8 @@ namespace SurveyConfiguratorApp.Domain.Questions
                 return StatusCode.ERROR;
             }
         }
-        public string HandelQuestionText(string text)
-        {
-            try
-            {
-                if (IsEmpty(text))
-                {
-                    return "Required Field";
-                }
-                else if (text.Trim().Length > questionTextLength)
-                {
-                    return $"Maximum input length exceeded. Please enter a value that is within {questionTextLength} character";
-                }
-                else if (text.Trim().Length < 10)
-                {
-                    return "Too Short";
-                }
-                return null;
-            }
-            catch (Exception e)
-            {
-                Log.Error(e);
-                return null;
-            }
-
-
-
-        }
-
-
+     
         //End General Functions
-
-
-        //?Stars Question Validation
-        public string starsMinNumMsg(int minNumStars)
-        {
-            return !IsMinNum(StarsMinValue, minNumStars) ? GeneralMsgMinNum(StarsMinValue) : null;
-        }
-        public string starsMaxNumMsg(int minNumStars)
-        {
-            return !isMaxNum(StarsMaxValue, minNumStars) ? GeneralMsgMaxNum(StarsMaxValue) : null;
-        }
-
-        public string starsHandleMsg(int num)
-        {
-            return starsMaxNumMsg(num) ?? starsMinNumMsg(num);
-        }
-
-        //!End Stars Question Validation
-
-        //?Faces Question Validation
-
-        public string facesMinNumMsg(int minNumStars)
-        {
-            return !IsMinNum(FacesMinValue, minNumStars) ? GeneralMsgMinNum(FacesMinValue) : null;
-        }
-        public string facesMaxNumMsg(int minNumStars)
-        {
-            return !isMaxNum(FacesMaxValue, minNumStars) ? GeneralMsgMaxNum(FacesMaxValue) : null;
-        }
-
-        public string facesHandleMsg(int num)
-        {
-            return facesMaxNumMsg(num) ?? facesMinNumMsg(num);
-        }
-
-        //!End Faces Question Validation
-
-        //# Slider Question Validation
-        public string handelCaptionText(string text)
-        {
-            if (IsEmpty(text))
-            {
-                return "Required Field";
-            }
-            else if (text.Trim().Length > sliderCaptionTextLengthMax)
-            {
-                return "Too Long";
-            }
-            else if (text.Trim().Length < sliderCaptionTextLengthMin)
-            {
-                return "Too Short";
-            }
-            return null;
-
-
-        }
-
-        //! End Slider Question Validation
 
         public int IsOrderAlreadyExists(int order, int questionId)
         {

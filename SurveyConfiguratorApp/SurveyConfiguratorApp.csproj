@@ -57,6 +57,7 @@
     <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=7.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Extensions.DependencyInjection.Abstractions.7.0.0\lib\net462\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System">
       <HintPath>..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
     </Reference>
@@ -121,8 +122,19 @@
     <Compile Include="Forms\Questions\FormQuestionStars.Designer.cs">
       <DependentUpon>FormQuestionStars.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Settings\FormLanguage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\FormLanguage.Designer.cs">
+      <DependentUpon>FormLanguage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
     <Compile Include="UserController\Controllers\CustomLabelControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -147,23 +159,50 @@
     <Compile Include="UserController\Questions\CommonQuestionForm.Designer.cs">
       <DependentUpon>CommonQuestionForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="CustomForm.resx">
+      <DependentUpon>CustomForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMain.ar-JO.resx">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DbConnection\FormDbConnection.ar-JO.resx">
+      <DependentUpon>FormDbConnection.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DbConnection\FormDbConnection.resx">
       <DependentUpon>FormDbConnection.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Questions\FormQuestion.ar-JO.resx">
+      <DependentUpon>FormQuestion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Questions\FormQuestion.resx">
       <DependentUpon>FormQuestion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Questions\FormQuestionFaces.ar-JO.resx">
+      <DependentUpon>FormQuestionFaces.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Questions\FormQuestionFaces.resx">
       <DependentUpon>FormQuestionFaces.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Questions\FormQuestionSlider.ar-JO.resx">
+      <DependentUpon>FormQuestionSlider.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Questions\FormQuestionSlider.resx">
       <DependentUpon>FormQuestionSlider.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Questions\FormQuestionStars.ar-JO.resx">
+      <DependentUpon>FormQuestionStars.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Questions\FormQuestionStars.resx">
       <DependentUpon>FormQuestionStars.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Settings\FormLanguage.ar-JO.resx">
+      <DependentUpon>FormLanguage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Settings\FormLanguage.resx">
+      <DependentUpon>FormLanguage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -175,6 +214,11 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Properties\Resource.ar-JO.resx" />
+    <EmbeddedResource Include="Properties\Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserController\Controllers\CustomLabelControl.resx">
       <DependentUpon>CustomLabelControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -183,6 +227,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserController\Controllers\LabelErrorControl.resx">
       <DependentUpon>LabelErrorControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserController\Questions\CommonQuestionForm.ar-JO.resx">
+      <DependentUpon>CommonQuestionForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserController\Questions\CommonQuestionForm.resx">
       <DependentUpon>CommonQuestionForm.cs</DependentUpon>

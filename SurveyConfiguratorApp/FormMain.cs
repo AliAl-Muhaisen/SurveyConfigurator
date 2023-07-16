@@ -2,9 +2,11 @@
 using SurveyConfiguratorApp.Domain.Questions;
 using SurveyConfiguratorApp.Forms.DbConnection;
 using SurveyConfiguratorApp.Forms.Questions;
+using SurveyConfiguratorApp.Forms.Settings;
 using SurveyConfiguratorApp.Helper;
 using SurveyConfiguratorApp.Logic;
 using SurveyConfiguratorApp.Logic.Questions;
+using SurveyConfiguratorApp.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -46,6 +48,7 @@ namespace SurveyConfiguratorApp
         {
             try
             {
+                
                 InitializeComponent();
                 questionManager = new QuestionManager();
                 dbManager = new DbManager();
@@ -187,14 +190,12 @@ namespace SurveyConfiguratorApp
 
                 if (questionId != -1)
                 {
-                    DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete this record", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    DialogResult dialogResult = MessageBox.Show(Resource.DELETE_MESSAGE, Resource.CONFIRM, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (dialogResult == DialogResult.Yes)
                     {
                         questionManager.Delete(questionId);
                         RefreshData();
                     }
-
-
                 }
 
                 ClearSelectedQuestion();
@@ -404,15 +405,11 @@ namespace SurveyConfiguratorApp
                     HandleListViewEnable(true);
 
                 }
-                else if (result == StatusCode.DB_FAILED_NERORK_CONNECTION)
-                {
-                    tIsError = true;
-                    labelStatus.Text = "Network Failed";
-                }
+              
                 else
                 {
                     tIsError = true;
-                    labelStatus.Text = "Connected Failed";
+                    labelStatus.Text = Resource.LABEL_STATUS;
                 }
 
                 if (tIsError)
@@ -479,6 +476,19 @@ namespace SurveyConfiguratorApp
             catch (Exception e)
             {
                 Log.Error(e);
+            }
+        }
+
+        private void languageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Form tLanguageForm = new FormLanguage();
+                tLanguageForm.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
             }
         }
     }

@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SurveyConfiguratorApp.Logic.Questions;
 using System;
+using System.Configuration;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace SurveyConfiguratorApp
@@ -13,6 +15,8 @@ namespace SurveyConfiguratorApp
         [STAThread]
         static void Main()
         {
+            string language = ConfigurationManager.AppSettings["Language"];
+           Thread.CurrentThread.CurrentUICulture=new System.Globalization.CultureInfo(language);
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

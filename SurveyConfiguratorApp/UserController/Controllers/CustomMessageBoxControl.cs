@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using static System.Resources.ResXFileRef;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using SurveyConfiguratorApp.Properties;
 
 namespace SurveyConfiguratorApp.UserController.Controllers
 {
@@ -31,11 +32,11 @@ namespace SurveyConfiguratorApp.UserController.Controllers
                 switch (tCode)
                 {
                     case StatusCode.VALIDATION_ERROR:
-                        tMessage = "Validation errors, Please check the inputs";
+                        tMessage = Resource.VALIDATION_ERROR;
                         break;
 
                     case StatusCode.DB_RECORD_NOT_EXISTS:
-                        tMessage = "This Question does not exists";
+                        tMessage = Resource.DB_RECORD_NOT_EXISTS;
                         break;
 
                     case StatusCode.ERROR:
@@ -43,20 +44,19 @@ namespace SurveyConfiguratorApp.UserController.Controllers
                     case StatusCode.DB_FAILED_CONNECTION:
 
                     case StatusCode.DB_FAILED_NERORK_CONNECTION:
-                        tMessage = "Something went wrong, Ask the Admin for help";
+                        tMessage = Resource.DB_FAILED_NERORK_CONNECTION;
                         break;
-
                     case StatusCode.VALIDATION_ERROR_QUESTION_TEXT:
-                        tMessage = "Question text Required";
+                        tMessage = Resource.VALIDATION_ERROR_QUESTION_TEXT;
                         break;
                     case StatusCode.VALIDATION_ERROR_ORDER_EXIST:
-                        tMessage = "Order Should be unique";
+                        tMessage = Resource.VALIDATION_ERROR_ORDER_EXIST;
                         break;
                     case StatusCode.VALIDATION_ERROR_SLIDER_VALUE:
-                        tMessage ="Min Value Should be less than Max Value";
+                        tMessage = Resource.VALIDATION_ERROR_SLIDER_VALUE;
                         break;
                     case StatusCode.VALIDATION_ERROR_SLIDER_CAPTION:
-                        tMessage ="Caption Text Required";
+                        tMessage =Resource.VALIDATION_ERROR_SLIDER_CAPTION;
                         break;
 
                     default:

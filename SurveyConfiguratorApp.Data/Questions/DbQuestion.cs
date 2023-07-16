@@ -356,4 +356,5 @@ namespace SurveyConfiguratorApp.Data.Questions
             DataChanged?.Invoke(this, EventArgs.Empty);
         }
     }
+
 }
