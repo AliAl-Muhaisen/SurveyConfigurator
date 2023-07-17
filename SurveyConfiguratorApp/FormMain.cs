@@ -29,8 +29,8 @@ namespace SurveyConfiguratorApp
         // Active form and current button variables
 
         int questionId = -1;
-        private QuestionManager questionManager;
-        private DbManager dbManager;
+        private readonly QuestionManager questionManager;
+        private readonly DbManager dbManager;
         private int questionTypeNumber = -1;
 
 
@@ -48,7 +48,7 @@ namespace SurveyConfiguratorApp
         {
             try
             {
-                
+
                 InitializeComponent();
                 questionManager = new QuestionManager();
                 dbManager = new DbManager();
@@ -134,7 +134,7 @@ namespace SurveyConfiguratorApp
 
         }
 
-       
+
 
         // Data Grid View Buttons
         //Add Button
@@ -160,14 +160,12 @@ namespace SurveyConfiguratorApp
         {
             try
             {
+                if (questionId < 0) return;
 
-                if (questionId != -1)
-                {
-                    Form fromAdd = new FormQuestion(false, questionId, questionTypeNumber, Resource.UPDATE);
-                    fromAdd.ShowDialog();
-                    RefreshData();
+                Form fromAdd = new FormQuestion(false, questionId, questionTypeNumber, Resource.UPDATE);
+                fromAdd.ShowDialog();
+                RefreshData();
 
-                }
 
                 ClearSelectedQuestion();
 
@@ -185,16 +183,13 @@ namespace SurveyConfiguratorApp
             try
             {
 
-                if (questionId != -1)
+                if (questionId < 0) return;
+                DialogResult tDialogResult = MessageBox.Show(Resource.DELETE_MESSAGE, Resource.CONFIRM, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (tDialogResult == DialogResult.Yes)
                 {
-                    DialogResult dialogResult = MessageBox.Show(Resource.DELETE_MESSAGE, Resource.CONFIRM, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (dialogResult == DialogResult.Yes)
-                    {
-                        questionManager.Delete(questionId);
-                        RefreshData();
-                    }
+                    questionManager.Delete(questionId);
+                    RefreshData();
                 }
-
                 ClearSelectedQuestion();
 
             }
@@ -245,25 +240,25 @@ namespace SurveyConfiguratorApp
         {
             try
             {
-                List<Question> list = new List<Question>();
+                List<Question> tQuestionsList = new List<Question>();
 
                 if (listViewQuestions.IsHandleCreated)
                     listViewQuestions.Invoke((MethodInvoker)(() =>
                 {
 
-                    questionManager.GetQuestions(ref list);
+                    questionManager.GetQuestions(ref tQuestionsList);
                     listViewQuestions.Items.Clear();
-                    foreach (Question question in list)
+                    foreach (Question question in tQuestionsList)
                     {
                         // Create a new ListViewItem and set its Text property to the Order value
-                        ListViewItem item = new ListViewItem(question.Order.ToString());
+                        ListViewItem tItem = new ListViewItem(question.Order.ToString());
 
                         // Add sub-items to the ListViewItem
-                        item.SubItems.Add(question.TypeName);
-                        item.SubItems.Add(question.Text);
-                        item.Tag = question;
+                        tItem.SubItems.Add(question.TypeName);
+                        tItem.SubItems.Add(question.Text);
+                        tItem.Tag = question;
 
-                        listViewQuestions.Items.Add(item);
+                        listViewQuestions.Items.Add(tItem);
                     }
                 }));
 
@@ -294,10 +289,10 @@ namespace SurveyConfiguratorApp
                     listViewQuestions.Sorting = listViewQuestions.Sorting == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
                 }
                 // lastSortedType = listViewQuestions.Sorting.ToString();
-                QuestionListComparer comparer = new QuestionListComparer(e.Column, listViewQuestions.Sorting.ToString());
+                QuestionListComparer tComparer = new QuestionListComparer(e.Column, listViewQuestions.Sorting.ToString());
 
                 // Set the ListViewItemSorter property
-                listViewQuestions.ListViewItemSorter = comparer;
+                listViewQuestions.ListViewItemSorter = tComparer;
 
                 // Call the Sort method to apply sorting
                 listViewQuestions.Sort();
@@ -312,8 +307,8 @@ namespace SurveyConfiguratorApp
         {
             try
             {
-                questionTypeNumber = question.getTypeNumber();
-                questionId = question.getId();
+                questionTypeNumber = question.GetTypeNumber();
+                questionId = question.GetId();
                 lastSelectedQuestionOrder = question.Order;
                 ButtonsUpdateAndDeleteEnable(true);
             }
@@ -344,28 +339,25 @@ namespace SurveyConfiguratorApp
         {
             try
             {
-                ListView listView = (ListView)sender;
-                if (listView.SelectedItems.Count > 0)
-                {
-                    ListViewItem selectedRowData = listView.SelectedItems[0];
-
-                    if (selectedRowData.Tag is Question question)
-                    {
-                        UpdateSelectedQuestion(question);
-                    }
-
-                }
-                else
+                ListView tListView = (ListView)sender;
+                if (tListView.SelectedItems.Count <= 0)
                 {
                     ClearSelectedQuestion();
+                    return;
                 }
+
+                ListViewItem tSelectedRowData = tListView.SelectedItems[0];
+
+                if (tSelectedRowData.Tag is Question tQuestion)
+                {
+                    UpdateSelectedQuestion(tQuestion);
+                }
+
             }
             catch (Exception ex)
             {
                 Log.Error(ex);
             }
-
-
 
         }
 
@@ -373,12 +365,11 @@ namespace SurveyConfiguratorApp
         {
             try
             {
-                using (var DbConnection = new FormDbConnection())
+                using (var tDbConnection = new FormDbConnection())
                 {
-                    DbConnection.ConnectionStringChanged += OnConnectionRefreshed;
-                    DbConnection.ShowDialog();
+                    tDbConnection.ConnectionStringChanged += OnConnectionRefreshed;
+                    tDbConnection.ShowDialog();
                 }
-
 
             }
             catch (Exception ex)
@@ -391,9 +382,8 @@ namespace SurveyConfiguratorApp
         {
             try
             {
-                int result = DbManager.IsDbConnected();
-                bool tIsError = false;
-                if (result == StatusCode.SUCCESS)
+                int tResult = DbManager.IsDbConnected();
+                if (tResult == ResultCode.SUCCESS)
                 {
                     labelStatus.ForeColor = Color.Green;
                     labelStatus.Text = null;
@@ -402,15 +392,10 @@ namespace SurveyConfiguratorApp
                     HandleListViewEnable(true);
 
                 }
-              
+
                 else
                 {
-                    tIsError = true;
                     labelStatus.Text = Resource.LABEL_STATUS;
-                }
-
-                if (tIsError)
-                {
                     labelStatus.ForeColor = Color.Red;
                     ButtonsEnable(false);
                     HandleListViewEnable(false);
@@ -452,23 +437,23 @@ namespace SurveyConfiguratorApp
                 Log.Error(e);
             }
         }
-        private void HandleListViewEnable(bool isEnable)
+        private void HandleListViewEnable(bool tIsEnable)
         {
             try
             {
-                listViewQuestions.Enabled = isEnable;
+                listViewQuestions.Enabled = tIsEnable;
             }
             catch (Exception e)
             {
                 Log.Error(e);
             }
         }
-        private void ButtonsUpdateAndDeleteEnable(bool isEnable)
+        private void ButtonsUpdateAndDeleteEnable(bool tIsEnable)
         {
             try
             {
-                btnDelete.Enabled = isEnable;
-                btnUpdate.Enabled = isEnable;
+                btnDelete.Enabled = tIsEnable;
+                btnUpdate.Enabled = tIsEnable;
             }
             catch (Exception e)
             {

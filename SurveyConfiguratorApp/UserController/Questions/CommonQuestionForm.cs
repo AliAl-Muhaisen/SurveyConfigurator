@@ -8,18 +8,13 @@ namespace SurveyConfiguratorApp.UserController.Questions
     public partial class CommonQuestionForm : UserControl
     {
 
-        QuestionValidation questionValidation;
-
-        private bool isValidQuestionText = false;
-        private bool isValidOrderValue = false;
+ 
         public CommonQuestionForm()
         {
 
             try
             {
                 InitializeComponent();
-                questionValidation =new QuestionValidation();
-
             }
             catch (Exception ex)
             {
@@ -54,12 +49,12 @@ namespace SurveyConfiguratorApp.UserController.Questions
             }
             return null;
         }
-        public void setQuestionText(string questionText)
+        public void setQuestionText(string pQuestionText)
         {
 
             try
             {
-                textBoxQuestionText.Text = questionText;
+                textBoxQuestionText.Text = pQuestionText;
             }
             catch (Exception ex)
             {
@@ -83,12 +78,12 @@ namespace SurveyConfiguratorApp.UserController.Questions
             return null;
 
         }
-        public void setQuestionOrderValue(int num)
+        public void setQuestionOrderValue(int pNum)
         {
 
             try
             {
-                numericUpDownQuestionOrder.Value = (decimal)num;
+                numericUpDownQuestionOrder.Value = (decimal)pNum;
             }
             catch (Exception ex)
             {
@@ -105,11 +100,11 @@ namespace SurveyConfiguratorApp.UserController.Questions
         /// <summary>
         /// Check if the order is taken 
         /// </summary>
-        private void handleOrderValue()
+        private void HandleOrderValue()
         {
             try
             {
-                int newOderValue = (int)numericUpDownQuestionOrder.Value;
+                int tNewOderValue = (int)numericUpDownQuestionOrder.Value;
             }
             catch (Exception ex)
             {
@@ -122,7 +117,7 @@ namespace SurveyConfiguratorApp.UserController.Questions
 
             try
             {
-                handleOrderValue();
+                HandleOrderValue();
             }
             catch (Exception ex)
             {

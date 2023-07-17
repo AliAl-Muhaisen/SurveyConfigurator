@@ -31,37 +31,37 @@ namespace SurveyConfiguratorApp.UserController.Controllers
                 string tMessage = null;
                 switch (tCode)
                 {
-                    case StatusCode.VALIDATION_ERROR:
+                    case ResultCode.VALIDATION_ERROR:
                         tMessage = Resource.VALIDATION_ERROR;
                         break;
 
-                    case StatusCode.DB_RECORD_NOT_EXISTS:
+                    case ResultCode.DB_RECORD_NOT_EXISTS:
                         tMessage = Resource.DB_RECORD_NOT_EXISTS;
                         break;
 
-                    case StatusCode.ERROR:
+                    case ResultCode.ERROR:
 
-                    case StatusCode.DB_FAILED_CONNECTION:
+                    case ResultCode.DB_CONNECTION_FAILED:
 
-                    case StatusCode.DB_FAILED_NERORK_CONNECTION:
+                    case ResultCode.DB_FAILED_NETWORK_CONNECTION:
                         tMessage = Resource.DB_FAILED_NERORK_CONNECTION;
                         break;
-                    case StatusCode.VALIDATION_ERROR_QUESTION_TEXT:
+                    case ResultCode.VALIDATION_ERROR_QUESTION_TEXT:
                         tMessage = Resource.VALIDATION_ERROR_QUESTION_TEXT;
                         break;
-                    case StatusCode.VALIDATION_ERROR_ORDER_EXIST:
+                    case ResultCode.VALIDATION_ERROR_ORDER_EXIST:
                         tMessage = Resource.VALIDATION_ERROR_ORDER_EXIST;
                         break;
-                    case StatusCode.VALIDATION_ERROR_SLIDER_VALUE:
+                    case ResultCode.VALIDATION_ERROR_SLIDER_VALUE:
                         tMessage = Resource.VALIDATION_ERROR_SLIDER_VALUE;
                         break;
-                    case StatusCode.VALIDATION_ERROR_SLIDER_CAPTION:
+                    case ResultCode.VALIDATION_ERROR_SLIDER_CAPTION:
                         tMessage =Resource.VALIDATION_ERROR_SLIDER_CAPTION;
                         break;
-                    case StatusCode.VALIDATION_ERROR_LONG_TEXT:
+                    case ResultCode.VALIDATION_ERROR_LONG_TEXT:
                         tMessage= Resource.VALIDATION_ERROR_LONG_TEXT;
                         break;
-                    case StatusCode.VALIDATION_ERROR_SHORT_TEXT:
+                    case ResultCode.VALIDATION_ERROR_SHORT_TEXT:
                         tMessage=Resource.VALIDATION_ERROR_SHORT_TEXT;
                         break;
                     default:
@@ -77,31 +77,29 @@ namespace SurveyConfiguratorApp.UserController.Controllers
             }
             return null;
         }
-        public void StatusCodeMessage(int statusCode)
+        public void StatusCodeMessage(int pResultCodes)
         {
             try
             {
-                DisplayMessage(statusCode);
-
-
+                DisplayMessage(pResultCodes);
             }
             catch (Exception ex)
             {
                 Log.Error(ex);
             }
         }
-        public void StatusCodeMessageList(ref List<int> statusCodes)
+        public void ResultCodeMessageList(ref List<int> pResultCodes)
         {
             try
             {
                 string tMessages = null;
-                for (int i = 0; i < statusCodes.Count; i++)
+                for (int i = 0; i < pResultCodes.Count; i++)
                 {
-                    if (statusCodes[i] != StatusCode.SUCCESS)
-                        tMessages += TextMessage(statusCodes[i]) + "\n";
+                    if (pResultCodes[i] != ResultCode.SUCCESS)
+                        tMessages += TextMessage(pResultCodes[i]) + "\n";
                 }
                 if (tMessages != null)
-                    DisplayMessage(StatusCode.ERROR, tMessages);
+                    DisplayMessage(ResultCode.ERROR, tMessages);
             }
             catch (Exception ex)
             {
@@ -126,7 +124,7 @@ namespace SurveyConfiguratorApp.UserController.Controllers
 
 
 
-                if (pMessageType == StatusCode.SUCCESS)
+                if (pMessageType == ResultCode.SUCCESS)
                 {
                     MessageBox.Show(tMessage, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }

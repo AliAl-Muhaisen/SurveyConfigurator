@@ -69,11 +69,11 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Controls.Add(this.labelStatus);
             this.panel1.Controls.Add(this.btnAdd);
             this.panel1.Controls.Add(this.btnDelete);
             this.panel1.Controls.Add(this.btnUpdate);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // labelStatus
@@ -83,7 +83,6 @@
             // 
             // listViewQuestions
             // 
-            resources.ApplyResources(this.listViewQuestions, "listViewQuestions");
             this.listViewQuestions.Activation = System.Windows.Forms.ItemActivation.OneClick;
             this.listViewQuestions.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(222)))), ((int)(((byte)(222)))));
             this.listViewQuestions.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -95,6 +94,7 @@
             this.listViewQuestions.FullRowSelect = true;
             this.listViewQuestions.GridLines = true;
             this.listViewQuestions.HideSelection = false;
+            resources.ApplyResources(this.listViewQuestions, "listViewQuestions");
             this.listViewQuestions.MultiSelect = false;
             this.listViewQuestions.Name = "listViewQuestions";
             this.listViewQuestions.UseCompatibleStateImageBehavior = false;
@@ -116,32 +116,32 @@
             // 
             // menuStrip1
             // 
-            resources.ApplyResources(this.menuStrip1, "menuStrip1");
             this.menuStrip1.BackColor = System.Drawing.Color.Gainsboro;
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.settingsToolStripMenuItem});
             this.menuStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
+            resources.ApplyResources(this.menuStrip1, "menuStrip1");
             this.menuStrip1.Name = "menuStrip1";
             // 
             // settingsToolStripMenuItem
             // 
-            resources.ApplyResources(this.settingsToolStripMenuItem, "settingsToolStripMenuItem");
             this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.dataBaseConnectionToolStripMenuItem,
             this.languageToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            resources.ApplyResources(this.settingsToolStripMenuItem, "settingsToolStripMenuItem");
             // 
             // dataBaseConnectionToolStripMenuItem
             // 
-            resources.ApplyResources(this.dataBaseConnectionToolStripMenuItem, "dataBaseConnectionToolStripMenuItem");
             this.dataBaseConnectionToolStripMenuItem.Name = "dataBaseConnectionToolStripMenuItem";
+            resources.ApplyResources(this.dataBaseConnectionToolStripMenuItem, "dataBaseConnectionToolStripMenuItem");
             this.dataBaseConnectionToolStripMenuItem.Click += new System.EventHandler(this.dataBaseConnectionToolStripMenuItem_Click);
             // 
             // languageToolStripMenuItem
             // 
-            resources.ApplyResources(this.languageToolStripMenuItem, "languageToolStripMenuItem");
             this.languageToolStripMenuItem.Name = "languageToolStripMenuItem";
+            resources.ApplyResources(this.languageToolStripMenuItem, "languageToolStripMenuItem");
             this.languageToolStripMenuItem.Click += new System.EventHandler(this.languageToolStripMenuItem_Click);
             // 
             // FormMain

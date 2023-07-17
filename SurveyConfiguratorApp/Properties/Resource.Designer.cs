@@ -61,6 +61,15 @@ namespace SurveyConfiguratorApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string CANCEL {
+            get {
+                return ResourceManager.GetString("CANCEL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm.
         /// </summary>
         internal static string CONFIRM {
@@ -106,11 +115,29 @@ namespace SurveyConfiguratorApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Connected Failed.
+        ///   Looks up a localized string similar to Connection Failed.
         /// </summary>
         internal static string LABEL_STATUS {
             get {
                 return ResourceManager.GetString("LABEL_STATUS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        internal static string SAVE {
+            get {
+                return ResourceManager.GetString("SAVE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connection failed, do you still want to save it?.
+        /// </summary>
+        internal static string SAVE_CONNECTION_FAILED {
+            get {
+                return ResourceManager.GetString("SAVE_CONNECTION_FAILED", resourceCulture);
             }
         }
         

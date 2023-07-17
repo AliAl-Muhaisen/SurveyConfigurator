@@ -21,22 +21,22 @@ namespace SurveyConfiguratorApp.UserController.Questions
             }
             catch (Exception ex)
             {
-                handleExceptionLog(ex);
+                HandleExceptionLog(ex);
             }
 
 
         }
 
-        public void setText(string text)
+        public void SetText(string text)
         {
             labelError.Text = text;
         }
-        public void clearText()
+        public void ClearText()
         {
             labelError.Text = null;
         }
 
-        private void handleExceptionLog(Exception ex)
+        private void HandleExceptionLog(Exception ex)
         {
 
             //ErrorLoggerFile errorLoggerFile = new ErrorLoggerFile();

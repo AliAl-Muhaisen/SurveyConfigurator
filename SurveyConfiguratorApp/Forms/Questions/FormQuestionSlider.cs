@@ -12,11 +12,11 @@ namespace SurveyConfiguratorApp.Forms.Questions
 {
     public partial class FormQuestionSlider : Form
     {
-        private bool isUpdate = false;
+        private readonly bool isUpdate = false;
         private QuestionSlider questionSlider;
         private int questionId = -1;
-        private QuestionManager questionManager;
-        private QuestionValidation questionValidation;
+        private readonly QuestionManager questionManager;
+        private readonly QuestionValidation questionValidation;
 
         public FormQuestionSlider()
         {
@@ -37,15 +37,15 @@ namespace SurveyConfiguratorApp.Forms.Questions
         /// <summary>
         /// used in update operation 
         /// </summary>
-        /// <param name="questionId"></param>
-        public FormQuestionSlider(int questionId) : this()
+        /// <param name="pQuestionId"></param>
+        public FormQuestionSlider(int pQuestionId) : this()
         {
             try
             {
-                if (questionId != -1)
+                if (pQuestionId != -1)
                 {
                     isUpdate = true;
-                    this.questionId = questionId;
+                    this.questionId = pQuestionId;
                     btnSave.Text = Resource.UPDATE;
 
                 }
@@ -67,18 +67,14 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 numericStartValue.Maximum = numericEndValue.Maximum - 1;
                 numericEndValue.Value = numericEndValue.Maximum;
 
-              
-                if (questionId != -1)
-                {
-                    questionSlider.setId(questionId);
+                if (questionId <= 0) return;
+                
+                    questionSlider.SetId(questionId);
                      questionManager.GetQuestionSlider(ref questionSlider);
                     // Check if question still exists
                     HandleIsQuestionNotExists();
 
-                    fillInputs(questionSlider);
-
-
-                }
+                    FillInputs(questionSlider);
             }
             catch (Exception ex)
             {
@@ -128,11 +124,11 @@ namespace SurveyConfiguratorApp.Forms.Questions
             {
                 if (questionId != -1)
                 {
-                   int tStatusCode = questionManager.IsQuestionExists(questionId);
+                   int tResultCode = questionManager.IsQuestionExists(questionId);
                     // Check if question still exists
-                    if (tStatusCode != StatusCode.SUCCESS)
+                    if (tResultCode != ResultCode.SUCCESS)
                     {
-                        customMessageBoxControl1.StatusCodeMessage(tStatusCode);
+                        customMessageBoxControl1.StatusCodeMessage(tResultCode);
                         CloseParentFrom();
                         return true;
                     }
@@ -155,8 +151,6 @@ namespace SurveyConfiguratorApp.Forms.Questions
             try
             {
 
-               // if (IsValidForm())
-                {
                     questionSlider.Text = sharedBetweenQuestions.getQuestionText();
                     questionSlider.Order = Convert.ToInt32(sharedBetweenQuestions.getQuestionOrder());
                     int result;
@@ -177,15 +171,13 @@ namespace SurveyConfiguratorApp.Forms.Questions
                        
 
                     }
-                    if (result != StatusCode.SUCCESS)
+                    if (result != ResultCode.SUCCESS)
                     {
-                        customMessageBoxControl1.StatusCodeMessageList(ref questionManager.ValidationErrorList);
+                        customMessageBoxControl1.ResultCodeMessageList(ref questionManager.ValidationErrorList);
                     }
 
-                    FormQuestion.CloseBasedOnStatus(ref result);
+                    FormQuestion.CloseBasedOnResult(ref result);
 
-
-                }
 
             }
             catch (Exception ex)
@@ -198,7 +190,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
         /// fill form inputs in update operation 
         /// </summary>
         /// <param name="questionSlider"></param>
-        private void fillInputs(QuestionSlider questionSlider)
+        private void FillInputs(QuestionSlider questionSlider)
         {
 
             try

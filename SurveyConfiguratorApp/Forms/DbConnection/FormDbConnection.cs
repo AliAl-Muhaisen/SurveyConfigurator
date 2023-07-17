@@ -36,8 +36,6 @@ namespace SurveyConfiguratorApp.Forms.DbConnection
 
         private void FormDbConnection_Load(object sender, EventArgs e)
         {
-            HandleSaveButtonEnable();
-
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -56,18 +54,15 @@ namespace SurveyConfiguratorApp.Forms.DbConnection
         {
             try
             {
-                GetInputValues();
-                dbManager = new DbManager(Server, Database, Username, Password);
+                HandleValues();
                 bool isConnected = dbManager.IsConnect();
                 if (isConnected)
                 {
-                    HandleSaveButtonEnable(true);
                     MessageBox.Show(Resource.TEST_CONNECTION);
                 }
 
                 else
                 {
-                    HandleSaveButtonEnable();
                     MessageBox.Show(Resource.TEST_CONNECTION_FAILED);
                 }
 
@@ -79,7 +74,16 @@ namespace SurveyConfiguratorApp.Forms.DbConnection
             }
 
         }
-
+        private void HandleValues()
+        {
+            try {
+                GetInputValues();
+                dbManager = new DbManager(Server, Database, Username, Password);
+            }
+            catch(Exception ex) { 
+            Log.Error(ex);
+            }
+        }
         private void GetInputValues()
         {
             try
@@ -110,78 +114,42 @@ namespace SurveyConfiguratorApp.Forms.DbConnection
             }
 
         }
-        private void HandleSaveButtonEnable(bool isEnable = false)
-        {
-            try
-            {
-                btnSave.Enabled = isEnable;
-            }
-            catch (Exception e)
-            {
-                Log.Error(e);
-            }
 
 
-        }
+        
 
-        private void textBoxServer_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                HandleSaveButtonEnable();
-
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex);
-            }
-        }
-
-        private void textBoxDataBase_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                HandleSaveButtonEnable();
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex);
-            }
-
-        }
-
-        private void textBoxUsername_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                HandleSaveButtonEnable();
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex);
-            }
-
-        }
-
-        private void textBoxPassword_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                HandleSaveButtonEnable();
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex);
-            }
-
-        }
-
+      
         private void btnSave_Click(object sender, EventArgs e)
         {
             try
             {
-               bool isSaved = dbManager.SaveConnection();
-              
+                HandleValues();
+                bool isConnected = dbManager.IsConnect();
+                if (isConnected)
+                {
+                    HandelSave();
+                }
+                else
+                {
+                    DialogResult tDialogResult = MessageBox.Show(Resource.SAVE_CONNECTION_FAILED,"Error",MessageBoxButtons.OKCancel);
+                    if (tDialogResult == DialogResult.OK)
+                         HandelSave();
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+            }
+        }
+
+        private void HandelSave()
+        {
+            try
+            {
+                bool isSaved = dbManager.SaveConnection();
+
                 if (isSaved)
                 {
                     MessageBox.Show(Resource.SAVE_SUCCESSFULLY);
@@ -195,9 +163,9 @@ namespace SurveyConfiguratorApp.Forms.DbConnection
                     MessageBox.Show(Resource.SAVE_FAILED);
                 }
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                Log.Error(ex);
+                Log.Error(e);
             }
         }
     }

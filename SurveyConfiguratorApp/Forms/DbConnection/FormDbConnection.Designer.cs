@@ -40,6 +40,8 @@
             this.textBoxPassword = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.btnTest = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnCancel
@@ -75,26 +77,22 @@
             // 
             resources.ApplyResources(this.textBoxServer, "textBoxServer");
             this.textBoxServer.Name = "textBoxServer";
-            this.textBoxServer.TextChanged += new System.EventHandler(this.textBoxServer_TextChanged);
             // 
             // textBoxDataBase
             // 
             resources.ApplyResources(this.textBoxDataBase, "textBoxDataBase");
             this.textBoxDataBase.Name = "textBoxDataBase";
-            this.textBoxDataBase.TextChanged += new System.EventHandler(this.textBoxDataBase_TextChanged);
             // 
             // textBoxUsername
             // 
             resources.ApplyResources(this.textBoxUsername, "textBoxUsername");
             this.textBoxUsername.Name = "textBoxUsername";
-            this.textBoxUsername.TextChanged += new System.EventHandler(this.textBoxUsername_TextChanged);
             // 
             // textBoxPassword
             // 
             resources.ApplyResources(this.textBoxPassword, "textBoxPassword");
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.UseSystemPasswordChar = true;
-            this.textBoxPassword.TextChanged += new System.EventHandler(this.textBoxPassword_TextChanged);
             // 
             // label4
             // 
@@ -108,27 +106,35 @@
             this.btnTest.UseVisualStyleBackColor = true;
             this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.textBoxServer);
+            this.groupBox1.Controls.Add(this.btnTest);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.textBoxPassword);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.textBoxUsername);
+            this.groupBox1.Controls.Add(this.textBoxDataBase);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.TabStop = false;
+            // 
             // FormDbConnection
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.btnTest);
-            this.Controls.Add(this.textBoxPassword);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBoxUsername);
-            this.Controls.Add(this.textBoxDataBase);
-            this.Controls.Add(this.textBoxServer);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnCancel);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormDbConnection";
             this.Load += new System.EventHandler(this.FormDbConnection_Load);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -145,5 +151,6 @@
         private System.Windows.Forms.TextBox textBoxPassword;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnTest;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }

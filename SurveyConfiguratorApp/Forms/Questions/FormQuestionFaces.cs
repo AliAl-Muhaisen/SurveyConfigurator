@@ -12,10 +12,10 @@ namespace SurveyConfiguratorApp.Forms.Questions
 {
     public partial class FormQuestionFaces : Form
     {
-        QuestionValidation questionValidation;
-        private QuestionManager questoinManager;
-        private bool isUpdate = false;
-        private int questionId = -1;
+        readonly QuestionValidation questionValidation;
+        private readonly QuestionManager questoinManager;
+        private readonly bool isUpdate = false;
+        private readonly int questionId = -1;
 
         private QuestionFaces questionFaces;
         public FormQuestionFaces()
@@ -36,16 +36,16 @@ namespace SurveyConfiguratorApp.Forms.Questions
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="questionId"></param>
-        public FormQuestionFaces(int questionId) : this()
+        /// <param name="pQuestionId"></param>
+        public FormQuestionFaces(int pQuestionId) : this()
         {
 
             try
             {
-                if (questionId != -1)
+                if (pQuestionId != -1)
                 {
                     isUpdate = true;
-                    this.questionId = questionId;
+                    this.questionId = pQuestionId;
                     btnSave.Text = Resource.UPDATE;
                 }
 
@@ -67,14 +67,13 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 numericFaceNumber.Maximum = questionValidation.FacesMaxValue;
                 numericFaceNumber.Minimum = questionValidation.FacesMinValue;
 
-                if (questionId != -1)
-                {
-                    questionFaces.setId(questionId);
+                if (questionId < 0) return;
+               
+                    questionFaces.SetId(questionId);
                     questoinManager.GetQuestionFaces(ref questionFaces);
                     HandleIsQuestionNotExists();
-                    fillInputs(questionFaces);
+                    FillInputs(questionFaces);
 
-                }
             }
             catch (Exception ex)
             {
@@ -89,15 +88,15 @@ namespace SurveyConfiguratorApp.Forms.Questions
         {
             try
             {
-                if (questionId != -1)
+                if (questionId >0)
                 {
-                    QuestionFaces questionFaces = new QuestionFaces();
-                    questionFaces.setId(questionId);
-                    int statusCode = questoinManager.IsQuestionExists(questionId);
+                    QuestionFaces tQuestionFaces = new QuestionFaces();
+                    tQuestionFaces.SetId(questionId);
+                    int tResultCode = questoinManager.IsQuestionExists(questionId);
 
-                    if (statusCode != StatusCode.SUCCESS)
+                    if (tResultCode != ResultCode.SUCCESS)
                     {
-                        customMessageBoxControl1.StatusCodeMessage(statusCode);
+                        customMessageBoxControl1.StatusCodeMessage(tResultCode);
                         CloseParentFrom();
                         return true;
                     }
@@ -127,28 +126,28 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 {
                     questionFaces.Text = sharedBetweenQuestions.getQuestionText();
                     questionFaces.Order = Convert.ToInt32(sharedBetweenQuestions.getQuestionOrder());
-                    int result ;
+                    int tResult;
 
                     questionFaces.FacesNumber = ((int)numericFaceNumber.Value);
 
                     if (!isUpdate)
                     {
-                        result = questoinManager.AddQuestionFaces(questionFaces);
+                        tResult = questoinManager.AddQuestionFaces(questionFaces);
                     }
                     else
                     {
-                        bool isNotExits = HandleIsQuestionNotExists();
-                        if (isNotExits) { return; }
-                        result =
+                        bool tIsNotExits = HandleIsQuestionNotExists();
+                        if (tIsNotExits) { return; }
+                        tResult =
                             questoinManager.UpdateQuestionFaces(questionFaces);
 
                     }
-                    if (result !=StatusCode.SUCCESS)
+                    if (tResult !=ResultCode.SUCCESS)
                     {
-                         customMessageBoxControl1.StatusCodeMessageList(ref questoinManager.ValidationErrorList);
+                         customMessageBoxControl1.ResultCodeMessageList(ref questoinManager.ValidationErrorList);
                     }
                    
-                    FormQuestion.CloseBasedOnStatus(ref result);
+                    FormQuestion.CloseBasedOnResult(ref tResult);
 
                 }
 
@@ -194,15 +193,15 @@ namespace SurveyConfiguratorApp.Forms.Questions
         }
 
 
-        private void fillInputs(QuestionFaces questionFaces)
+        private void FillInputs(QuestionFaces pQuestionFaces)
         {
 
             try
             {
-                sharedBetweenQuestions.setQuestionText(questionFaces.Text);
-                sharedBetweenQuestions.setQuestionOrderValue(questionFaces.Order);
+                sharedBetweenQuestions.setQuestionText(pQuestionFaces.Text);
+                sharedBetweenQuestions.setQuestionOrderValue(pQuestionFaces.Order);
 
-                numericFaceNumber.Value = questionFaces.FacesNumber;
+                numericFaceNumber.Value = pQuestionFaces.FacesNumber;
             }
             catch (Exception ex)
             {

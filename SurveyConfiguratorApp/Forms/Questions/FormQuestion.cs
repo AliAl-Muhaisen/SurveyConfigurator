@@ -16,14 +16,14 @@ namespace SurveyConfiguratorApp.Forms.Questions
         private Form activeForm;
 
         /// <summary>
-        /// This variable, 'questionId', is used to get the object info from the db in the updated operation
+        /// This variable, 'pQuestionId', is used to get the object info from the db in the updated operation
         /// </summary>
-        private int questionId = -1;
+        private readonly int questionId = -1;
 
         /// <summary>
-        /// The variable 'questionTypeNumber' is used as a helper variable in the updated operation to set a default value for a comboBox 
+        /// The variable 'pQuestionTypeNumber' is used as a helper variable in the updated operation to set a default value for a comboBox 
         /// </summary>
-        private int questionTypeNumber = -1;
+        private readonly int questionTypeNumber = -1;
 
         private int lastQuestionType = 0;//to check if user changed question type 
         public FormQuestion()
@@ -56,16 +56,16 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
         }
 
-        public FormQuestion(bool isEnableSelectType, int questionId, int questionTypeNumber, string FormTitle = null) : this()
+        public FormQuestion(bool pIsEnableSelectType, int pQuestionId, int pQuestionTypeNumber, string pFormTitle = null) : this()
         {
 
             try
             {
-                comboBox1.Enabled = isEnableSelectType;
-                this.questionId = questionId;
-                this.questionTypeNumber = questionTypeNumber - 1;
+                comboBox1.Enabled = pIsEnableSelectType;
+                this.questionId = pQuestionId;
+                this.questionTypeNumber = pQuestionTypeNumber - 1;
                 //change form title in update operation
-                this.Text = FormTitle != null ? FormTitle : Text;
+                this.Text = pFormTitle ?? Text;
             }
             catch (Exception e)
             {
@@ -90,7 +90,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
         {
             try
             {
-                handleChildForms();
+                HandleChildForms();
             }
             catch (Exception ex)
             {
@@ -102,8 +102,8 @@ namespace SurveyConfiguratorApp.Forms.Questions
         /// <summary>
         /// The function responsible for displaying a child form within a panel container
         /// </summary>
-        /// <param name="childForm"></param>
-        private void handleOpenChildForm(Form childForm)
+        /// <param name="pChildForm"></param>
+        private void HandleOpenChildForm(Form pChildForm)
         {
             try
             {
@@ -111,16 +111,16 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 {
                     activeForm.Close();
                 }
-                activeForm = childForm;
-                childForm.TopLevel = false;
-                childForm.FormBorderStyle = FormBorderStyle.None;
-                childForm.Dock = DockStyle.Fill;
-                panelContainer.Controls.Add(childForm);
+                activeForm = pChildForm;
+                pChildForm.TopLevel = false;
+                pChildForm.FormBorderStyle = FormBorderStyle.None;
+                pChildForm.Dock = DockStyle.Fill;
+                panelContainer.Controls.Add(pChildForm);
 
-                panelContainer.Tag = childForm;
+                panelContainer.Tag = pChildForm;
                 //z-order
-                childForm.BringToFront();
-                childForm.Show();
+                pChildForm.BringToFront();
+                pChildForm.Show();
             }
             catch (Exception ex)
             {
@@ -130,27 +130,27 @@ namespace SurveyConfiguratorApp.Forms.Questions
         }
 
         /// <summary>
-        /// The handleChildForms function handles the Appropriate question from based on the selected item in a combo box 
+        /// The HandleChildForms function handles the Appropriate question from based on the selected item in a combo box 
         /// </summary>
-        private void handleChildForms()
+        private void HandleChildForms()
         {
             try
             {
-                int typeNumber = HandelSelectedTypeLanguage();
+                int tTypeNumber = HandelSelectedTypeLanguage();
 
-                if (typeNumber != lastQuestionType)
+                if (tTypeNumber != lastQuestionType)
                 {
-                    if (typeNumber == (int)QuestionTypes.STARS)
+                    if (tTypeNumber == (int)QuestionTypes.STARS)
                     {
-                        handleQuestionStars(questionId);
+                        HandleQuestionStars(questionId);
                     }
-                    else if (typeNumber == (int)QuestionTypes.SLIDER)
+                    else if (tTypeNumber == (int)QuestionTypes.SLIDER)
                     {
-                        handleQuestionSlider(questionId);
+                        HandleQuestionSlider(questionId);
                     }
-                    else if (typeNumber == (int)QuestionTypes.FACES)
+                    else if (tTypeNumber == (int)QuestionTypes.FACES)
                     {
-                        handleQuestionFaces(questionId);
+                        HandleQuestionFaces(questionId);
                     }
                     else
                     {
@@ -159,7 +159,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 }
 
 
-                lastQuestionType = typeNumber;
+                lastQuestionType = tTypeNumber;
             }
             catch (Exception e)
             {
@@ -169,12 +169,12 @@ namespace SurveyConfiguratorApp.Forms.Questions
 
         }
 
-        private void handleQuestionFaces(int questionId = -1)
+        private void HandleQuestionFaces(int questionId = -1)
         {
             try
             {
                 var mainForm = new FormQuestionFaces(questionId);
-                handleOpenChildForm(mainForm);
+                HandleOpenChildForm(mainForm);
             }
             catch (Exception ex)
             {
@@ -183,15 +183,15 @@ namespace SurveyConfiguratorApp.Forms.Questions
 
         }
 
-        private void handleQuestionStars(int questionId = -1)
+        private void HandleQuestionStars(int pQuestionId = -1)
         {
             try
             {
                 //This line registers the QuestionStarsService class as the implementation for the IQuestionStarsService interface.
                 //It means that whenever an instance of IQuestionStarsService is requested, the QuestionStarsService implementation will be provided.
                 //
-                var mainForm = new FormQuestionStars(questionId);
-                handleOpenChildForm(mainForm);
+                var tMainForm = new FormQuestionStars(pQuestionId);
+                HandleOpenChildForm(tMainForm);
             }
             catch (Exception ex)
             {
@@ -200,13 +200,13 @@ namespace SurveyConfiguratorApp.Forms.Questions
 
         }
 
-        private void handleQuestionSlider(int questionId = -1)
+        private void HandleQuestionSlider(int pQuestionId = -1)
         {
             try
             {
-                var mainForm = new FormQuestionSlider(questionId);
+                var tMainForm = new FormQuestionSlider(pQuestionId);
 
-                handleOpenChildForm(mainForm);
+                HandleOpenChildForm(tMainForm);
             }
             catch (Exception ex)
             {
@@ -235,11 +235,11 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
         }
 
-        public static void CloseBasedOnStatus(ref int pStatusCode)
+        public static void CloseBasedOnResult(ref int pResult)
         {
             try
             {
-                if (pStatusCode == StatusCode.SUCCESS || pStatusCode == StatusCode.DB_FAILED_CONNECTION || pStatusCode == StatusCode.DB_FAILED_NERORK_CONNECTION)
+                if (pResult == ResultCode.SUCCESS || pResult == ResultCode.DB_CONNECTION_FAILED || pResult == ResultCode.DB_FAILED_NETWORK_CONNECTION)
                 {
                     CloseForm();
                 }
@@ -252,22 +252,22 @@ namespace SurveyConfiguratorApp.Forms.Questions
         }
         private int HandelSelectedTypeLanguage()
         {
-            int typeNumber = 0;
+            int tTypeNumber = 0;
             try
             {
                 string tSelectedItem = comboBox1.SelectedItem.ToString();
 
                 if (tSelectedItem == Resource.FACES)
                 {
-                    typeNumber = (int)QuestionTypes.FACES;
+                    tTypeNumber = (int)QuestionTypes.FACES;
                 }
                 else if (tSelectedItem == Resource.SLIDER)
                 {
-                    typeNumber = (int)QuestionTypes.SLIDER;
+                    tTypeNumber = (int)QuestionTypes.SLIDER;
                 }
                 else if (tSelectedItem == Resource.STARS)
                 {
-                    typeNumber = (int)QuestionTypes.STARS;
+                    tTypeNumber = (int)QuestionTypes.STARS;
                 }
 
             }
@@ -275,7 +275,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             {
                 Log.Error(e);
             }
-            return typeNumber;
+            return tTypeNumber;
         }
 
     }

@@ -11,11 +11,11 @@ namespace SurveyConfiguratorApp.Forms.Questions
 {
     public partial class FormQuestionStars : Form
     {
-        private bool isUpdate = false;
-        private int questionId = -1;
-        private QuestionManager questionManager;
+        private readonly bool isUpdate = false;
+        private readonly int questionId = -1;
+        private readonly QuestionManager questionManager;
         private QuestionStars questionStars;
-        private QuestionValidation questionValidation;
+        private readonly QuestionValidation questionValidation;
         public FormQuestionStars()
         {
 
@@ -32,14 +32,14 @@ namespace SurveyConfiguratorApp.Forms.Questions
             }
         }
 
-        public FormQuestionStars(int questionId) : this()
+        public FormQuestionStars(int tQuestionId) : this()
         {
 
             try
             {
-                if (questionId != -1)
+                if (tQuestionId != -1)
                 {
-                    this.questionId = questionId;
+                    this.questionId = tQuestionId;
                     isUpdate = true;
 
                     btnSave.Text = Resource.UPDATE;
@@ -51,7 +51,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
                 Log.Error(ex);
             }
 
-            this.questionId = questionId;
+            this.questionId = tQuestionId;
         }
 
         private void FormQuestionStars_Load(object sender, EventArgs e)
@@ -63,11 +63,11 @@ namespace SurveyConfiguratorApp.Forms.Questions
 
                 if (questionId != -1)
                 {
-                    questionStars.setId(questionId);
+                    questionStars.SetId(questionId);
                     // to check if the question still exists in the db
                      questionManager.GetQuestionStars(ref questionStars);
                     HandleIsQuestionNotExists();
-                    fillInputs(questionStars);
+                    FillInputs(questionStars);
 
                 }
             }
@@ -83,7 +83,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
             try
             {
                 int tStatusCode= questionManager.IsQuestionExists(questionId);
-                if (tStatusCode != StatusCode.SUCCESS)
+                if (tStatusCode != ResultCode.SUCCESS)
                 {
                     customMessageBoxControl1.StatusCodeMessage(tStatusCode);
                     CloseParentFrom();
@@ -116,12 +116,12 @@ namespace SurveyConfiguratorApp.Forms.Questions
                         result = questionManager.UpdateQuestionStars(questionStars);
 
                     }
-                    if (result != StatusCode.SUCCESS)
+                    if (result != ResultCode.SUCCESS)
                     {
-                        customMessageBoxControl1.StatusCodeMessageList(ref questionManager.ValidationErrorList);
+                        customMessageBoxControl1.ResultCodeMessageList(ref questionManager.ValidationErrorList);
                     }
 
-                    FormQuestion.CloseBasedOnStatus(ref result);
+                    FormQuestion.CloseBasedOnResult(ref result);
             }
             catch (Exception ex)
             {
@@ -167,7 +167,7 @@ namespace SurveyConfiguratorApp.Forms.Questions
         /// fill form inputs in update operation 
         /// </summary>
         /// <param name="questionSlider"></param>
-        private void fillInputs(QuestionStars questionStars)
+        private void FillInputs(QuestionStars questionStars)
         {
             try
             {

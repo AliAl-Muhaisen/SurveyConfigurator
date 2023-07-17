@@ -19,7 +19,7 @@ namespace SurveyConfiguratorApp.UserController.Controllers
             InitializeComponent();
         }
 
-        public void setText(string text)
+        public void SetText(string text)
         {
             labelText.Text = text;
         }
