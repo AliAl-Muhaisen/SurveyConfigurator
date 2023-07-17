@@ -16,12 +16,12 @@ namespace SurveyConfiguratorApp.Data
     /// </summary>
     public class DbConnection
     {
-        public SqlConnection conn;
+        public SqlConnection Connection;
         private static string connectionString;
-        public const string AppConfigConnectionName = "ConnectionString";
-        public const string AppConfigConnectionValueName = "connectionStrings";
-        public const string AppConfigSettingsName = "appSettings";
-        public const string AppConfigConnectionProviderName = "System.Data.SqlClient";
+        public const string APP_CONFIG_CONNECTION_NAME = "ConnectionString";
+        public const string APP_CONFIG_CONNECTION_VALUE_NAME = "connectionStrings";
+        public const string APP_CONFIG_SETTINGS_NAME = "appSettings";
+        public const string APP_CONFIG_CONNECTION_PROVIDER_NAME = "System.Data.SqlClient";
 
         public static event EventHandler ConnectionFailed;
 
@@ -33,7 +33,7 @@ namespace SurveyConfiguratorApp.Data
             try
             {
                 connectionString = GetConfigConnectionString();
-                conn = new SqlConnection(connectionString);
+                Connection = new SqlConnection(connectionString);
                 OpenConnection();
             }
 
@@ -62,11 +62,11 @@ namespace SurveyConfiguratorApp.Data
         {
             try
             {
-                string connectionString = GetConfigConnectionString();
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                string tConnectionString = GetConfigConnectionString();
+                using (SqlConnection tConnection = new SqlConnection(tConnectionString))
                 {
-                    conn.Open();
-                    return StatusCode.SUCCESS;
+                    tConnection.Open();
+                    return ResultCode.SUCCESS;
                 }
             }
             catch (SqlException ex)
@@ -76,7 +76,7 @@ namespace SurveyConfiguratorApp.Data
             catch (Exception e)
             {
                 Log.Error(e);
-                return StatusCode.ERROR;
+                return ResultCode.ERROR;
             }
         }
 
@@ -85,14 +85,14 @@ namespace SurveyConfiguratorApp.Data
         {
             try
             {
-                if (conn != null && conn.State != ConnectionState.Closed)
+                if (Connection != null && Connection.State != ConnectionState.Closed)
                 {
-                    conn.Close();
+                    Connection.Close();
                 }
-                conn = new SqlConnection(connectionString);
-                conn.Open();
+                Connection = new SqlConnection(connectionString);
+                Connection.Open();
 
-                return StatusCode.SUCCESS;
+                return ResultCode.SUCCESS;
             }
             catch (SqlException ex)
             {
@@ -102,16 +102,18 @@ namespace SurveyConfiguratorApp.Data
             catch (Exception ex)
             {
                 Log.Error(ex);
-                return StatusCode.ERROR;
+                OnConnectionFailed();
+
+                return ResultCode.ERROR;
             }
         }
         private static string GetConfigConnectionString()
         {
             try
             {
-                ConfigurationManager.RefreshSection(AppConfigSettingsName);
-                ConfigurationManager.RefreshSection(AppConfigConnectionValueName);
-                return ConfigurationManager.ConnectionStrings[AppConfigConnectionName].ConnectionString;
+                ConfigurationManager.RefreshSection(APP_CONFIG_SETTINGS_NAME);
+                ConfigurationManager.RefreshSection(APP_CONFIG_CONNECTION_VALUE_NAME);
+                return ConfigurationManager.ConnectionStrings[APP_CONFIG_CONNECTION_NAME].ConnectionString;
             }
             catch (Exception e)
             {
@@ -124,10 +126,10 @@ namespace SurveyConfiguratorApp.Data
         {
             try
             {
-                if (conn != null)
+                if (Connection != null)
                 {
-                    conn.Close();
-                    conn = null;
+                    Connection.Close();
+                    Connection = null;
                 }
             }
             catch (Exception ex)

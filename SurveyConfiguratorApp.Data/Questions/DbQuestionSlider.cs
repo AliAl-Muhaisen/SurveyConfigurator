@@ -17,119 +17,132 @@ namespace SurveyConfiguratorApp.Data.Questions
             StartCaption,
             EndCaption,
         }
-        private string INSERT_QUERY = string.Format("INSERT INTO [{0}] ([{1}],[{2}],[{3}],[{4}],[{5}]) " +
+        private readonly string INSERT_QUERY = string.Format("INSERT INTO [{0}] ([{1}],[{2}],[{3}],[{4}],[{5}]) " +
                                    "VALUES (@{1},@{2},@{3},@{4},@{5})",
                                    tableName, ColumnNames.QuestionId, ColumnNames.StartValue,
                                    ColumnNames.EndValue, ColumnNames.EndCaption, ColumnNames.StartCaption);
 
-        private string UPDATE_QUERY = string.Format("UPDATE [{0}] SET [{1}] = @{1}, [{2}] = @{2}, [{3}] = @{3}, [{4}] = @{4} " +
+        private readonly string UPDATE_QUERY = string.Format("UPDATE [{0}] SET [{1}] = @{1}, [{2}] = @{2}, [{3}] = @{3}, [{4}] = @{4} " +
                                    "WHERE [{5}] = @{5}",
                                    tableName, ColumnNames.StartCaption, ColumnNames.EndCaption,
                                    ColumnNames.StartValue, ColumnNames.EndValue, ColumnNames.QuestionId);
 
-        public int Add(QuestionSlider data)
+        private readonly string GET_QUERY = string.Format(
+                            "SELECT [{0}],[{1}],[{2}],[{3}],[{4}],[{5}] FROM {6} as q INNER JOIN {7} as f ON q.{8}=f.{9} WHERE q.{8}=@{9};",
+                            DbQuestion.ColumnNames.Text,
+                            ColumnNames.StartValue,
+                            ColumnNames.EndValue,
+                            ColumnNames.StartCaption,
+                            ColumnNames.EndCaption,
+                            DbQuestion.ColumnNames.Order,
+                            DbQuestion.tableName,
+                            tableName,
+                            DbQuestion.ColumnNames.Id,
+                            ColumnNames.QuestionId
+                        );
+        public int Add(QuestionSlider pQuestionSlider)
         {
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (SqlCommand tCommand = new SqlCommand())
                 {
-                    int tConnectionStatus = base.OpenConnection();
-                    if (tConnectionStatus != StatusCode.SUCCESS)
+                    int tConnectionResult = base.OpenConnection();
+                    if (tConnectionResult != ResultCode.SUCCESS)
                     {
-                        return tConnectionStatus;
+                        return tConnectionResult;
                     }
 
-                    cmd.Connection = base.conn;
+                    tCommand.Connection = base.Connection;
 
-                    SqlTransaction transaction = conn.BeginTransaction();
-                    cmd.Transaction = transaction;
+                    SqlTransaction tTransaction = Connection.BeginTransaction();
+                    tCommand.Transaction = tTransaction;
 
-                    int isAddedStatus = base.Add(data, cmd);
-                    if (isAddedStatus != StatusCode.SUCCESS)
-                        return isAddedStatus;
-                    int questionId = base.GetQuestionId();
+                    int tAddedResult = base.Add(pQuestionSlider, tCommand);
+                    if (tAddedResult != ResultCode.SUCCESS)
+                        return tAddedResult;
+                    int tQuestionId = base.GetQuestionId();
 
-                    if (questionId == -1)
-                        return StatusCode.ERROR;
+                    if (tQuestionId <0)
+                        return ResultCode.ERROR;
 
-                    cmd.CommandText = INSERT_QUERY;
+                    tCommand.CommandText = INSERT_QUERY;
 
-                    cmd.Parameters.AddWithValue($"@{ColumnNames.QuestionId}", questionId);
-                    cmd.Parameters.AddWithValue($"@{ColumnNames.StartValue}", data.StartValue);
-                    cmd.Parameters.AddWithValue($"@{ColumnNames.EndValue}", data.EndValue);
-                    cmd.Parameters.AddWithValue($"@{ColumnNames.EndCaption}", data.EndCaption);
-                    cmd.Parameters.AddWithValue($"@{ColumnNames.StartCaption}", data.StartCaption);
+                    tCommand.Parameters.AddWithValue($"@{ColumnNames.QuestionId}", tQuestionId);
+                    tCommand.Parameters.AddWithValue($"@{ColumnNames.StartValue}", pQuestionSlider.StartValue);
+                    tCommand.Parameters.AddWithValue($"@{ColumnNames.EndValue}", pQuestionSlider.EndValue);
+                    tCommand.Parameters.AddWithValue($"@{ColumnNames.EndCaption}", pQuestionSlider.EndCaption);
+                    tCommand.Parameters.AddWithValue($"@{ColumnNames.StartCaption}", pQuestionSlider.StartCaption);
 
 
 
-                    int rowAffected = cmd.ExecuteNonQuery();
-                    if (rowAffected > 0)
+                    int tRowAffected = tCommand.ExecuteNonQuery();
+                    if (tRowAffected > 0)
                     {
-                        transaction.Commit();
-                        return StatusCode.SUCCESS;
+                        tTransaction.Commit();
+                        return ResultCode.SUCCESS;
                     }
-                    transaction.Rollback();
+                    tTransaction.Rollback();
                 }
 
             }
             catch (Exception e)
             {
                 Log.Error(e);
-                return StatusCode.ERROR;
+                return ResultCode.ERROR;
             }
             finally
             {
                 base.CloseConnection();
             }
-            return StatusCode.VALIDATION_ERROR;
+            return ResultCode.VALIDATION_ERROR;
 
         }
 
 
-        public int Update(QuestionSlider questionSlider)
+        public int Update(QuestionSlider pQuestionSlider)
         {
             try
             {
-                using (SqlCommand command = new SqlCommand())
+                using (SqlCommand tCommand = new SqlCommand())
                 {
-                    int tConnectionStatus = base.OpenConnection();
-                    if (tConnectionStatus != StatusCode.SUCCESS)
+                    int tConnectionResult = base.OpenConnection();
+                    if (tConnectionResult != ResultCode.SUCCESS)
                     {
-                        return tConnectionStatus;
+                        return tConnectionResult;
                     }
 
-                    command.Connection = base.conn;
+                    tCommand.Connection = base.Connection;
 
-                    SqlTransaction transaction = conn.BeginTransaction();
-                    command.Transaction = transaction;
+                    SqlTransaction tTransaction = Connection.BeginTransaction();
+                    tCommand.Transaction = tTransaction;
 
-                    command.CommandText = UPDATE_QUERY;
+                    tCommand.CommandText = UPDATE_QUERY;
 
-                    command.Parameters.AddWithValue($"@{ColumnNames.StartCaption}", questionSlider.StartCaption);
-                    command.Parameters.AddWithValue($"@{ColumnNames.EndCaption}", questionSlider.EndCaption);
-                    command.Parameters.AddWithValue($"@{ColumnNames.StartValue}", questionSlider.StartValue);
-                    command.Parameters.AddWithValue($"@{ColumnNames.EndValue}", questionSlider.EndValue);
-                    command.Parameters.AddWithValue($"@{ColumnNames.QuestionId}", questionSlider.getId());
+                    tCommand.Parameters.AddWithValue($"@{ColumnNames.StartCaption}", pQuestionSlider.StartCaption);
+                    tCommand.Parameters.AddWithValue($"@{ColumnNames.EndCaption}", pQuestionSlider.EndCaption);
+                    tCommand.Parameters.AddWithValue($"@{ColumnNames.StartValue}", pQuestionSlider.StartValue);
+                    tCommand.Parameters.AddWithValue($"@{ColumnNames.EndValue}", pQuestionSlider.EndValue);
+                    tCommand.Parameters.AddWithValue($"@{ColumnNames.QuestionId}", pQuestionSlider.GetId());
 
-                    int rowsAffected = command.ExecuteNonQuery();
+                    int tRowsAffected = tCommand.ExecuteNonQuery();
 
-                    if (rowsAffected <= 0)
+                    if (tRowsAffected <= 0)
                     {
                         // Row not found or not updated
-                        transaction.Rollback();
-                        return StatusCode.VALIDATION_ERROR;
+                        tTransaction.Rollback();
+                        return ResultCode.VALIDATION_ERROR;
                     }
 
 
-                    int tUpdatedBaseStatus = base.Update(questionSlider, command);
-                    if (tUpdatedBaseStatus != StatusCode.SUCCESS)
+                    int tUpdatedBaseResult = base.Update(pQuestionSlider, tCommand);
+                    if (tUpdatedBaseResult != ResultCode.SUCCESS)
                     {
-                        transaction.Rollback();
-                        return tUpdatedBaseStatus;
+                        tTransaction.Rollback();
+                        return tUpdatedBaseResult;
                     }
-                    transaction.Commit();
+                    tTransaction.Commit();
                     base.CloseConnection();
-                    return StatusCode.SUCCESS;
+                    return ResultCode.SUCCESS;
                 }
             }
             catch (SqlException ex)
@@ -139,38 +152,42 @@ namespace SurveyConfiguratorApp.Data.Questions
             catch (Exception e)
             {
                 Log.Error(e);
-                return StatusCode.ERROR;
+                return ResultCode.ERROR;
             }
 
 
 
         }
 
-        public int Get(ref QuestionSlider questionSlider)
+        public int Get(ref QuestionSlider pQuestionSlider)
         {
             try
             {
-                int tStatusCode = base.OpenConnection();
-                if (tStatusCode != StatusCode.SUCCESS)
+                int tResult = base.OpenConnection();
+                if (tResult != ResultCode.SUCCESS)
                 {
-                    return tStatusCode;
+                    return tResult;
                 }
-                using (SqlCommand cmd = new SqlCommand())
+                using (SqlCommand tCommand = new SqlCommand())
                 {
-                    cmd.Connection = base.conn;
-                    cmd.CommandText = $"SELECT [{DbQuestion.ColumnNames.Text}],[{ColumnNames.StartValue}],[{ColumnNames.EndValue}],[{ColumnNames.StartCaption}],[{ColumnNames.EndCaption}]," +
-                        $"[{DbQuestion.ColumnNames.Order}] FROM {DbQuestion.tableName} as q  INNER JOIN {tableName} as f ON q.id=f.{ColumnNames.QuestionId} WHERE q.{DbQuestion.ColumnNames.Id}={questionSlider.getId()};";
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    tCommand.Connection = base.Connection;
+
+
+
+                    tCommand.CommandText = GET_QUERY;
+
+                    tCommand.Parameters.AddWithValue($"@{ColumnNames.QuestionId}", pQuestionSlider.GetId());
+                    using (SqlDataReader tReader = tCommand.ExecuteReader())
                     {
-                        if (reader.Read())
+                        if (tReader.Read())
                         {
-                            questionSlider.Order = (int)reader["Order"];
-                            questionSlider.Text = reader["Text"].ToString();
-                            questionSlider.EndCaption = reader["EndCaption"].ToString();
-                            questionSlider.StartCaption = reader["StartCaption"].ToString();
-                            questionSlider.StartValue = (int)reader["StartValue"];
-                            questionSlider.EndValue = (int)reader["EndValue"];
-                            return StatusCode.SUCCESS;
+                            pQuestionSlider.Order = (int)tReader[$"{DbQuestion.ColumnNames.Order}"];
+                            pQuestionSlider.Text = tReader[$"{DbQuestion.ColumnNames.Text}"].ToString();
+                            pQuestionSlider.EndCaption = tReader[$"{ColumnNames.EndCaption}"].ToString();
+                            pQuestionSlider.StartCaption = tReader[$"{ColumnNames.StartCaption}"].ToString();
+                            pQuestionSlider.StartValue = (int)tReader[$"{ColumnNames.StartValue}"];
+                            pQuestionSlider.EndValue = (int)tReader[$"{ColumnNames.EndValue}"];
+                            return ResultCode.SUCCESS;
                         }
                     }
 
@@ -179,13 +196,13 @@ namespace SurveyConfiguratorApp.Data.Questions
             catch (SqlException e)
             {
                 Log.Error(e);
-                return StatusCode.ERROR;
+                return ResultCode.ERROR;
             }
             finally
             {
                 base.CloseConnection();
             }
-            return StatusCode.DB_RECORD_NOT_EXISTS;
+            return ResultCode.DB_RECORD_NOT_EXISTS;
         }
     }
 }

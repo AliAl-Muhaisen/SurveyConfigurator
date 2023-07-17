@@ -101,19 +101,20 @@ namespace SurveyConfiguratorApp.Logic
         {
             try
             {
-                if (!IsConnect())
-                {
-                    return false;
-                }
+                
+                //if (!IsConnect())
+                //{
+                //    return false;
+                //}
 
                 Configuration config;
                 config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 
-                config.ConnectionStrings.ConnectionStrings[DbConnection.AppConfigConnectionName].ConnectionString = connectionString;
-                config.ConnectionStrings.ConnectionStrings[DbConnection.AppConfigConnectionName].ProviderName = DbConnection.AppConfigConnectionProviderName;
+                config.ConnectionStrings.ConnectionStrings[DbConnection.APP_CONFIG_CONNECTION_NAME].ConnectionString = connectionString;
+                config.ConnectionStrings.ConnectionStrings[DbConnection.APP_CONFIG_CONNECTION_NAME].ProviderName = DbConnection.APP_CONFIG_CONNECTION_PROVIDER_NAME;
                 config.AppSettings.SectionInformation.ForceSave = true;
                 config.Save(ConfigurationSaveMode.Modified);
-                ConfigurationManager.RefreshSection(DbConnection.AppConfigSettingsName);
+                ConfigurationManager.RefreshSection(DbConnection.APP_CONFIG_SETTINGS_NAME);
                 db.RefreshConnectionString();
                 OnConnectionRefreshed();
 
@@ -135,7 +136,7 @@ namespace SurveyConfiguratorApp.Logic
             catch (Exception e)
             {
                 Log.Error(e);
-                return StatusCode.ERROR;
+                return ResultCode.ERROR;
             }
         }
 

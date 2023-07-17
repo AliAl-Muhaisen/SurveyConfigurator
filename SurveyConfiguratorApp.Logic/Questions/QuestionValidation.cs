@@ -27,9 +27,9 @@ namespace SurveyConfiguratorApp.Domain.Questions
         public int FacesMaxValue { get; private set; }
         public int FacesMinValue { get; private set; }
 
-        const int questionTextLength = 1500;
-        const int sliderCaptionTextLengthMax = 500;
-        const int sliderCaptionTextLengthMin = 3;
+        const int QUESTION_TEXT_LENGTH = 1500;
+        const int SLIDER_CAPTION_TEXT_LENGTH_MAX = 500;
+        const int SLIDER_CAPTION_TEXT_LENGTH_MIN = 3;
         public List<int> ErorrValidationList;
 
         public QuestionValidation()
@@ -58,247 +58,249 @@ namespace SurveyConfiguratorApp.Domain.Questions
 
 
         //General Functions
-        public bool IsNotEmpty(string text)
+        public bool IsNotEmpty(string pText)
         {
-            return (text != null && text.Trim().Length > 0);
+            return (pText != null && pText.Trim().Length > 0);
         }
-        public bool IsEmpty(string text)
+        public bool IsEmpty(string pText)
         {
-            return !IsNotEmpty(text);
+            return !IsNotEmpty(pText);
         }
 
-        private bool IsMinNum(int sourceNum, int comparedNum)
+        private bool IsMinNum(int pSourceNum, int pCompareNum)
         {
-            return comparedNum >= sourceNum;
+            return pCompareNum >= pSourceNum;
         }
      
-        private int IsValidQuestionText(string text)
+        private int IsValidQuestionText(string pText)
         {
             try
             {
-                int tTextLength=text.Trim().Length;
+                int tTextLength=pText.Trim().Length;
                 if (tTextLength<=0)
                 {
-                    return StatusCode.VALIDATION_ERROR_QUESTION_TEXT;
+                    return ResultCode.VALIDATION_ERROR_QUESTION_TEXT;
                 }
                else if (tTextLength<=10)
                 {
-                    return StatusCode.VALIDATION_ERROR_SHORT_TEXT;
+                    return ResultCode.VALIDATION_ERROR_SHORT_TEXT;
                 }
-                else if(tTextLength>questionTextLength)
+                else if(tTextLength>QUESTION_TEXT_LENGTH)
                 {
-                    return StatusCode.VALIDATION_ERROR_LONG_TEXT;
+                    return ResultCode.VALIDATION_ERROR_LONG_TEXT;
                 }
-                return StatusCode.SUCCESS;
+                return ResultCode.SUCCESS;
             }
             catch (Exception e)
             {
                 Log.Error(e);
-                return StatusCode.ERROR;
+                return ResultCode.ERROR;
             }
         }
      
         //End General Functions
 
-        public int IsOrderAlreadyExists(int order, int questionId)
+        public int IsOrderAlreadyExists(int pOrder, int pQuestionId)
         {
             try
             {
-                return QuestionManager.IsOrderAlreadyExists(order, questionId);
+                return QuestionManager.IsOrderAlreadyExists(pOrder, pQuestionId);
             }
             catch (Exception e)
             {
                 Log.Error(e);
-                return StatusCode.ERROR;
+                return ResultCode.ERROR;
             }
         }
 
         #region Faces
-        private int IsValidFacesNumber(int facesNumber)
+        private int IsValidFacesNumber(int pFacesNumber)
         {
             try
             {
-                return (facesNumber >= FacesMinValue && facesNumber <= FacesMaxValue) ? StatusCode.SUCCESS : StatusCode.VALIDATION_ERROR_FACES_NUMBER;
+                return (pFacesNumber >= FacesMinValue && pFacesNumber <= FacesMaxValue) ? ResultCode.SUCCESS : ResultCode.VALIDATION_ERROR_FACES_NUMBER;
             }
             catch (Exception e)
             {
                 Log.Error(e);
-                return StatusCode.ERROR;
+                return ResultCode.ERROR;
             }
         }
-        public int IsValidFacesQuestion(QuestionFaces questionFaces)
+        public int IsValidFacesQuestion(QuestionFaces pQuestionFaces)
         {
 
             try
             {
                 ErorrValidationList.Clear();
 
-                int isOrderExists;
-                if (questionFaces == null)
+                int tIsOrderExists;
+                if (pQuestionFaces == null)
                 {
-                    return StatusCode.DB_RECORD_NOT_EXISTS; ;
+                    return ResultCode.DB_RECORD_NOT_EXISTS; ;
                 }
 
 
-                isOrderExists = IsOrderAlreadyExists(questionFaces.Order, questionFaces.getId());
+                tIsOrderExists = IsOrderAlreadyExists(pQuestionFaces.Order, pQuestionFaces.GetId());
 
-                ErorrValidationList.Add(isOrderExists);
-                ErorrValidationList.Add(IsValidQuestionText(questionFaces.Text));
-                ErorrValidationList.Add(IsValidFacesNumber(questionFaces.FacesNumber));
+                ErorrValidationList.Add(tIsOrderExists);
+                ErorrValidationList.Add(IsValidQuestionText(pQuestionFaces.Text));
+                ErorrValidationList.Add(IsValidFacesNumber(pQuestionFaces.FacesNumber));
                 ClearSuccessState(ref ErorrValidationList);
-                if (ErorrValidationList.Count != 0) return StatusCode.VALIDATION_ERROR;
+                if (ErorrValidationList.Count != 0) return ResultCode.VALIDATION_ERROR;
 
-                return StatusCode.SUCCESS;
+                return ResultCode.SUCCESS;
 
             }
             catch (Exception e)
             {
                 Log.Error(e);
-                return StatusCode.ERROR;
+                return ResultCode.ERROR;
             }
         }
         #endregion
+        
+        
         #region Stars
-        private int IsValidStarsNumber(int starsNumber)
+        private int IsValidStarsNumber(int pStarsNumber)
         {
             try
             {
-                return (starsNumber >= StarsMinValue && starsNumber <= StarsMaxValue) ? StatusCode.SUCCESS : StatusCode.VALIDATION_ERROR_STARS_NUMBER;
+                return (pStarsNumber >= StarsMinValue && pStarsNumber <= StarsMaxValue) ? ResultCode.SUCCESS : ResultCode.VALIDATION_ERROR_STARS_NUMBER;
             }
             catch (Exception e)
             {
                 Log.Error(e);
-                return StatusCode.ERROR;
+                return ResultCode.ERROR;
             }
         }
 
-        public int IsValidStarsQuestion(QuestionStars questionStars)
+        public int IsValidStarsQuestion(QuestionStars pQuestionStars)
         {
             try
             {
                 ErorrValidationList.Clear();
-                int isOrderExists;
-                if (questionStars == null)
+                int pIsOrderExists;
+                if (pQuestionStars == null)
                 {
-                    return StatusCode.DB_RECORD_NOT_EXISTS; ;
+                    return ResultCode.DB_RECORD_NOT_EXISTS; ;
                 }
 
-                isOrderExists = IsOrderAlreadyExists(questionStars.Order, questionStars.getId());
-                ErorrValidationList.Add(isOrderExists);
-                ErorrValidationList.Add(IsValidQuestionText(questionStars.Text));
-                ErorrValidationList.Add(IsValidStarsNumber(questionStars.StarsNumber));
+                pIsOrderExists = IsOrderAlreadyExists(pQuestionStars.Order, pQuestionStars.GetId());
+                ErorrValidationList.Add(pIsOrderExists);
+                ErorrValidationList.Add(IsValidQuestionText(pQuestionStars.Text));
+                ErorrValidationList.Add(IsValidStarsNumber(pQuestionStars.StarsNumber));
                 ClearSuccessState(ref ErorrValidationList);
                 if (ErorrValidationList.Count != 0)
-                    return StatusCode.VALIDATION_ERROR;
+                    return ResultCode.VALIDATION_ERROR;
 
-                return StatusCode.SUCCESS;
+                return ResultCode.SUCCESS;
             }
             catch (Exception e)
             {
                 Log.Error(e);
-                return StatusCode.ERROR;
+                return ResultCode.ERROR;
             }
         }
 
         #endregion
 
         #region Slider
-        private int IsValidSliderStartValue(int value)
+        private int IsValidSliderStartValue(int pValue)
         {
             try
             {
-                return (value >= SliderMinValue && value < SliderMaxValue) ? StatusCode.SUCCESS : StatusCode.VALIDATION_ERROR_SLIDER_START_VALUE;
+                return (pValue >= SliderMinValue && pValue < SliderMaxValue) ? ResultCode.SUCCESS : ResultCode.VALIDATION_ERROR_SLIDER_START_VALUE;
             }
             catch (Exception e)
             {
                 Log.Error(e);
-                return StatusCode.ERROR;
+                return ResultCode.ERROR;
             }
         }
-        private int IsValidSliderEndtValue(int value)
+        private int IsValidSliderEndtValue(int pValue)
         {
             try
             {
-                return (value > SliderMinValue && (value <= SliderMaxValue)) ? StatusCode.SUCCESS : StatusCode.VALIDATION_ERROR_SLIDER_END_VALUE;
+                return (pValue > SliderMinValue && (pValue <= SliderMaxValue)) ? ResultCode.SUCCESS : ResultCode.VALIDATION_ERROR_SLIDER_END_VALUE;
             }
             catch (Exception e)
             {
                 Log.Error(e);
-                return StatusCode.ERROR;
+                return ResultCode.ERROR;
             }
         }
-        private int IsValidSilderValue(int min, int max)
+        private int IsValidSilderValue(int pMin, int pMax)
         {
             try
             {
-                int tStartValueCode = IsValidSliderStartValue(min);
-                int tEndValueCode = IsValidSliderEndtValue(max);
-                if (tStartValueCode == StatusCode.SUCCESS && tEndValueCode == StatusCode.SUCCESS)
+                int tStartValueCode = IsValidSliderStartValue(pMin);
+                int tEndValueCode = IsValidSliderEndtValue(pMax);
+                if (tStartValueCode == ResultCode.SUCCESS && tEndValueCode == ResultCode.SUCCESS)
                 {
-                    return (min < max) ? StatusCode.SUCCESS : StatusCode.VALIDATION_ERROR_SLIDER_VALUE;
+                    return (pMin < pMax) ? ResultCode.SUCCESS : ResultCode.VALIDATION_ERROR_SLIDER_VALUE;
                 }
-                return StatusCode.VALIDATION_ERROR_SLIDER_VALUE;
+                return ResultCode.VALIDATION_ERROR_SLIDER_VALUE;
             }
             catch (Exception e)
             {
                 Log.Error(e);
-                return StatusCode.ERROR;
+                return ResultCode.ERROR;
             }
         }
-        private int IsValidCaption(string caption)
+        private int IsValidCaption(string pCaption)
         {
             try
             {
-                return (caption.Trim().Length >= sliderCaptionTextLengthMin && caption.Trim().Length <= sliderCaptionTextLengthMax) ? StatusCode.SUCCESS : StatusCode.VALIDATION_ERROR_SLIDER_CAPTION;
+                return (pCaption.Trim().Length >= SLIDER_CAPTION_TEXT_LENGTH_MIN && pCaption.Trim().Length <= SLIDER_CAPTION_TEXT_LENGTH_MAX) ? ResultCode.SUCCESS : ResultCode.VALIDATION_ERROR_SLIDER_CAPTION;
             }
             catch (Exception e)
             {
                 Log.Error(e);
-                return StatusCode.ERROR;
+                return ResultCode.ERROR;
             }
         }
-        public int IsValidSliderQuestion(QuestionSlider questionSlider)
+        public int IsValidSliderQuestion(QuestionSlider pQuestionSlider)
         {
             try
             {
                 ErorrValidationList.Clear();
-                int isOrderExists;
-                if (questionSlider == null)
+                int tIsOrderExists;
+                if (pQuestionSlider == null)
                 {
-                    return StatusCode.DB_RECORD_NOT_EXISTS;
+                    return ResultCode.DB_RECORD_NOT_EXISTS;
                 }
 
-                isOrderExists = IsOrderAlreadyExists(questionSlider.Order, questionSlider.getId());
-                ErorrValidationList.Add(isOrderExists);
-                ErorrValidationList.Add(IsValidQuestionText(questionSlider.Text));
-                ErorrValidationList.Add(IsValidSilderValue(questionSlider.StartValue, questionSlider.EndValue));
-                ErorrValidationList.Add(IsValidCaption(questionSlider.EndCaption));
+                tIsOrderExists = IsOrderAlreadyExists(pQuestionSlider.Order, pQuestionSlider.GetId());
+                ErorrValidationList.Add(tIsOrderExists);
+                ErorrValidationList.Add(IsValidQuestionText(pQuestionSlider.Text));
+                ErorrValidationList.Add(IsValidSilderValue(pQuestionSlider.StartValue, pQuestionSlider.EndValue));
+                ErorrValidationList.Add(IsValidCaption(pQuestionSlider.EndCaption));
                 ClearSuccessState(ref ErorrValidationList);
                 if (ErorrValidationList.Count != 0)
-                    return StatusCode.VALIDATION_ERROR;
+                    return ResultCode.VALIDATION_ERROR;
 
-                return StatusCode.SUCCESS;
+                return ResultCode.SUCCESS;
             }
             catch (Exception e)
             {
                 Log.Error(e);
-                return StatusCode.ERROR;
+                return ResultCode.ERROR;
             }
         }
 
         #endregion
 
-        void ClearSuccessState(ref List<int> list)
+        void ClearSuccessState(ref List<int> pList)
         {
             try
             {
-                list = list.Distinct<int>().ToList();
+                pList = pList.Distinct<int>().ToList();
 
-                for (int i = 0; i < list.Count; i++)
+                for (int tListIndex = 0; tListIndex < pList.Count; tListIndex++)
                 {
-                    if (list[i] == StatusCode.SUCCESS)
+                    if (pList[tListIndex] == ResultCode.SUCCESS)
                     {
-                        list.RemoveAt(i);
+                        pList.RemoveAt(tListIndex);
                     }
                 }
             }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SurveyConfiguratorApp.Domain
 {
-    public  class StatusCode
+    public  class ResultCode
     {
         #region Common
         public const int SUCCESS = 0;
@@ -15,8 +15,8 @@ namespace SurveyConfiguratorApp.Domain
         #endregion
 
         #region Data Base
-        public const int DB_FAILED_CONNECTION = -3;
-        public const int DB_FAILED_NERORK_CONNECTION = -4;
+        public const int DB_CONNECTION_FAILED = -3;
+        public const int DB_FAILED_NETWORK_CONNECTION = -4;
         public const int DB_RECORD_NOT_EXISTS = -5;
         public const int DB_CONNECTION_SUCCESSFULLY = 2;
         public const int DB_FAILED_DELETE_ERROR = -6;

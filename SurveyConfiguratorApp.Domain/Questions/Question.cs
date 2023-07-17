@@ -24,7 +24,7 @@ namespace SurveyConfiguratorApp.Domain.Questions
 
         public Question()
         {
-            setId(-1);
+            SetId(-1);
 
         }
         public Question(int id, string text, int type, int order)
@@ -32,8 +32,8 @@ namespace SurveyConfiguratorApp.Domain.Questions
             try
             {
                 Text = text;
-                setTypeNumber(type);
-                setId(id);
+                SetTypeNumber(type);
+                SetId(id);
                 Order = order;
                 TypeName = ((QuestionTypes)typeNumber).ToString();
             }
@@ -45,7 +45,7 @@ namespace SurveyConfiguratorApp.Domain.Questions
 
         }
 
-        public void setId(int id)
+        public void SetId(int id)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace SurveyConfiguratorApp.Domain.Questions
             }
 
         }
-        public int getId()
+        public int GetId()
         {
             try
             {
@@ -68,11 +68,11 @@ namespace SurveyConfiguratorApp.Domain.Questions
             {
                 Log.Error(e);
             }
-            return 0;
+            return -1;
 
         }
 
-        protected void setTypeNumber(int type)
+        protected void SetTypeNumber(int type)
         {
             try
             {
@@ -84,7 +84,7 @@ namespace SurveyConfiguratorApp.Domain.Questions
             }
 
         }
-        public int getTypeNumber()
+        public int GetTypeNumber()
         {
             try
             {
@@ -107,7 +107,7 @@ namespace SurveyConfiguratorApp.Domain.Questions
                 Question otherQuestion = (Question)obj;
 
                 // Compare all relevant properties for equality
-                return (this.getId() == otherQuestion.getId() &&
+                return (this.GetId() == otherQuestion.GetId() &&
                     Text == otherQuestion.Text &&
                        Order == otherQuestion.Order &&
                        TypeName == otherQuestion.TypeName);
@@ -129,7 +129,7 @@ namespace SurveyConfiguratorApp.Domain.Questions
 
         public override int GetHashCode()
         {
-            return getId()*Order*typeNumber;
+            return GetId()*Order*typeNumber;
         }
     }
 }

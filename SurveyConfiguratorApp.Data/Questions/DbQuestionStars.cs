@@ -10,12 +10,22 @@ namespace SurveyConfiguratorApp.Data.Questions
     {
         private new const string tableName = "QuestionStars";
 
-        private string INSERT_QUERY = string.Format("INSERT INTO [{0}] ([{1}],[{2}]) VALUES (@{1},@{2})",
+        private readonly string INSERT_QUERY = string.Format("INSERT INTO [{0}] ([{1}],[{2}]) VALUES (@{1},@{2})",
                                            tableName, ColumnNames.QuestionId, ColumnNames.StarsNumber);
      
-        private string UPDATE_QUERY=string.Format("UPDATE [{0}] SET [{1}] = @{1} WHERE [{2}] = @{2}",
+        private readonly string UPDATE_QUERY =string.Format("UPDATE [{0}] SET [{1}] = @{1} WHERE [{2}] = @{2}",
                                        TableName, ColumnNames.StarsNumber, ColumnNames.QuestionId);
-      
+
+      private readonly string GET_QUERY = string.Format(
+                    "SELECT [{0}],[{1}],[{2}] FROM {3} as q INNER JOIN {4} as s ON q.{5}=s.{6} WHERE q.{5}=@{6};",
+                    DbQuestion.ColumnNames.Text,
+                    ColumnNames.StarsNumber,
+                    DbQuestion.ColumnNames.Order,
+                    DbQuestion.tableName,
+                    tableName,
+                    DbQuestion.ColumnNames.Id,
+                    ColumnNames.QuestionId
+                );
         private new enum ColumnNames
         {
             QuestionId,
@@ -24,110 +34,110 @@ namespace SurveyConfiguratorApp.Data.Questions
         public DbQuestionStars() : base() { }
 
         static public string TableName { get { return tableName; } }
-        public int Add(QuestionStars data)
+        public int Add(QuestionStars pQuestionStars)
         {
             try
             {
 
-                using (SqlCommand cmd = new SqlCommand())
+                using (SqlCommand tCommand = new SqlCommand())
                 {
-                    int tConnectionStatus = base.OpenConnection();
-                    if (tConnectionStatus != StatusCode.SUCCESS)
+                    int tConnectionResult = base.OpenConnection();
+                    if (tConnectionResult != ResultCode.SUCCESS)
                     {
-                        return tConnectionStatus;
+                        return tConnectionResult;
                     }
 
-                    cmd.Connection = base.conn;
+                    tCommand.Connection = base.Connection;
 
-                    SqlTransaction transaction = conn.BeginTransaction();
-                    cmd.Transaction = transaction;
+                    SqlTransaction tTransaction = Connection.BeginTransaction();
+                    tCommand.Transaction = tTransaction;
 
-                    int isAddedStatus = base.Add(data, cmd);
-
-
-                    if (isAddedStatus != StatusCode.SUCCESS)
-                        return isAddedStatus;
-
-                    int questionId = base.GetQuestionId();
-
-                    if (questionId == -1)
-                        return StatusCode.ERROR;
-
-                    cmd.CommandText = INSERT_QUERY;
-
-                    cmd.Parameters.AddWithValue($"@{ColumnNames.QuestionId}", questionId);
-                    cmd.Parameters.AddWithValue($"@{ColumnNames.StarsNumber}", data.StarsNumber);
+                    int tResult = base.Add(pQuestionStars, tCommand);
 
 
+                    if (tResult != ResultCode.SUCCESS)
+                        return tResult;
 
-                    int rowAffected = cmd.ExecuteNonQuery();
-                    if (rowAffected > 0)
+                    int tQuestionId = base.GetQuestionId();
+
+                    if (tQuestionId <0)
+                        return ResultCode.ERROR;
+
+                    tCommand.CommandText = INSERT_QUERY;
+
+                    tCommand.Parameters.AddWithValue($"@{ColumnNames.QuestionId}", tQuestionId);
+                    tCommand.Parameters.AddWithValue($"@{ColumnNames.StarsNumber}", pQuestionStars.StarsNumber);
+
+
+
+                    int tRowAffected = tCommand.ExecuteNonQuery();
+                    if (tRowAffected > 0)
                     {
-                        transaction.Commit();
-                        return StatusCode.SUCCESS;
+                        tTransaction.Commit();
+                        return ResultCode.SUCCESS;
                     }
                     // If the stars question not added successfully, Delete the base question 
-                    transaction.Rollback();
+                    tTransaction.Rollback();
                 }
 
             }
             catch (Exception ex)
             {
                 Log.Error(ex);
-                return StatusCode.ERROR;
+                return ResultCode.ERROR;
             }
             finally
             {
                 base.CloseConnection();
             }
-            return StatusCode.VALIDATION_ERROR;
+            return ResultCode.VALIDATION_ERROR;
         }
 
 
 
-        public int Update(QuestionStars questionStars)
+        public int Update(QuestionStars tQuestionStars)
         {
             try
             {
-                using (SqlCommand command = new SqlCommand())
+                using (SqlCommand tCommand = new SqlCommand())
                 {
-                    int tConnectionStatus = base.OpenConnection();
-                    if (tConnectionStatus != StatusCode.SUCCESS)
+                    int tConnectionResult = base.OpenConnection();
+                    if (tConnectionResult != ResultCode.SUCCESS)
                     {
-                        return tConnectionStatus;
+                        return tConnectionResult;
                     }
 
-                    command.Connection = base.conn;
+                    tCommand.Connection = base.Connection;
 
-                    SqlTransaction transaction = conn.BeginTransaction();
+                    SqlTransaction tTransaction = Connection.BeginTransaction();
 
-                    command.Transaction = transaction;
+                    tCommand.Transaction = tTransaction;
 
-                    command.CommandText = UPDATE_QUERY;
+                    tCommand.CommandText = UPDATE_QUERY;
 
-                    command.Parameters.AddWithValue($"@{ColumnNames.StarsNumber}", questionStars.StarsNumber);
-                    command.Parameters.AddWithValue($"@{ColumnNames.QuestionId}", questionStars.getId());
+                    tCommand.Parameters.AddWithValue($"@{ColumnNames.StarsNumber}", tQuestionStars.StarsNumber);
+                    tCommand.Parameters.AddWithValue($"@{ColumnNames.QuestionId}", tQuestionStars.GetId());
 
 
 
-                    int rowsAffected = command.ExecuteNonQuery();
+                    int rowsAffected = tCommand.ExecuteNonQuery();
 
                     if (rowsAffected <= 0)
                     {
                         // Row not found or not updated
-                        return StatusCode.VALIDATION_ERROR;
+                        return ResultCode.VALIDATION_ERROR;
                     }
 
 
-                    int tUpdatedBaseStatus = base.Update(questionStars, command);
-                    if (tUpdatedBaseStatus != StatusCode.SUCCESS)
+                    int tUpdatedBaseStatus = base.Update(tQuestionStars, tCommand);
+                    if (tUpdatedBaseStatus != ResultCode.SUCCESS)
                     {
-                        transaction.Rollback();
+                        tTransaction.Rollback();
                         return tUpdatedBaseStatus;
                     }
-                    transaction.Commit();
+                    tTransaction.Commit();
                     base.CloseConnection();
-                    return StatusCode.SUCCESS;
+                    return ResultCode.SUCCESS;
                 }
 
             }
@@ -138,35 +148,37 @@ namespace SurveyConfiguratorApp.Data.Questions
             catch (Exception ex)
             {
                 Log.Error(ex);
-                return StatusCode.ERROR;
+                return ResultCode.ERROR;
             }
         }
 
-        public int Get(ref QuestionStars questionStars)
+        public int Get(ref QuestionStars pQuestionStars)
         {
             try
             {
 
-                int tStatusCode = base.OpenConnection();
-                if (tStatusCode != StatusCode.SUCCESS)
+                int tResult = base.OpenConnection();
+                if (tResult != ResultCode.SUCCESS)
                 {
-                    return tStatusCode;
+                    return tResult;
                 }
 
-                using (SqlCommand cmd = new SqlCommand())
+                using (SqlCommand tCommand = new SqlCommand())
                 {
-                    cmd.Connection = base.conn;
-                    cmd.CommandText = $"SELECT [{DbQuestion.ColumnNames.Text}],[{ColumnNames.StarsNumber}],[{DbQuestion.ColumnNames.Order}]" +
-                        $" FROM {DbQuestion.tableName} as q " +
-                        $" INNER JOIN {tableName} as s ON q.{DbQuestion.ColumnNames.Id}=s.{ColumnNames.QuestionId} WHERE q.{DbQuestion.ColumnNames.Id}={questionStars.getId()};";
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    tCommand.Connection = base.Connection;
+                    string query =
+
+
+                    tCommand.CommandText =GET_QUERY ;
+                    tCommand.Parameters.AddWithValue($"@{ColumnNames.QuestionId}", pQuestionStars.GetId());
+                    using (SqlDataReader pReader = tCommand.ExecuteReader())
                     {
-                        if (reader.Read())
+                        if (pReader.Read())
                         {
-                            questionStars.Order = (int)reader["Order"];
-                            questionStars.Text = reader["Text"].ToString();
-                            questionStars.StarsNumber = (int)reader["StarsNumber"];
-                            return StatusCode.SUCCESS;
+                            pQuestionStars.Order = (int)pReader[$"{DbQuestion.ColumnNames.Order}"];
+                            pQuestionStars.Text = pReader[$"{DbQuestion.ColumnNames.Text}"].ToString();
+                            pQuestionStars.StarsNumber = (int)pReader[$"{ColumnNames.StarsNumber}"];
+                            return ResultCode.SUCCESS;
 
                         }
                     }
@@ -177,14 +189,14 @@ namespace SurveyConfiguratorApp.Data.Questions
             catch (Exception e)
             {
                 Log.Error(e);
-                return StatusCode.ERROR;
+                return ResultCode.ERROR;
             }
             finally
             {
                 base.CloseConnection();
 
             }
-            return StatusCode.DB_RECORD_NOT_EXISTS;
+            return ResultCode.DB_RECORD_NOT_EXISTS;
         }
     }
 }

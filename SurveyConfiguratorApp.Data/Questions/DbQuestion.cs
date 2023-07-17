@@ -31,30 +31,34 @@ namespace SurveyConfiguratorApp.Data.Questions
         }
         private int questionId = -1;
 
-        private string INSERT_QUERY= string.Format("INSERT INTO [{0}] ([{1}],[{2}],[{3}]) VALUES " +
+
+        private readonly string INSERT_QUERY= string.Format("INSERT INTO [{0}] ([{1}],[{2}],[{3}]) VALUES " +
                         "(@{1},@{2},@{3});SELECT SCOPE_IDENTITY();",
                         tableName, ColumnNames.Order, ColumnNames.Text, ColumnNames.TypeNumber);
        
 
 
-        private string UPDATE_QUERY = string.Format("UPDATE [{0}] SET [{1}] = @{1}, [{2}] = @{2} WHERE [{3}] = @{3}",
+        private readonly string UPDATE_QUERY = string.Format("UPDATE [{0}] SET [{1}] = @{1}, [{2}] = @{2} WHERE [{3}] = @{3}",
                                    tableName, ColumnNames.Text, ColumnNames.Order, ColumnNames.Id);
 
-        private string DELETE_QUERY = string.Format("DELETE FROM [{0}] WHERE [{1}]=@{1};", tableName, ColumnNames.Id);
+        private readonly string DELETE_QUERY = string.Format("DELETE FROM [{0}] WHERE [{1}]=@{1};", tableName, ColumnNames.Id);
 
+        private readonly string GET_QUERY = string.Format("SELECT * FROM [{0}] WHERE [{1}]=@{1};", tableName, ColumnNames.Id);
+        
+        private readonly string GET_ALL_QUERY = string.Format("SELECT * FROM [{0}];", tableName);
         /// <summary>
-        /// The Add method inserts a new record into the Question table by constructing a parameterized SQL query.
+        /// The Add method inserts a new record into the Question table by constructing a parameterized SQL GET_QUERY.
         /// It catches any SQL exceptions and returns false in case of an error.
         /// </summary>
-        /// <param name="data"></param>
+        /// <param name="pData"></param>
         /// <returns></returns>
-        public int Add(Question data,SqlCommand pSqlCommand)
+        public int Add(Question pData,SqlCommand pSqlCommand)
         {
             try
             {
                 if (pSqlCommand == null)
                 {
-                    return StatusCode.DB_FAILED_CONNECTION;
+                    return ResultCode.DB_CONNECTION_FAILED;
                 }
 
                     //SCOPE_IDENTITY() is a function in SQL Server that returns the last identity value inserted into an identity column within the current scope.
@@ -62,16 +66,16 @@ namespace SurveyConfiguratorApp.Data.Questions
 
                     pSqlCommand.CommandText = INSERT_QUERY;
 
-                    pSqlCommand.Parameters.AddWithValue($"@{ColumnNames.Order}", data.Order);
-                    pSqlCommand.Parameters.AddWithValue($"@{ColumnNames.Text}", data.Text);
-                    pSqlCommand.Parameters.AddWithValue($"@{ColumnNames.TypeNumber}", data.getTypeNumber());
-                    // Execute the query and retrieve the generated ID
+                    pSqlCommand.Parameters.AddWithValue($"@{ColumnNames.Order}", pData.Order);
+                    pSqlCommand.Parameters.AddWithValue($"@{ColumnNames.Text}", pData.Text);
+                    pSqlCommand.Parameters.AddWithValue($"@{ColumnNames.TypeNumber}", pData.GetTypeNumber());
+                    // Execute the GET_QUERY and retrieve the generated ID
                     questionId = Convert.ToInt32(pSqlCommand.ExecuteScalar());
 
                     if (questionId > 0)
                     {
                         OnDataChanged();
-                        return StatusCode.SUCCESS;
+                        return ResultCode.SUCCESS;
                     }
 
 
@@ -84,51 +88,51 @@ namespace SurveyConfiguratorApp.Data.Questions
             catch (Exception e)
             {
                 Log.Error(e);
-                return StatusCode.ERROR;
+                return ResultCode.ERROR;
             }
            
-            return StatusCode.VALIDATION_ERROR;
+            return ResultCode.VALIDATION_ERROR;
 
         }
 
-        public int IsQuestionExists(int questionId)
+        public int IsQuestionExists(int pQuestionId)
         {
             try
             {
-                Question question = this.Get(questionId);
+                Question tQuestion = this.Get(pQuestionId);
                 if
-                    (question == null)
-                    return StatusCode.DB_RECORD_NOT_EXISTS;
+                    (tQuestion == null)
+                    return ResultCode.DB_RECORD_NOT_EXISTS;
 
-                return StatusCode.SUCCESS;
+                return ResultCode.SUCCESS;
             }
             catch (Exception ex)
             {
                 Log.Error(ex);
-                return StatusCode.ERROR;
+                return ResultCode.ERROR;
             }
         }
 
-        public int Delete(int id)
+        public int Delete(int pID)
         {
 
             try
             {
                 base.OpenConnection();
 
-                using (SqlCommand cmd = new SqlCommand())
+                using (SqlCommand tCommand = new SqlCommand())
                 {
-                    cmd.Connection = base.conn;
-                    cmd.CommandText = DELETE_QUERY;
-                    cmd.Parameters.AddWithValue($"@{ColumnNames.Id}",id);
+                    tCommand.Connection = base.Connection;
+                    tCommand.CommandText = DELETE_QUERY;
+                    tCommand.Parameters.AddWithValue($"@{ColumnNames.Id}",pID);
 
-                    int rowsAffected = cmd.ExecuteNonQuery();
+                    int pRowsAffected = tCommand.ExecuteNonQuery();
 
 
-                    if (rowsAffected > 0)
+                    if (pRowsAffected > 0)
                     {
                         // Row deleted successfully
-                        return StatusCode.SUCCESS;
+                        return ResultCode.SUCCESS;
 
                     }
 
@@ -137,11 +141,11 @@ namespace SurveyConfiguratorApp.Data.Questions
             catch (Exception e)
             {
                 Log.Error(e);
-                return StatusCode.ERROR;
+                return ResultCode.ERROR;
             }
             finally { base.CloseConnection(); }
 
-            return StatusCode.DB_FAILED_DELETE_ERROR;
+            return ResultCode.DB_FAILED_DELETE_ERROR;
         }
 
 
@@ -151,31 +155,31 @@ namespace SurveyConfiguratorApp.Data.Questions
         /// The update method updates a specific record in the Question table based on the provided Question object.
         /// It catches SQL exceptions and returns false in case of an error.
         /// </summary>
-        public int Update(Question question, SqlCommand pSqlCommand)
+        public int Update(Question pQuestion, SqlCommand pSqlCommand)
         {
 
             try
             {
                 if (pSqlCommand == null)
                 {
-                    return StatusCode.DB_FAILED_CONNECTION;
+                    return ResultCode.DB_CONNECTION_FAILED;
                 }
                
                 pSqlCommand.CommandText = UPDATE_QUERY;
 
-                pSqlCommand.Parameters.AddWithValue($"@{ColumnNames.Text}", question.Text);
-                pSqlCommand.Parameters.AddWithValue($"@{ColumnNames.Order}", question.Order);
-                pSqlCommand.Parameters.AddWithValue($"@{ColumnNames.Id}", question.getId());
+                pSqlCommand.Parameters.AddWithValue($"@{ColumnNames.Text}", pQuestion.Text);
+                pSqlCommand.Parameters.AddWithValue($"@{ColumnNames.Order}", pQuestion.Order);
+                pSqlCommand.Parameters.AddWithValue($"@{ColumnNames.Id}", pQuestion.GetId());
 
-                    int rowsAffected = pSqlCommand.ExecuteNonQuery();
+                    int tRowsAffected = pSqlCommand.ExecuteNonQuery();
 
-                    if (rowsAffected > 0)
+                    if (tRowsAffected > 0)
                     {
                         // Row updated successfully
-                        return StatusCode.SUCCESS;
+                        return ResultCode.SUCCESS;
                     }
                         // Row not found or not updated
-                        return StatusCode.VALIDATION_ERROR;
+                        return ResultCode.VALIDATION_ERROR;
 
             }
             catch (SqlException ex)
@@ -185,7 +189,7 @@ namespace SurveyConfiguratorApp.Data.Questions
             catch (Exception ex)
             {
                 Log.Error(ex);
-                return StatusCode.ERROR;
+                return ResultCode.ERROR;
             }
             
 
@@ -209,38 +213,38 @@ namespace SurveyConfiguratorApp.Data.Questions
                 Log.Error(ex);
             }
 
-            return -1;//TODO:!I will review this later :)
+            return -1;//record not found
         }
 
-        public int GetQuestions(ref List<Question> list)
+        public int GetQuestions(ref List<Question> pQuestionsList)
         {
             try
             {
                 base.OpenConnection();
 
-                SqlCommand cmd = new SqlCommand();
-                cmd.Connection = base.conn;
-                cmd.CommandText = $"SELECT * FROM [{tableName}]";
+                SqlCommand pCommand = new SqlCommand();
+                pCommand.Connection = base.Connection;
+                pCommand.CommandText = GET_ALL_QUERY;
 
-                SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-                if (reader.HasRows)
+                SqlDataReader pReader = pCommand.ExecuteReader(CommandBehavior.CloseConnection);
+                if (pReader.HasRows)
                 {
-                    while (reader.Read())
+                    while (pReader.Read())
                     {
-                        Question question = new Question(
-                               (int)reader[$"{ColumnNames.Id}"],
-                               reader[$"{ColumnNames.Text}"].ToString(),
-                               (int)reader[$"{ColumnNames.TypeNumber}"],
-                               (int)reader[$"{ColumnNames.Order}"]
+                        Question tQuestion = new Question(
+                               (int)pReader[$"{ColumnNames.Id}"],
+                               pReader[$"{ColumnNames.Text}"].ToString(),
+                               (int)pReader[$"{ColumnNames.TypeNumber}"],
+                               (int)pReader[$"{ColumnNames.Order}"]
                                );
 
-                        question.setId(Convert.ToInt32(reader[$"{ColumnNames.Id}"]));
+                        tQuestion.SetId(Convert.ToInt32(pReader[$"{ColumnNames.Id}"]));
 
-                        list.Add(question);
+                        pQuestionsList.Add(tQuestion);
                     }
 
                 }
-                return StatusCode.SUCCESS;
+                return ResultCode.SUCCESS;
             }
             catch (SqlException ex)
             {
@@ -249,36 +253,38 @@ namespace SurveyConfiguratorApp.Data.Questions
             catch (Exception ex)
             {
                 Log.Error(ex);
-                return StatusCode.ERROR;
+                return ResultCode.ERROR;
             }
 
         }
 
 
 
-        public Question Get(int id)
+        public Question Get(int pID)
         {
             try
             {
 
                 base.OpenConnection();
 
-                using (SqlCommand cmd = new SqlCommand())
+                using (SqlCommand tCommand = new SqlCommand())
                 {
-                    cmd.Connection = base.conn;
-                    cmd.CommandText = $"SELECT * FROM {tableName} WHERE {ColumnNames.Id}={id};";
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    tCommand.Connection = base.Connection;
+                    tCommand.CommandText = GET_QUERY;
+                    tCommand.Parameters.AddWithValue($"@{ColumnNames.Id}", pID);
+
+                    using (SqlDataReader tReader = tCommand.ExecuteReader())
                     {
-                        if (reader.Read())
+                        if (tReader.Read())
                         {
-                            Question question = new Question(
-                                id,
-                                reader[$"{ColumnNames.Text}"].ToString(),
-                                (int)reader[$"{ColumnNames.TypeNumber}"],
-                                (int)reader[$"{ColumnNames.Order}"]
+                            Question tQuestion = new Question(
+                                pID,
+                                tReader[$"{ColumnNames.Text}"].ToString(),
+                                (int)tReader[$"{ColumnNames.TypeNumber}"],
+                                (int)tReader[$"{ColumnNames.Order}"]
                                 );
 
-                            return question;
+                            return tQuestion;
 
                         }
                     }
@@ -295,36 +301,6 @@ namespace SurveyConfiguratorApp.Data.Questions
 
             }
             return null;
-        }
-
-        public bool IsOrderAlreadyExists(int order, int oldOrder = -1)
-        {
-            DbQuestion dbQuestion = new DbQuestion();
-            try
-            {
-                dbQuestion.OpenConnection();
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.Connection = dbQuestion.conn;
-                    cmd.CommandText = $"SELECT [{ColumnNames.Order}] FROM [{tableName}] WHERE ([{ColumnNames.Order}] = @{ColumnNames.Order}" +
-                        $" AND [{ColumnNames.Order}] != @oldOrder);";
-                    cmd.Parameters.AddWithValue($"@{ColumnNames.Order}", order);
-                    cmd.Parameters.AddWithValue($"@oldOrder", oldOrder);
-
-                    SqlDataReader dataReader = cmd.ExecuteReader();
-                    if (dataReader.HasRows)
-                        return true;
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex);
-            }
-            finally
-            {
-                dbQuestion.CloseConnection();
-            }
-            return false;
         }
 
         protected virtual void OnDataChanged()

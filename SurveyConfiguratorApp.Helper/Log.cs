@@ -12,10 +12,10 @@ namespace SurveyConfiguratorApp.Helper
         {
             try
             {
-                string logDirectory = Path.Combine(appLocation, "logs");
-                Directory.CreateDirectory(logDirectory);
+                string tLogDirectory = Path.Combine(appLocation, "logs");
+                Directory.CreateDirectory(tLogDirectory);
 
-                string logFilePath = Path.Combine(logDirectory, $"{fileName}.txt");
+                string logFilePath = Path.Combine(tLogDirectory, $"{fileName}.txt");
                 return logFilePath;
             }
             catch (Exception e)
@@ -25,11 +25,40 @@ namespace SurveyConfiguratorApp.Helper
             }
         }
 
-        static public void Error(Exception ex)
+        static public void Error(Exception pEx)
         {
             try
             {
                
+                string tLogFilePath = CreateFile("Error.Log");
+
+                // to ensure that only one thread at a time can write to the log file
+                lock (lockObject)
+                {
+                    using (StreamWriter tStreamWriter = new StreamWriter(tLogFilePath, true))
+                    {
+                        tStreamWriter.WriteLine("-----   Error   -----");
+                        tStreamWriter.WriteLine($"DateTime: {DateTime.Now}");
+                        tStreamWriter.WriteLine($"Type: {pEx.GetType()}");
+                        tStreamWriter.WriteLine($"Message: {pEx.Message}");
+                        tStreamWriter.WriteLine($"Stack Trace: {pEx.StackTrace}");
+                        tStreamWriter.WriteLine("\n\n");
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error handling exception: {e.Message}");
+            }
+
+        }
+
+        static public void Info(string pInfo)
+        {
+            try
+            {
+
+
                 string logFilePath = CreateFile("Error.Log");
 
                 // to ensure that only one thread at a time can write to the log file
@@ -37,36 +66,9 @@ namespace SurveyConfiguratorApp.Helper
                 {
                     using (StreamWriter streamWriter = new StreamWriter(logFilePath, true))
                     {
+                        streamWriter.WriteLine("-----   Info   -----");
                         streamWriter.WriteLine($"DateTime: {DateTime.Now}");
-                        streamWriter.WriteLine($"Type: {ex.GetType()}");
-                        streamWriter.WriteLine($"Message: {ex.Message}");
-                        streamWriter.WriteLine($"Stack Trace: {ex.StackTrace}");
-                        streamWriter.WriteLine("\n\n");
-                    }
-                }
-            }
-            catch (Exception handleEx)
-            {
-                Console.WriteLine($"Error handling exception: {handleEx.Message}");
-            }
-
-        }
-
-        static public void Info(string info)
-        {
-            try
-            {
-
-
-                string logFilePath = CreateFile("Info.Log");
-
-                // to ensure that only one thread at a time can write to the log file
-                lock (lockObject)
-                {
-                    using (StreamWriter streamWriter = new StreamWriter(logFilePath, true))
-                    {
-                        streamWriter.WriteLine($"DateTime: {DateTime.Now}");
-                        streamWriter.WriteLine($"Message: {info}");
+                        streamWriter.WriteLine($"Message: {pInfo}");
  
                         streamWriter.WriteLine("\n\n");
                     }

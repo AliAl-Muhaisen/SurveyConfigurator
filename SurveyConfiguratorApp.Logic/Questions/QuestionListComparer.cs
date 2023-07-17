@@ -31,20 +31,20 @@ namespace SurveyConfiguratorApp.Logic.Questions
         }
 
 
-        public int Compare(object x, object y)
+        public int Compare(object pObj1, object pObj2)
         {
-            int result = 0;
+            int tResult = 0;
             try
             {
-                if (x == null || y == null)
-                    return result;
+                if (pObj1 == null || pObj2 == null)
+                    return tResult;
 
-                if (x is ListViewItem && y is ListViewItem)
+                if (pObj1 is ListViewItem && pObj2 is ListViewItem)
                 {
-                    ListViewItem itemX = (ListViewItem)x;
-                    ListViewItem itemY = (ListViewItem)y;
+                    ListViewItem tItemX = (ListViewItem)pObj1;
+                    ListViewItem tItemY = (ListViewItem)pObj2;
 
-                    if (itemX.Tag is Question questionX && itemY.Tag is Question questionY)
+                    if (tItemX.Tag is Question questionX && tItemY.Tag is Question questionY)
                     {
                         switch (sortColumn)
                         {
@@ -71,7 +71,7 @@ namespace SurveyConfiguratorApp.Logic.Questions
             {
                 Log.Error(e);
             }
-            return result;
+            return tResult;
         }
     }
 
