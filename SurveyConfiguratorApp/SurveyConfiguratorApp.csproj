@@ -98,12 +98,6 @@
     <Compile Include="Forms\DbConnection\FormDbConnection.Designer.cs">
       <DependentUpon>FormDbConnection.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Helper\CustomMessageBox.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Helper\CustomMessageBox.Designer.cs">
-      <DependentUpon>CustomMessageBox.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Questions\FormQuestion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -147,6 +141,7 @@
     <Compile Include="UserController\Controllers\CustomLabelControl.Designer.cs">
       <DependentUpon>CustomLabelControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserController\Controllers\CustomMessageBox.cs" />
     <Compile Include="UserController\Controllers\CustomMessageBoxControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -179,12 +174,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DbConnection\FormDbConnection.resx">
       <DependentUpon>FormDbConnection.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Helper\CustomMessageBox.ar-JO.resx">
-      <DependentUpon>CustomMessageBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Helper\CustomMessageBox.resx">
-      <DependentUpon>CustomMessageBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Questions\FormQuestion.ar-JO.resx">
       <DependentUpon>FormQuestion.cs</DependentUpon>

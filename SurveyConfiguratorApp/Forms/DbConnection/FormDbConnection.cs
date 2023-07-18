@@ -1,5 +1,4 @@
-﻿using SurveyConfiguratorApp.Forms.Helper;
-using SurveyConfiguratorApp.Helper;
+﻿using SurveyConfiguratorApp.Helper;
 using SurveyConfiguratorApp.Logic;
 using SurveyConfiguratorApp.Properties;
 using SurveyConfiguratorApp.UserController.Controllers;
@@ -10,6 +9,7 @@ using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -61,13 +61,12 @@ namespace SurveyConfiguratorApp.Forms.DbConnection
                 bool isConnected = dbManager.IsConnect();
                 if (isConnected)
                 {
-                    CustomMessageBoxForm.Show(Resource.SUCCESS, Resource.TEST_CONNECTION, false,Resource.OK);
+                    CustomMessageBox.Show(Resource.TEST_CONNECTION, Resource.SUCCESS, MessageBoxIcon.Information);
                 }
 
                 else
                 {
-                    CustomMessageBoxForm.Show(Resource.ERROR, Resource.TEST_CONNECTION_FAILED, false, Resource.OK);
-
+                    CustomMessageBox.Show(Resource.TEST_CONNECTION_FAILED, Resource.ERROR, MessageBoxIcon.Error);
                 }
 
 
@@ -135,7 +134,11 @@ namespace SurveyConfiguratorApp.Forms.DbConnection
                 }
                 else
                 {
-                    DialogResult tDialogResult = CustomMessageBoxForm.Show(Resource.CONFIRM, Resource.SAVE_CONNECTION_FAILED);
+                    DialogResult tDialogResult =  CustomMessageBox.Show(Resource.SAVE_CONNECTION_FAILED, Resource.CONFIRM, MessageBoxIcon.Error);
+                  
+
+
+
                     if (tDialogResult == DialogResult.OK)
                          HandelSave();
 
@@ -156,7 +159,8 @@ namespace SurveyConfiguratorApp.Forms.DbConnection
 
                 if (isSaved)
                 {
-                    CustomMessageBoxForm.Show(Resource.SUCCESS, Resource.SAVE_SUCCESSFULLY, false, Resource.OK);
+                   CustomMessageBox.Show(Resource.SAVE_SUCCESSFULLY, Resource.SUCCESS, MessageBoxIcon.Information);
+
 
                     ConnectionStringChanged?.Invoke(this, EventArgs.Empty);
 
@@ -164,7 +168,8 @@ namespace SurveyConfiguratorApp.Forms.DbConnection
                 }
                 else
                 {
-                    CustomMessageBoxForm.Show(Resource.ERROR, Resource.SAVE_FAILED, false, Resource.OK);
+                    CustomMessageBox.Show(Resource.SAVE_FAILED, Resource.ERROR, MessageBoxIcon.Error);
+
                 }
             }
             catch (Exception e)

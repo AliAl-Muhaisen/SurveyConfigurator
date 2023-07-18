@@ -7,6 +7,7 @@ using SurveyConfiguratorApp.Helper;
 using SurveyConfiguratorApp.Logic;
 using SurveyConfiguratorApp.Logic.Questions;
 using SurveyConfiguratorApp.Properties;
+using SurveyConfiguratorApp.UserController.Controllers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -184,7 +185,10 @@ namespace SurveyConfiguratorApp
             {
 
                 if (questionId < 0) return;
-                DialogResult tDialogResult = MessageBox.Show(Resource.DELETE_MESSAGE, Resource.CONFIRM, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult tDialogResult = CustomMessageBox.Show(Resource.DELETE_MESSAGE, Resource.CONFIRM, MessageBoxIcon.Question, MessageBoxButtons.YesNo);
+
+
+
                 if (tDialogResult == DialogResult.Yes)
                 {
                     questionManager.Delete(questionId);

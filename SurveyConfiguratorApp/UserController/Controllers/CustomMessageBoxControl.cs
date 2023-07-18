@@ -13,7 +13,7 @@ using static System.Resources.ResXFileRef;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using SurveyConfiguratorApp.Properties;
-using SurveyConfiguratorApp.Forms.Helper;
+using System.Configuration;
 
 namespace SurveyConfiguratorApp.UserController.Controllers
 {
@@ -82,7 +82,7 @@ namespace SurveyConfiguratorApp.UserController.Controllers
         {
             try
             {
-                DisplayMessage(pResultCodes);
+                Show(pResultCodes);
             }
             catch (Exception ex)
             {
@@ -97,10 +97,10 @@ namespace SurveyConfiguratorApp.UserController.Controllers
                 for (int i = 0; i < pResultCodes.Count; i++)
                 {
                     if (pResultCodes[i] != ResultCode.SUCCESS)
-                        tMessages += TextMessage(pResultCodes[i]) + "\n";
+                        tMessages += TextMessage(pResultCodes[i]) + ".\n";
                 }
                 if (tMessages != null)
-                    DisplayMessage(ResultCode.ERROR, tMessages);
+                    Show(ResultCode.ERROR, tMessages);
             }
             catch (Exception ex)
             {
@@ -108,7 +108,7 @@ namespace SurveyConfiguratorApp.UserController.Controllers
             }
         }
 
-        private void DisplayMessage(int pMessageType, string pMessageText = null)
+        private void Show(int pMessageType, string pMessageText = null)
         {
 
             try
@@ -124,15 +124,17 @@ namespace SurveyConfiguratorApp.UserController.Controllers
                 }
 
 
-
+                
                 if (pMessageType == ResultCode.SUCCESS)
                 {
-                    CustomMessageBoxForm.Show(Resource.SUCCESS, tMessage, false, Resource.OK);
+                    CustomMessageBox.Show(tMessage, Resource.SUCCESS, MessageBoxIcon.Information);
 
                 }
                 else
                 {
-                    CustomMessageBoxForm.Show(Resource.ERROR, tMessage, false, Resource.OK);
+                    CustomMessageBox.Show(tMessage, Resource.ERROR, MessageBoxIcon.Error);
+
+
 
                 }
             }
