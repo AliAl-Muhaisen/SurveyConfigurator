@@ -90,3 +90,5 @@ C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\S
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.Forms.Questions.FormQuestionSlider.ar-JO.resources
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.Properties.Resource.resources
 C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.Properties.Resource.ar-JO.resources
+C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.Forms.Helper.CustomMessageBoxForm.resources
+C:\Users\a.al-muhaisen\source\repos\SurveyTask\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.Forms.Helper.CustomMessageBoxForm.ar-JO.resources

@@ -13,6 +13,7 @@ using static System.Resources.ResXFileRef;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using SurveyConfiguratorApp.Properties;
+using SurveyConfiguratorApp.Forms.Helper;
 
 namespace SurveyConfiguratorApp.UserController.Controllers
 {
@@ -126,11 +127,13 @@ namespace SurveyConfiguratorApp.UserController.Controllers
 
                 if (pMessageType == ResultCode.SUCCESS)
                 {
-                    MessageBox.Show(tMessage, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    CustomMessageBoxForm.Show(Resource.SUCCESS, tMessage, false, Resource.OK);
+
                 }
                 else
                 {
-                    MessageBox.Show(tMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    CustomMessageBoxForm.Show(Resource.ERROR, tMessage, false, Resource.OK);
+
                 }
             }
             catch (Exception e)

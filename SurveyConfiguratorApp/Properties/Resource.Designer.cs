@@ -61,7 +61,7 @@ namespace SurveyConfiguratorApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cancel.
+        ///   Looks up a localized string similar to Close.
         /// </summary>
         internal static string CANCEL {
             get {
@@ -106,6 +106,15 @@ namespace SurveyConfiguratorApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string ERROR {
+            get {
+                return ResourceManager.GetString("ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Faces.
         /// </summary>
         internal static string FACES {
@@ -120,6 +129,15 @@ namespace SurveyConfiguratorApp.Properties {
         internal static string LABEL_STATUS {
             get {
                 return ResourceManager.GetString("LABEL_STATUS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string OK {
+            get {
+                return ResourceManager.GetString("OK", resourceCulture);
             }
         }
         
@@ -174,6 +192,15 @@ namespace SurveyConfiguratorApp.Properties {
         internal static string STARS {
             get {
                 return ResourceManager.GetString("STARS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        internal static string SUCCESS {
+            get {
+                return ResourceManager.GetString("SUCCESS", resourceCulture);
             }
         }
         

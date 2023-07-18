@@ -18,6 +18,11 @@ namespace SurveyConfiguratorApp.Logic
         SqlConnection conn;
         private DbConnection db;
 
+        public string Server { get; private set; }
+        public string Database { get; private set; }
+        public string Username { get; private set; }
+        public string Password { get; private set; }
+
         public event EventHandler ConnectionRefreshed;
 
         public DbManager(string server, string database, string username, string password) : this()
@@ -36,8 +41,18 @@ namespace SurveyConfiguratorApp.Logic
         }
         public DbManager()
         {
-            db = new DbConnection();
-            DbConnection.ConnectionFailed += ConnectionFailed;
+            try
+            {
+                db = new DbConnection();
+                DbConnection.ConnectionFailed += ConnectionFailed;
+                GetCurrentConnectionInfo();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+            }
+
+
         }
         public void ConnectionFailed(object sender, EventArgs e)
         {
@@ -101,11 +116,7 @@ namespace SurveyConfiguratorApp.Logic
         {
             try
             {
-                
-                //if (!IsConnect())
-                //{
-                //    return false;
-                //}
+
 
                 Configuration config;
                 config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
@@ -117,7 +128,7 @@ namespace SurveyConfiguratorApp.Logic
                 ConfigurationManager.RefreshSection(DbConnection.APP_CONFIG_SETTINGS_NAME);
                 db.RefreshConnectionString();
                 OnConnectionRefreshed();
-
+                GetCurrentConnectionInfo();
                 return true;
             }
             catch (Exception e)
@@ -140,7 +151,41 @@ namespace SurveyConfiguratorApp.Logic
             }
         }
 
+        private void GetCurrentConnectionInfo()
+        {
+            try
+            {
+                string tCurrentConnectionString = ConfigurationManager.ConnectionStrings[DbConnection.APP_CONFIG_CONNECTION_NAME].ConnectionString;
 
+                string[] connectionPairValue = tCurrentConnectionString.Split(';');
+                string value;
+                string name;
+                for (int stringIndex = 0; stringIndex < connectionPairValue.Length - 1; stringIndex++)
+                {
+                    name = connectionPairValue[stringIndex].Split('=')[0];
+                    value = connectionPairValue[stringIndex].Split('=')[1];
+
+                    switch (name)
+                    {
+                        case "Server":
+                            Server = value; break;
+                        case "Database":
+                            Database = value; break;
+                        case "User Id":
+                            Username = value; break;
+                        case "Password":
+                            Password = value; break;
+                        default:
+                            break;
+                    }
+
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+            }
+        }
 
     }
 

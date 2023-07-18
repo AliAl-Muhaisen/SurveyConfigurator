@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CANCEL" xml:space="preserve">
-    <value>الغاء</value>
+    <value>اغلق</value>
   </data>
   <data name="CONFIRM" xml:space="preserve">
     <value>تاكيد</value>
@@ -132,11 +132,17 @@
   <data name="DELETE_MESSAGE" xml:space="preserve">
     <value>هل انت متاكد من حذف هذا السؤال؟</value>
   </data>
+  <data name="ERROR" xml:space="preserve">
+    <value>خطا</value>
+  </data>
   <data name="FACES" xml:space="preserve">
     <value>اوجه</value>
   </data>
   <data name="LABEL_STATUS" xml:space="preserve">
     <value>فشل الاتصال</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>حسنا</value>
   </data>
   <data name="SAVE" xml:space="preserve">
     <value>حفظ</value>
@@ -155,6 +161,9 @@
   </data>
   <data name="STARS" xml:space="preserve">
     <value>نجوم</value>
+  </data>
+  <data name="SUCCESS" xml:space="preserve">
+    <value>نجح</value>
   </data>
   <data name="TEST_CONNECTION" xml:space="preserve">
     <value>تم الاتصال بنجاح</value>

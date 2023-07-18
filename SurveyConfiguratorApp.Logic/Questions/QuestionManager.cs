@@ -40,7 +40,6 @@ namespace SurveyConfiguratorApp.Logic
                 dbQuestionSlider = new DbQuestionSlider();
                 dbQuestionStars = new DbQuestionStars();
                 dbQuestion.GetQuestions(ref questionsList);
-                // DbQuestion.DataChanged += DbQuestion_DataChanged;
                 questionValidation = new QuestionValidation();
                 ValidationErrorList = new List<int>();
 
