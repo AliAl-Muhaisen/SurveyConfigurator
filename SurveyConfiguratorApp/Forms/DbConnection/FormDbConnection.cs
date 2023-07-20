@@ -134,12 +134,9 @@ namespace SurveyConfiguratorApp.Forms.DbConnection
                 }
                 else
                 {
-                    DialogResult tDialogResult =  CustomMessageBox.Show(Resource.SAVE_CONNECTION_FAILED, Resource.CONFIRM, MessageBoxIcon.Error);
-                  
+                    DialogResult tDialogResult =  CustomMessageBox.Show(Resource.SAVE_CONNECTION_FAILED, Resource.CONFIRM, MessageBoxIcon.Error,MessageBoxButtons.YesNo);
 
-
-
-                    if (tDialogResult == DialogResult.OK)
+                    if (tDialogResult == DialogResult.Yes)
                          HandelSave();
 
                 }
